@@ -1,0 +1,25 @@
+#ifndef ROAD_HPP
+#define ROAD_HPP
+
+#include <SFML/Graphics.hpp>
+#include <bits/stdc++.h>
+#include <SceneGraph/SceneNode.hpp>
+#include <SceneGraph/Character.hpp>
+
+namespace RoadType {
+    enum ID {
+        SmallCar,
+        BigCar,
+        Truck,
+        RailWay,
+        River
+    };
+};
+
+class Road : public SceneNode {
+public:
+    virtual bool isCollide(const sf::FloatRect &bounds) const {return false;}
+    virtual bool isOutOfScreen(const sf::View &view) const {return false;}
+};
+
+#endif
