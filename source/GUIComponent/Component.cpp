@@ -1,12 +1,4 @@
-#include <GUI/GUIComponent.hpp>
+#include <GUI/Component.hpp>
+GUI::Component::Component() {}
 
-namespace GUI {
-    Component::Component() {
-        this->mIsSelected = false;
-        this->mIsActive = false;
-    }
-
-    Component::~Component() {}
-
-    void Component::handleEvent(const sf::Event &event) {}
-}
+void GUI::Component::handleEvent(sf::Event &event) {}

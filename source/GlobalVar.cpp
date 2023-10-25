@@ -1,8 +1,8 @@
 #include <GlobalVar.hpp>
 
 namespace Resources {
-    ResouceHolder<sf::Texture> textures;
-    ResouceHolder<sf::Font> fonts;
+    ResourceHolder<sf::Texture, Textures::ID> textures;
+    ResourceHolder<sf::Font, Fonts::ID> fonts;
 }
 
 namespace Controller {

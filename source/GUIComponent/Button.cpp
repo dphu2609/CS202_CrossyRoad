@@ -1,4 +1,6 @@
-#include <GUIComponent/Button.hpp>
+#include <GUI/Button.hpp>
+
+GUI::Button::Button() {}
 
 GUI::Button::Button(
     const std::vector<sf::Texture> &textures, const sf::Vector2f &size, 

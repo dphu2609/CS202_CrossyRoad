@@ -18,9 +18,10 @@ void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     }
 }
 
-void SceneNode::update(sf::Time dt) {
-    updateCurrent(dt);
-    for (const auto& child : mChildren) child->update(dt);
+void SceneNode::update(sf::Time dt, CommandQueue& commandQueue)
+{
+    updateCurrent(dt, commandQueue);
+    for (const auto& child : mChildren) child->update(dt, commandQueue);
 }
 
 void SceneNode::handleEvent(sf::RenderWindow &window, sf::Event &event) {

@@ -8,7 +8,7 @@
 class BigCarRoad : public Road {
 public:
     BigCarRoad();
-    BigCarRoad(std::vector<std::string>> &oldData);
+    BigCarRoad(std::vector<std::string> &oldData);
     virtual bool isCollide(const sf::FloatRect &rect) const;
     virtual std::vector<std::string> getData() const;
 private:

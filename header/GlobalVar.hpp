@@ -3,7 +3,6 @@
 
 #include <SFML/Graphics.hpp>
 #include <Resources/ResourceHolder.hpp>
-#include <Resources/MusicPlayer.hpp>
 
 namespace Resources {
     extern ResourceHolder<sf::Font, Fonts::ID> fonts;

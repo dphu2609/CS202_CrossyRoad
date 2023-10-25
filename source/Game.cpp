@@ -1,9 +1,7 @@
 #include <Game.hpp>
 
-Game::Game() : mWindow(sf::VideoMode(640, 480), "SFML Application"), mPlayer() {
-    mPlayer.setRadius(40.f);
-    mPlayer.setPosition(100.f, 100.f);
-    mPlayer.setFillColor(sf::Color::Cyan);
+Game::Game() : mWindow(sf::VideoMode(640, 480), "SFML Application")
+, mStateStack(mWindow) {
 }
 
 void Game::run() {

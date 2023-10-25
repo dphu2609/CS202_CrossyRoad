@@ -17,13 +17,13 @@ public:
     Carousel(
         const std::vector<sf::Texture> &textures, const sf::Vector2f &size, 
         const sf::Vector2f &position, const sf::Font &font, 
-        const std::vector<std::string>> &text, const std::vector<sf::Color> &textColor,
+        const std::vector<std::string> &text, const std::vector<sf::Color> &textColor,
         const sf::Texture &fowardButtonTexture, const sf::Texture &backwardButtonTexture
     );
     Carousel(
         const sf::Vector2f &size, const sf::Vector2f &position, 
         const std::vector<sf::Color> &shapeColor,const sf::Font &font, 
-        const std::vector<std::string>> &text, const std::vector<sf::Color> &textColor,
+        const std::vector<std::string> &text, const std::vector<sf::Color> &textColor,
         const sf::Texture &fowardButtonTexture, const sf::Texture &backwardButtonTexture
     );
 private:
@@ -40,3 +40,5 @@ private:
     GUI::Button mBackwardButton;
     int mIndex;
 };
+
+#endif

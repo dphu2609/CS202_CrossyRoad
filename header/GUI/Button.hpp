@@ -10,6 +10,7 @@ public:
     typedef std::shared_ptr<Button> Ptr;
     typedef std::function<void()> Callback;
 public:
+    Button();
     Button(
         const std::vector<sf::Texture> &textures, const sf::Vector2f &size, 
         const sf::Vector2f &position, std::function<void()> callback

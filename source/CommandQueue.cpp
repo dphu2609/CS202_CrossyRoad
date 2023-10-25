@@ -1,9 +1,5 @@
 #include <CommandQueue.hpp>
 
-Command::Command() {
-    this->category = Category::None;
-}
-
 void CommandQueue::push(const Command &command) {
     mQueue.push(command);
 }

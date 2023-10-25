@@ -5,6 +5,9 @@
 #include <bits/stdc++.h>
 #include <CommandQueue.hpp>
 
+struct Command;
+class CommandQueue;
+
 class SceneNode : public sf::Transformable, public sf::Drawable, private sf::NonCopyable {
 public:
     typedef std::shared_ptr<SceneNode> Ptr;
@@ -12,7 +15,7 @@ public:
 
     void attachChild(Ptr child);
 
-    void update(sf::Time dt);
+    void update(sf::Time dt, CommandQueue& commandQueue);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
     void handleEvent(sf::RenderWindow &window, sf::Event &event);
 private: 
@@ -20,7 +23,7 @@ private:
     std::vector<Ptr> mChildren;
 private:
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {}
-    virtual void updateCurrent(sf::Time dt) {}
+    virtual void updateCurrent(sf::Time dt, CommandQueue& commandQueue) {}
     virtual void handleCurrentEvent(sf::RenderWindow &window, sf::Event &event) {}
 public:
     virtual unsigned int getCategory() const {return 0;}

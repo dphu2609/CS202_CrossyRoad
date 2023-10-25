@@ -5,12 +5,12 @@
 #include <bits/stdc++.h>
 #include <GUI/Component.hpp>
 
-class GUI::Container {
+class GUI::Container : public sf::Drawable, public sf::Transformable {
 private: 
-    std::vector<GUIComponent*> mChildren;
+    std::vector<Component*> mChildren;
 public:
     Container();
-    void pack(GUIComponent *component);
+    void pack(Component *component);
     void handleEvent(sf::Event &event);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;
 };
