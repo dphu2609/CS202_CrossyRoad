@@ -6,24 +6,22 @@
 
 namespace Textures {
     enum ID {
-        PlayButton,
-        PlayButtonWhite,
-        PlayButtonHovered,
-        PauseButton,
-        PauseButtonWhite,
-        PauseButtonHovered,
-        NextButton,
-        NextButtonWhite,
-        NextButtonHovered,
-        PrevButton,
-        PrevButtonWhite,
-        PrevButtonHovered,
-        ReplayButton,
-        ReplayButtonWhite,
-        ReplayButtonHovered,
-        ReturnButton,
-        ReturnButtonWhite,
-        ReturnButtonHovered
+        CharacterSkin1ForwardState1,
+        CharacterSkin1ForwardState2,
+        CharacterSkin1ForwardState3,
+        CharacterSkin1ForwardState4,
+        CharacterSkin1BackwardState1,
+        CharacterSkin1BackwardState2,
+        CharacterSkin1BackwardState3,
+        CharacterSkin1BackwardState4,
+        CharacterSkin1LeftState1,
+        CharacterSkin1LeftState2,
+        CharacterSkin1LeftState3,
+        CharacterSkin1LeftState4,
+        CharacterSkin1RightState1,
+        CharacterSkin1RightState2,
+        CharacterSkin1RightState3,
+        CharacterSkin1RightState4
     };
 };
 

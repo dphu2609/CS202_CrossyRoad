@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <bits/stdc++.h>
 #include <State/StateStack.hpp>
+#include <GlobalVar.hpp>
 
 class Game {
 public:
