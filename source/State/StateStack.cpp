@@ -1,5 +1,7 @@
 #include <State/StateStack.hpp>
 
+StateStack::StateStack(sf::RenderWindow &window) : mWindow(window) {}
+
 State::State(StateStack& stack, sf::RenderWindow &window) : mStack(&stack), mWindow(window) {}
 
 void State::requestStackPush(States::ID stateID) {
@@ -14,8 +16,6 @@ void State::requestStateClear() {
     mStack->clearStates();
 }
 
-StateStack::StateStack(sf::RenderWindow &window) : mWindow(window) {}
-
 template <typename T>
 void StateStack::registerState(States::ID stateID) {
     mFactories[stateID] = [this]() {
@@ -23,7 +23,7 @@ void StateStack::registerState(States::ID stateID) {
     };
 }
 
-// template void StateStack::registerState<AVL>(States::ID stateID);
+template void StateStack::registerState<GameState>(States::ID stateID);
 
 State::Ptr StateStack::createState(States::ID stateID) {
     auto found = mFactories.find(stateID);
@@ -36,8 +36,8 @@ void StateStack::handleEvent(sf::Event& event) {
     applyPendingChanges();
 }
 
-void StateStack::update() {
-    if (!mStack.empty()) mStack.back()->update();
+void StateStack::update(sf::Time dt) {
+    if (!mStack.empty()) mStack.back()->update(dt);
     applyPendingChanges();
 }
 

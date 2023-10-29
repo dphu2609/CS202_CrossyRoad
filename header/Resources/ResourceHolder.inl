@@ -26,6 +26,6 @@ const Resource& ResourceHolder<Resource, Identifier>::operator [] (Identifier id
     return *(found->second);
 }
 
-template class ResourceHolder<sf::Texture, Textures::ID>;
+template class ResourceHolder<sf::Texture, CharacterTextures::ID>;
 template class ResourceHolder<sf::Font, Fonts::ID>;
  

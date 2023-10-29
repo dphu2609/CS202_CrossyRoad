@@ -12,11 +12,11 @@ class GameState : public State {
 public:
     GameState(StateStack &stack, sf::RenderWindow &window);
     virtual void draw();
-    virtual bool update(sf::Time dt);
-    virtual bool handleEvent(const sf::Event &event);
+    virtual void update(sf::Time dt);
+    virtual void handleEvent(sf::Event &event);
 private:
     World mWorld;
-    Player &mPlayer;
+    // Player &mPlayer;
     GUI::Container mGUIContainer;
 };
 

@@ -5,14 +5,14 @@
 #include <SceneGraph/Road/Road.hpp>
 
 class TruckRoad : public Road {
-public:
-    TruckRoad();
-    TruckRoad(std::vector<std::string> &oldData); // need optimize
-    virtual bool isCollide(const sf::FloatRect &rect) const;
-    virtual std::vector<std::string> getData() const;
-private:
-    virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
-    virtual void updateCurrent(sf::Time dt);
+// public:
+//     TruckRoad();
+//     TruckRoad(std::vector<std::string> &oldData); // need optimize
+//     virtual bool isCollide(const sf::FloatRect &rect) const;
+//     virtual std::vector<std::string> getData() const;
+// private:
+//     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
+//     virtual void updateCurrent(sf::Time dt);
 private:
     std::vector<sf::Sprite> mCar;
     sf::Sprite mRoad;
