@@ -15,6 +15,7 @@ private:
 private:
     std::vector<sf::Sprite> mSprites; // a sequence of multiple states of character
     sf::Clock mClock; // use to change state of character
+    float threshHold;
 };
 
 #endif
