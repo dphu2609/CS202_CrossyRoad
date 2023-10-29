@@ -23,7 +23,7 @@ class State {
 public:
     typedef std::unique_ptr<State> Ptr;
     explicit State(StateStack& stack, sf::RenderWindow &window);
-    virtual void update() {}
+    virtual void update(sf::Time dt) {}
     virtual void draw() {}
     virtual void handleEvent(sf::Event &event) {}
 protected: 
@@ -35,7 +35,7 @@ public:
     std::array<SceneNode*, 20> mSceneLayers;
     SceneNode mSceneGraph;
 private:
-    virtual void buildScene() = 0;
+    virtual void buildScene() {}
 private: 
     StateStack *mStack;
 };
@@ -53,7 +53,7 @@ public:
     template <typename T>
     void registerState(States::ID stateID);
 
-    void update();
+    void update(sf::Time dt);
     void draw();
     void handleEvent(sf::Event& event);
 
@@ -80,4 +80,6 @@ private:
     std::vector<PendingChange> mPendingList;
     std::map<States::ID, std::function<State::Ptr()>> mFactories;
 };
+
+#include <State/GameState/GameState.hpp>  
 #endif

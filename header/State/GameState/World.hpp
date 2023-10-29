@@ -14,13 +14,14 @@ public:
     explicit World(sf::RenderWindow &window);
     void update(sf::Time dt);
     void draw();
+    void handleEvent(sf::Event &event);
     CommandQueue &getCommandQueue();
 private:
     void buildScene();
 private:
     enum Layer {
         RoadSequence,
-        Character,
+        CharacterLayer,
         LayerCount
     };
 private:
@@ -31,7 +32,6 @@ private:
     CommandQueue mCommandQueue;
 private:
     sf::FloatRect mWorldBounds;
-    sf::Vector2f mSpawnPosition;
 private:
     int mPlayerIndex;
     std::vector<std::shared_ptr<Road>> mRoadSequence;

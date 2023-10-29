@@ -2,20 +2,32 @@
 
 World::World(sf::RenderWindow &window) : 
     mWindow(window), mWorldView(window.getDefaultView()), 
-    mWorldBounds(0.f, 0.f, mWorldView.getSize().x, 2000.f), 
-    mSpawnPosition(mWorldView.getSize().x / 2.f, mWorldBounds.height - mWorldView.getSize().y / 2.f) 
+    mWorldBounds(0.f, 0.f, mWorldView.getSize().x, Statistic::SCREEN_HEIGHT * 2)
 {
     buildScene();
-    mWorldView.setCenter(mSpawnPosition);
+    mWorldView.setCenter(Statistic::CHARACTER_SPAWN_POSITION);
 }
 
-void World::buildScene() {}
+void World::buildScene() {
+    for (int i = 0; i < LayerCount; i++) {
+        SceneNode::Ptr layer = std::make_shared<SceneNode>();
+        mSceneLayers[i] = layer.get();
+        mSceneGraph.attachChild(layer);
+    }
+
+    std::shared_ptr<Character> character = std::make_shared<Character>();
+    mSceneLayers[CharacterLayer]->attachChild(character);
+}
 
 void World::update(sf::Time dt) {
     while (!mCommandQueue.isEmpty()) {
         mSceneGraph.onCommand(mCommandQueue.pop(), dt);
     }
     mSceneGraph.update(dt, mCommandQueue);
+}
+
+void World::handleEvent(sf::Event &event) {
+    mSceneGraph.handleEvent(mWindow, event);
 }
 
 void World::draw() {

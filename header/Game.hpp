@@ -16,8 +16,8 @@ private:
     void render();
 private:
     void loadTextures();
-    void loadFonts();
-    void loadMusics();
+    void loadFonts() {}
+    void loadMusics() {}
     void registerStates();
 private:
     sf::RenderWindow mWindow;

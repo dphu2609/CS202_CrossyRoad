@@ -4,7 +4,7 @@
 #include <bits/stdc++.h>
 #include <SFML/Graphics.hpp>
 
-namespace Textures {
+namespace CharacterTextures {
     enum ID {
         CharacterSkin1ForwardState1,
         CharacterSkin1ForwardState2,
