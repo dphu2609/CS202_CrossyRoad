@@ -10,7 +10,7 @@ bool BigCarRoad::isCollide(const sf::FloatRect &rect) const {
     //         return true;
     //     }
     // }
-    // return false;
+    return false;
 }
 
 std::vector<std::string> BigCarRoad::getData() const {

@@ -19,3 +19,16 @@ void Game::run() {
         render();
     }
 }
+
+void Game::processEvents()
+{
+    
+}
+void Game::update(sf::Time dt)
+{
+    
+}
+void Game::render()
+{
+    
+}

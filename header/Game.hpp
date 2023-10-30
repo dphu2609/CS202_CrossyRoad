@@ -2,8 +2,8 @@
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
+#include "State/StateStack.hpp"
 #include <bits/stdc++.h>
-#include <State/StateStack.hpp>
 
 class Game {
 public:
