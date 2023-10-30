@@ -8,8 +8,8 @@
 class Grass : public Road {
 // public:
 //     Grass();
-//     Grass(std::vector<std::string> &oldData);
-//     virtual bool isCollide(const sf::FloatRect &rect) const;
+    // Grass(std::vector<std::string> &oldData);
+    virtual bool isCollide(const sf::FloatRect &rect) const;
 //     virtual std::vector<std::string> getData() const;
 // private:
 //     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;

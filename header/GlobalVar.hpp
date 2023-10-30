@@ -11,10 +11,10 @@ namespace Resources {
 };
 
 namespace Controller {
-    extern sf::Keyboard::Key MOVE_UP_1P;
-    extern sf::Keyboard::Key MOVE_DOWN_1P;
-    extern sf::Keyboard::Key MOVE_LEFT_1P;
-    extern sf::Keyboard::Key MOVE_RIGHT_1P;
+    extern sf::Keyboard::Key MOVE_UP;
+    extern sf::Keyboard::Key MOVE_DOWN;
+    extern sf::Keyboard::Key MOVE_LEFT;
+    extern sf::Keyboard::Key MOVE_RIGHT;
 
     extern sf::Keyboard::Key PAUSE;
 };
