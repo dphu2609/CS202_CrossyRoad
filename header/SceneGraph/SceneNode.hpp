@@ -14,6 +14,7 @@ public:
     SceneNode();
 
     void attachChild(Ptr child);
+    Ptr detachChild(const SceneNode& node);
 
     void update(sf::Time dt, CommandQueue& commandQueue);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;

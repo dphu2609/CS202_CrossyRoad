@@ -2,8 +2,9 @@
 #define GRASS_HPP
 
 #include <SFML/Graphics.hpp>
-#include <bits/stdc++.h>
-#include <SceneGraph/Road/Road.hpp>
+#include <vector>
+#include <string>
+#include "header/SceneGraph/Road/Road.hpp"
 
 class Grass : public Road {
 public:

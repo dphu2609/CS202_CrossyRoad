@@ -12,7 +12,8 @@ namespace RoadType {
         BigCar,
         Truck,
         RailWay,
-        River
+        River,
+        Grass
     };
 };
 
