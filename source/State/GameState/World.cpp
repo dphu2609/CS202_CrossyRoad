@@ -15,8 +15,10 @@ void World::buildScene() {
         mSceneGraph.attachChild(layer);
     }
 
-    std::shared_ptr<Character> character = std::make_shared<Character>();
-    mSceneLayers[CharacterLayer]->attachChild(character);
+    // std::shared_ptr<Character> character = std::make_shared<Character>();
+    // mSceneLayers[CharacterLayer]->attachChild(character);
+    
+    // commment this 2 lines then will not add character to screen
 }
 
 void World::update(sf::Time dt) {

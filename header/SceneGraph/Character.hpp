@@ -12,7 +12,7 @@ public:
 private:
     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
-    // virtual void handleCurrentEvent(sf::RenderWindow &window, sf::Event &event);
+    virtual void handleCurrentEvent(sf::RenderWindow &window, sf::Event &event);
     virtual unsigned int getCategory() const;
 private:
     std::vector<sf::Sprite> mBackwardState;
@@ -22,7 +22,7 @@ private:
     sf::Clock mClock; // use to change state of character
     float mStateTime = 0.f; // use to change state of character
     float mThreshHold = 0.4f; // use to change state of character
-    int mDirection = 0; // 0: backward, 1: forward, 2: left, 3: right
+    int mDirection = 1; // 0: forward, 1: backward, 2: left, 3: right
     int mCurrentState = 0; // current state of character
 private:
     enum SkinType {
@@ -31,14 +31,24 @@ private:
         Skin3
     };
     void setSkin(int skinType);
+
 private:
-    virtual void moveUp() {}
-    virtual void moveDown() {}
-    virtual void moveLeft() {}
-    virtual void moveRight() {}
+    void setPosition(sf::Vector2f position);
 private:
-    bool mIsJumping = false;
-    std::vector<sf::Keyboard::Key> mKeyInput;
+    void handleMoveEvent(sf::RenderWindow &window, sf::Event &event);
+    void updateMove(sf::Time dt);
+    bool move(sf::Time dt, int direction); 
+    
+    sf::Vector2f getNextRightPosition(float x);
+    sf::Vector2f getNextLeftPosition(float x);
+    sf::Vector2f getNextUpPosition(float x);
+    sf::Vector2f getNextDownPosition(float x);
+
+    float mCurrentStep = 0.f;
+    float mSpeed = Statistic::CHARACTER_JUMP_DISTANCE / 5;
+    sf::Vector2f mInitialPosition;
+private:
+    std::queue<sf::Keyboard::Key> mKeyInput;
 };
 
 #endif
