@@ -76,7 +76,7 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
 }
 
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
-    if (event.type == sf::Event::KeyReleased) {
+    if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == Controller::MOVE_UP) {
             mKeyInput.push(Controller::MOVE_UP);
         } else if (event.key.code == Controller::MOVE_DOWN) {
