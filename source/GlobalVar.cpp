@@ -3,6 +3,7 @@
 namespace Resources {
     ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     ResourceHolder<sf::Font, Fonts::ID> fonts;
+    ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
 }
 
 namespace Controller {
@@ -24,6 +25,12 @@ namespace Statistic {
     float SMALL_CAR_SPEED;
     float BIG_CAR_SPEED;
     float TRAIN_SPEED;
+
+    float ROAD_WIDTH = 2000;
+    float ROAD_HEIGHT = 100;
+
+    int DEFAULT_BLOCK = 5;
+    int BLOCK_SIZE = 100;
 
     int PLAYER_SCORE = 0;
     int PLAYER_SKIN_TYPE = 0;

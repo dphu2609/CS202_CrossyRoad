@@ -4,6 +4,18 @@
 #include <bits/stdc++.h>
 #include <SFML/Graphics.hpp>
 
+namespace RoadTextures
+{
+    enum ID
+    {
+        Grass,
+        Tree,
+        Rock,
+        Bush,
+        None,
+    };
+};
+
 namespace CharacterTextures {
     enum ID {
         CharacterSkin1ForwardState1,
