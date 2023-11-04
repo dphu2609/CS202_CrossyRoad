@@ -87,6 +87,12 @@ void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
             mKeyInput.push(Controller::MOVE_RIGHT);
         }
     }
+    else if (event.type == sf::Event::KeyReleased) {
+        if (!mKeyInput.empty()) mKeyInput.push(mKeyInput.front());
+        while (mKeyInput.size() > 1) {
+            mKeyInput.pop();
+        }
+    }
 }
 
 void Character::updateMove(sf::Time dt) {
