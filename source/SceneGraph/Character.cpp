@@ -76,7 +76,7 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
 }
 
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
-    if (event.type == sf::Event::KeyReleased) {
+    if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == Controller::MOVE_UP) {
             mKeyInput.push(Controller::MOVE_UP);
         } else if (event.key.code == Controller::MOVE_DOWN) {
@@ -85,6 +85,12 @@ void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
             mKeyInput.push(Controller::MOVE_LEFT);
         } else if (event.key.code == Controller::MOVE_RIGHT) {
             mKeyInput.push(Controller::MOVE_RIGHT);
+        }
+    }
+    else if (event.type == sf::Event::KeyReleased) {
+        if (!mKeyInput.empty()) mKeyInput.push(mKeyInput.front());
+        while (mKeyInput.size() > 1) {
+            mKeyInput.pop();
         }
     }
 }

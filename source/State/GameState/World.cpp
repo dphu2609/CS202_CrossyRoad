@@ -24,10 +24,6 @@ void World::buildScene() {
 
     mRoadSequence.push_back(std::move(grassRoad));
     mSceneLayers[RoadSequence]->attachChild(std::move(mRoadSequence.back()));
-    
-    // grassRoad.get()->attachBlocks();
-    
-    // commment this 2 lines then will not add character to screen
 }
 
 void World::update(sf::Time dt) {

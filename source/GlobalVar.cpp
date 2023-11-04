@@ -35,7 +35,7 @@ namespace Statistic {
     int PLAYER_SCORE = 0;
     int PLAYER_SKIN_TYPE = 0;
 
-    sf::Vector2f CHARACTER_SIZE = sf::Vector2f(200, 200);
+    sf::Vector2f CHARACTER_SIZE = sf::Vector2f(100, 150);
     sf::Vector2f CHARACTER_SPAWN_POSITION = sf::Vector2f(SCREEN_WIDTH / 2 - CHARACTER_SIZE.x /2, SCREEN_HEIGHT - 100);
 
     float CHARACTER_JUMP_DISTANCE = 100;
