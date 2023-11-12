@@ -8,7 +8,7 @@ enable_testing()
 set(SFML_DIR "D:/SFML-2.6.1-windows-gcc-13.1.0-mingw-64-bit/SFML-2.6.1/lib/cmake/SFML")
 
 # Find SFML
-find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
+find_package(SFML 2.6 COMPONENTS system window graphics network audio REQUIRED)
 
 include_directories(include ${CMAKE_SOURCE_DIR}/header)
 file(GLOB MAIN_SOURCES "source/*.cpp")
