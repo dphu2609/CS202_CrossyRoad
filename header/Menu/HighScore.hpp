@@ -8,7 +8,7 @@ class Highscore
 public:
 
 private:
-
+    
 };
 
 #endif //HIGHSCORE_HPP

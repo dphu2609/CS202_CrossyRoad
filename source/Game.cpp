@@ -90,6 +90,7 @@ void Game::update(sf::Time dt) {
 
 void Game::render() {
     mWindow.clear();
-    mStateStack.draw();
+    mMenu.draw(0,mWindow);
+    //mStateStack.draw();
     mWindow.display();
 }
