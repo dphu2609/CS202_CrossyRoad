@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 
-class Highscore
+class HighScore
 {
 public:
 
