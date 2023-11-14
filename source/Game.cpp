@@ -45,7 +45,7 @@ void Game::loadTextures() {
     Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState3, "../media/images/characters/15.png");
     Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState4, "../media/images/characters/16.png");
     Resources::roadTextures.load(RoadTextures::Grass, "../media/images/road/grass3.png");
-    Resources::roadTextures.load(RoadTextures::Tree, "../media/images/road/tree1.png");
+    Resources::roadTextures.load(RoadTextures::Tree, "../media/images/road/tree2.png");
     Resources::roadTextures.load(RoadTextures::Rock, "../media/images/road/rock3.png");
     Resources::roadTextures.load(RoadTextures::Bush, "../media/images/road/bush1.png");
     Resources::roadTextures.load(RoadTextures::None, "../media/images/road/none1.png");
