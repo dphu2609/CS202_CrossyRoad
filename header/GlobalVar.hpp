@@ -44,7 +44,9 @@ namespace Statistic
 
     extern sf::Vector2f CHARACTER_SIZE;
     extern sf::Vector2f CHARACTER_SPAWN_POSITION;
-    extern float CHARACTER_JUMP_DISTANCE;
+
+    extern float CHARACTER_JUMP_DISTANCE_HORIZONTAL;
+    extern float CHARACTER_JUMP_DISTANCE_VERTICAL;
 
     extern float SMALL_CAR_SPEED;
     extern float BIG_CAR_SPEED;

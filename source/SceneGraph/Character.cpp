@@ -2,23 +2,7 @@
 
 Character::Character() {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
-    for (int i = 0; i < mBackwardState.size(); i++) {
-        mBackwardState[i].setOrigin(mBackwardState[i].getGlobalBounds().width / 2, mBackwardState[i].getGlobalBounds().height / 2);
-        mBackwardState[i].setScale(Statistic::CHARACTER_SIZE.x / mBackwardState[i].getGlobalBounds().width, Statistic::CHARACTER_SIZE.y / mBackwardState[i].getGlobalBounds().height);
-        mBackwardState[i].setPosition(Statistic::CHARACTER_SPAWN_POSITION);
-        
-        mForwardState[i].setOrigin(mForwardState[i].getGlobalBounds().width / 2, mForwardState[i].getGlobalBounds().height / 2);
-        mForwardState[i].setScale(Statistic::CHARACTER_SIZE.x / mForwardState[i].getGlobalBounds().width, Statistic::CHARACTER_SIZE.y / mForwardState[i].getGlobalBounds().height);
-        mForwardState[i].setPosition(Statistic::CHARACTER_SPAWN_POSITION);
-        
-        mLeftState[i].setOrigin(mLeftState[i].getGlobalBounds().width / 2, mLeftState[i].getGlobalBounds().height / 2);
-        mLeftState[i].setScale(Statistic::CHARACTER_SIZE.x / mLeftState[i].getGlobalBounds().width, Statistic::CHARACTER_SIZE.y / mLeftState[i].getGlobalBounds().height);
-        mLeftState[i].setPosition(Statistic::CHARACTER_SPAWN_POSITION);
-        
-        mRightState[i].setOrigin(mRightState[i].getGlobalBounds().width / 2, mRightState[i].getGlobalBounds().height / 2);
-        mRightState[i].setScale(Statistic::CHARACTER_SIZE.x / mRightState[i].getGlobalBounds().width, Statistic::CHARACTER_SIZE.y / mRightState[i].getGlobalBounds().height);
-        mRightState[i].setPosition(Statistic::CHARACTER_SPAWN_POSITION);
-    }
+    this->setOrigin(mBackwardState[0].getGlobalBounds().width / 2, mBackwardState[0].getGlobalBounds().height / 2);
 }
 
 void Character::setSkin(int skin) {
@@ -95,6 +79,10 @@ void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
     }
 }
 
+sf::FloatRect Character::getBoundingRect() const {
+    return this->getWorldTransform().transformRect(mBackwardState[0].getGlobalBounds());
+}
+
 void Character::updateMove(sf::Time dt) {
     if (!mKeyInput.empty()) {
         sf::Keyboard::Key key = mKeyInput.front();
@@ -119,37 +107,22 @@ unsigned int Character::getCategory() const {
     return Category::Player;
 }
 
-void Character::setPosition(sf::Vector2f position) {
-    for (auto &backwardState : mBackwardState) {
-        backwardState.setPosition(position);
-    }
-    for (auto &forwardState : mForwardState) {
-        forwardState.setPosition(position);
-    }
-    for (auto &leftState : mLeftState) {
-        leftState.setPosition(position);
-    }
-    for (auto &rightState : mRightState) {
-        rightState.setPosition(position);
-    }
-}
-
 sf::Vector2f Character::getNextRightPosition(float x) {
     return sf::Vector2f(
-        x, -(- (2 / Statistic::CHARACTER_JUMP_DISTANCE) * x * (x - Statistic::CHARACTER_JUMP_DISTANCE))
+        x, -(- (2 / Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL) * x * (x - Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL))
     );
 }
 
 sf::Vector2f Character::getNextLeftPosition(float x) {
     return sf::Vector2f(
-        -x, -(- (2 / Statistic::CHARACTER_JUMP_DISTANCE) * x * (x - Statistic::CHARACTER_JUMP_DISTANCE))
+        -x, -(- (2 / Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL) * x * (x - Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL))
     );
 }
 
 sf::Vector2f Character::getNextUpPosition(float x) {
     return sf::Vector2f(
         0, -x
-    );
+    );sf::FloatRect();
 }
 
 sf::Vector2f Character::getNextDownPosition(float x) {
@@ -160,12 +133,12 @@ sf::Vector2f Character::getNextDownPosition(float x) {
 
 bool Character::move(sf::Time dt, int direction) {
     if (mCurrentStep == 0.f) {
-        mInitialPosition = mBackwardState[0].getPosition();
+        mInitialPosition = this->getPosition();
         mDirection = direction;
         mCurrentStep += mSpeed;
         return true;
     }
-    else if (mCurrentStep < Statistic::CHARACTER_JUMP_DISTANCE) {
+    else if (mCurrentStep < (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL)) {
         mCurrentStep += mSpeed;
         sf::Vector2f nextPosition;
         if (direction == 0) {
@@ -182,4 +155,9 @@ bool Character::move(sf::Time dt, int direction) {
         return true;
     }
     return false;
+}
+
+sf::FloatRect Character::getSpriteBounding()
+{
+    return mForwardState[0].getGlobalBounds();
 }

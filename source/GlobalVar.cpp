@@ -27,7 +27,7 @@ namespace Statistic {
     float TRAIN_SPEED;
 
     float ROAD_WIDTH = 2000;
-    float ROAD_HEIGHT = 100;
+    float ROAD_HEIGHT = 70;
 
     int DEFAULT_BLOCK = 5;
     int BLOCK_SIZE = 100;
@@ -35,10 +35,11 @@ namespace Statistic {
     int PLAYER_SCORE = 0;
     int PLAYER_SKIN_TYPE = 0;
 
-    sf::Vector2f CHARACTER_SIZE = sf::Vector2f(100, 150);
+    sf::Vector2f CHARACTER_SIZE = sf::Vector2f(60, 80);
     sf::Vector2f CHARACTER_SPAWN_POSITION = sf::Vector2f(SCREEN_WIDTH / 2 - CHARACTER_SIZE.x /2, SCREEN_HEIGHT - 100);
 
-    float CHARACTER_JUMP_DISTANCE = 100;
+    float CHARACTER_JUMP_DISTANCE_HORIZONTAL = 100;
+    float CHARACTER_JUMP_DISTANCE_VERTICAL = 70;
 
     float SMALL_CAR_SPEED = 100;
     float BIG_CAR_SPEED = 100;

@@ -9,11 +9,13 @@
 class Character : public SceneNode {
 public:
     Character();
+    sf::FloatRect getSpriteBounding();
 private:
     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void handleCurrentEvent(sf::RenderWindow &window, sf::Event &event);
     virtual unsigned int getCategory() const;
+    virtual sf::FloatRect getBoundingRect() const;
 private:
     std::vector<sf::Sprite> mBackwardState;
     std::vector<sf::Sprite> mForwardState; 
@@ -33,7 +35,7 @@ private:
     void setSkin(int skinType);
 
 private:
-    void setPosition(sf::Vector2f position);
+    // void setPosition(sf::Vector2f position);
 private:
     void handleMoveEvent(sf::RenderWindow &window, sf::Event &event);
     void updateMove(sf::Time dt);
@@ -45,7 +47,7 @@ private:
     sf::Vector2f getNextDownPosition(float x);
 
     float mCurrentStep = 0.f;
-    float mSpeed = Statistic::CHARACTER_JUMP_DISTANCE / 5;
+    float mSpeed = Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL / 5;
     sf::Vector2f mInitialPosition;
 private:
     std::queue<sf::Keyboard::Key> mKeyInput;

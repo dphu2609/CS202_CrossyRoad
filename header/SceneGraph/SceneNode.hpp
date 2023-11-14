@@ -25,6 +25,7 @@ private:
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {}
     virtual void updateCurrent(sf::Time dt, CommandQueue& commandQueue) {}
     virtual void handleCurrentEvent(sf::RenderWindow &window, sf::Event &event) {}
+    void drawBoundingRect(sf::RenderTarget& target, sf::RenderStates) const;
 public:
     virtual unsigned int getCategory() const {return 0;}
     void onCommand(const Command &command, sf::Time dt);
@@ -38,6 +39,9 @@ public: // use for road
     sf::FloatRect getGlobalBounds() const {return sf::FloatRect();}
 public:
     virtual std::vector<std::string> getData() const {return {};}
+    sf::Vector2f			getWorldPosition() const;
+	sf::Transform			getWorldTransform() const;
+    virtual sf::FloatRect	getBoundingRect() const;
 };
 
 #endif // SCENENODE_HPP

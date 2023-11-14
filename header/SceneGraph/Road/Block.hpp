@@ -22,8 +22,10 @@ enum Type
 public:
     Block(Type type, const RoadTextureHolder& textures); 
     bool isCollide(const sf::FloatRect &rect) const;
-    sf::FloatRect getGlobalBounds();
+    // sf::FloatRect getGlobalBounds();
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+    sf::FloatRect getSpriteBounds() const { return mSprite.getGlobalBounds(); }
+    sf::FloatRect getBoundingRect() const { return getWorldTransform().transformRect(mSprite.getGlobalBounds()); }
 private:    
     Type mType;
     sf::Sprite mSprite;
