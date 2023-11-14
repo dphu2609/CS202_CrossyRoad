@@ -12,7 +12,11 @@ public:
 private:
     sf::Vector2f pos;
     sf::Vector2f sizeBound;
+    sf::Color colorBound;
+    sf::Vector2f sizeTheme;
     sf::Font _font;
+    unsigned int sizeCharacter;
+    sf::Color colorCharacter;
 
     sf::Text title;
     sf::Text newgame;
@@ -25,7 +29,6 @@ private:
     sf::RectangleShape instructionBound;
     sf::Texture background; 
     sf::Sprite backgroundSprite;
-
 };
 
 #endif //MAINSCREEN_HPP

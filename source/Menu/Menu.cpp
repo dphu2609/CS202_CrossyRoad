@@ -13,11 +13,11 @@ void Menu::draw(int state, sf::RenderWindow& mWindow)
     }
     else if(state==1)
     {
-
+        newgame.draw(mWindow);
     }
     else if(state==2)
     {
-        
+        highscore.draw(mWindow);
     }
     else if(state==3)
     {
@@ -25,6 +25,6 @@ void Menu::draw(int state, sf::RenderWindow& mWindow)
     }
     else if(state==4)
     {
-        
+        instruction.draw(mWindow);
     }
 }
