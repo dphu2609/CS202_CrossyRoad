@@ -19,7 +19,7 @@ void World::buildScene() {
     mSceneLayers[CharacterLayer]->attachChild(std::move(character));
 
     std::shared_ptr<Grass> grassRoad(std::make_shared<Grass>());
-    grassRoad->setPosition(Statistic::ROAD_WIDTH / 2, Statistic::SCREEN_HEIGHT - 100);
+    grassRoad->setPosition(Statistic::ROAD_WIDTH / 2 - 100, Statistic::SCREEN_HEIGHT - 100);
     grassRoad.get()->randomBlock();
 
     mRoadSequence.push_back(std::move(grassRoad));

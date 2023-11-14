@@ -39,4 +39,9 @@ namespace Statistic {
     sf::Vector2f CHARACTER_SPAWN_POSITION = sf::Vector2f(SCREEN_WIDTH / 2 - CHARACTER_SIZE.x /2, SCREEN_HEIGHT - 100);
 
     float CHARACTER_JUMP_DISTANCE = 100;
+
+    float SMALL_CAR_SPEED = 100;
+    float BIG_CAR_SPEED = 100;
+    float TRUCK_SPEED = 100;
+    float TRAIN_SPEED = 250;
 };
