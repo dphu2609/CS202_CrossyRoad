@@ -28,6 +28,13 @@ NewGame::NewGame()
     returnBound.setFillColor(colorBound);
     returnBound.setPosition(50.f,50.f);
 
+    returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/return4.jpg");
+    returnImageSprite.setTexture(returnImage);
+    size=returnImageSprite.getGlobalBounds();
+    returnImageSprite.setOrigin(size.width/2,size.height/2);
+    returnImageSprite.setPosition(sf::Vector2f(100.f,50.f));
+    returnImageSprite.setScale(0.1,0.1);
+
     onepBound.setSize(sizeBound);
     onepBound.setFillColor(colorBound);
     onepBound.setPosition(1670.f,50.f);
@@ -168,6 +175,7 @@ void NewGame::draw(sf::RenderWindow& mWindow)
     mWindow.draw(backgroundSprite);
     mWindow.draw(title);
     mWindow.draw(returnBound);
+    mWindow.draw(returnImageSprite);
     mWindow.draw(onepBound);
     mWindow.draw(onep);
     mWindow.draw(twopBound);
@@ -177,6 +185,7 @@ void NewGame::draw(sf::RenderWindow& mWindow)
     mWindow.draw(secondpBound);
     mWindow.draw(secondp);
     mWindow.draw(firstPlayerSprite);
+    //first.draw(mWindow);
     mWindow.draw(secondPlayerSprite);
     mWindow.draw(easy);
     mWindow.draw(medium);

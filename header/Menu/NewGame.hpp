@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <menu/Element.hpp>
+#include <SceneGraph/Character.hpp>
 #include <vector>
 
 using namespace std;
@@ -60,6 +61,8 @@ private:
     sf::Sprite backgroundSprite;
 
     vector<Pack> packs;
+    //Character first;
+    //Character second;
 };
 
 #endif //NEWGAME_HPP

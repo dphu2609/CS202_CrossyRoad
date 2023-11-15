@@ -9,6 +9,7 @@
 class Character : public SceneNode {
 public:
     Character();
+    void draw(sf::RenderWindow& mWindow); ////
 private:
     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;

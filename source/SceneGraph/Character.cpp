@@ -45,6 +45,12 @@ void Character::setSkin(int skin) {
     }
 }
 
+void Character::draw(sf::RenderWindow& mWindow)
+{
+    sf::RenderStates states;
+    drawCurrent(mWindow,states);
+}
+
 void Character::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
     if (mDirection == 0) {
         target.draw(mForwardState[mCurrentState], states);
