@@ -5,6 +5,7 @@
 #include <bits/stdc++.h>
 #include <SceneGraph/SceneNode.hpp>
 #include <GlobalVar.hpp>
+#include <Resources/Gif.hpp>    
 
 class Character : public SceneNode {
 public:
@@ -17,15 +18,11 @@ private:
     virtual unsigned int getCategory() const;
     virtual sf::FloatRect getBoundingRect() const;
 private:
-    std::vector<sf::Sprite> mBackwardState;
-    std::vector<sf::Sprite> mForwardState; 
-    std::vector<sf::Sprite> mLeftState;
-    std::vector<sf::Sprite> mRightState; 
-    sf::Clock mClock; // use to change state of character
-    float mStateTime = 0.f; // use to change state of character
-    float mThreshHold = 0.4f; // use to change state of character
+    Gif mBackwardState;
+    Gif mForwardState;
+    Gif mLeftState;
+    Gif mRightState;
     int mDirection = 1; // 0: forward, 1: backward, 2: left, 3: right
-    int mCurrentState = 0; // current state of character
 private:
     enum SkinType {
         Skin1,

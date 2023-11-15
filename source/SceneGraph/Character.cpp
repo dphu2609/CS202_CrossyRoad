@@ -2,42 +2,27 @@
 
 Character::Character() {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
-    this->setOrigin(mBackwardState[0].getGlobalBounds().width / 2, mBackwardState[0].getGlobalBounds().height / 2);
+    this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
 }
 
 void Character::setSkin(int skin) {
     if (skin == Skin1) {
-        mBackwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState1]));
-        mBackwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState2]));
-        mBackwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState3]));
-        mBackwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState4]));
-        
-        mForwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState1]));
-        mForwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState2]));
-        mForwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState3]));
-        mForwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState4]));
-        
-        mLeftState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState1]));
-        mLeftState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState2]));
-        mLeftState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState3]));
-        mLeftState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState4]));
-        
-        mRightState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState1]));
-        mRightState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState2]));
-        mRightState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState3]));
-        mRightState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState4]));
+        mBackwardState.set(Resources::gifsHolder[GIFs::CharacterSkin1Backward]);
+        mForwardState.set(Resources::gifsHolder[GIFs::CharacterSkin1Forward]);
+        mLeftState.set(Resources::gifsHolder[GIFs::CharacterSkin1Left]);
+        mRightState.set(Resources::gifsHolder[GIFs::CharacterSkin1Right]);
     }
 }
 
 void Character::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
     if (mDirection == 0) {
-        target.draw(mForwardState[mCurrentState], states);
+        target.draw(mForwardState, states);
     } else if (mDirection == 1) {
-        target.draw(mBackwardState[mCurrentState], states);
+        target.draw(mBackwardState, states);
     } else if (mDirection == 2) {
-        target.draw(mLeftState[mCurrentState], states);
+        target.draw(mLeftState, states);
     } else if (mDirection == 3) {
-        target.draw(mRightState[mCurrentState], states);
+        target.draw(mRightState, states);
     }
 }
 
@@ -46,16 +31,15 @@ void Character::handleCurrentEvent(sf::RenderWindow &window, sf::Event &event) {
 }
 
 void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
-    if (mStateTime > mThreshHold) {
-        mCurrentState++;
-        if (mCurrentState == mBackwardState.size()) {
-            mCurrentState = 0;
-        }
-        mStateTime = 0.f;
-        mClock.restart();
+    if (mDirection == 0) {
+        mForwardState.update(dt);
+    } else if (mDirection == 1) {
+        mBackwardState.update(dt);
+    } else if (mDirection == 2) {
+        mLeftState.update(dt);
+    } else if (mDirection == 3) {
+        mRightState.update(dt);
     }
-    mStateTime += mClock.restart().asSeconds();
-
     updateMove(dt);
 }
 
@@ -80,7 +64,7 @@ void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
 }
 
 sf::FloatRect Character::getBoundingRect() const {
-    return this->getWorldTransform().transformRect(mBackwardState[0].getGlobalBounds());
+    return this->getWorldTransform().transformRect(mBackwardState.getGlobalBounds());
 }
 
 void Character::updateMove(sf::Time dt) {
@@ -159,5 +143,5 @@ bool Character::move(sf::Time dt, int direction) {
 
 sf::FloatRect Character::getSpriteBounding()
 {
-    return mForwardState[0].getGlobalBounds();
+    return mForwardState.getGlobalBounds();
 }

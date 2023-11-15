@@ -16,7 +16,8 @@ public:
         SmallCar,
         BigCar,
         Truck,
-        Train
+        Train,
+        Count
     };
 public:
     Vehicle(Type type, const RoadTextureHolder& textures, int direction = 1); 

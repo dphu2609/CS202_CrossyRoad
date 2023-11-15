@@ -4,6 +4,8 @@ namespace Resources {
     ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     ResourceHolder<sf::Font, Fonts::ID> fonts;
     ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
+
+    GifHolder gifsHolder;
 }
 
 namespace Controller {
@@ -20,12 +22,6 @@ namespace Statistic {
     float SCREEN_WIDTH = 1920;
     float SCREEN_HEIGHT = 1080;
 
-    float SCREEN_SPEED;
-    float TRUCK_SPEED;
-    float SMALL_CAR_SPEED;
-    float BIG_CAR_SPEED;
-    float TRAIN_SPEED;
-
     float ROAD_WIDTH = 2000;
     float ROAD_HEIGHT = 70;
 
@@ -41,6 +37,7 @@ namespace Statistic {
     float CHARACTER_JUMP_DISTANCE_HORIZONTAL = 100;
     float CHARACTER_JUMP_DISTANCE_VERTICAL = 70;
 
+    float SCREEN_SPEED;
     float SMALL_CAR_SPEED = 100;
     float BIG_CAR_SPEED = 100;
     float TRUCK_SPEED = 100;

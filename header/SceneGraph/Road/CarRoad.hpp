@@ -1,25 +1,34 @@
-#ifndef SMALLCAR_ROAD_HPP
-#define SMALLCAR_ROAD_HPP
+// #ifndef CAR_ROAD_HPP
+// #define CAR_ROAD_HPP
 
-#include <SFML/Graphics.hpp>
-#include <bits/stdc++.h>
-#include <SceneGraph/Road/Road.hpp>
+// #include <SFML/Graphics.hpp>
+// #include <bits/stdc++.h>
+// #include <SceneGraph/Road/Vehicle.hpp>
+// #include <SceneGraph/Road/Road.hpp>
 
-class SmallCarRoad : public Road {
+// class CarRoad : public Road {
 // public:
-//     SmallCarRoad();
-//     SmallCarRoad(std::vector<std::string> &oldData);
+//     CarRoad();
 //     virtual bool isCollide(const sf::FloatRect &rect) const;
-//     virtual std::vector<std::string> getData() const;
+//     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+//     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
 // private:
-//     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
-//     virtual void updateCurrent(sf::Time dt);
-private:
-    std::vector<sf::Sprite> mCar;
-    sf::Sprite mRoad;
-    sf::Clock mClock;
-private:
-    const float mCarSpeed = 100.f;
-};
+//     void vehicleGenerator();
+//     void vehicleController();
+// public:
+//     enum Type
+//     {
+//         None,
+//         SmallCar,
+//         BigCar,
+//         Truck,
+//         Count
+//     };
+// private:
+//     std::vector<Vehicle*> mVehicles;
+//     sf::Sprite mRoadSprite;
+//     int mDirection; // -1: left, 1: right
+//     int mType;
+// };
 
-#endif
+// #endif

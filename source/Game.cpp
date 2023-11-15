@@ -3,31 +3,83 @@
 Game::Game() : mWindow(sf::VideoMode(Statistic::SCREEN_WIDTH, Statistic::SCREEN_HEIGHT), "Crossy Road")
 , mStateStack(mWindow) {
     loadTextures();
+    loadGifs();
 }
 
 void Game::loadTextures() {
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState1, "../media/images/characters/1.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState2, "../media/images/characters/2.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState3, "../media/images/characters/3.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState4, "../media/images/characters/4.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState1, "../media/images/characters/5.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState2, "../media/images/characters/6.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState3, "../media/images/characters/7.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState4, "../media/images/characters/8.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState1, "../media/images/characters/9.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState2, "../media/images/characters/10.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState3, "../media/images/characters/11.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState4, "../media/images/characters/12.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState1, "../media/images/characters/13.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState2, "../media/images/characters/14.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState3, "../media/images/characters/15.png");
-    Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState4, "../media/images/characters/16.png");
-    Resources::roadTextures.load(RoadTextures::Grass, "../media/images/road/grass3.png");
-    Resources::roadTextures.load(RoadTextures::Tree, "../media/images/road/tree2.png");
-    Resources::roadTextures.load(RoadTextures::Rock, "../media/images/road/rock3.png");
-    Resources::roadTextures.load(RoadTextures::Bush, "../media/images/road/bush1.png");
-    Resources::roadTextures.load(RoadTextures::None, "../media/images/road/none1.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState1, "media/images/characters/1.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState2, "media/images/characters/2.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState3, "media/images/characters/3.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState4, "media/images/characters/4.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState1, "media/images/characters/5.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState2, "media/images/characters/6.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState3, "media/images/characters/7.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState4, "media/images/characters/8.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState1, "media/images/characters/9.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState2, "media/images/characters/10.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState3, "media/images/characters/11.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState4, "media/images/characters/12.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState1, "media/images/characters/13.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState2, "media/images/characters/14.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState3, "media/images/characters/15.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState4, "media/images/characters/16.png");
+    Resources::roadTextures.load(RoadTextures::Grass, "media/images/road/grass3.png");
+    Resources::roadTextures.load(RoadTextures::Tree, "media/images/road/tree2.png");
+    Resources::roadTextures.load(RoadTextures::Rock, "media/images/road/rock3.png");
+    Resources::roadTextures.load(RoadTextures::Bush, "media/images/road/bush1.png");
+    Resources::roadTextures.load(RoadTextures::None, "media/images/road/none1.png");
 
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState1, "../media/images/characters/1.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState2, "../media/images/characters/2.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState3, "../media/images/characters/3.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState4, "../media/images/characters/4.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState1, "../media/images/characters/5.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState2, "../media/images/characters/6.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState3, "../media/images/characters/7.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState4, "../media/images/characters/8.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState1, "../media/images/characters/9.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState2, "../media/images/characters/10.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState3, "../media/images/characters/11.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState4, "../media/images/characters/12.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState1, "../media/images/characters/13.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState2, "../media/images/characters/14.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState3, "../media/images/characters/15.png");
+    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState4, "../media/images/characters/16.png");
+    // Resources::roadTextures.load(RoadTextures::Grass, "../media/images/road/grass3.png");
+    // Resources::roadTextures.load(RoadTextures::Tree, "../media/images/road/tree2.png");
+    // Resources::roadTextures.load(RoadTextures::Rock, "../media/images/road/rock3.png");
+    // Resources::roadTextures.load(RoadTextures::Bush, "../media/images/road/bush1.png");
+    // Resources::roadTextures.load(RoadTextures::None, "../media/images/road/none1.png");
+}
+
+void Game::loadGifs() {
+    std::vector<sf::Texture> characterSkin1Backward;
+    characterSkin1Backward.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState1]);
+    characterSkin1Backward.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState2]);
+    characterSkin1Backward.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState3]);
+    characterSkin1Backward.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState4]);
+    Resources::gifsHolder.load(GIFs::CharacterSkin1Backward, characterSkin1Backward, sf::seconds(0.4f));
+
+    std::vector<sf::Texture> characterSkin1Forward;
+    characterSkin1Forward.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState1]);
+    characterSkin1Forward.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState2]);
+    characterSkin1Forward.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState3]);
+    characterSkin1Forward.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState4]);
+    Resources::gifsHolder.load(GIFs::CharacterSkin1Forward, characterSkin1Forward, sf::seconds(0.4f));
+
+    std::vector<sf::Texture> characterSkin1Left;
+    characterSkin1Left.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState1]);
+    characterSkin1Left.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState2]);
+    characterSkin1Left.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState3]);
+    characterSkin1Left.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState4]);
+    Resources::gifsHolder.load(GIFs::CharacterSkin1Left, characterSkin1Left, sf::seconds(0.4f));
+
+    std::vector<sf::Texture> characterSkin1Right;
+    characterSkin1Right.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState1]);
+    characterSkin1Right.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState2]);
+    characterSkin1Right.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState3]);
+    characterSkin1Right.push_back(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState4]);
+    Resources::gifsHolder.load(GIFs::CharacterSkin1Right, characterSkin1Right, sf::seconds(0.4f));
 }
 
 void Game::registerStates() {
