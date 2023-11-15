@@ -2,12 +2,16 @@
 #define NEWGAME_HPP
 
 #include <SFML/Graphics.hpp>
+#include <menu/Element.hpp>
+#include <vector>
+
+using namespace std;
 
 class NewGame
 {
 public:
     NewGame();
-    void processEvent(sf::Event& event);
+    int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
     void draw(sf::RenderWindow& mWindow);
 private:
     sf::Color colorBound;
@@ -54,6 +58,8 @@ private:
     sf::Text play;
     sf::Texture background; 
     sf::Sprite backgroundSprite;
+
+    vector<Pack> packs;
 };
 
 #endif //NEWGAME_HPP

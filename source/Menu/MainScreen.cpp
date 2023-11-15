@@ -4,8 +4,9 @@ MainScreen::MainScreen()
 {
     pos=sf::Vector2f(700.f,100.f);
     sizeBound=sf::Vector2f(200.f,100.f);
-    colorBound=sf::Color::Transparent;
+    colorBound=sf::Color::Green;
     sizeTheme=sf::Vector2f(1920.f,1080.f);
+    sf::FloatRect size;
 
     background.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains.png");
     backgroundSprite.setTexture(background);
@@ -18,9 +19,12 @@ MainScreen::MainScreen()
 
     title.setString("Crossy Road");
     title.setFont(_font);
-    title.setCharacterSize(150);
+    title.setCharacterSize(200);
     title.setFillColor(sf::Color::Green);
-    title.setPosition(pos);
+    size=title.getGlobalBounds();
+    title.setOrigin(size.width/2,size.height/2);
+    title.setPosition(sf::Vector2f(960.f,50.f));
+    title.setScale(1.75,0.8);
 
     pos=sf::Vector2f(pos.x,pos.y*1.5);
 
@@ -48,21 +52,50 @@ MainScreen::MainScreen()
     instruction.setFillColor(colorCharacter);
     instruction.setPosition(pos.x,pos.y*5);
 
-    newgameBound.setSize(sizeBound);
+    newgameBound.setSize(sf::Vector2f(sizeBound.x*2,sizeBound.y));
     newgameBound.setPosition(pos.x,pos.y*2);
     newgameBound.setFillColor(colorBound);
 
-    highscoreBound.setSize(sizeBound);
+    highscoreBound.setSize(sf::Vector2f(sizeBound.x*2,sizeBound.y));
     highscoreBound.setPosition(pos.x,pos.y*3);
     highscoreBound.setFillColor(colorBound);
     
-    settingBound.setSize(sizeBound);
+    settingBound.setSize(sf::Vector2f(sizeBound.x*2,sizeBound.y));
     settingBound.setPosition(pos.x,pos.y*4);
     settingBound.setFillColor(colorBound);
     
-    instructionBound.setSize(sizeBound);
+    instructionBound.setSize(sf::Vector2f(sizeBound.x*2,sizeBound.y));
     instructionBound.setPosition(pos.x,pos.y*5);
     instructionBound.setFillColor(colorBound);
+
+    packs.push_back(Pack(newgameBound,newgame));
+    packs.push_back(Pack(highscoreBound,highscore));
+    packs.push_back(Pack(settingBound,setting));
+    packs.push_back(Pack(instructionBound,instruction));
+}
+
+int MainScreen::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
+{
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(mWindow);
+    int size=packs.size();
+    for(int i=0;i<size;i++)
+    {
+        auto& x=packs[i];
+        sf::FloatRect RecBound=x.getGlobalBounds();
+        bool isMouseOn=RecBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+        if(isMouseOn)
+        {
+            if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+            {
+                return i+1;
+            }
+        }
+        else
+        {
+            
+        }
+    }
+    return 0;
 }
 
 void MainScreen::draw(sf::RenderWindow& mWindow)

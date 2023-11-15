@@ -119,6 +119,48 @@ NewGame::NewGame()
     play.setCharacterSize(sizeCharacter);
     play.setFillColor(colorCharacter);
     play.setPosition(1500.f,800.f);
+
+    packs.push_back(Pack(onepBound,onep));
+    packs.push_back(Pack(twopBound,twop));
+    packs.push_back(Pack(playBound,play));
+}
+
+int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
+{
+    sf::Vector2i mousePosition=sf::Mouse::getPosition(mWindow);
+    int size=packs.size();
+    for(int i=0;i<size;i++)
+    {
+        auto& x=packs[i];
+        sf::FloatRect recBound=x.getGlobalBounds();
+        bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+        if(isMouseOn)
+        {
+            if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+            {
+
+            }
+        }
+        else
+        {
+
+        }
+    }
+    
+    sf::FloatRect recBound=returnBound.getGlobalBounds();
+    bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            return 0;
+        }
+    }
+    else
+    {
+
+    }
+    return 1;
 }
 
 void NewGame::draw(sf::RenderWindow& mWindow)

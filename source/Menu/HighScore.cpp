@@ -2,7 +2,7 @@
 
 HighScore::HighScore()
 {
-    colorBound=sf::Color::Transparent;
+    colorBound=sf::Color::Green;
     sizeBound=sf::Vector2f(100.f,100.f);
     sizeTheme=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
@@ -56,6 +56,25 @@ HighScore::HighScore()
     secondBound.setOutlineThickness(5.0);
     secondBound.setOutlineColor(sf::Color::Green);
     secondBound.setPosition(985.f,300.f);
+}
+
+int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
+{
+    sf::Vector2i mousePosition = sf::Mouse::getPosition(mWindow);
+    sf::FloatRect recBound=returnBound.getGlobalBounds();
+    bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            return 0;
+        }
+    }
+    else
+    {
+
+    }
+    return 2;
 }
 
 void HighScore::draw(sf::RenderWindow& mWindow)

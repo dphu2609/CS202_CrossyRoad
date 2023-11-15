@@ -7,7 +7,7 @@ class Instruction
 {
 public:
     Instruction();
-    void processEvent(sf::Event& event);
+    int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
     void draw(sf::RenderWindow& mWindow);
 private:
     sf::Color colorBound;

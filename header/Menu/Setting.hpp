@@ -2,12 +2,16 @@
 #define SETTING_HPP
 
 #include <SFML/Graphics.hpp>
+#include <Menu/Element.hpp>
+#include <vector>
+
+using namespace std;
 
 class Setting
 {
 public:
     Setting();
-    void processEvent(sf::Event& event);
+    int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
     void draw(sf::RenderWindow& mWindow);
 private:
     sf::Color colorBound;
@@ -35,6 +39,8 @@ private:
     sf::RectangleShape soundBar;
     sf::Texture background; 
     sf::Sprite backgroundSprite;
+
+    vector<Pack> packs;
 };
 
 #endif //SETTING_HPP

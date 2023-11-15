@@ -2,12 +2,15 @@
 #define MAINSCREEN_HPP
 
 #include <SFML/Graphics.hpp>
+#include <Menu/Element.hpp>
+#include <vector>
+using namespace std;
 
 class MainScreen
 {
 public:
     MainScreen();
-    void processEvent(sf::Event& event);
+    int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
     void draw(sf::RenderWindow& mWindow);
 private:
     sf::Vector2f pos;
@@ -29,6 +32,8 @@ private:
     sf::RectangleShape instructionBound;
     sf::Texture background; 
     sf::Sprite backgroundSprite;
+
+    vector<Pack> packs;
 };
 
 #endif //MAINSCREEN_HPP

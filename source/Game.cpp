@@ -77,7 +77,8 @@ void Game::run() {
 void Game::processEvents() {
     sf::Event event;
     while (mWindow.pollEvent(event)) {
-        mStateStack.handleEvent(event);
+        //mStateStack.handleEvent(event);
+        mMenu.processEvent(event,mWindow);
         if (event.type == sf::Event::Closed) {
             mWindow.close();
         }
@@ -90,7 +91,7 @@ void Game::update(sf::Time dt) {
 
 void Game::render() {
     mWindow.clear();
-    mMenu.draw(2,mWindow);
+    mMenu.draw(mWindow);
     //mStateStack.draw();
     mWindow.display();
 }
