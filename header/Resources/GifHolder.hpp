@@ -20,7 +20,7 @@ private:
 public:
     Gif& operator[] (GIFs::ID id);
     const Gif& operator[] (GIFs::ID id) const;
-    void load(GIFs::ID id, const std::vector<sf::Texture> &textures, sf::Time duration);
+    void load(GIFs::ID id, const std::vector<sf::Sprite> &sprites, sf::Time duration);
 };
 
 #endif

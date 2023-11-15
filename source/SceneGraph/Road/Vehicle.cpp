@@ -2,14 +2,30 @@
 
 RoadTextures::ID toTextureID(Vehicle::Type type) {
     switch (type) {
-    case Vehicle::SmallCar:
-        return RoadTextures::SmallCar;
-    case Vehicle::BigCar:
-        return RoadTextures::BigCar;
-    case Vehicle::Truck:
-        return RoadTextures::Truck;
-    case Vehicle::Train:
-        return RoadTextures::Train;
+        case Vehicle::SmallCarLeft: {
+            return RoadTextures::SmallCarLeft;
+        }
+        case Vehicle::SmallCarRight: {
+            return RoadTextures::SmallCarRight;
+        }
+        case Vehicle::BigCarLeft: {
+            return RoadTextures::BigCarLeft;
+        }
+        case Vehicle::BigCarRight: {
+            return RoadTextures::BigCarRight;
+        }
+        case Vehicle::TruckLeft: {
+            return RoadTextures::TruckLeft;
+        }
+        case Vehicle::TruckRight: {
+            return RoadTextures::TruckRight;
+        }
+        case Vehicle::TrainLeft: {
+            return RoadTextures::TrainLeft;
+        }
+        case Vehicle::TrainRight: {
+            return RoadTextures::TrainRight;
+        }
     }
     return RoadTextures::None;
 }
@@ -23,6 +39,7 @@ Vehicle::Vehicle(Type type, const RoadTextureHolder& textures, int direction)
 }
 
 void Vehicle::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const {
+    // states.transform *= getTransform();
     target.draw(mSprite, states);
 }
 
@@ -33,24 +50,40 @@ void Vehicle::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
 void Vehicle::move(sf::Time dt) {
     float deltaX;
     switch (mType) {
-        case SmallCar: {
-            deltaX = Statistic::SMALL_CAR_SPEED * dt.asSeconds() * mDirection;
+        case SmallCarLeft: {
+            deltaX = mSmallCarSpeed * dt.asSeconds() * mDirection;
             break;
         }
-        case BigCar: {
-            deltaX = Statistic::BIG_CAR_SPEED * dt.asSeconds() * mDirection;
+        case SmallCarRight: {
+            deltaX = mSmallCarSpeed * dt.asSeconds() * mDirection;
             break;
         }
-        case Truck: {
-            deltaX = Statistic::TRUCK_SPEED * dt.asSeconds() * mDirection;
+        case BigCarLeft: {
+            deltaX = mBigCarSpeed * dt.asSeconds() * mDirection;
             break;
         }
-        case Train: {
-            deltaX = Statistic::TRAIN_SPEED * dt.asSeconds() * mDirection;
+        case BigCarRight: {
+            deltaX = mBigCarSpeed * dt.asSeconds() * mDirection;
+            break;
+        }
+        case TruckLeft: {
+            deltaX = mTruckSpeed * dt.asSeconds() * mDirection;
+            break;
+        }
+        case TruckRight: {
+            deltaX = mTruckSpeed * dt.asSeconds() * mDirection;
+            break;
+        }
+        case TrainLeft: {
+            deltaX = mTrainSpeed * dt.asSeconds() * mDirection;
+            break;
+        }
+        case TrainRight: {
+            deltaX = mTrainSpeed * dt.asSeconds() * mDirection;
             break;
         }
     }
-    this->setPosition(this->getPosition().x + deltaX, this->getPosition().y);
+    this->setPosition(this->getPosition().x + deltaX, this->getPosition().y);  
 }
 
 bool Vehicle::isCollide(const sf::FloatRect &rect) const {
@@ -60,4 +93,12 @@ bool Vehicle::isCollide(const sf::FloatRect &rect) const {
 
 sf::FloatRect Vehicle::getGlobalBounds() {
     return mSprite.getGlobalBounds();
+}
+
+bool Vehicle::isOutOfBound() {
+    if (mDirection == -1) {
+        return this->getPosition().x < -Statistic::SCREEN_WIDTH / 2 - Statistic::BLOCK_SIZE * 3;
+    } else {
+        return this->getPosition().x > Statistic::SCREEN_WIDTH / 2 + Statistic::BLOCK_SIZE * 3;
+    }
 }

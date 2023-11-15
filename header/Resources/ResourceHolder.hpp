@@ -12,10 +12,14 @@ namespace RoadTextures
         Tree,
         Rock,
         Bush,
-        SmallCar,
-        BigCar,
-        Truck,
-        Train,
+        SmallCarLeft,
+        SmallCarRight,
+        BigCarLeft,
+        BigCarRight,
+        TruckLeft,
+        TruckRight,
+        TrainLeft,
+        TrainRight,
         Road,
         None
     };

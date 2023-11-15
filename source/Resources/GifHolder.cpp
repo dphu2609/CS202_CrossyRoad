@@ -16,7 +16,7 @@ const Gif& GifHolder::operator[] (GIFs::ID id) const {
     return *(found->second);
 }
 
-void GifHolder::load(GIFs::ID id, const std::vector<sf::Texture> &textures, sf::Time duration) {
-    std::unique_ptr<Gif> gif = std::make_unique<Gif>(textures, duration);
+void GifHolder::load(GIFs::ID id, const std::vector<sf::Sprite> &sprites, sf::Time duration) {
+    std::unique_ptr<Gif> gif = std::make_unique<Gif>(sprites, duration);
     mGifs.insert(std::make_pair(id, std::move(gif)));
 }

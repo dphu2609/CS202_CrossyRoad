@@ -1,9 +1,8 @@
 #include <Resources/Gif.hpp>
 
-Gif::Gif(const std::vector<sf::Texture> &textures, sf::Time duration) {
-    mSprites.resize(textures.size());
-    for (int i = 0; i < textures.size(); ++i) {
-        mSprites[i].setTexture(textures[i]);
+Gif::Gif(const std::vector<sf::Sprite> &sprites, sf::Time duration) {
+    for (int i = 0; i < sprites.size(); ++i) {
+        mSprites.push_back(sf::Sprite(sprites[i]));
     }
     mDuration = duration;
     mElapsedTime = sf::Time::Zero;
@@ -11,16 +10,15 @@ Gif::Gif(const std::vector<sf::Texture> &textures, sf::Time duration) {
 }
 
 Gif::Gif(const Gif &other) {
-    mSprites[0] = other.mSprites[0];
+    mSprites = other.mSprites;
     mDuration = other.mDuration;
     mElapsedTime = other.mElapsedTime;
     mCurrentSprite = other.mCurrentSprite;
 }
 
-void Gif::set(const std::vector<sf::Texture> &textures, sf::Time duration) {
-    mSprites.resize(textures.size());
-    for (int i = 0; i < textures.size(); ++i) {
-        mSprites[i].setTexture(textures[i]);
+void Gif::set(const std::vector<sf::Sprite> &sprites, sf::Time duration) {
+    for (int i = 0; i < sprites.size(); ++i) {
+        mSprites.push_back(sf::Sprite(sprites[i]));
     }
     mDuration = duration;
     mElapsedTime = sf::Time::Zero;

@@ -48,10 +48,6 @@ namespace Statistic
     extern float CHARACTER_JUMP_DISTANCE_VERTICAL;
 
     extern float SCREEN_SPEED;
-    extern float SMALL_CAR_SPEED;
-    extern float BIG_CAR_SPEED;
-    extern float TRUCK_SPEED;
-    extern float TRAIN_SPEED;
 };
 
 #endif

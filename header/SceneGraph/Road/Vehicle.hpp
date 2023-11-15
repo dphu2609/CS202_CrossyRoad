@@ -13,10 +13,14 @@ public:
     enum Type
     {
         None,
-        SmallCar,
-        BigCar,
-        Truck,
-        Train,
+        SmallCarLeft,
+        SmallCarRight,
+        BigCarLeft,
+        BigCarRight,
+        TruckLeft,
+        TruckRight,
+        TrainLeft,
+        TrainRight,
         Count
     };
 public:
@@ -32,6 +36,12 @@ private:
     sf::Sprite mSprite;
 private:
     int mDirection; // -1: left, 1: right
+    float mSmallCarSpeed = 300.f;
+    float mBigCarSpeed = 250.f;
+    float mTruckSpeed = 200.f;
+    float mTrainSpeed = 500.f;
+public:
+    bool isOutOfBound();
 };
 
 #endif

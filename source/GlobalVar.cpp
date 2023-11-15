@@ -38,8 +38,4 @@ namespace Statistic {
     float CHARACTER_JUMP_DISTANCE_VERTICAL = 70;
 
     float SCREEN_SPEED;
-    float SMALL_CAR_SPEED = 100;
-    float BIG_CAR_SPEED = 100;
-    float TRUCK_SPEED = 100;
-    float TRAIN_SPEED = 250;
 };
