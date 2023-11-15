@@ -17,14 +17,23 @@ RoadTextures::ID toTextureID(Block::Type type)
 }
 
 Block::Block(Type type, const RoadTextureHolder& textures)
-: mType(type)
-, mSprite(textures[toTextureID(type)])
+    : mType(type)
+    , mSprite(textures[toTextureID(type)], sf::IntRect(0, 0, Statistic::BLOCK_SIZE, Statistic::BLOCK_SIZE))
 {
-    sf::FloatRect bounds = mSprite.getLocalBounds();    
-    mSprite.setScale(Statistic::BLOCK_SIZE / bounds.width, Statistic::BLOCK_SIZE / bounds.height);   //
-    bounds = mSprite.getGlobalBounds();  //
+    sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+    
+    // if (bounds.width > 0 && bounds.height > 0) {
+    //     float scaleX = Statistic::BLOCK_SIZE / bounds.width;
+    //     float scaleY = Statistic::BLOCK_SIZE / bounds.height;
+
+    //     mSprite.setScale(scaleX, scaleY);
+    //     mSprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
+    // } else {
+    //     std::cerr << "Error: Invalid sprite dimensions" << std::endl;
+    // }
 }
+
 
 void Block::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
@@ -36,6 +45,6 @@ bool Block::isCollide(const sf::FloatRect &rect) const {
     return mSprite.getGlobalBounds().intersects(rect);
 }
 
-sf::FloatRect Block::getGlobalBounds() {
-    return mSprite.getGlobalBounds();
-}
+// sf::FloatRect Block::getGlobalBounds() {
+//     // return mSprite.getGlobalBounds();
+// }

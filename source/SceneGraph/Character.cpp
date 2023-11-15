@@ -2,58 +2,27 @@
 
 Character::Character() {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
-    for (int i = 0; i < mBackwardState.size(); i++) {
-        mBackwardState[i].setOrigin(mBackwardState[i].getGlobalBounds().width / 2, mBackwardState[i].getGlobalBounds().height / 2);
-        mBackwardState[i].setScale(Statistic::CHARACTER_SIZE.x / mBackwardState[i].getGlobalBounds().width, Statistic::CHARACTER_SIZE.y / mBackwardState[i].getGlobalBounds().height);
-        mBackwardState[i].setPosition(Statistic::CHARACTER_SPAWN_POSITION);
-        
-        mForwardState[i].setOrigin(mForwardState[i].getGlobalBounds().width / 2, mForwardState[i].getGlobalBounds().height / 2);
-        mForwardState[i].setScale(Statistic::CHARACTER_SIZE.x / mForwardState[i].getGlobalBounds().width, Statistic::CHARACTER_SIZE.y / mForwardState[i].getGlobalBounds().height);
-        mForwardState[i].setPosition(Statistic::CHARACTER_SPAWN_POSITION);
-        
-        mLeftState[i].setOrigin(mLeftState[i].getGlobalBounds().width / 2, mLeftState[i].getGlobalBounds().height / 2);
-        mLeftState[i].setScale(Statistic::CHARACTER_SIZE.x / mLeftState[i].getGlobalBounds().width, Statistic::CHARACTER_SIZE.y / mLeftState[i].getGlobalBounds().height);
-        mLeftState[i].setPosition(Statistic::CHARACTER_SPAWN_POSITION);
-        
-        mRightState[i].setOrigin(mRightState[i].getGlobalBounds().width / 2, mRightState[i].getGlobalBounds().height / 2);
-        mRightState[i].setScale(Statistic::CHARACTER_SIZE.x / mRightState[i].getGlobalBounds().width, Statistic::CHARACTER_SIZE.y / mRightState[i].getGlobalBounds().height);
-        mRightState[i].setPosition(Statistic::CHARACTER_SPAWN_POSITION);
-    }
+    this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
 }
 
 void Character::setSkin(int skin) {
     if (skin == Skin1) {
-        mBackwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState1]));
-        mBackwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState2]));
-        mBackwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState3]));
-        mBackwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState4]));
-        
-        mForwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState1]));
-        mForwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState2]));
-        mForwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState3]));
-        mForwardState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1ForwardState4]));
-        
-        mLeftState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState1]));
-        mLeftState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState2]));
-        mLeftState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState3]));
-        mLeftState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1LeftState4]));
-        
-        mRightState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState1]));
-        mRightState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState2]));
-        mRightState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState3]));
-        mRightState.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState4]));
+        mBackwardState.set(Resources::gifsHolder[GIFs::CharacterSkin1Backward]);
+        mForwardState.set(Resources::gifsHolder[GIFs::CharacterSkin1Forward]);
+        mLeftState.set(Resources::gifsHolder[GIFs::CharacterSkin1Left]);
+        mRightState.set(Resources::gifsHolder[GIFs::CharacterSkin1Right]);
     }
 }
 
 void Character::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
     if (mDirection == 0) {
-        target.draw(mForwardState[mCurrentState], states);
+        target.draw(mForwardState, states);
     } else if (mDirection == 1) {
-        target.draw(mBackwardState[mCurrentState], states);
+        target.draw(mBackwardState, states);
     } else if (mDirection == 2) {
-        target.draw(mLeftState[mCurrentState], states);
+        target.draw(mLeftState, states);
     } else if (mDirection == 3) {
-        target.draw(mRightState[mCurrentState], states);
+        target.draw(mRightState, states);
     }
 }
 
@@ -62,16 +31,15 @@ void Character::handleCurrentEvent(sf::RenderWindow &window, sf::Event &event) {
 }
 
 void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
-    if (mStateTime > mThreshHold) {
-        mCurrentState++;
-        if (mCurrentState == mBackwardState.size()) {
-            mCurrentState = 0;
-        }
-        mStateTime = 0.f;
-        mClock.restart();
+    if (mDirection == 0) {
+        mForwardState.update(dt);
+    } else if (mDirection == 1) {
+        mBackwardState.update(dt);
+    } else if (mDirection == 2) {
+        mLeftState.update(dt);
+    } else if (mDirection == 3) {
+        mRightState.update(dt);
     }
-    mStateTime += mClock.restart().asSeconds();
-
     updateMove(dt);
 }
 
@@ -93,6 +61,10 @@ void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
             mKeyInput.pop();
         }
     }
+}
+
+sf::FloatRect Character::getBoundingRect() const {
+    return this->getWorldTransform().transformRect(mBackwardState.getGlobalBounds());
 }
 
 void Character::updateMove(sf::Time dt) {
@@ -119,37 +91,22 @@ unsigned int Character::getCategory() const {
     return Category::Player;
 }
 
-void Character::setPosition(sf::Vector2f position) {
-    for (auto &backwardState : mBackwardState) {
-        backwardState.setPosition(position);
-    }
-    for (auto &forwardState : mForwardState) {
-        forwardState.setPosition(position);
-    }
-    for (auto &leftState : mLeftState) {
-        leftState.setPosition(position);
-    }
-    for (auto &rightState : mRightState) {
-        rightState.setPosition(position);
-    }
-}
-
 sf::Vector2f Character::getNextRightPosition(float x) {
     return sf::Vector2f(
-        x, -(- (2 / Statistic::CHARACTER_JUMP_DISTANCE) * x * (x - Statistic::CHARACTER_JUMP_DISTANCE))
+        x, -(- (2 / Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL) * x * (x - Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL))
     );
 }
 
 sf::Vector2f Character::getNextLeftPosition(float x) {
     return sf::Vector2f(
-        -x, -(- (2 / Statistic::CHARACTER_JUMP_DISTANCE) * x * (x - Statistic::CHARACTER_JUMP_DISTANCE))
+        -x, -(- (2 / Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL) * x * (x - Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL))
     );
 }
 
 sf::Vector2f Character::getNextUpPosition(float x) {
     return sf::Vector2f(
         0, -x
-    );
+    );sf::FloatRect();
 }
 
 sf::Vector2f Character::getNextDownPosition(float x) {
@@ -160,12 +117,12 @@ sf::Vector2f Character::getNextDownPosition(float x) {
 
 bool Character::move(sf::Time dt, int direction) {
     if (mCurrentStep == 0.f) {
-        mInitialPosition = mBackwardState[0].getPosition();
+        mInitialPosition = this->getPosition();
         mDirection = direction;
         mCurrentStep += mSpeed;
         return true;
     }
-    else if (mCurrentStep < Statistic::CHARACTER_JUMP_DISTANCE) {
+    else if (mCurrentStep < (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL)) {
         mCurrentStep += mSpeed;
         sf::Vector2f nextPosition;
         if (direction == 0) {
@@ -182,4 +139,9 @@ bool Character::move(sf::Time dt, int direction) {
         return true;
     }
     return false;
+}
+
+sf::FloatRect Character::getSpriteBounding()
+{
+    return mForwardState.getGlobalBounds();
 }

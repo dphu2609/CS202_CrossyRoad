@@ -3,12 +3,15 @@
 
 #include <SFML/Graphics.hpp>
 #include <Resources/ResourceHolder.hpp>
+#include <Resources/GifHolder.hpp>
 
 namespace Resources
 {
     extern ResourceHolder<sf::Font, Fonts::ID> fonts;
     extern ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     extern ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
+
+    extern GifHolder gifsHolder;
     // add more resource holder here
 };
 
@@ -28,10 +31,6 @@ namespace Statistic
     extern float SCREEN_HEIGHT;
 
     extern float SCREEN_SPEED;
-    extern float TRUCK_SPEED;
-    extern float SMALL_CAR_SPEED;
-    extern float BIG_CAR_SPEED;
-    extern float TRAIN_SPEED;
 
     extern float ROAD_WIDTH;
     extern float ROAD_HEIGHT;
@@ -44,7 +43,11 @@ namespace Statistic
 
     extern sf::Vector2f CHARACTER_SIZE;
     extern sf::Vector2f CHARACTER_SPAWN_POSITION;
-    extern float CHARACTER_JUMP_DISTANCE;
+
+    extern float CHARACTER_JUMP_DISTANCE_HORIZONTAL;
+    extern float CHARACTER_JUMP_DISTANCE_VERTICAL;
+
+    extern float SCREEN_SPEED;
 };
 
 #endif
