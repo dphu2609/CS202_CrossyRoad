@@ -21,7 +21,7 @@ bool Grass::isCollide(const sf::FloatRect &rect) const
 }
 
 Grass::Grass()
-: mGrass(Resources::roadTextures[RoadTextures::Grass], sf::IntRect(0, 0, Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT))
+: mGrass(Resources::roadTextures[RoadTextures::Grass], sf::IntRect(100 - Statistic::ROAD_WIDTH, 100 - Statistic::ROAD_HEIGHT, Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT))
 , spaces(Statistic::ROAD_WIDTH / Statistic::BLOCK_SIZE)
 , mBlocks(spaces)
 {
