@@ -6,9 +6,9 @@
 #include <SceneGraph/Road/Vehicle.hpp>
 #include <SceneGraph/Road/Road.hpp>
 
-class CarRoad : public Road {
+class VehicleLane : public Road {
 public:
-    CarRoad();
+    VehicleLane();
     virtual bool isCollide(const sf::FloatRect &rect) const {return false;}
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
@@ -30,13 +30,14 @@ public:
 private:
     std::vector<Vehicle*> mVehicles;
     sf::Sprite mRoadSprite;
+    sf::Sprite mTrafficLight;
     sf::Clock mSpawnTimer; 
     int mDirection; // -1: left, 1: right
     int mType;
-    float mSmallCarSpawnTime = 1.f;
-    float mBigCarSpawnTime = 1.f;
-    float mTruckSpawnTime = 1.f;
-    float mTrainSpawnTime = 10.f;
+    float mSmallCarSpawnTime = 2;
+    float mBigCarSpawnTime = 2;
+    float mTruckSpawnTime = 2.5;
+    float mTrainSpawnTime = 5.f;
 };
 
 #endif

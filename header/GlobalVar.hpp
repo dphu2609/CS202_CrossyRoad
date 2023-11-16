@@ -37,6 +37,14 @@ namespace Statistic
 
     extern int DEFAULT_BLOCK;
     extern int BLOCK_SIZE;
+    extern float SMALL_CAR_LENGTH;
+    extern float SMALL_CAR_HEIGHT;
+    extern float BIG_CAR_LENGTH;
+    extern float BIG_CAR_HEIGHT;
+    extern float TRUCK_CAR_LENGTH;
+    extern float TRUCK_CAR_HEIGHT;
+    extern float TRAIN_LENGTH;
+    extern float TRAIN_HEIGHT;
 
     extern int PLAYER_SCORE;
     extern int PLAYER_SKIN_TYPE;

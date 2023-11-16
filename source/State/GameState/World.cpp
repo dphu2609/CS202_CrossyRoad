@@ -27,13 +27,21 @@ void World::buildScene() {
     mRoadSequence.push_back(std::move(grassRoad));
     mSceneLayers[RoadSequence]->attachChild(std::move(mRoadSequence.back()));
 
-    std::shared_ptr<CarRoad> carRoad1 = std::make_shared<CarRoad>();
+    std::shared_ptr<VehicleLane> carRoad1 = std::make_shared<VehicleLane>();
     carRoad1->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::SCREEN_HEIGHT - 60 + Statistic::BLOCK_SIZE);
     mSceneLayers[RoadSequence]->attachChild(std::move(carRoad1));
 
-    std::shared_ptr<CarRoad> carRoad2 = std::make_shared<CarRoad>();
+    std::shared_ptr<VehicleLane> carRoad2 = std::make_shared<VehicleLane>();
     carRoad2->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::SCREEN_HEIGHT - 60 + Statistic::BLOCK_SIZE * 2);
     mSceneLayers[RoadSequence]->attachChild(std::move(carRoad2));
+
+    std::shared_ptr<VehicleLane> carRoad3 = std::make_shared<VehicleLane>();
+    carRoad3->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::SCREEN_HEIGHT - 60 + Statistic::BLOCK_SIZE * 3);
+    mSceneLayers[RoadSequence]->attachChild(std::move(carRoad3));
+
+    std::shared_ptr<VehicleLane> carRoad4 = std::make_shared<VehicleLane>();
+    carRoad4->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::SCREEN_HEIGHT - 60 + Statistic::BLOCK_SIZE * 4);
+    mSceneLayers[RoadSequence]->attachChild(std::move(carRoad4));
 }
 
 void World::update(sf::Time dt) {

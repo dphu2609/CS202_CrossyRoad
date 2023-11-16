@@ -27,6 +27,15 @@ namespace Statistic {
 
     int DEFAULT_BLOCK = 5;
     int BLOCK_SIZE = 100;
+    float SMALL_CAR_LENGTH = 120;
+    float SMALL_CAR_HEIGHT = 120;
+    float BIG_CAR_LENGTH = 150;
+    float BIG_CAR_HEIGHT = 150;
+    float TRUCK_CAR_LENGTH = 200;
+    float TRUCK_CAR_HEIGHT = 150;
+    float TRAIN_LENGTH = 700;
+    float TRAIN_HEIGHT = 150;
+
 
     int PLAYER_SCORE = 0;
     int PLAYER_SKIN_TYPE = 0;
