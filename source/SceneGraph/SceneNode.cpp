@@ -9,6 +9,11 @@ void SceneNode::attachChild(Ptr child) {
     mChildren.emplace_back(child);
 }
 
+void SceneNode::pushFrontChild(Ptr child) {
+    child->mParent = this;
+    mChildren.emplace(mChildren.begin(), child);
+}
+
 SceneNode::Ptr SceneNode::detachChild(const SceneNode& node) {
     auto found = std::find_if(mChildren.begin(), mChildren.end(), [&](Ptr& p) -> bool {return p.get() == &node;});
     assert(found != mChildren.end());
@@ -22,11 +27,11 @@ SceneNode::Ptr SceneNode::detachChild(const SceneNode& node) {
 void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     drawCurrent(target, states);
+    // drawBoundingRect(target, states);
     for (const auto& child : mChildren) {
         if (child) 
             child->draw(target, states);
     }
-    // drawBoundingRect(target, states);
 }
 
 void SceneNode::update(sf::Time dt, CommandQueue& commandQueue)
@@ -77,4 +82,9 @@ void SceneNode::drawBoundingRect(sf::RenderTarget& target, sf::RenderStates) con
 sf::FloatRect SceneNode::getBoundingRect() const
 {
 	return sf::FloatRect();
+}
+
+void SceneNode::resetView() {
+    resetCurrentView();
+    for (const auto& child : mChildren) child->resetView();
 }

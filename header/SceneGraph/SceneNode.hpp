@@ -14,6 +14,7 @@ public:
     SceneNode();
 
     void attachChild(Ptr child);
+    void pushFrontChild(Ptr child);
     Ptr detachChild(const SceneNode& node);
 
     void update(sf::Time dt, CommandQueue& commandQueue);
@@ -27,6 +28,9 @@ private:
     virtual void updateCurrent(sf::Time dt, CommandQueue& commandQueue) {}
     virtual void handleCurrentEvent(sf::RenderWindow &window, sf::Event &event) {}
     void drawBoundingRect(sf::RenderTarget& target, sf::RenderStates) const;
+    virtual void resetCurrentView() {}
+public:
+    void resetView();
 public:
     virtual unsigned int getCategory() const {return 0;}
     void onCommand(const Command &command, sf::Time dt);

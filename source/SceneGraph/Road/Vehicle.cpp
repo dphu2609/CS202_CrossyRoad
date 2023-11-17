@@ -32,23 +32,23 @@ RoadTextures::ID toTextureID(Vehicle::Type type) {
 
 Vehicle::Vehicle(Type type, const RoadTextureHolder& textures, int direction)
 : mType(type) , mSprite(textures[toTextureID(type)]), mDirection(direction) {
-    sf::FloatRect bounds = mSprite.getLocalBounds();    
+    sf::FloatRect bounds = mSprite.getGlobalBounds();    
     switch (mType) {
         case SmallCarLeft:
         case SmallCarRight:
-            this->setScale(Statistic::SMALL_CAR_HEIGHT / bounds.height, Statistic::SMALL_CAR_LENGTH / bounds.width);
+            this->setScale(Statistic::SMALL_CAR_LENGTH / bounds.width, Statistic::SMALL_CAR_HEIGHT / bounds.height);
             break;
         case BigCarLeft:
         case BigCarRight:
-            this->setScale(Statistic::BIG_CAR_HEIGHT / bounds.height, Statistic::BIG_CAR_LENGTH / bounds.width);
+            this->setScale(Statistic::BIG_CAR_LENGTH / bounds.width, Statistic::BIG_CAR_HEIGHT / bounds.height);
             break;
         case TruckLeft:
         case TruckRight:
-            this->setScale(Statistic::TRUCK_CAR_HEIGHT / bounds.height, Statistic::TRUCK_CAR_LENGTH / bounds.width);
+            this->setScale(Statistic::TRUCK_CAR_LENGTH / bounds.width, Statistic::TRUCK_CAR_HEIGHT / bounds.height);
             break;
         case TrainLeft:
         case TrainRight:
-            this->setScale(Statistic::TRAIN_HEIGHT / bounds.height, Statistic::TRAIN_LENGTH / bounds.width);
+            this->setScale(Statistic::TRAIN_LENGTH / bounds.width, Statistic::TRAIN_HEIGHT / bounds.height);
             break;
     }
     bounds = mSprite.getGlobalBounds();  //

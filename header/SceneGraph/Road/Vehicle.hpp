@@ -39,7 +39,7 @@ private:
     float mSmallCarSpeed = 300.f;
     float mBigCarSpeed = 250.f;
     float mTruckSpeed = 200.f;
-    float mTrainSpeed = 2500.f;
+    float mTrainSpeed = 2000.f;
 public:
     bool isOutOfBound();
 };

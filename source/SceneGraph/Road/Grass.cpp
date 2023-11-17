@@ -29,7 +29,7 @@ Grass::Grass()
     // mGrass.setScale(1, 1);
     // mGrass.setPosition(Statistic::ROAD_WIDTH / 2, Statistic::SCREEN_HEIGHT - 100);
     Resources::roadTextures[RoadTextures::Grass].setRepeated(true);
-    // randomBlock();
+    randomBlock();
     // for (auto &block : mBlocks) {
     //     this->attachChild(block);
     // }

@@ -29,6 +29,7 @@ namespace Statistic
 {
     extern float SCREEN_WIDTH;
     extern float SCREEN_HEIGHT;
+    extern sf::FloatRect SCREEN_BOUNDING;
 
     extern float SCREEN_SPEED;
 
@@ -51,11 +52,15 @@ namespace Statistic
 
     extern sf::Vector2f CHARACTER_SIZE;
     extern sf::Vector2f CHARACTER_SPAWN_POSITION;
+    extern sf::Vector2f INITIAL_VIEW_POSITION;
+    extern sf::Vector2f RESET_VIEW_POSITION;
 
     extern float CHARACTER_JUMP_DISTANCE_HORIZONTAL;
     extern float CHARACTER_JUMP_DISTANCE_VERTICAL;
 
     extern float SCREEN_SPEED;
+    extern float SCREEN_SPEED_DEFAULT;
+    extern float SCREEN_SPEED_INCREASE;
 };
 
 #endif
