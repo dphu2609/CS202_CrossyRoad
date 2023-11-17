@@ -4,7 +4,7 @@ MainScreen::MainScreen()
 {
     pos=sf::Vector2f(700.f,100.f);
     sizeBound=sf::Vector2f(200.f,100.f);
-    colorBound=sf::Color::Green;
+    colorBound=sf::Color::Transparent;
     sizeTheme=sf::Vector2f(1920.f,1080.f);
     sf::FloatRect size;
 

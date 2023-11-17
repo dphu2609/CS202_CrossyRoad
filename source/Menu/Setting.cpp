@@ -2,7 +2,7 @@
 
 Setting::Setting()
 {
-    colorBound=sf::Color::Green;
+    colorBound=sf::Color::Transparent;
     sizeBound=sf::Vector2f(100.f,100.f);
     sizeTheme=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
@@ -24,9 +24,17 @@ Setting::Setting()
     title.setOrigin(size.width/2,size.height/2);
     title.setPosition(sf::Vector2f(960.f,50.f));
     title.setScale(1.75,0.8);
+
     returnBound.setSize(sizeBound);
     returnBound.setFillColor(colorBound);
     returnBound.setPosition(50.f,50.f);
+
+    returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Back1.png");
+    returnImageSprite.setTexture(returnImage);
+    size=returnImageSprite.getGlobalBounds();
+    returnImageSprite.setOrigin(size.width/2,size.height/2);
+    returnImageSprite.setPosition(sf::Vector2f(100.f,100.f));
+    returnImageSprite.setScale(300.f/size.width,300.f/size.height);
     
     resetBound.setSize(sf::Vector2f(sizeBound.x*2,sizeBound.y));
     resetBound.setFillColor(colorBound);
@@ -113,6 +121,8 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
     if(isMouseOn)
     {
+        returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Back2.png");
+        returnImageSprite.setTexture(returnImage);
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             return 0;
@@ -120,7 +130,8 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     }
     else
     {
-
+        returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Back1.png");
+        returnImageSprite.setTexture(returnImage);
     }
     return 3;
 }

@@ -2,7 +2,7 @@
 
 NewGame::NewGame()
 {
-    colorBound=sf::Color::Green;
+    colorBound=sf::Color::Transparent;
     sizeBound=sf::Vector2f(100.f,100.f);
     sizeTheme=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
@@ -28,12 +28,12 @@ NewGame::NewGame()
     returnBound.setFillColor(colorBound);
     returnBound.setPosition(50.f,50.f);
 
-    returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/return4.jpg");
+    returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Back1.png");
     returnImageSprite.setTexture(returnImage);
     size=returnImageSprite.getGlobalBounds();
     returnImageSprite.setOrigin(size.width/2,size.height/2);
-    returnImageSprite.setPosition(sf::Vector2f(100.f,50.f));
-    returnImageSprite.setScale(0.1,0.1);
+    returnImageSprite.setPosition(sf::Vector2f(100.f,100.f));
+    returnImageSprite.setScale(300.f/size.width,300.f/size.height);
 
     onepBound.setSize(sizeBound);
     onepBound.setFillColor(colorBound);
@@ -158,9 +158,27 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
     if(isMouseOn)
     {
+        returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Back2.png");
+        returnImageSprite.setTexture(returnImage);
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             return 0;
+        }
+    }
+    else
+    {
+        returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Back1.png");
+        returnImageSprite.setTexture(returnImage);
+
+    }
+
+    recBound=playBound.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            return 5;
         }
     }
     else
