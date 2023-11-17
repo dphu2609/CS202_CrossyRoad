@@ -24,20 +24,23 @@ void Game::loadTextures() {
     Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState2, "media/images/characters/14.png");
     Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState3, "media/images/characters/15.png");
     Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState4, "media/images/characters/16.png");
+    
     Resources::roadTextures.load(RoadTextures::Grass, "media/images/road/grass3.png");
     Resources::roadTextures.load(RoadTextures::Tree, "media/images/road/tree2.png");
     Resources::roadTextures.load(RoadTextures::Rock, "media/images/road/rock3.png");
     Resources::roadTextures.load(RoadTextures::Bush, "media/images/road/bush1.png");
     Resources::roadTextures.load(RoadTextures::None, "media/images/road/none1.png");
-    Resources::roadTextures.load(RoadTextures::Road, "media/images/road/road1.png");
+    Resources::roadTextures.load(RoadTextures::Road, "media/images/road/Road1.png");
+    Resources::roadTextures.load(RoadTextures::Rail, "media/images/road/Rail70x70_1.png");
+
     Resources::roadTextures.load(RoadTextures::SmallCarLeft, "media/images/road/SmallCarLeft1.png");
     Resources::roadTextures.load(RoadTextures::SmallCarRight, "media/images/road/SmallCarRight1.png");
     Resources::roadTextures.load(RoadTextures::BigCarLeft, "media/images/road/BigCarLeft1.png");
     Resources::roadTextures.load(RoadTextures::BigCarRight, "media/images/road/BigCarRight1.png");
     Resources::roadTextures.load(RoadTextures::TruckLeft, "media/images/road/TruckLeft1.png");
     Resources::roadTextures.load(RoadTextures::TruckRight, "media/images/road/TruckRight1.png");
-    // Resources::roadTextures.load(RoadTextures::TrainLeft, "media/images/road/TrainLeft1.png");
-    // Resources::roadTextures.load(RoadTextures::TrainRight, "media/images/road/TrainRight1.png");
+    Resources::roadTextures.load(RoadTextures::TrainLeft, "media/images/road/FullTrainLeft4Cabin1.png");
+    Resources::roadTextures.load(RoadTextures::TrainRight, "media/images/road/FullTrainRight4Cabin1.png");
 
     // Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState1, "../media/images/characters/1.png");
     // Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState2, "../media/images/characters/2.png");

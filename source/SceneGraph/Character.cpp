@@ -1,6 +1,6 @@
 #include <SceneGraph/Character.hpp>
 
-Character::Character() {
+Character::Character(sf::View &view) : mView(view) {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
     this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
 }
@@ -41,7 +41,16 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
         mRightState.update(dt);
     }
     updateMove(dt);
+    updateWorldView(dt);
 }
+
+void Character::resetCurrentView() {
+    sf::Vector2f newPosition = this->getPosition() + sf::Vector2f(0, Statistic::RESET_VIEW_POSITION.y);
+    this->setPosition(newPosition);
+    if (mIsMoving) {
+        mInitialPosition.y += Statistic::RESET_VIEW_POSITION.y;
+    }
+}   
 
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
     if (event.type == sf::Event::KeyPressed) {
@@ -87,6 +96,16 @@ void Character::updateMove(sf::Time dt) {
     }
 }
 
+void Character::updateWorldView(sf::Time dt) {
+    sf::Vector2f centerPosition = mView.getCenter();
+    if (this->getPosition().y < centerPosition.y) {
+        Statistic::SCREEN_SPEED = Statistic::SCREEN_SPEED_INCREASE;
+    }
+    else {
+        Statistic::SCREEN_SPEED = Statistic::SCREEN_SPEED_DEFAULT;
+    }
+}
+
 unsigned int Character::getCategory() const {
     return Category::Player;
 }
@@ -106,7 +125,7 @@ sf::Vector2f Character::getNextLeftPosition(float x) {
 sf::Vector2f Character::getNextUpPosition(float x) {
     return sf::Vector2f(
         0, -x
-    );sf::FloatRect();
+    );
 }
 
 sf::Vector2f Character::getNextDownPosition(float x) {
@@ -120,7 +139,7 @@ bool Character::move(sf::Time dt, int direction) {
         mInitialPosition = this->getPosition();
         mDirection = direction;
         mCurrentStep += mSpeed;
-        return true;
+        return mIsMoving = true;
     }
     else if (mCurrentStep < (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL)) {
         mCurrentStep += mSpeed;
@@ -136,9 +155,9 @@ bool Character::move(sf::Time dt, int direction) {
         }
         sf::Vector2f newPosition = mInitialPosition + nextPosition;
         setPosition(newPosition);
-        return true;
+        return mIsMoving = true;
     }
-    return false;
+    return mIsMoving = false;
 }
 
 sf::FloatRect Character::getSpriteBounding()

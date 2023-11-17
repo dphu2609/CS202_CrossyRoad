@@ -29,6 +29,7 @@ namespace Statistic
 {
     extern float SCREEN_WIDTH;
     extern float SCREEN_HEIGHT;
+    extern sf::FloatRect SCREEN_BOUNDING;
 
     extern float SCREEN_SPEED;
 
@@ -37,17 +38,29 @@ namespace Statistic
 
     extern int DEFAULT_BLOCK;
     extern int BLOCK_SIZE;
+    extern float SMALL_CAR_LENGTH;
+    extern float SMALL_CAR_HEIGHT;
+    extern float BIG_CAR_LENGTH;
+    extern float BIG_CAR_HEIGHT;
+    extern float TRUCK_CAR_LENGTH;
+    extern float TRUCK_CAR_HEIGHT;
+    extern float TRAIN_LENGTH;
+    extern float TRAIN_HEIGHT;
 
     extern int PLAYER_SCORE;
     extern int PLAYER_SKIN_TYPE;
 
     extern sf::Vector2f CHARACTER_SIZE;
     extern sf::Vector2f CHARACTER_SPAWN_POSITION;
+    extern sf::Vector2f INITIAL_VIEW_POSITION;
+    extern sf::Vector2f RESET_VIEW_POSITION;
 
     extern float CHARACTER_JUMP_DISTANCE_HORIZONTAL;
     extern float CHARACTER_JUMP_DISTANCE_VERTICAL;
 
     extern float SCREEN_SPEED;
+    extern float SCREEN_SPEED_DEFAULT;
+    extern float SCREEN_SPEED_INCREASE;
 };
 
 #endif

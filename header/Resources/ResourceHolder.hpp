@@ -21,6 +21,7 @@ namespace RoadTextures
         TrainLeft,
         TrainRight,
         Road,
+        Rail,
         None
     };
 };

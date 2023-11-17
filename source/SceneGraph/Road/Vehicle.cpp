@@ -32,8 +32,25 @@ RoadTextures::ID toTextureID(Vehicle::Type type) {
 
 Vehicle::Vehicle(Type type, const RoadTextureHolder& textures, int direction)
 : mType(type) , mSprite(textures[toTextureID(type)]), mDirection(direction) {
-    sf::FloatRect bounds = mSprite.getLocalBounds();    
-    this->setScale(Statistic::BLOCK_SIZE / bounds.width, Statistic::BLOCK_SIZE / bounds.height);   //
+    sf::FloatRect bounds = mSprite.getGlobalBounds();    
+    switch (mType) {
+        case SmallCarLeft:
+        case SmallCarRight:
+            this->setScale(Statistic::SMALL_CAR_LENGTH / bounds.width, Statistic::SMALL_CAR_HEIGHT / bounds.height);
+            break;
+        case BigCarLeft:
+        case BigCarRight:
+            this->setScale(Statistic::BIG_CAR_LENGTH / bounds.width, Statistic::BIG_CAR_HEIGHT / bounds.height);
+            break;
+        case TruckLeft:
+        case TruckRight:
+            this->setScale(Statistic::TRUCK_CAR_LENGTH / bounds.width, Statistic::TRUCK_CAR_HEIGHT / bounds.height);
+            break;
+        case TrainLeft:
+        case TrainRight:
+            this->setScale(Statistic::TRAIN_LENGTH / bounds.width, Statistic::TRAIN_HEIGHT / bounds.height);
+            break;
+    }
     bounds = mSprite.getGlobalBounds();  //
     this->setOrigin(bounds.width / 2.f, bounds.height / 2.f);
 }
@@ -97,8 +114,8 @@ sf::FloatRect Vehicle::getGlobalBounds() {
 
 bool Vehicle::isOutOfBound() {
     if (mDirection == -1) {
-        return this->getPosition().x < -Statistic::SCREEN_WIDTH / 2 - Statistic::BLOCK_SIZE * 3;
+        return this->getPosition().x < -Statistic::SCREEN_WIDTH * 2;
     } else {
-        return this->getPosition().x > Statistic::SCREEN_WIDTH / 2 + Statistic::BLOCK_SIZE * 3;
+        return this->getPosition().x > Statistic::SCREEN_WIDTH * 2;
     }
 }
