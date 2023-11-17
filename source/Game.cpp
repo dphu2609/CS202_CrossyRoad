@@ -93,6 +93,7 @@ void Game::processEvents() {
 
 void Game::update(sf::Time dt) {
     mStateStack.update(dt);
+    mMenu.update(dt);
 }
 
 void Game::render() {

@@ -10,7 +10,14 @@ class MainScreen
 {
 public:
     MainScreen();
+    sf::Vector2f posBackGroundLight();
+    sf::Vector2f posBackGroundLight2();
+    void setPosBackgroundLight(sf::Vector2f pos);
+    void setPosBackgroundLight2(sf::Vector2f pos);      
+    bool stateBackgroundLight();  
+    void setBackground(bool isBackgoundLight);  
     int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
+    void update(sf::Time dt);
     void draw(sf::RenderWindow& mWindow);
 private:
     sf::Vector2f pos;
@@ -30,10 +37,15 @@ private:
     sf::RectangleShape settingBound;
     sf::Text instruction;
     sf::RectangleShape instructionBound;
-    sf::Texture background; 
-    sf::Sprite backgroundSprite;
+    sf::Texture backgroundLight; 
+    sf::Sprite backgroundLightSprite;
+    sf::Texture backgroundLight2; 
+    sf::Sprite backgroundLight2Sprite;
 
     vector<Pack> packs;
+    bool lightScreen;
+    sf::Time mTime;
+    sf::Time timePerFrame;
 };
 
 #endif //MAINSCREEN_HPP

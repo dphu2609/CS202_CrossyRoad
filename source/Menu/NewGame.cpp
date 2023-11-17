@@ -9,10 +9,26 @@ NewGame::NewGame()
     modePos=sf::Vector2f(1500.f,300.f);
     sf::FloatRect size;
 
-    background.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains.png");
-    backgroundSprite.setTexture(background);
-    sf::FloatRect sizeThemeOrigin=backgroundSprite.getGlobalBounds();
-    backgroundSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    numImages=16;
+    currentImage=0;
+
+    mTime=sf::Time::Zero;
+    timePerFrame=sf::seconds(60.f/60.f);
+    cTime=sf::Time::Zero;
+    timePerCharacter=sf::seconds(40.f/60.f);
+
+    lightScreen=true;
+
+    backgroundLight.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains_lightened.png");
+    backgroundLightSprite.setTexture(backgroundLight);
+    sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
+    backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+
+    backgroundLight2.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains_lightened.png");
+    backgroundLight2Sprite.setTexture(backgroundLight2);
+    sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
+    backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/font/Alinore.otf");
     colorCharacter=sf::Color::White;
@@ -79,15 +95,17 @@ NewGame::NewGame()
     secondp.setOrigin(size.width/2,size.height/2);
     secondp.setPosition(1062.5,700.f);
 
-    firstPlayer.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/characters/1.png");
-    firstPlayerSprite.setTexture(firstPlayer);
+    setFirstPlayerTexture();
+    //firstPlayer.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/characters/1.png");
+    firstPlayerSprite.setTexture(firstPlayers[0]);
     size=firstPlayerSprite.getGlobalBounds();
     firstPlayerSprite.setOrigin(size.width/2,size.height/2);
     firstPlayerSprite.setPosition(sf::Vector2f(437.5,550.f));
     firstPlayerSprite.setScale(0.6,0.6);
 
-    secondPlayer.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/characters/1.png");
-    secondPlayerSprite.setTexture(secondPlayer);
+    setSecondPlayerTexture();
+    //secondPlayer.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/characters/1.png");
+    secondPlayerSprite.setTexture(secondPlayers[0]);
     size=secondPlayerSprite.getGlobalBounds();
     secondPlayerSprite.setOrigin(size.width/2,size.height/2);
     secondPlayerSprite.setPosition(sf::Vector2f(1062.5,550.f));
@@ -131,6 +149,65 @@ NewGame::NewGame()
     packs.push_back(Pack(twopBound,twop));
     packs.push_back(Pack(playBound,play));
 }
+
+sf::Vector2f NewGame::posBackGroundLight()
+{
+    return backgroundLightSprite.getPosition();
+}
+
+sf::Vector2f NewGame::posBackGroundLight2()
+{
+    return backgroundLight2Sprite.getPosition();
+}
+
+void NewGame::setPosBackgroundLight(sf::Vector2f pos)
+{
+    backgroundLightSprite.setPosition(pos);
+}
+
+void NewGame::setPosBackgroundLight2(sf::Vector2f pos)
+{
+    backgroundLight2Sprite.setPosition(pos);
+} 
+
+bool NewGame::stateBackgroundLight()
+{
+    return lightScreen;
+}  
+
+void NewGame::setBackground(bool isBackgoundLight)
+{
+    if (isBackgoundLight)
+    {
+        backgroundLight.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains_lightened.png");
+        backgroundLight2.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains_lightened.png");
+    }
+    else
+    {
+        backgroundLight.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains.png");
+        backgroundLight2.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains.png");
+    }
+}  
+
+void NewGame::setFirstPlayerTexture()
+{
+    sf::FloatRect size;
+    for(int i=1;i<=numImages;i++)
+    {
+        firstPlayer.loadFromFile(Link(i).getLink());
+        firstPlayers.push_back(firstPlayer);
+    }
+}
+
+void NewGame::setSecondPlayerTexture()
+{
+    sf::FloatRect size;
+    for(int i=1;i<=numImages;i++)
+    {
+        secondPlayer.loadFromFile(Link(i).getLink());
+        secondPlayers.push_back(secondPlayer);
+    }
+}  
 
 int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
@@ -188,9 +265,46 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     return 1;
 }
 
+void NewGame::update(sf::Time dt)
+{
+    mTime+=dt;
+    if(mTime>timePerFrame){
+        if (lightScreen)
+        {
+            backgroundLight.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains.png");
+            backgroundLight2.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains.png");
+        }
+        else
+        {
+            backgroundLight.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains_lightened.png");
+            backgroundLight2.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/background_glacial_mountains_lightened.png");
+        }
+        lightScreen = !lightScreen;
+        mTime=sf::Time::Zero;
+    }
+
+    backgroundLightSprite.setPosition(backgroundLightSprite.getPosition().x-0.5,0.f);
+    backgroundLight2Sprite.setPosition(backgroundLight2Sprite.getPosition().x-0.5,0.f);
+    if(backgroundLight2Sprite.getPosition().x==0.f)
+    {
+        backgroundLightSprite.setPosition(0.f,0.f);
+        backgroundLight2Sprite.setPosition(1920.f,0.f);
+    }
+
+    cTime+=dt;
+    if(cTime>timePerCharacter)
+    {
+        firstPlayerSprite.setTexture(firstPlayers[++currentImage]);
+        secondPlayerSprite.setTexture(secondPlayers[currentImage]);
+        if(currentImage==numImages-1) currentImage=0;
+        cTime=sf::Time::Zero;
+    }
+}
+
 void NewGame::draw(sf::RenderWindow& mWindow)
 {
-    mWindow.draw(backgroundSprite);
+    mWindow.draw(backgroundLightSprite);
+    mWindow.draw(backgroundLight2Sprite);
     mWindow.draw(title);
     mWindow.draw(returnBound);
     mWindow.draw(returnImageSprite);

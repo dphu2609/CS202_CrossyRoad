@@ -23,6 +23,9 @@ private:
     HighScore highscore;
     Setting setting;
     Instruction instruction;
+    sf::Vector2f posBackgroundLight;
+    sf::Vector2f posBackgroundLight2;
+    bool isBackgroundLight;
     bool isPlay;
 };
 
