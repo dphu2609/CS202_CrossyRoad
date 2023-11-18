@@ -8,7 +8,7 @@
 #include <SceneGraph/Character.hpp>
 #include <SceneGraph/Road/Road.hpp>
 #include <SceneGraph/Road/Grass.hpp>
-
+#include <SceneGraph/Road/River.hpp>
 
 class World : private sf::NonCopyable {
 public:

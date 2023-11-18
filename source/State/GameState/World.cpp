@@ -26,6 +26,11 @@ void World::buildScene() {
     
     mRoadSequence.push_back(std::move(grassRoad));
     mSceneLayers[RoadSequence]->attachChild(std::move(mRoadSequence.back()));
+
+    std::shared_ptr<River> riverRoad(std::make_shared<River>());
+    riverRoad->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::SCREEN_HEIGHT - 60 + 70);
+    // mRoadSequence.push_back(std::move(riverRoad));
+    mSceneLayers[RoadSequence]->attachChild(std::move(riverRoad));
 }
 
 void World::update(sf::Time dt) {

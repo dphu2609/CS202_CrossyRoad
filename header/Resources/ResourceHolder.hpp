@@ -13,6 +13,9 @@ namespace RoadTextures
         Rock,
         Bush,
         None,
+        Wood,
+        UniformWater,
+        AccelerateWater
     };
 };
 

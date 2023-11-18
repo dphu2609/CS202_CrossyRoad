@@ -46,6 +46,13 @@ namespace Statistic
     extern sf::Vector2f CHARACTER_SPAWN_POSITION;
     extern float CHARACTER_JUMP_DISTANCE_HORIZONTAL;
     extern float CHARACTER_JUMP_DISTANCE_VERTICAL;
+
+    extern sf::Vector2f MAX_RIVER_SPEED;
+    extern sf::Vector2f MIN_RIVER_SPEED;
+    extern sf::Vector2f ADDING_RIVER_SPEED; 
+    extern float MINIMUM_WOOD_LENGTH;
+
+    extern float WOOD_HEIGHT;
 };
 
 #endif
