@@ -71,6 +71,8 @@ NewGame::NewGame()
     twop.setFillColor(colorCharacter);
     twop.setPosition(1770.f,50.f);
 
+    numPlayer=1;
+
     firstpBound.setSize(sf::Vector2f(sizeBound.x*5.75,sizeBound.y));
     firstpBound.setFillColor(colorBound);
     firstpBound.setPosition(150.f,700.f);
@@ -111,6 +113,8 @@ NewGame::NewGame()
     secondPlayerSprite.setPosition(sf::Vector2f(1062.5,550.f));
     secondPlayerSprite.setScale(0.6,0.6);
 
+    changeToOnePlayer();
+
     easy.setString("Easy");
     easy.setFont(_font);
     easy.setCharacterSize(sizeCharacter);
@@ -135,6 +139,15 @@ NewGame::NewGame()
     extreme.setFillColor(colorCharacter);
     extreme.setPosition(sf::Vector2f(modePos.x,modePos.y+300));
 
+    modePos.y=320.f;
+    circles.resize(4);
+    for(int i=0;i<4;i++)
+    {
+        circles[i].setPosition(modePos.x+300,modePos.y+i*100);
+    }
+    modeSwitch=0;
+    circles[0].changeToDark();
+
     playBound.setSize(sf::Vector2f(sizeBound.x*2,sizeBound.y));
     playBound.setFillColor(colorBound);
     playBound.setPosition(1500.f,800.f);
@@ -147,7 +160,7 @@ NewGame::NewGame()
 
     packs.push_back(Pack(onepBound,onep));
     packs.push_back(Pack(twopBound,twop));
-    packs.push_back(Pack(playBound,play));
+    //packs.push_back(Pack(playBound,play));
 }
 
 sf::Vector2f NewGame::posBackGroundLight()
@@ -209,6 +222,26 @@ void NewGame::setSecondPlayerTexture()
     }
 }  
 
+void NewGame::changeToOnePlayer()
+{
+    numPlayer=1;
+    firstpBound.setPosition(462.5,700.f);
+    firstp.setPosition(750.f,700.f);
+    firstPlayerSprite.setPosition(sf::Vector2f(750.f,550.f));
+    onep.setFillColor(sf::Color::Magenta);
+    twop.setFillColor(sf::Color::White);
+}
+
+void NewGame::changeToTwoPlayer()
+{
+    numPlayer=2;
+    firstpBound.setPosition(150.f,700.f);
+    firstp.setPosition(437.5,700.f);
+    firstPlayerSprite.setPosition(sf::Vector2f(437.5,550.f));
+    onep.setFillColor(sf::Color::White);
+    twop.setFillColor(sf::Color::Magenta);
+}
+
 int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
     sf::Vector2i mousePosition=sf::Mouse::getPosition(mWindow);
@@ -220,14 +253,22 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
         if(isMouseOn)
         {
+            if(i==0) onep.setFillColor(sf::Color::Magenta);
+            else if(i==1) twop.setFillColor(sf::Color::Magenta); 
             if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
             {
-
+                numPlayer=i+1;
+                if(numPlayer==1) changeToOnePlayer();
+                else changeToTwoPlayer();
             }
         }
         else
         {
-
+            if(i+1!=numPlayer)
+            {
+                if(i==0) onep.setFillColor(sf::Color::White);
+                else if(i==1) twop.setFillColor(sf::Color::White); 
+            }
         }
     }
     
@@ -249,19 +290,46 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 
     }
 
-    recBound=playBound.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    for(int i=0;i<4;i++)
     {
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        recBound = circles[i].getGlobalBounds();
+        isMouseOn = recBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+        if (isMouseOn)
         {
+            circles[i].changeToDark();
+            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+            {
+                modeSwitch=i;
+            }
+        }
+        else
+        {
+            if(i!=modeSwitch)
+            {
+                circles[i].changeToLight();
+            }
+        }
+    }
+
+    recBound = playBound.getGlobalBounds();
+    isMouseOn = recBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+    if (isMouseOn)
+    {
+        play.setScale(1.2,1.2);
+        play.setFillColor(sf::Color::Blue);
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+        {
+            play.setScale(1,1);
+            play.setFillColor(sf::Color::White);
             return 5;
         }
     }
     else
     {
-
+        play.setScale(1,1);
+        play.setFillColor(sf::Color::White);
     }
+
     return 1;
 }
 
@@ -314,15 +382,25 @@ void NewGame::draw(sf::RenderWindow& mWindow)
     mWindow.draw(twop);
     mWindow.draw(firstpBound);
     mWindow.draw(firstp);
-    mWindow.draw(secondpBound);
-    mWindow.draw(secondp);
+    if(numPlayer==2)
+    {
+        mWindow.draw(secondpBound);
+        mWindow.draw(secondp);
+    }
     mWindow.draw(firstPlayerSprite);
     //first.draw(mWindow);
-    mWindow.draw(secondPlayerSprite);
+    if(numPlayer==2)
+    {
+        mWindow.draw(secondPlayerSprite);
+    }
     mWindow.draw(easy);
     mWindow.draw(medium);
     mWindow.draw(hard);
     mWindow.draw(extreme);
+    for(int i=0;i<circles.size();i++)
+    {
+        circles[i].draw(mWindow);
+    }
     mWindow.draw(playBound);
     mWindow.draw(play);
 }

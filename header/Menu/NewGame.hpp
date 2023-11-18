@@ -20,7 +20,9 @@ public:
     bool stateBackgroundLight();  
     void setBackground(bool isBackgoundLight);
     void setFirstPlayerTexture();
-    void setSecondPlayerTexture();  
+    void setSecondPlayerTexture();
+    void changeToOnePlayer();
+    void changeToTwoPlayer();  
 
     int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
     void update(sf::Time dt);
@@ -55,6 +57,7 @@ private:
     sf::RectangleShape secondpRightBound;
     sf::Texture secondpRight;
 
+    int numPlayer;
     int numImages;
     int currentImage;
     sf::Texture firstPlayer;
@@ -68,10 +71,10 @@ private:
     sf::Text medium;
     sf::Text hard;
     sf::Text extreme;
-    sf::Texture easyCircle;
-    sf::Texture mediumCircle;
-    sf::Texture hardCircle;
-    sf::Texture extremeCircle;
+    
+    vector<Circle> circles;
+    int modeSwitch;
+
     sf::RectangleShape playBound;
     sf::Text play;
     sf::Texture backgroundLight; 

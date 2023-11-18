@@ -84,6 +84,7 @@ void Game::processEvents() {
         else 
         {
             mStateStack.handleEvent(event);
+            if(event.type==sf::Event::KeyPressed&&event.key.code==sf::Keyboard::F10) mMenu.returnFromEscapeKey();
         }
         if (event.type == sf::Event::Closed) {
             mWindow.close();

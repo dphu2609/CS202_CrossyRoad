@@ -14,6 +14,11 @@ bool Menu::playState()
     return isPlay;
 }
 
+void Menu::returnFromEscapeKey()
+{
+    isPlay=false;
+}
+
 void Menu::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
     if(isPlay==false){

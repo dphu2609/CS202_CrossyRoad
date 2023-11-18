@@ -12,10 +12,29 @@ public:
     Pack();
     Pack(sf::RectangleShape& bound,sf::Text& text);
     sf::FloatRect getGlobalBounds();
-    void setCharacterSize(int size);
 private:
     sf::RectangleShape bound;
     sf::Text text;
+};
+
+class Circle
+{
+public:
+    Circle();
+
+    sf::FloatRect getGlobalBounds();
+    // void setOrigin(float x,float y);
+    void setPosition(float x,float y);
+    // void setScale(float x,float y);
+    void changeToDark();
+    void changeToLight();
+
+    void draw(sf::RenderWindow& mWindow);
+private:
+    sf::Texture circleImage;
+    sf::Sprite circleImageSprite;
+    sf::CircleShape circle;
+    bool isCircleLight;
 };
 
 class Link
