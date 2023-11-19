@@ -1,7 +1,7 @@
 #include <Game.hpp>
 
 Game::Game() : mWindow(sf::VideoMode(Statistic::SCREEN_WIDTH, Statistic::SCREEN_HEIGHT), "Crossy Road")
-, mStateStack(mWindow) {
+/*, mStateStack(mWindow)*/ {
     loadTextures();
 }
 
@@ -53,12 +53,12 @@ void Game::loadTextures() {
 }
 
 void Game::registerStates() {
-    mStateStack.registerState<GameState>(States::Game);
+    //mStateStack.registerState<GameState>(States::Game);
 }
 
 void Game::run() {
     registerStates();
-    mStateStack.pushState(States::Game);
+    //mStateStack.pushState(States::Game);
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
@@ -83,7 +83,7 @@ void Game::processEvents() {
         }
         else 
         {
-            mStateStack.handleEvent(event);
+            //mStateStack.handleEvent(event);
             if(event.type==sf::Event::KeyPressed&&event.key.code==sf::Keyboard::F10) mMenu.returnFromEscapeKey();
         }
         if (event.type == sf::Event::Closed) {
@@ -93,7 +93,7 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time dt) {
-    mStateStack.update(dt);
+    //mStateStack.update(dt);
     mMenu.update(dt);
 }
 
@@ -105,7 +105,7 @@ void Game::render() {
     }
     else 
     {
-        mStateStack.draw();
+        //mStateStack.draw();
     }
     mWindow.display();
 }

@@ -22,7 +22,7 @@ private:
     void registerStates();
 private:
     sf::RenderWindow mWindow;
-    StateStack mStateStack;
+    //StateStack mStateStack;
     Menu mMenu;
 };
 

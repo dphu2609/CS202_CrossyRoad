@@ -60,6 +60,20 @@ Instruction::Instruction()
     size=part.getGlobalBounds();
     part.setOrigin(size.width/2,size.height/2);
     part.setPosition(960.f,880.f);
+
+    left.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Backward1.png");
+    leftSprite.setTexture(left);
+    size=leftSprite.getGlobalBounds();
+    leftSprite.setOrigin(size.width/2,size.height/2);
+    leftSprite.setPosition(sf::Vector2f(860.f,915.f));
+    leftSprite.setScale(220.f/size.width,220.f/size.height);
+
+    right.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Forward1.png");
+    rightSprite.setTexture(right);
+    size=rightSprite.getGlobalBounds();
+    rightSprite.setOrigin(size.width/2,size.height/2);
+    rightSprite.setPosition(sf::Vector2f(1060.f,915.f));
+    rightSprite.setScale(220.f/size.width,220.f/size.height);
 }
 
 sf::Vector2f Instruction::posBackGroundLight()
@@ -156,6 +170,8 @@ void Instruction::draw(sf::RenderWindow& mWindow)
     mWindow.draw(title);
     mWindow.draw(bound);
     mWindow.draw(part);
+    mWindow.draw(leftSprite);
+    mWindow.draw(rightSprite);
     mWindow.draw(returnBound);
     mWindow.draw(returnImageSprite);
 }
