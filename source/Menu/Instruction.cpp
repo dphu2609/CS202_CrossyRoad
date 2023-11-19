@@ -72,7 +72,7 @@ Instruction::Instruction()
     rightSprite.setTexture(right);
     size=rightSprite.getGlobalBounds();
     rightSprite.setOrigin(size.width/2,size.height/2);
-    rightSprite.setPosition(sf::Vector2f(1060.f,915.f));
+    rightSprite.setPosition(sf::Vector2f(1070.f,915.f));
     rightSprite.setScale(220.f/size.width,220.f/size.height);
 }
 
@@ -134,6 +134,37 @@ int Instruction::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Back1.png");
         returnImageSprite.setTexture(returnImage);
     }
+
+    recBound=leftSprite.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        left.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Backward2.png");
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            
+        }
+    }
+    else
+    {
+        left.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Backward1.png");
+    }
+
+    recBound=rightSprite.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        right.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Forward2.png");
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            
+        }
+    }
+    else
+    {
+        right.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Forward1.png");
+    }
+
     return 4;
 }
 
