@@ -2,17 +2,22 @@
 #define INSTRUCTION_HPP
 
 #include <SFML/Graphics.hpp>
+#include <Menu/Element.hpp>
 
 class Instruction
 {
 public:
     Instruction();
+
     sf::Vector2f posBackGroundLight();
     sf::Vector2f posBackGroundLight2();
     void setPosBackgroundLight(sf::Vector2f pos);
     void setPosBackgroundLight2(sf::Vector2f pos);
     bool stateBackgroundLight();  
-    void setBackground(bool isBackgoundLight);  
+    void setBackground(bool isBackgoundLight);
+    void previous();
+    void next();  
+
     int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
     void update(sf::Time dt);
     void draw(sf::RenderWindow& mWindow);
@@ -30,10 +35,8 @@ private:
     sf::Sprite returnImageSprite;
     sf::RectangleShape bound;
     sf::Text part;
-    sf::Texture left;
-    sf::Sprite leftSprite;
-    sf::Texture right;
-    sf::Sprite rightSprite;
+    Triangle left;
+    Triangle right;
     sf::Texture backgroundLight; 
     sf::Sprite backgroundLightSprite;
     sf::Texture backgroundLight2; 

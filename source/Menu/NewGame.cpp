@@ -143,7 +143,7 @@ NewGame::NewGame()
     circles.resize(4);
     for(int i=0;i<4;i++)
     {
-        circles[i].setPosition(modePos.x+300,modePos.y+i*100);
+        circles[i].setPosition(modePos.x+300,modePos.y+i*100+50.f);
     }
     modeSwitch=0;
     circles[0].changeToDark();

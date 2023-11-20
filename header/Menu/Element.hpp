@@ -37,6 +37,24 @@ private:
     bool isCircleLight;
 };
 
+class Triangle
+{
+public:
+    Triangle();
+
+    void setPosition(float x,float y);
+    void rotate(float x);
+    sf::FloatRect getGlobalBounds();
+    void changeToDark();
+    void changeToLight();
+
+    void draw(sf::RenderWindow& mWindow);
+private:
+    sf::RectangleShape bound;
+    sf::Texture triangle;
+    sf::Sprite triangleSprite;
+};
+
 class Link
 {
 public:

@@ -1,5 +1,6 @@
 #include <Menu/Instruction.hpp>
-
+#include <iostream>
+using namespace std;
 Instruction::Instruction()
 {
     colorBound=sf::Color::Transparent;
@@ -61,19 +62,9 @@ Instruction::Instruction()
     part.setOrigin(size.width/2,size.height/2);
     part.setPosition(960.f,880.f);
 
-    left.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Backward1.png");
-    leftSprite.setTexture(left);
-    size=leftSprite.getGlobalBounds();
-    leftSprite.setOrigin(size.width/2,size.height/2);
-    leftSprite.setPosition(sf::Vector2f(860.f,915.f));
-    leftSprite.setScale(220.f/size.width,220.f/size.height);
-
-    right.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Forward1.png");
-    rightSprite.setTexture(right);
-    size=rightSprite.getGlobalBounds();
-    rightSprite.setOrigin(size.width/2,size.height/2);
-    rightSprite.setPosition(sf::Vector2f(1070.f,915.f));
-    rightSprite.setScale(220.f/size.width,220.f/size.height);
+    left.setPosition(860.f,915.f);
+    right.setPosition(1070.f,915.f);
+    right.rotate(180.f);
 }
 
 sf::Vector2f Instruction::posBackGroundLight()
@@ -99,6 +90,26 @@ void Instruction::setPosBackgroundLight2(sf::Vector2f pos)
 bool Instruction::stateBackgroundLight()
 {
     return lightScreen;
+}  
+
+void Instruction::previous()
+{
+    string tmp=part.getString();
+    int current=tmp[0]-'0';
+    tmp.erase(tmp.begin());
+    if(current>1) --current;
+    tmp=to_string(current)+tmp;
+    part.setString(tmp);
+}
+
+void Instruction::next()
+{
+    string tmp=part.getString();
+    int current=tmp[0]-'0';
+    tmp.erase(tmp.begin());
+    if(current<4) ++current;
+    tmp=to_string(current)+tmp;
+    part.setString(tmp);
 }  
 
 void Instruction::setBackground(bool isBackgoundLight)
@@ -135,34 +146,34 @@ int Instruction::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         returnImageSprite.setTexture(returnImage);
     }
 
-    recBound=leftSprite.getGlobalBounds();
+    recBound=left.getGlobalBounds();
     isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
     if(isMouseOn)
     {
-        left.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Backward2.png");
+        left.changeToDark();
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
-            
+            previous();
         }
     }
     else
     {
-        left.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Backward1.png");
+        left.changeToLight();
     }
 
-    recBound=rightSprite.getGlobalBounds();
+    recBound=right.getGlobalBounds();
     isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
     if(isMouseOn)
     {
-        right.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Forward2.png");
+        right.changeToDark();
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
-            
+            next();
         }
     }
     else
     {
-        right.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Forward1.png");
+        right.changeToLight();
     }
 
     return 4;
@@ -201,8 +212,8 @@ void Instruction::draw(sf::RenderWindow& mWindow)
     mWindow.draw(title);
     mWindow.draw(bound);
     mWindow.draw(part);
-    mWindow.draw(leftSprite);
-    mWindow.draw(rightSprite);
+    left.draw(mWindow);
+    right.draw(mWindow);
     mWindow.draw(returnBound);
     mWindow.draw(returnImageSprite);
 }
