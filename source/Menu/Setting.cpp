@@ -83,9 +83,11 @@ Setting::Setting()
     music.setOrigin(size.width/2,size.height/2);
     music.setPosition(535.f,630.f);
 
-    musicBar.setSize(sf::Vector2f(sizeBound.x*8,sizeBound.y));
+    musicBar.setSize(sf::Vector2f(sizeBound.x*6,sizeBound.y*0.7));
     musicBar.setFillColor(colorBound);
-    musicBar.setPosition(820.f,630.f);
+    musicBar.setOutlineThickness(5.f);
+    musicBar.setOutlineColor(sf::Color::Green);
+    musicBar.setPosition(920.f,630.f);
 
     soundBound.setSize(sf::Vector2f(sizeBound.x*4.7,sizeBound.y));
     soundBound.setFillColor(colorBound);
@@ -99,9 +101,11 @@ Setting::Setting()
     sound.setOrigin(size.width/2,size.height/2);
     sound.setPosition(535.f,780.f);
 
-    soundBar.setSize(sf::Vector2f(sizeBound.x*8,sizeBound.y));
+    soundBar.setSize(sf::Vector2f(sizeBound.x*6,sizeBound.y*0.7));
     soundBar.setFillColor(colorBound);
-    soundBar.setPosition(820.f,780.f);
+    soundBar.setOutlineThickness(5.f);
+    soundBar.setOutlineColor(sf::Color::Green);
+    soundBar.setPosition(920.f,780.f);
 
     packs.push_back(Pack(resetBound,reset));
     packs.push_back(Pack(saveBound,save));
