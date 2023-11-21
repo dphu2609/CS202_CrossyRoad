@@ -13,9 +13,10 @@ void RiverArea::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) c
     target.draw(mSprite, states);
 }
 
-void RiverArea::accelerate(Wood& wood)
+void RiverArea::accelerate(Wood*& wood, sf::Time dt)
 {
-    std::cout << waterSpeed.x << std::endl;
+   sf::Vector2f distance = dt.asSeconds() * waterSpeed;
+   wood->move((float)direction * distance);
 }
 
 

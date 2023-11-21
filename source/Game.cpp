@@ -51,6 +51,7 @@ void Game::loadTextures() {
     Resources::roadTextures.load(RoadTextures::None, "../media/images/road/none1.png");
     Resources::roadTextures.load(RoadTextures::UniformWater, "../media/images/road/uniform.png");
     Resources::roadTextures.load(RoadTextures::AccelerateWater, "../media/images/road/accelerate.png");
+    Resources::roadTextures.load(RoadTextures::Wood, "../media/images/road/wood.jpg");
 }
 
 void Game::registerStates() {

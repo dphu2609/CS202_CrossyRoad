@@ -1,7 +1,10 @@
 #include <SceneGraph/Road/River.hpp>
+#include <random>
 
 River::River() 
 : areas(3)
+,currentArea(1)
+,spawnTime(sf::seconds(2.5f))
 {
     for(int i = 0; i < Count; i++)
     {
@@ -19,7 +22,7 @@ River::River()
     area2->setPosition(0.f, 0.f);
     area3->setPosition(Statistic::ROAD_WIDTH / 4 + Statistic::ROAD_WIDTH / 8, 0.f);
 
-    int direction = rand() % 1 ? 1 : -1;
+    direction = (rand() % 2) ? 1 : -1;
     int speed = Statistic::MIN_RIVER_SPEED.x + rand() % (int)(Statistic::MAX_RIVER_SPEED.x - Statistic::MIN_RIVER_SPEED.x);
 
     area1->setDirection(direction);
@@ -40,7 +43,46 @@ void River::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const
 {
    
 }
-void River::updateCurrent(sf::Time dt)
+void River::updateCurrent(sf::Time dt, CommandQueue& commands)
 {
+    spawnWood();
+    removeWood();
+    for(auto& wood : woods)
+    {
+        areas[currentArea]->accelerate(wood, dt);
+    }
+}
 
+void River::spawnWood()
+{
+    if(spawnClock.getElapsedTime() > spawnTime || woods.size() == 0)
+    {
+        std::shared_ptr<Wood> wood(std::make_shared<Wood>(Resources::roadTextures, Statistic::MAXIMUM_WOOD_LENGTH));
+        if(direction == 1)
+            wood->setPosition(-1.f * Statistic::ROAD_WIDTH / 2 - (Statistic::MINIMUM_WOOD_LENGTH + Statistic::MAXIMUM_WOOD_LENGTH) / 2, 0);
+        else
+            wood->setPosition(Statistic::ROAD_WIDTH / 2 + (Statistic::MINIMUM_WOOD_LENGTH + Statistic::MAXIMUM_WOOD_LENGTH) / 2, 0);
+        woods.push_back(wood.get());
+        mSceneLayers[WoodLayer]->attachChild(std::move(wood));
+        spawnClock.restart();
+    }
+}
+
+void River::removeWood()
+{
+    if(woods.size() == 0)
+        return;
+
+    if(woods[0]->getPosition().x > Statistic::ROAD_WIDTH / 2 + (Statistic::MINIMUM_WOOD_LENGTH + Statistic::MAXIMUM_WOOD_LENGTH) / 2 || woods[0]->getPosition().x < -1.f * Statistic::ROAD_WIDTH / 2 - (Statistic::MINIMUM_WOOD_LENGTH + Statistic::MAXIMUM_WOOD_LENGTH) / 2)
+    {
+        mSceneLayers[WoodLayer]->detachChild(*woods[0]);
+        woods.erase(woods.begin());
+    }
+
+    std::cout << woods.size() << std::endl;
+}
+
+void River::woodMove()
+{
+   
 }

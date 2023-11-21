@@ -42,10 +42,11 @@ namespace Statistic {
     float CHARACTER_JUMP_DISTANCE_VERTICAL = 70;
 
     float MINIMUM_WOOD_LENGTH = 100;
+    float MAXIMUM_WOOD_LENGTH = 300;
 
-    sf::Vector2f MAX_RIVER_SPEED = sf::Vector2f(100, 0);
-    sf::Vector2f MIN_RIVER_SPEED = sf::Vector2f(30, 0);
-    sf::Vector2f ADDING_RIVER_SPEED = sf::Vector2f(20, 0);
+    sf::Vector2f MAX_RIVER_SPEED = sf::Vector2f(300, 0);
+    sf::Vector2f MIN_RIVER_SPEED = sf::Vector2f(200, 0);
+    sf::Vector2f ADDING_RIVER_SPEED = sf::Vector2f(100, 0);
 
     float WOOD_HEIGHT = 50;
 };

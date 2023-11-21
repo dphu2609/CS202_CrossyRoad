@@ -24,7 +24,7 @@ class RiverArea : public SceneNode
     public:
     RiverArea(Type type, const RoadTextureHolder& textures); 
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const; 
-    void accelerate(Wood& wood);
+    void accelerate(Wood*& wood, sf::Time dt);
     sf::FloatRect getSpriteBounds() const { return mSprite.getGlobalBounds(); }
     sf::FloatRect getBoundingRect() const { return getWorldTransform().transformRect(mSprite.getGlobalBounds());}
     void setDirection(int dir) { direction = dir; }

@@ -26,12 +26,20 @@ private:
     int currentArea;
     int direction;
     sf::Time spawnTime;
+    sf::Clock spawnClock;
 private:
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
-    virtual void updateCurrent(sf::Time dt);
+    virtual void updateCurrent(sf::Time dt,CommandQueue& commands);
+    void spawnWood();
+    void removeWood();
+    void woodMove();
 public:
     River();
 };
+
+
+
+
 
 
 

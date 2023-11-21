@@ -51,6 +51,7 @@ namespace Statistic
     extern sf::Vector2f MIN_RIVER_SPEED;
     extern sf::Vector2f ADDING_RIVER_SPEED; 
     extern float MINIMUM_WOOD_LENGTH;
+    extern float MAXIMUM_WOOD_LENGTH;
 
     extern float WOOD_HEIGHT;
 };

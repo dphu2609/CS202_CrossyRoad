@@ -68,3 +68,14 @@ sf::FloatRect SceneNode::getBoundingRect() const
 {
 	return sf::FloatRect();
 }
+
+SceneNode::Ptr SceneNode::detachChild(const SceneNode& node)
+{
+	auto found = std::find_if(mChildren.begin(), mChildren.end(), [&] (Ptr& p) { return p.get() == &node; });
+	assert(found != mChildren.end());
+
+	Ptr result = std::move(*found);
+	result->mParent = nullptr;
+	mChildren.erase(found);
+	return result;
+}
