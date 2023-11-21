@@ -3,7 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <bits/stdc++.h>
-#include <SceneGraph/SceneNode.hpp>
+#include <SceneGraph/Road/Road.hpp>
 #include <GlobalVar.hpp>
 #include <Resources/ResourceHolder.hpp>
 #include <SceneGraph/Road/RiverArea.hpp>
@@ -12,7 +12,7 @@ typedef ResourceHolder<sf::Texture, RoadTextures::ID> RoadTextureHolder;
 
 RoadTextures::ID toTextureID(RiverArea::Type type);
 float toRiverLength(RiverArea::Type type);
-class River : public SceneNode {
+class River : public Road {
 private:
     enum Layer
     {

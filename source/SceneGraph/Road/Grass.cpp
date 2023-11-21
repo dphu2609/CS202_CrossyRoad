@@ -29,7 +29,7 @@ Grass::Grass()
     // mGrass.setScale(1, 1);
     // mGrass.setPosition(Statistic::ROAD_WIDTH / 2, Statistic::SCREEN_HEIGHT - 100);
     Resources::roadTextures[RoadTextures::Grass].setRepeated(true);
-    // randomBlock();
+    randomBlock();
     // for (auto &block : mBlocks) {
     //     this->attachChild(block);
     // }
@@ -88,7 +88,7 @@ void Grass::randomBlock()
                 // mBlocks[i] = std::make_shared<Block>(Block::Type::None, Resources::roadTextures);
             std::shared_ptr<Block> temp(std::make_shared<Block>(Block::None, Resources::roadTextures));
               mBlocks[i] = temp.get(); //
-            this->attachChild(std::move(temp)); //
+            this->attachChild(std::move(temp)); //S
             
             }
             mBlocks[i]->setScale(Statistic::BLOCK_SIZE / mBlocks[i]->getSpriteBounds().width, Statistic::BLOCK_SIZE / mBlocks[i]->getSpriteBounds().height);

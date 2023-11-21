@@ -12,10 +12,20 @@ namespace RoadTextures
         Tree,
         Rock,
         Bush,
-        None,
         Wood,
         UniformWater,
-        AccelerateWater
+        AccelerateWater,
+        SmallCarLeft,
+        SmallCarRight,
+        BigCarLeft,
+        BigCarRight,
+        TruckLeft,
+        TruckRight,
+        TrainLeft,
+        TrainRight,
+        Road,
+        Rail,
+        None
     };
 };
 

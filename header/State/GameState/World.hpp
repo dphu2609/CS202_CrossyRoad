@@ -9,11 +9,15 @@
 #include <SceneGraph/Road/Road.hpp>
 #include <SceneGraph/Road/Grass.hpp>
 #include <SceneGraph/Road/River.hpp>
+#include <SceneGraph/Road/VehicleLane.hpp>
+#include <SceneGraph/Road/RoadSequence.hpp>
+
 
 class World : private sf::NonCopyable {
 public:
     explicit World(sf::RenderWindow &window);
     void update(sf::Time dt);
+    void updateWorldView(sf::Time dt);
     void draw();
     void handleEvent(sf::Event &event);
     CommandQueue &getCommandQueue();
@@ -21,7 +25,7 @@ private:
     void buildScene();
 private:
     enum Layer {
-        RoadSequence,
+        RoadLayer,
         CharacterLayer,
         GrassLayer,
         LayerCount
@@ -34,16 +38,6 @@ private:
     CommandQueue mCommandQueue;
 private:
     sf::FloatRect mWorldBounds;
-private:
-    int mPlayerIndex;
-    std::vector<std::shared_ptr<Road>> mRoadSequence;
-private:
-    void initRoadSequence();
-    void initCharacter(); // use these 2 functions in buildScene()
-
-    void addRoad(); // use when player move to next road
-    void removeRoad(); // use when road is out of screen
-
 private:
     void loadGame();
     void saveGame();

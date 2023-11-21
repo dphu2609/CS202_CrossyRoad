@@ -78,8 +78,6 @@ void River::removeWood()
         mSceneLayers[WoodLayer]->detachChild(*woods[0]);
         woods.erase(woods.begin());
     }
-
-    std::cout << woods.size() << std::endl;
 }
 
 void River::woodMove()
