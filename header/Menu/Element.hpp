@@ -55,6 +55,24 @@ private:
     sf::Sprite triangleSprite;
 };
 
+class HalfCircle
+{
+public:
+    HalfCircle();
+
+    void setPosition(float x,float y);
+    void rotate(float x);
+    sf::FloatRect getGlobalBounds();
+    void changeToDark();
+    void changeToLight();
+
+    void draw(sf::RenderWindow& mWindow);
+private:
+    sf::RectangleShape bound;
+    sf::Texture halfcircle;
+    sf::Sprite halfcircleSprite;
+};
+
 class Link
 {
 public:

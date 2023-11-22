@@ -38,12 +38,18 @@ private:
     sf::RectangleShape saveBound;
     sf::Text onep;
     sf::Text twop;
+
     sf::Text music;
     sf::RectangleShape musicBound;
     sf::RectangleShape musicBar;
     sf::Text sound;
     sf::RectangleShape soundBound;
     sf::RectangleShape soundBar;
+    Triangle musicIncrease;
+    Triangle musicDecrease;
+    Triangle soundIncrease;
+    Triangle soundDecrease;
+
     sf::Texture backgroundLight; 
     sf::Sprite backgroundLightSprite;
     sf::Texture backgroundLight2; 

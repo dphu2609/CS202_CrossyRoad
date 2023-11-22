@@ -89,6 +89,10 @@ Setting::Setting()
     musicBar.setOutlineColor(sf::Color::Green);
     musicBar.setPosition(920.f,630.f);
 
+    musicIncrease.setPosition(1584.f,665.f);
+    musicDecrease.setPosition(854.f,665.f);
+    musicIncrease.rotate(180.f);
+
     soundBound.setSize(sf::Vector2f(sizeBound.x*4.7,sizeBound.y));
     soundBound.setFillColor(colorBound);
     soundBound.setPosition(300.f,780.f);
@@ -106,6 +110,10 @@ Setting::Setting()
     soundBar.setOutlineThickness(5.f);
     soundBar.setOutlineColor(sf::Color::Green);
     soundBar.setPosition(920.f,780.f);
+
+    soundIncrease.setPosition(1584.f,815.f);
+    soundDecrease.setPosition(854.f,815.f);
+    soundIncrease.rotate(180.f);
 
     packs.push_back(Pack(resetBound,reset));
     packs.push_back(Pack(saveBound,save));
@@ -171,6 +179,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 
         }
     }
+
     sf::FloatRect recBound=returnBound.getGlobalBounds();
     bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
     if(isMouseOn)
@@ -187,6 +196,67 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Back1.png");
         returnImageSprite.setTexture(returnImage);
     }
+
+    recBound=musicIncrease.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        musicIncrease.changeToDark();
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            
+        }
+    }
+    else
+    {
+        musicIncrease.changeToLight();
+    }
+
+    recBound=musicDecrease.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        musicDecrease.changeToDark();
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            
+        }
+    }
+    else
+    {
+        musicDecrease.changeToLight();
+    }
+
+    recBound=soundIncrease.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        soundIncrease.changeToDark();
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            
+        }
+    }
+    else
+    {
+        soundIncrease.changeToLight();
+    }
+
+    recBound=soundDecrease.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        soundDecrease.changeToDark();
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            
+        }
+    }
+    else
+    {
+        soundDecrease.changeToLight();
+    }
+
     return 3;
 }
 
@@ -227,9 +297,14 @@ void Setting::draw(sf::RenderWindow& mWindow)
     mWindow.draw(musicBound);
     mWindow.draw(music);
     mWindow.draw(musicBar);
+    musicIncrease.draw(mWindow);
+    musicDecrease.draw(mWindow);
     mWindow.draw(soundBound);
     mWindow.draw(sound);
     mWindow.draw(soundBar);
+    soundIncrease.draw(mWindow);
+    soundDecrease.draw(mWindow);
+
     mWindow.draw(resetBound);
     mWindow.draw(reset);
     mWindow.draw(saveBound);

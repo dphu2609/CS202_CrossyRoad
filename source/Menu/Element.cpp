@@ -105,6 +105,51 @@ void Triangle::draw(sf::RenderWindow& mWindow)
     mWindow.draw(triangleSprite);
 }
 
+HalfCircle::HalfCircle()
+{
+    halfcircle.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Increase2.png");
+    halfcircleSprite.setTexture(halfcircle);
+    sf::FloatRect size=halfcircleSprite.getGlobalBounds();
+    halfcircleSprite.setOrigin(size.width/2,size.height/2);
+    halfcircleSprite.setScale(220.f/size.width,220.f/size.height);
+
+    bound.setSize(sf::Vector2f(70.f,70.f));
+    bound.setFillColor(sf::Color::Transparent);
+    size=bound.getLocalBounds();
+    bound.setOrigin(size.width/2,size.height/2);
+}
+
+void HalfCircle::setPosition(float x,float y)
+{
+    bound.setPosition(x,y);
+    halfcircleSprite.setPosition(x,y);
+}
+
+void HalfCircle::rotate(float x)
+{
+    halfcircleSprite.rotate(x);
+}
+
+sf::FloatRect HalfCircle::getGlobalBounds()
+{
+    return bound.getGlobalBounds();
+}
+
+void HalfCircle::changeToDark()
+{
+    halfcircle.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Increase2.png");
+}
+void HalfCircle::changeToLight()
+{
+    halfcircle.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Increase1.png");
+}
+
+void HalfCircle::draw(sf::RenderWindow& mWindow)
+{
+    mWindow.draw(bound);
+    mWindow.draw(halfcircleSprite);
+}
+
 Link::Link(int x)
 {
     s="D:/GitHub/CS202_CrossyRoad/media/images/characters/"+to_string(x)+".png";
