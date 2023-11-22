@@ -22,6 +22,7 @@ namespace Statistic {
     float SCREEN_WIDTH = 1920;
     float SCREEN_HEIGHT = 1080;
     sf::FloatRect SCREEN_BOUNDING = sf::FloatRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT * 2);
+    sf::Vector2f INITIAL_ROAD_SEQUENCE_POSITION = sf::Vector2f(Statistic::ROAD_WIDTH / 2 - 40, Statistic::CHARACTER_SPAWN_POSITION.y + Statistic::ROAD_HEIGHT * 5);
 
     float ROAD_WIDTH = 2000;
     float ROAD_HEIGHT = 70;
@@ -42,7 +43,7 @@ namespace Statistic {
     int PLAYER_SKIN_TYPE = 0;
 
     sf::Vector2f CHARACTER_SIZE = sf::Vector2f(50, 70);
-    sf::Vector2f CHARACTER_SPAWN_POSITION = sf::Vector2f(SCREEN_WIDTH / 2 - CHARACTER_SIZE.x /2, SCREEN_HEIGHT - 100);
+    sf::Vector2f CHARACTER_SPAWN_POSITION = sf::Vector2f(SCREEN_WIDTH / 2 - CHARACTER_SIZE.x /2, SCREEN_HEIGHT - 150);
     sf::Vector2f INITIAL_VIEW_POSITION = sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 300);
     sf::Vector2f RESET_VIEW_POSITION = sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 290);
 

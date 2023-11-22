@@ -23,6 +23,20 @@ SceneNode::Ptr SceneNode::detachChild(const SceneNode& node) {
     return result;
 }
 
+int SceneNode::getChildIndex(const SceneNode& node) {
+    auto found = std::find_if(mChildren.begin(), mChildren.end(), [&](Ptr& p) -> bool {return p.get() == &node;});
+    assert(found != mChildren.end());
+    return found - mChildren.begin();
+}
+
+void SceneNode::moveChildToIndex(const SceneNode& node, int index) {
+    auto found = std::find_if(mChildren.begin(), mChildren.end(), [&](Ptr& p) -> bool {return p.get() == &node;});
+    assert(found != mChildren.end());
+    Ptr result = std::move(*found);
+    mChildren.erase(found);
+    mChildren.emplace(mChildren.begin() + index, result);
+}
+
 
 void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();

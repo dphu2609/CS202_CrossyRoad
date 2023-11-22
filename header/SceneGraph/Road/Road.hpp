@@ -21,6 +21,7 @@ namespace RoadType {
 class Road : public SceneNode {
 public:
     virtual bool isCollide(const sf::FloatRect &bounds) const {return false;}
+    virtual bool isHitDangerousObjects(const sf::FloatRect &bounds) const {return false;}
     virtual bool isOutOfScreen(const sf::View &view) const {return false;}
 };
 

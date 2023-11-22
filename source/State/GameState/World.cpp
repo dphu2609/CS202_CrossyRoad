@@ -14,14 +14,9 @@ void World::buildScene() {
         mSceneLayers[i] = layer.get();
         mSceneGraph.attachChild(layer);
     }
-
-    std::shared_ptr<Character> character = std::make_shared<Character>(mWorldView);
-    character->setPosition(Statistic::SCREEN_WIDTH / 2, Statistic::SCREEN_HEIGHT - 100);
-    character->setScale(Statistic::CHARACTER_SIZE.x / character->getSpriteBounding().width, Statistic::CHARACTER_SIZE.y / character->getSpriteBounding().height);
-    mSceneLayers[CharacterLayer]->attachChild(std::move(character));
     
     std::shared_ptr<RoadSequence> roadSequence = std::make_shared<RoadSequence>(mWorldView);
-    roadSequence->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::CHARACTER_SPAWN_POSITION.y + Statistic::ROAD_HEIGHT * 4);
+    roadSequence->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::CHARACTER_SPAWN_POSITION.y + Statistic::ROAD_HEIGHT * 5);
     mSceneLayers[RoadLayer]->attachChild(std::move(roadSequence));
 }
 

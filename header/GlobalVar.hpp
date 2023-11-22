@@ -31,6 +31,8 @@ namespace Statistic
     extern float SCREEN_HEIGHT;
     extern sf::FloatRect SCREEN_BOUNDING;
 
+    extern sf::Vector2f INITIAL_ROAD_SEQUENCE_POSITION;
+
     extern float SCREEN_SPEED;
 
     extern float ROAD_WIDTH;

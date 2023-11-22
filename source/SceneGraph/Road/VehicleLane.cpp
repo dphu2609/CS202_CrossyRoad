@@ -109,3 +109,12 @@ void VehicleLane::vehicleControl(sf::Time dt) {
         mVehicles.erase(mVehicles.begin());
     } 
 }
+
+bool VehicleLane::isHitDangerousObjects(const sf::FloatRect &bounds) const {
+    for (auto &vehicle : mVehicles) {
+        if (vehicle->getBoundingRect().intersects(bounds)) {
+            return true;
+        }
+    }
+    return false;
+}
