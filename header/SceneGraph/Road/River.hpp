@@ -32,13 +32,9 @@ private:
     virtual void updateCurrent(sf::Time dt,CommandQueue& commands);
     void spawnWood();
     void removeWood();
-    void woodMove();
 public:
     River();
 };
-
-
-
 
 
 

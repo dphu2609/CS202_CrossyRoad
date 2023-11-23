@@ -16,7 +16,7 @@ void World::buildScene() {
     }
 
     std::shared_ptr<Character> character = std::make_shared<Character>(mWorldView);
-    character->setPosition(Statistic::SCREEN_WIDTH / 2, Statistic::SCREEN_HEIGHT - 100);
+    character->setPosition(Statistic::SCREEN_WIDTH / 2, Statistic::SCREEN_HEIGHT - 60);
     character->setScale(Statistic::CHARACTER_SIZE.x / character->getSpriteBounding().width, Statistic::CHARACTER_SIZE.y / character->getSpriteBounding().height);
     mSceneLayers[CharacterLayer]->attachChild(std::move(character));
     

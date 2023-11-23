@@ -80,7 +80,3 @@ void River::removeWood()
     }
 }
 
-void River::woodMove()
-{
-   
-}
