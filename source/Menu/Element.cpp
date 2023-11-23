@@ -150,6 +150,56 @@ void HalfCircle::draw(sf::RenderWindow& mWindow)
     mWindow.draw(halfcircleSprite);
 }
 
+BarArray::BarArray()
+{
+    size=12;
+    barArray.resize(size);
+    for(int i=0;i<6;i++)
+    {
+        barArray[i].setSize(sf::Vector2f(45.f,70.f));
+        barArray[i].setFillColor(sf::Color::Magenta);
+    }
+    for(int i=6;i<12;i++)
+    {
+        barArray[i].setSize(sf::Vector2f(45.f,70.f));
+        barArray[i].setFillColor(sf::Color::Magenta);
+    }
+    current=6;
+}
+
+void BarArray::setPosition(float x,float y)
+{
+    for(int i=0;i<size;i++)
+    {
+        barArray[i].setPosition(x+i*50,y);
+    }
+}
+
+void BarArray::decreaseByOne()
+{
+    if(current>0)
+    --current;
+}
+
+void BarArray::increaseByOne()
+{
+    if(current<12)
+    ++current;
+}
+
+void BarArray::reset()
+{
+    current=6;
+}
+
+void BarArray::draw(sf::RenderWindow& mWindow)
+{
+    for(int i=0;i<current;i++)
+    {
+        mWindow.draw(barArray[i]);
+    }
+}
+
 Link::Link(int x)
 {
     s="D:/GitHub/CS202_CrossyRoad/media/images/characters/"+to_string(x)+".png";

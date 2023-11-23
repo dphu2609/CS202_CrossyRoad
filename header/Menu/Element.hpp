@@ -73,6 +73,23 @@ private:
     sf::Sprite halfcircleSprite;
 };
 
+class BarArray
+{
+public:
+    BarArray();
+
+    void setPosition(float x,float y);
+    void decreaseByOne();
+    void increaseByOne();
+    void reset();
+
+    void draw(sf::RenderWindow& mWindow);
+private:
+    int size;
+    vector<sf::RectangleShape> barArray;
+    int current;
+};
+
 class Link
 {
 public:

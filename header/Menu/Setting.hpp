@@ -45,6 +45,8 @@ private:
     sf::Text sound;
     sf::RectangleShape soundBound;
     sf::RectangleShape soundBar;
+    BarArray musicBarArray;
+    BarArray soundBarArray;
     Triangle musicIncrease;
     Triangle musicDecrease;
     Triangle soundIncrease;
@@ -55,7 +57,7 @@ private:
     sf::Texture backgroundLight2; 
     sf::Sprite backgroundLight2Sprite;
 
-    vector<Pack> packs;
+    // vector<Pack> packs;
     bool lightScreen;
     sf::Time mTime;
     sf::Time timePerFrame;

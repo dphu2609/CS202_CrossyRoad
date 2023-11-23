@@ -115,8 +115,11 @@ Setting::Setting()
     soundDecrease.setPosition(854.f,815.f);
     soundIncrease.rotate(180.f);
 
-    packs.push_back(Pack(resetBound,reset));
-    packs.push_back(Pack(saveBound,save));
+    musicBarArray.setPosition(920.f,630.f);
+    soundBarArray.setPosition(920.f,780.f);
+
+    // packs.push_back(Pack(resetBound,reset));
+    // packs.push_back(Pack(saveBound,save));
 }
 
 sf::Vector2f Setting::posBackGroundLight()
@@ -161,24 +164,24 @@ void Setting::setBackground(bool isBackgoundLight)
 int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
     sf::Vector2i mousePosition=sf::Mouse::getPosition(mWindow);
-    int size=packs.size();
-    for(int i=0;i<size;i++)
-    {
-        auto& x=packs[i];
-        sf::FloatRect recBound=x.getGlobalBounds();
-        bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-        if(isMouseOn)
-        {
-            if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
-            {
+    // int size=packs.size();
+    // for(int i=0;i<size;i++)
+    // {
+    //     auto& x=packs[i];
+    //     sf::FloatRect recBound=x.getGlobalBounds();
+    //     bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    //     if(isMouseOn)
+    //     {
+    //         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+    //         {
+                
+    //         }
+    //     }
+    //     else
+    //     {
 
-            }
-        }
-        else
-        {
-
-        }
-    }
+    //     }
+    // }
 
     sf::FloatRect recBound=returnBound.getGlobalBounds();
     bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
@@ -204,7 +207,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         musicIncrease.changeToDark();
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
-            
+            musicBarArray.increaseByOne();
         }
     }
     else
@@ -219,7 +222,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         musicDecrease.changeToDark();
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
-            
+            musicBarArray.decreaseByOne();
         }
     }
     else
@@ -234,7 +237,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         soundIncrease.changeToDark();
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
-            
+            soundBarArray.increaseByOne();
         }
     }
     else
@@ -249,12 +252,43 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         soundDecrease.changeToDark();
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
-            
+            soundBarArray.decreaseByOne();
         }
     }
     else
     {
         soundDecrease.changeToLight();
+    }
+
+    recBound=resetBound.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        reset.setScale(1.2,1.2);
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            musicBarArray.reset();
+            soundBarArray.reset();
+        }
+    }
+    else
+    {
+        reset.setScale(1,1);
+    }
+
+    recBound=saveBound.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        save.setScale(1.2,1.2);
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            
+        }
+    }
+    else
+    {
+        save.setScale(1,1);
     }
 
     return 3;
@@ -299,11 +333,13 @@ void Setting::draw(sf::RenderWindow& mWindow)
     mWindow.draw(musicBar);
     musicIncrease.draw(mWindow);
     musicDecrease.draw(mWindow);
+    musicBarArray.draw(mWindow);
     mWindow.draw(soundBound);
     mWindow.draw(sound);
     mWindow.draw(soundBar);
     soundIncrease.draw(mWindow);
     soundDecrease.draw(mWindow);
+    soundBarArray.draw(mWindow);
 
     mWindow.draw(resetBound);
     mWindow.draw(reset);
