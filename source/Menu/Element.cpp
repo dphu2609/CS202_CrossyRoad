@@ -165,6 +165,7 @@ BarArray::BarArray()
         barArray[i].setFillColor(sf::Color::Magenta);
     }
     current=6;
+    oldcurrent=6;
 }
 
 void BarArray::setPosition(float x,float y)
@@ -192,18 +193,22 @@ void BarArray::reset()
     current=6;
 }
 
+void BarArray::setOldCurrent()
+{
+    oldcurrent=current;
+}
+
+void BarArray::setCurrent()
+{
+    current=oldcurrent;
+}
+
 void BarArray::draw(sf::RenderWindow& mWindow)
 {
     for(int i=0;i<current;i++)
     {
         mWindow.draw(barArray[i]);
     }
-}
-
-void OldValue::setOldValue(int currentMusic,int currentSound)
-{
-    this->currentMusic=currentMusic;
-    this->currentSound=currentSound;
 }
 
 Link::Link(int x)

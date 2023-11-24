@@ -82,21 +82,15 @@ public:
     void decreaseByOne();
     void increaseByOne();
     void reset();
+    void setOldCurrent();
+    void setCurrent();
 
     void draw(sf::RenderWindow& mWindow);
 private:
     int size;
     vector<sf::RectangleShape> barArray;
+    int oldcurrent;
     int current;
-};
-
-class OldValue
-{
-public:
-    void setOldValue(int currentMusic,int currentSound);
-private:
-    int currentMusic;
-    int currentSound;
 };
 
 class Link

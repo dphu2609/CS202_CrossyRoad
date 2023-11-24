@@ -164,24 +164,6 @@ void Setting::setBackground(bool isBackgoundLight)
 int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
     sf::Vector2i mousePosition=sf::Mouse::getPosition(mWindow);
-    // int size=packs.size();
-    // for(int i=0;i<size;i++)
-    // {
-    //     auto& x=packs[i];
-    //     sf::FloatRect recBound=x.getGlobalBounds();
-    //     bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    //     if(isMouseOn)
-    //     {
-    //         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
-    //         {
-                
-    //         }
-    //     }
-    //     else
-    //     {
-
-    //     }
-    // }
 
     sf::FloatRect recBound=returnBound.getGlobalBounds();
     bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
@@ -191,6 +173,8 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         returnImageSprite.setTexture(returnImage);
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
+            musicBarArray.setCurrent();
+            soundBarArray.setCurrent();
             return 0;
         }
     }
@@ -283,7 +267,9 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         save.setScale(1.2,1.2);
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
-            
+            musicBarArray.setOldCurrent();
+            soundBarArray.setOldCurrent();
+            return 0;
         }
     }
     else
