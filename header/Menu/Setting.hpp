@@ -51,6 +51,7 @@ private:
     Triangle musicDecrease;
     Triangle soundIncrease;
     Triangle soundDecrease;
+    OldValue oldValue;
 
     sf::Texture backgroundLight; 
     sf::Sprite backgroundLightSprite;

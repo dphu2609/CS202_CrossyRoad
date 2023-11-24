@@ -200,6 +200,12 @@ void BarArray::draw(sf::RenderWindow& mWindow)
     }
 }
 
+void OldValue::setOldValue(int currentMusic,int currentSound)
+{
+    this->currentMusic=currentMusic;
+    this->currentSound=currentSound;
+}
+
 Link::Link(int x)
 {
     s="D:/GitHub/CS202_CrossyRoad/media/images/characters/"+to_string(x)+".png";

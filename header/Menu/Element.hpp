@@ -90,6 +90,15 @@ private:
     int current;
 };
 
+class OldValue
+{
+public:
+    void setOldValue(int currentMusic,int currentSound);
+private:
+    int currentMusic;
+    int currentSound;
+};
+
 class Link
 {
 public:
