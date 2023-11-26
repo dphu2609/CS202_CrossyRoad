@@ -74,6 +74,38 @@ HighScore::HighScore()
     secondBound.setOutlineThickness(5.0);
     secondBound.setOutlineColor(sf::Color::Green);
     secondBound.setPosition(985.f,300.f);
+
+    modes.push_back("Easy");
+    modes.push_back("Medi");
+    modes.push_back("Hard");
+    modes.push_back("Xtre");
+
+    modeFirst=0;
+    modeSecond=0;
+
+    modeOneP.setString(modes[modeFirst]);
+    modeOneP.setFont(_font);
+    modeOneP.setCharacterSize(sizeCharacter);
+    modeOneP.setFillColor(colorCharacter);
+    size=modeOneP.getGlobalBounds();
+    modeOneP.setOrigin(size.width/2,size.height/2);
+    modeOneP.setPosition(sf::Vector2f(502.5,930.f));
+
+    leftOneP.setPosition(382.5,965.f);
+    rightOneP.setPosition(622.5,965.f);
+    rightOneP.rotate(180.f);
+
+    modeTwoP.setString(modes[modeSecond]);
+    modeTwoP.setFont(_font);
+    modeTwoP.setCharacterSize(sizeCharacter);
+    modeTwoP.setFillColor(colorCharacter);
+    size=modeTwoP.getGlobalBounds();
+    modeTwoP.setOrigin(size.width/2,size.height/2);
+    modeTwoP.setPosition(sf::Vector2f(1417.5,930.f));
+
+    leftTwoP.setPosition(1297.5,965.f);
+    rightTwoP.setPosition(1537.5,965.f);
+    rightTwoP.rotate(180.f);
 }
 
 sf::Vector2f HighScore::posBackGroundLight()
@@ -100,6 +132,30 @@ bool HighScore::stateBackgroundLight()
 {
     return lightScreen;
 }  
+
+void HighScore::previousFirst()
+{
+    if(modeFirst>0) --modeFirst;
+    modeOneP.setString(modes[modeFirst]);
+}
+
+void HighScore::nextFirst()
+{
+    if(modeFirst<3) ++modeFirst;
+    modeOneP.setString(modes[modeFirst]);
+}
+
+void HighScore::previousSecond()
+{
+    if(modeSecond>0) --modeSecond;
+    modeTwoP.setString(modes[modeSecond]);
+}
+
+void HighScore::nextSecond()
+{
+    if(modeSecond<3) ++modeSecond;
+    modeTwoP.setString(modes[modeSecond]);
+} 
 
 void HighScore::setBackground(bool isBackgoundLight)
 {
@@ -134,6 +190,67 @@ int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Back1.png");
         returnImageSprite.setTexture(returnImage);
     }
+
+    recBound=leftOneP.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        leftOneP.changeToDark();
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            previousFirst();
+        }
+    }
+    else
+    {
+        leftOneP.changeToLight();
+    }
+
+    recBound=rightOneP.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        rightOneP.changeToDark();
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            nextFirst();
+        }
+    }
+    else
+    {
+        rightOneP.changeToLight();
+    }
+
+    recBound=leftTwoP.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        leftTwoP.changeToDark();
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            previousSecond();
+        }
+    }
+    else
+    {
+        leftTwoP.changeToLight();
+    }
+
+    recBound=rightTwoP.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        rightTwoP.changeToDark();
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            nextSecond();   
+        }
+    }
+    else
+    {
+        rightTwoP.changeToLight();
+    }
+
     return 2;
 }
 
@@ -172,6 +289,12 @@ void HighScore::draw(sf::RenderWindow& mWindow)
     mWindow.draw(twop);
     mWindow.draw(firstBound);
     mWindow.draw(secondBound);
+    mWindow.draw(modeOneP);
+    leftOneP.draw(mWindow);
+    rightOneP.draw(mWindow);
+    mWindow.draw(modeTwoP);
+    leftTwoP.draw(mWindow);
+    rightTwoP.draw(mWindow);
     mWindow.draw(returnBound);
     mWindow.draw(returnImageSprite);
 }

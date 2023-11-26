@@ -2,17 +2,24 @@
 #define HIGHSCORE_HPP
 
 #include <SFML/Graphics.hpp>
+#include <Menu/Element.hpp>
 
 class HighScore
 {
 public:
     HighScore();
+    
     sf::Vector2f posBackGroundLight();
     sf::Vector2f posBackGroundLight2();
     void setPosBackgroundLight(sf::Vector2f pos);
     void setPosBackgroundLight2(sf::Vector2f pos); 
     bool stateBackgroundLight();  
     void setBackground(bool isBackgoundLight);  
+    void previousFirst();
+    void nextFirst();
+    void previousSecond();
+    void nextSecond();    
+
     int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
     void update(sf::Time dt);
     void draw(sf::RenderWindow& mWindow);
@@ -32,6 +39,16 @@ private:
     sf::Text twop;
     sf::RectangleShape firstBound;
     sf::RectangleShape secondBound;
+    sf::Text modeOneP;
+    sf::Text modeTwoP;
+    Triangle leftOneP;
+    Triangle rightOneP;
+    Triangle leftTwoP;
+    Triangle rightTwoP;
+    vector<string> modes;
+    int modeFirst;
+    int modeSecond;
+
     sf::Texture backgroundLight; 
     sf::Sprite backgroundLightSprite;
     sf::Texture backgroundLight2; 
