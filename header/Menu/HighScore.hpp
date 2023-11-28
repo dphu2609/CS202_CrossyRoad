@@ -3,6 +3,10 @@
 
 #include <SFML/Graphics.hpp>
 #include <Menu/Element.hpp>
+#include <fstream>
+#include <iostream>
+
+using namespace std;
 
 class HighScore
 {
@@ -18,7 +22,9 @@ public:
     void previousFirst();
     void nextFirst();
     void previousSecond();
-    void nextSecond();    
+    void nextSecond(); 
+    void loadLeftTextsFromfile();
+    void loadRightTextFromFile();   
 
     int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
     void update(sf::Time dt);
@@ -48,6 +54,13 @@ private:
     vector<string> modes;
     int modeFirst;
     int modeSecond;
+
+    vector<sf::Text> leftTexts;
+    vector<string> onepText;
+    int sizeLeftTexts;
+    vector<sf::Text> rightTexts;
+    vector<string> twopText;
+    int sizeRightTexts;
 
     sf::Texture backgroundLight; 
     sf::Sprite backgroundLightSprite;

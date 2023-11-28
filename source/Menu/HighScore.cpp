@@ -106,6 +106,20 @@ HighScore::HighScore()
     leftTwoP.setPosition(1297.5,965.f);
     rightTwoP.setPosition(1537.5,965.f);
     rightTwoP.rotate(180.f);
+
+    onepText.push_back("D:/GitHub/CS202_CrossyRoad/media/text/HighScore1PEasy.txt");
+    onepText.push_back("D:/GitHub/CS202_CrossyRoad/media/text/HighScore1PMedi.txt");
+    onepText.push_back("D:/GitHub/CS202_CrossyRoad/media/text/HighScore1PHard.txt");
+    onepText.push_back("D:/GitHub/CS202_CrossyRoad/media/text/HighScore1PEXtre.txt");
+    twopText.push_back("D:/GitHub/CS202_CrossyRoad/media/text/HighScore2PEasy.txt");
+    twopText.push_back("D:/GitHub/CS202_CrossyRoad/media/text/HighScore2PMedi.txt");
+    twopText.push_back("D:/GitHub/CS202_CrossyRoad/media/text/HighScore2PHard.txt");
+    twopText.push_back("D:/GitHub/CS202_CrossyRoad/media/text/HighScore2PXtre.txt");
+
+    sizeLeftTexts=0;
+    sizeRightTexts=0;
+    loadLeftTextsFromfile();
+    loadRightTextFromFile();
 }
 
 sf::Vector2f HighScore::posBackGroundLight()
@@ -157,6 +171,53 @@ void HighScore::nextSecond()
     modeTwoP.setString(modes[modeSecond]);
 } 
 
+void HighScore::loadLeftTextsFromfile()
+{
+    sizeLeftTexts=0;
+    leftTexts.clear();
+    ifstream fin;
+    fin.open(onepText[modeFirst]);
+    if(!fin.is_open()) return;
+    string file;
+    while(!fin.eof())
+    {
+        getline(fin,file);
+        sf::Text tmp;
+        leftTexts.push_back(tmp);
+        leftTexts[sizeLeftTexts].setString(file);
+        leftTexts[sizeLeftTexts].setFont(_font);
+        leftTexts[sizeLeftTexts].setCharacterSize(sizeCharacter);
+        leftTexts[sizeLeftTexts].setFillColor(colorCharacter);
+        leftTexts[sizeLeftTexts].setPosition(70.f,300.f+sizeLeftTexts*100);
+        sizeLeftTexts++;
+    }
+    fin.close();
+}
+
+void HighScore::loadRightTextFromFile()
+{
+    sizeRightTexts=0;
+    rightTexts.clear();
+    ifstream fin;
+    fin.open(twopText[modeSecond]);
+    if(!fin.is_open()) return;
+    string file;
+    while(!fin.eof())
+    {
+        getline(fin,file);
+        std::cout<<file<<endl;
+        sf::Text tmp;
+        rightTexts.push_back(tmp);
+        rightTexts[sizeRightTexts].setString(file);
+        rightTexts[sizeRightTexts].setFont(_font);
+        rightTexts[sizeRightTexts].setCharacterSize(sizeCharacter);
+        rightTexts[sizeRightTexts].setFillColor(colorCharacter);
+        rightTexts[sizeRightTexts].setPosition(985.f,300.f+sizeRightTexts*100);
+        sizeRightTexts++;
+    }
+    fin.close();
+}
+
 void HighScore::setBackground(bool isBackgoundLight)
 {
     if (isBackgoundLight)
@@ -199,6 +260,7 @@ int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             previousFirst();
+            loadLeftTextsFromfile();
         }
     }
     else
@@ -214,6 +276,7 @@ int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             nextFirst();
+            loadLeftTextsFromfile();
         }
     }
     else
@@ -229,6 +292,7 @@ int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             previousSecond();
+            loadRightTextFromFile();
         }
     }
     else
@@ -244,6 +308,7 @@ int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             nextSecond();   
+            loadRightTextFromFile();
         }
     }
     else
@@ -289,12 +354,23 @@ void HighScore::draw(sf::RenderWindow& mWindow)
     mWindow.draw(twop);
     mWindow.draw(firstBound);
     mWindow.draw(secondBound);
+
     mWindow.draw(modeOneP);
     leftOneP.draw(mWindow);
     rightOneP.draw(mWindow);
+    for(int i=0;i<sizeLeftTexts;i++)
+    {
+        mWindow.draw(leftTexts[i]);
+    }
+
     mWindow.draw(modeTwoP);
     leftTwoP.draw(mWindow);
     rightTwoP.draw(mWindow);
+    for(int i=0;i<sizeRightTexts;i++)
+    {
+        mWindow.draw(rightTexts[i]);
+    }
+
     mWindow.draw(returnBound);
     mWindow.draw(returnImageSprite);
 }
