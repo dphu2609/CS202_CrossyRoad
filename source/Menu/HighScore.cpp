@@ -27,6 +27,14 @@ HighScore::HighScore()
     _font.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/font/Alinore.otf");
     colorCharacter=sf::Color::White;
 
+    aboveBound.setSize(sf::Vector2f(1920,295));
+    aboveBound.setFillColor(sf::Color(87,184,250));
+    aboveBound.setPosition(0.f,0.f);
+
+    bellowBound.setSize(sf::Vector2f(1920,150));
+    bellowBound.setFillColor(sf::Color(156, 218, 247));  //White(199, 240, 253) Blue(129, 204, 245) Quite(156, 218, 247)
+    bellowBound.setPosition(0.f,935.f);
+
     title.setString("Crossy Road");
     title.setFont(_font);
     title.setCharacterSize(200);
@@ -63,13 +71,13 @@ HighScore::HighScore()
     twop.setOrigin(size.width/2,size.height/2);
     twop.setPosition(sf::Vector2f(1417.5,205.f));
 
-    firstBound.setSize(sf::Vector2f(865.f,730.f));
+    firstBound.setSize(sf::Vector2f(865.f,630.f));
     firstBound.setFillColor(colorBound);
     firstBound.setOutlineThickness(5.0);
     firstBound.setOutlineColor(sf::Color::Green);
     firstBound.setPosition(70.f,300.f);
 
-    secondBound.setSize(sf::Vector2f(865.f,730.f));
+    secondBound.setSize(sf::Vector2f(865.f,630.f));
     secondBound.setFillColor(colorBound);
     secondBound.setOutlineThickness(5.0);
     secondBound.setOutlineColor(sf::Color::Green);
@@ -89,10 +97,10 @@ HighScore::HighScore()
     modeOneP.setFillColor(colorCharacter);
     size=modeOneP.getGlobalBounds();
     modeOneP.setOrigin(size.width/2,size.height/2);
-    modeOneP.setPosition(sf::Vector2f(502.5,930.f));
+    modeOneP.setPosition(sf::Vector2f(502.5,950.f));
 
-    leftOneP.setPosition(382.5,965.f);
-    rightOneP.setPosition(622.5,965.f);
+    leftOneP.setPosition(382.5,985.f);
+    rightOneP.setPosition(622.5,985.f);
     rightOneP.rotate(180.f);
 
     modeTwoP.setString(modes[modeSecond]);
@@ -101,10 +109,10 @@ HighScore::HighScore()
     modeTwoP.setFillColor(colorCharacter);
     size=modeTwoP.getGlobalBounds();
     modeTwoP.setOrigin(size.width/2,size.height/2);
-    modeTwoP.setPosition(sf::Vector2f(1417.5,930.f));
+    modeTwoP.setPosition(sf::Vector2f(1417.5,950.f));
 
-    leftTwoP.setPosition(1297.5,965.f);
-    rightTwoP.setPosition(1537.5,965.f);
+    leftTwoP.setPosition(1297.5,985.f);
+    rightTwoP.setPosition(1537.5,985.f);
     rightTwoP.rotate(180.f);
 
     onepText.push_back("D:/GitHub/CS202_CrossyRoad/media/text/HighScore1PEasy.txt");
@@ -205,7 +213,6 @@ void HighScore::loadRightTextFromFile()
     while(!fin.eof())
     {
         getline(fin,file);
-        std::cout<<file<<endl;
         sf::Text tmp;
         rightTexts.push_back(tmp);
         rightTexts[sizeRightTexts].setString(file);
@@ -235,8 +242,65 @@ void HighScore::setBackground(bool isBackgoundLight)
 int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
     sf::Vector2i mousePosition = sf::Mouse::getPosition(mWindow);
-    sf::FloatRect recBound=returnBound.getGlobalBounds();
-    bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    sf::FloatRect recBound;
+    bool isMouseOn;
+    if(event.type==sf::Event::MouseWheelScrolled)
+    {
+        recBound=firstBound.getGlobalBounds();
+        isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+        if(isMouseOn)
+        {
+            if(sizeLeftTexts)
+            {
+                float delta = 0;
+                delta = event.mouseWheelScroll.delta;
+                if (delta < 0 && leftTexts[sizeLeftTexts - 1].getPosition().y + 100 > 930)
+                {
+                    for (int i = 0; i < sizeLeftTexts; i++)
+                    {
+                        leftTexts[i].setPosition(leftTexts[i].getPosition().x, leftTexts[i].getPosition().y + delta * 20);
+                    }
+                }
+                else if (delta > 0 && leftTexts[0].getPosition().y < 300)
+                {
+                    for (int i = 0; i < sizeLeftTexts; i++)
+                    {
+                        leftTexts[i].setPosition(leftTexts[i].getPosition().x, leftTexts[i].getPosition().y + delta * 20);
+                    }
+                }
+            }
+        }
+        else
+        {
+            recBound = secondBound.getGlobalBounds();
+            isMouseOn = recBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+            if (isMouseOn)
+            {
+                if (sizeRightTexts)
+                {
+                    float delta = 0;
+                    delta = event.mouseWheelScroll.delta;
+                    if (delta < 0 && rightTexts[sizeRightTexts - 1].getPosition().y + 100 > 930)
+                    {
+                        for (int i = 0; i < sizeRightTexts; i++)
+                        {
+                            rightTexts[i].setPosition(rightTexts[i].getPosition().x, rightTexts[i].getPosition().y + delta * 20);
+                        }
+                    }
+                    else if (delta > 0 && rightTexts[0].getPosition().y < 300)
+                    {
+                        for (int i = 0; i < sizeRightTexts; i++)
+                        {
+                            rightTexts[i].setPosition(rightTexts[i].getPosition().x, rightTexts[i].getPosition().y + delta * 20);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    recBound=returnBound.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
     if(isMouseOn)
     {
         returnImage.loadFromFile("D:/GitHub/CS202_CrossyRoad/media/images/menu/Back2.png");
@@ -349,6 +413,20 @@ void HighScore::draw(sf::RenderWindow& mWindow)
 {
     mWindow.draw(backgroundLightSprite);
     mWindow.draw(backgroundLight2Sprite);
+
+    for(int i=0;i<sizeLeftTexts;i++)
+    {
+        mWindow.draw(leftTexts[i]);
+    }
+
+    for(int i=0;i<sizeRightTexts;i++)
+    {
+        mWindow.draw(rightTexts[i]);
+    }
+
+    mWindow.draw(aboveBound);
+    mWindow.draw(bellowBound);
+
     mWindow.draw(title);
     mWindow.draw(onep);
     mWindow.draw(twop);
@@ -358,18 +436,10 @@ void HighScore::draw(sf::RenderWindow& mWindow)
     mWindow.draw(modeOneP);
     leftOneP.draw(mWindow);
     rightOneP.draw(mWindow);
-    for(int i=0;i<sizeLeftTexts;i++)
-    {
-        mWindow.draw(leftTexts[i]);
-    }
 
     mWindow.draw(modeTwoP);
     leftTwoP.draw(mWindow);
     rightTwoP.draw(mWindow);
-    for(int i=0;i<sizeRightTexts;i++)
-    {
-        mWindow.draw(rightTexts[i]);
-    }
 
     mWindow.draw(returnBound);
     mWindow.draw(returnImageSprite);

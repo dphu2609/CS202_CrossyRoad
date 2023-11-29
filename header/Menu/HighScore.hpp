@@ -62,6 +62,8 @@ private:
     vector<string> twopText;
     int sizeRightTexts;
 
+    sf::RectangleShape aboveBound;
+    sf::RectangleShape bellowBound;
     sf::Texture backgroundLight; 
     sf::Sprite backgroundLightSprite;
     sf::Texture backgroundLight2; 
