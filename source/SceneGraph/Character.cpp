@@ -168,6 +168,10 @@ bool Character::move(sf::Time dt, int direction) {
         setPosition(newPosition);
         return mIsMoving = true;
     }
+    else {
+        if (mDirection == 0) mLanePassed++;
+        else if (mDirection == 1) mLanePassed--;
+    }
     return mIsMoving = false;
 }
 
@@ -175,3 +179,8 @@ sf::FloatRect Character::getSpriteBounding()
 {
     return mForwardState.getGlobalBounds();
 }
+
+int Character::getLanePassed() const {
+    return mLanePassed;
+}
+    

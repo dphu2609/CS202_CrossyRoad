@@ -52,6 +52,10 @@ private:
     sf::Vector2f mInitialPosition;
     bool mIsMoving = false;
     virtual void resetCurrentView();
+public:
+    int getLanePassed() const;
+private:
+    int mLanePassed = 0;
 private:
     std::queue<sf::Keyboard::Key> mKeyInput;
 };

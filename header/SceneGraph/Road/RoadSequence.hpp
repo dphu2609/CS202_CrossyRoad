@@ -22,6 +22,10 @@ public:
     void gameControl(sf::Time dt);
     void roadIndexControl();
 private:
+    int mPlayerScore = 0;
+public:
+    int getPlayerScore();
+private:
     void updateRoads(sf::Time dt);
     virtual void resetCurrentView();
     void pushBackRandomRoad();

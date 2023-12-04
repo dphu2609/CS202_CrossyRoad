@@ -60,6 +60,7 @@ namespace Fonts {
         RobotoItalic,
         RobotoBold,
         RussoOne,
+        PixelifySansRegular,
         FiraMonoRegular
     };
 };

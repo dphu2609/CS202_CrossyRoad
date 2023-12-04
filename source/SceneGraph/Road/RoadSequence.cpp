@@ -82,3 +82,10 @@ void RoadSequence::gameControl(sf::Time dt) {
         std::cout << "Hit dangerous objects" << std::endl;
     }
 }
+
+int RoadSequence::getPlayerScore() {
+    if (mCharacter->getLanePassed() > mPlayerScore) {
+        mPlayerScore = mCharacter->getLanePassed();
+    }
+    return mPlayerScore;
+}

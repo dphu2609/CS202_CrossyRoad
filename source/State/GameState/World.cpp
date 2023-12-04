@@ -16,8 +16,14 @@ void World::buildScene() {
     }
     
     std::shared_ptr<RoadSequence> roadSequence = std::make_shared<RoadSequence>(mWorldView);
+    mRoadSequence = roadSequence;
     roadSequence->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::CHARACTER_SPAWN_POSITION.y + Statistic::ROAD_HEIGHT * 5);
     mSceneLayers[RoadLayer]->attachChild(std::move(roadSequence));
+
+    std::shared_ptr<TextNode> scoreText = std::make_shared<TextNode>(Resources::fonts[Fonts::PixelifySansRegular], "0");
+    mScoreText = scoreText;
+    scoreText->setPosition(20, mWorldView.getCenter().y - 500);
+    mSceneLayers[ScoreLayer]->attachChild(std::move(scoreText));
 }
 
 void World::update(sf::Time dt) {
@@ -26,6 +32,7 @@ void World::update(sf::Time dt) {
     }
     mSceneGraph.update(dt, mCommandQueue);
     updateWorldView(dt);
+    scoreControl();
 }
 
 void World::updateWorldView(sf::Time dt) {
@@ -37,6 +44,7 @@ void World::updateWorldView(sf::Time dt) {
         mSceneGraph.resetView();
     }
     mWorldView.setCenter(newPosition);
+    mScoreText->setPosition(20, mWorldView.getCenter().y - 500);
 }
 
 void World::handleEvent(sf::Event &event) {
@@ -46,8 +54,15 @@ void World::handleEvent(sf::Event &event) {
 void World::draw() {
     mWindow.setView(mWorldView);
     mWindow.draw(mSceneGraph);
+    mWindow.draw(mGUIContainer);
 }
 
+void World::scoreControl() {
+    if (mRoadSequence->getPlayerScore() != mPlayerScore) {
+        mPlayerScore = mRoadSequence->getPlayerScore();
+        mScoreText->setString(std::to_string(mPlayerScore));
+    }
+}
 CommandQueue &World::getCommandQueue() {
     return mCommandQueue;
 }

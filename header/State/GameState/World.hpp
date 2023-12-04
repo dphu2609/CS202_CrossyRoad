@@ -11,6 +11,9 @@
 #include <SceneGraph/Road/River.hpp>
 #include <SceneGraph/Road/VehicleLane.hpp>
 #include <SceneGraph/Road/RoadSequence.hpp>
+#include <SceneGraph/TextNode.hpp>
+#include <GUI/Container.hpp>
+#include <GUI/Button.hpp>
 
 
 class World : private sf::NonCopyable {
@@ -28,6 +31,7 @@ private:
         RoadLayer,
         CharacterLayer,
         GrassLayer,
+        ScoreLayer,
         LayerCount
     };
 private:
@@ -36,8 +40,14 @@ private:
     SceneNode mSceneGraph;
     std::array<SceneNode*, LayerCount> mSceneLayers;
     CommandQueue mCommandQueue;
+    GUI::Container mGUIContainer;
+    std::shared_ptr<RoadSequence> mRoadSequence;
+    std::shared_ptr<TextNode> mScoreText;
 private:
     sf::FloatRect mWorldBounds;
+private:
+    int mPlayerScore = 0;
+    void scoreControl();
 private:
     void loadGame();
     void saveGame();

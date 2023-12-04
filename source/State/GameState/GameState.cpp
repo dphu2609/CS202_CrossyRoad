@@ -6,17 +6,17 @@ GameState::GameState(StateStack &stack, sf::RenderWindow &window)
 
 void GameState::draw() {
     mWorld.draw();
-    // mGUIContainer.draw();
 }
 
 void GameState::update(sf::Time dt) {
     mWorld.update(dt);
-    // mGUIContainer.update(dt);
 }
 
 void GameState::handleEvent(sf::Event &event) {
     mWorld.handleEvent(event);
-    // mGUIContainer.handleEvent(event);
+    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+        requestStackPush(States::Pause);
+    }
 }
 
 
