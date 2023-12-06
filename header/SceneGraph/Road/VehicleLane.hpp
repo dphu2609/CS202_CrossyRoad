@@ -16,6 +16,7 @@ public:
     std::vector<std::vector<float>> getData();
     void readData(std::ifstream &file);
     void writeData(std::ofstream &file);
+    virtual RoadType::ID getRoadType() const {return RoadType::VehicleLane;}
 private:
     void vehicleControl(sf::Time dt);
     void trafficLightControl(sf::Time dt);

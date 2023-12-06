@@ -41,7 +41,7 @@ private:
     void handleMoveEvent(sf::RenderWindow &window, sf::Event &event);
     void updateMove(sf::Time dt);
     void updateWorldView(sf::Time dt);
-    bool move(sf::Time dt, int direction); 
+    bool moveCharacter(sf::Time dt, int direction); 
     
     sf::Vector2f getNextRightPosition(float x);
     sf::Vector2f getNextLeftPosition(float x);

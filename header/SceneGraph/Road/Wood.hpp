@@ -18,7 +18,11 @@ class Wood : public SceneNode
     public:
     Wood(const RoadTextureHolder& textures, float maxLength);
     sf::FloatRect getSpriteBounds() const { return mSprite.getGlobalBounds(); }
-    sf::FloatRect getBoundingRect() const { return getWorldTransform().transformRect(mSprite.getGlobalBounds()); }
+    sf::FloatRect getBoundingRect() const { 
+        sf::FloatRect rect = mSprite.getGlobalBounds();
+        rect.top -= 10.f;
+        return getWorldTransform().transformRect(rect); 
+    }
     bool isCollide(const sf::FloatRect& rect) const ;
 };
 

@@ -80,7 +80,7 @@ void Character::updateMove(sf::Time dt) {
         } else if (key == Controller::MOVE_RIGHT) {
             direction = 3;
         }
-        if (!move(dt, direction)) {
+        if (!moveCharacter(dt, direction)) {
             mKeyInput.pop();
             mCurrentStep = 0.f;
         }
@@ -143,7 +143,7 @@ sf::Vector2f Character::getNextDownPosition(float x) {
     );
 }
 
-bool Character::move(sf::Time dt, int direction) {
+bool Character::moveCharacter(sf::Time dt, int direction) {
     float mSpeed = (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL / 5 : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL / 5);
     if (mCurrentStep == 0.f) {
         mInitialPosition = this->getPosition();

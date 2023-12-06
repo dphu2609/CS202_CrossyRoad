@@ -12,6 +12,8 @@ public:
     virtual bool isCollide(const sf::FloatRect &rect) const;
     void randomBlock();
     void attachBlocks();
+    virtual RoadType::ID getRoadType() const {return RoadType::Grass;}
+
 private:
     // void randomBlock();
 private:
