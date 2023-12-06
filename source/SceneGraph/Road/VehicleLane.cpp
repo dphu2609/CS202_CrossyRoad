@@ -79,7 +79,7 @@ VehicleLane::VehicleLane() {
             } else {
                 mTrafficLights[0]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
                 mTrafficLights[1]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
-                mTrafficLights[2]->setPosition(Statistic::ROAD_WIDTH / 2 - 4    50, -15);
+                mTrafficLights[2]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
             }
             mTrafficLightState = 0;
         }
