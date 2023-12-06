@@ -38,7 +38,7 @@ namespace Statistic
     extern float ROAD_WIDTH;
     extern float ROAD_HEIGHT;
 
-    extern int DEFAULT_BLOCK;
+    extern int BLOCK_NUMBER;
     extern int BLOCK_SIZE;
     extern float SMALL_CAR_LENGTH;
     extern float SMALL_CAR_HEIGHT;

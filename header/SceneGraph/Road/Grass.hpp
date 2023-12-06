@@ -11,11 +11,8 @@ public:
     Grass();
     virtual bool isCollide(const sf::FloatRect &rect) const;
     void randomBlock();
-    void attachBlocks();
     virtual RoadType::ID getRoadType() const {return RoadType::Grass;}
-
-private:
-    // void randomBlock();
+    void addBlock(int index, Block::Type type);
 private:
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time dt);
