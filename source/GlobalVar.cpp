@@ -27,7 +27,7 @@ namespace Statistic {
     float ROAD_WIDTH = 2000;
     float ROAD_HEIGHT = 70;
 
-    int DEFAULT_BLOCK = 5;
+    int BLOCK_NUMBER = 5;
     int BLOCK_SIZE = 100;
     float SMALL_CAR_LENGTH = 120;
     float SMALL_CAR_HEIGHT = 120;
@@ -52,7 +52,7 @@ namespace Statistic {
     float CHARACTER_JUMP_DISTANCE_VERTICAL = 70;
 
     float MINIMUM_WOOD_LENGTH = 100;
-    float MAXIMUM_WOOD_LENGTH = 300;
+    float MAXIMUM_WOOD_LENGTH = 200;
 
     sf::Vector2f MAX_RIVER_SPEED = sf::Vector2f(300, 0);
     sf::Vector2f MIN_RIVER_SPEED = sf::Vector2f(200, 0);
