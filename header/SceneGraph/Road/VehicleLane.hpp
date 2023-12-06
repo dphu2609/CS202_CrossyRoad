@@ -12,8 +12,12 @@ public:
     virtual bool isHitDangerousObjects(const sf::FloatRect &bounds) const;
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
+    std::vector<std::vector<float>> getData();
+    void readData(std::ifstream &file);
+    void writeData(std::ofstream &file);
 private:
     void vehicleControl(sf::Time dt);
+    void trafficLightControl(sf::Time dt);
 public:
     enum Type
     {
@@ -30,7 +34,6 @@ public:
 private:
     std::vector<Vehicle*> mVehicles;
     sf::Sprite mRoadSprite;
-    sf::Sprite mTrafficLight;
     sf::Clock mSpawnTimer; 
     int mDirection; // -1: left, 1: right
     int mType;
@@ -38,6 +41,10 @@ private:
     float mBigCarSpawnTime = 2;
     float mTruckSpawnTime = 2.5;
     float mTrainSpawnTime = 5.f;
+private:
+    std::vector<sf::Sprite> mTrafficLights; // 0: red, 1: yellow, 2: green
+    int mTrafficLightState;
+    sf::Clock mTrafficLightTimer;
 };
 
 #endif

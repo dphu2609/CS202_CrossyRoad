@@ -23,6 +23,9 @@ namespace RoadTextures
         TruckRight,
         TrainLeft,
         TrainRight,
+        TrafficLightRed,
+        TrafficLightYellow,
+        TrafficLightGreen,
         Road,
         Rail,
         None

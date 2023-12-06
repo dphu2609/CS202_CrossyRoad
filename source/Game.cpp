@@ -55,6 +55,10 @@ void Game::loadTextures() {
     Resources::roadTextures.load(RoadTextures::TruckRight, "media/images/road/TruckRight1.png");
     Resources::roadTextures.load(RoadTextures::TrainLeft, "media/images/road/FullTrainLeft4Cabin1.png");
     Resources::roadTextures.load(RoadTextures::TrainRight, "media/images/road/FullTrainRight4Cabin1.png");
+
+    Resources::roadTextures.load(RoadTextures::TrafficLightRed, "media/images/road/light_red.png");
+    Resources::roadTextures.load(RoadTextures::TrafficLightYellow, "media/images/road/light_yellow.png");
+    Resources::roadTextures.load(RoadTextures::TrafficLightGreen, "media/images/road/light_green.png");
 }
 void Game::loadGifs() {
     std::vector<sf::Sprite> characterSkin1Backward;

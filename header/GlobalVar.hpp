@@ -48,6 +48,7 @@ namespace Statistic
     extern float TRUCK_CAR_HEIGHT;
     extern float TRAIN_LENGTH;
     extern float TRAIN_HEIGHT;
+    extern sf::Vector2f TRAFFIC_LIGHT_SIZE;
 
     extern int PLAYER_SCORE;
     extern int PLAYER_SKIN_TYPE;
