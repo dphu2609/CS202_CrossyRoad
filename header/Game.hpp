@@ -17,7 +17,7 @@ private:
 private:
     void loadTextures();
     void loadGifs();
-    void loadFonts() {}
+    void loadFonts();
     void loadMusics() {}
     void registerStates();
 private:

@@ -17,10 +17,15 @@ namespace Resources
 
 namespace Controller
 {
-    extern sf::Keyboard::Key MOVE_UP;
-    extern sf::Keyboard::Key MOVE_DOWN;
-    extern sf::Keyboard::Key MOVE_LEFT;
-    extern sf::Keyboard::Key MOVE_RIGHT;
+    extern sf::Keyboard::Key MOVE_UP_SET_1;
+    extern sf::Keyboard::Key MOVE_DOWN_SET_1;
+    extern sf::Keyboard::Key MOVE_LEFT_SET_1;
+    extern sf::Keyboard::Key MOVE_RIGHT_SET_1;
+
+    extern sf::Keyboard::Key MOVE_UP_SET_2;
+    extern sf::Keyboard::Key MOVE_DOWN_SET_2;
+    extern sf::Keyboard::Key MOVE_LEFT_SET_2;
+    extern sf::Keyboard::Key MOVE_RIGHT_SET_2;
 
     extern sf::Keyboard::Key PAUSE;
 };
@@ -31,12 +36,14 @@ namespace Statistic
     extern float SCREEN_HEIGHT;
     extern sf::FloatRect SCREEN_BOUNDING;
 
+    extern sf::Vector2f INITIAL_ROAD_SEQUENCE_POSITION;
+
     extern float SCREEN_SPEED;
 
     extern float ROAD_WIDTH;
     extern float ROAD_HEIGHT;
 
-    extern int DEFAULT_BLOCK;
+    extern int BLOCK_NUMBER;
     extern int BLOCK_SIZE;
     extern float SMALL_CAR_LENGTH;
     extern float SMALL_CAR_HEIGHT;
@@ -46,6 +53,7 @@ namespace Statistic
     extern float TRUCK_CAR_HEIGHT;
     extern float TRAIN_LENGTH;
     extern float TRAIN_HEIGHT;
+    extern sf::Vector2f TRAFFIC_LIGHT_SIZE;
 
     extern int PLAYER_SCORE;
     extern int PLAYER_SKIN_TYPE;
@@ -58,6 +66,13 @@ namespace Statistic
     extern float CHARACTER_JUMP_DISTANCE_HORIZONTAL;
     extern float CHARACTER_JUMP_DISTANCE_VERTICAL;
 
+    extern sf::Vector2f MAX_RIVER_SPEED;
+    extern sf::Vector2f MIN_RIVER_SPEED;
+    extern sf::Vector2f ADDING_RIVER_SPEED; 
+    extern float MINIMUM_WOOD_LENGTH;
+    extern float MAXIMUM_WOOD_LENGTH;
+    extern float WOOD_HEIGHT;
+    
     extern float SCREEN_SPEED;
     extern float SCREEN_SPEED_DEFAULT;
     extern float SCREEN_SPEED_INCREASE;

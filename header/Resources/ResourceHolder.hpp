@@ -12,6 +12,9 @@ namespace RoadTextures
         Tree,
         Rock,
         Bush,
+        Wood,
+        UniformWater,
+        AccelerateWater,
         SmallCarLeft,
         SmallCarRight,
         BigCarLeft,
@@ -20,6 +23,9 @@ namespace RoadTextures
         TruckRight,
         TrainLeft,
         TrainRight,
+        TrafficLightRed,
+        TrafficLightYellow,
+        TrafficLightGreen,
         Road,
         Rail,
         None
@@ -57,6 +63,8 @@ namespace Fonts {
         RobotoItalic,
         RobotoBold,
         RussoOne,
+        PixelifySansRegular,
+        JoystixMonospaceRegular,
         FiraMonoRegular
     };
 };

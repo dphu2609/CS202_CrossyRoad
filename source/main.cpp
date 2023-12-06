@@ -1,5 +1,6 @@
 #include <Game.hpp>
 #include <time.h>
+#include <SceneGraph/Road/River.hpp>
 
 int main() {
     srand(time(NULL));

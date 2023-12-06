@@ -1,6 +1,6 @@
 #include <SceneGraph/Character.hpp>
 
-Character::Character(sf::View &view) : mView(view) {
+Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurrentRoadIndex(currentRoadIndex) {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
     this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
 }
@@ -42,30 +42,29 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
     }
     updateMove(dt);
     updateWorldView(dt);
-}
-
-void Character::resetCurrentView() {
-    sf::Vector2f newPosition = this->getPosition() + sf::Vector2f(0, Statistic::RESET_VIEW_POSITION.y);
-    this->setPosition(newPosition);
-    if (mIsMoving) {
-        mInitialPosition.y += Statistic::RESET_VIEW_POSITION.y;
-    }
-}   
+} 
 
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
-    if (event.type == sf::Event::KeyPressed) {
-        if (event.key.code == Controller::MOVE_UP) {
-            mKeyInput.push(Controller::MOVE_UP);
-        } else if (event.key.code == Controller::MOVE_DOWN) {
-            mKeyInput.push(Controller::MOVE_DOWN);
-        } else if (event.key.code == Controller::MOVE_LEFT) {
-            mKeyInput.push(Controller::MOVE_LEFT);
-        } else if (event.key.code == Controller::MOVE_RIGHT) {
-            mKeyInput.push(Controller::MOVE_RIGHT);
+    if (event.type == sf::Event::KeyPressed && !mIsMoving) {
+        if (event.key.code == Controller::MOVE_UP_SET_1) {
+            mKeyInput.push(Controller::MOVE_UP_SET_1);
+        } else if (event.key.code == Controller::MOVE_DOWN_SET_1) {
+            mKeyInput.push(Controller::MOVE_DOWN_SET_1);
+        } else if (event.key.code == Controller::MOVE_LEFT_SET_1) {
+            mKeyInput.push(Controller::MOVE_LEFT_SET_1);
+        } else if (event.key.code == Controller::MOVE_RIGHT_SET_1) {
+            mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
+        } else if (event.key.code == Controller::MOVE_UP_SET_2) {
+            mKeyInput.push(Controller::MOVE_UP_SET_2);
+        } else if (event.key.code == Controller::MOVE_DOWN_SET_2) {
+            mKeyInput.push(Controller::MOVE_DOWN_SET_2);
+        } else if (event.key.code == Controller::MOVE_LEFT_SET_2) {
+            mKeyInput.push(Controller::MOVE_LEFT_SET_2);
+        } else if (event.key.code == Controller::MOVE_RIGHT_SET_2) {
+            mKeyInput.push(Controller::MOVE_RIGHT_SET_2);
         }
     }
-    else if (event.type == sf::Event::KeyReleased) {
-        if (!mKeyInput.empty()) mKeyInput.push(mKeyInput.front());
+    else if (event.type == sf::Event::KeyReleased && !mIsMoving) {
         while (mKeyInput.size() > 1) {
             mKeyInput.pop();
         }
@@ -80,25 +79,43 @@ void Character::updateMove(sf::Time dt) {
     if (!mKeyInput.empty()) {
         sf::Keyboard::Key key = mKeyInput.front();
         int direction = -1;
-        if (key == Controller::MOVE_UP) {
+        if (key == Controller::MOVE_UP_SET_1 || key == Controller::MOVE_UP_SET_2) {
             direction = 0;
-        } else if (key == Controller::MOVE_DOWN) {
+        } else if (key == Controller::MOVE_DOWN_SET_1 || key == Controller::MOVE_DOWN_SET_2) {
             direction = 1;
-        } else if (key == Controller::MOVE_LEFT) {
+        } else if (key == Controller::MOVE_LEFT_SET_1 || key == Controller::MOVE_LEFT_SET_2) {
             direction = 2;
-        } else if (key == Controller::MOVE_RIGHT) {
+        } else if (key == Controller::MOVE_RIGHT_SET_1 || key == Controller::MOVE_RIGHT_SET_2) {
             direction = 3;
         }
-        if (!move(dt, direction)) {
+        if (!moveCharacter(dt, direction)) {
             mKeyInput.pop();
             mCurrentStep = 0.f;
         }
     }
 }
 
+int Character::getCurrentRoadIndex() {
+    return mCurrentRoadIndex;
+}
+
+void Character::setCurrentRoadIndex(int currentRoadIndex) {
+    mCurrentRoadIndex = currentRoadIndex;
+}
+
+void Character::increaseCurrentRoadIndex() {
+    mCurrentRoadIndex++;
+}
+
+void Character::resetCurrentView() {
+    if (mIsMoving) {
+        mInitialPosition.y += Statistic::RESET_VIEW_POSITION.y;
+    }
+}   
+
 void Character::updateWorldView(sf::Time dt) {
     sf::Vector2f centerPosition = mView.getCenter();
-    if (this->getPosition().y < centerPosition.y) {
+    if (this->getPosition().y + Statistic::CHARACTER_SPAWN_POSITION.y + Statistic::ROAD_HEIGHT * 5 < centerPosition.y) {
         Statistic::SCREEN_SPEED = Statistic::SCREEN_SPEED_INCREASE;
     }
     else {
@@ -134,11 +151,13 @@ sf::Vector2f Character::getNextDownPosition(float x) {
     );
 }
 
-bool Character::move(sf::Time dt, int direction) {
+bool Character::moveCharacter(sf::Time dt, int direction) {
+    float mSpeed = (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL / 5 : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL / 5);
     if (mCurrentStep == 0.f) {
         mInitialPosition = this->getPosition();
         mDirection = direction;
         mCurrentStep += mSpeed;
+        mCurrentRoadIndex += (direction < 2 ? (direction == 0 ? -1 : 1) : 0);
         return mIsMoving = true;
     }
     else if (mCurrentStep < (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL)) {
@@ -157,6 +176,10 @@ bool Character::move(sf::Time dt, int direction) {
         setPosition(newPosition);
         return mIsMoving = true;
     }
+    else {
+        if (mDirection == 0) mLanePassed++;
+        else if (mDirection == 1) mLanePassed--;
+    }
     return mIsMoving = false;
 }
 
@@ -164,3 +187,8 @@ sf::FloatRect Character::getSpriteBounding()
 {
     return mForwardState.getGlobalBounds();
 }
+
+int Character::getLanePassed() const {
+    return mLanePassed;
+}
+    

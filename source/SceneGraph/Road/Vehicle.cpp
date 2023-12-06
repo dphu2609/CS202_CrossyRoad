@@ -119,3 +119,7 @@ bool Vehicle::isOutOfBound() {
         return this->getPosition().x > Statistic::SCREEN_WIDTH * 2;
     }
 }
+
+sf::FloatRect Vehicle::getBoundingRect() const {
+    return getWorldTransform().transformRect(mSprite.getGlobalBounds());
+}

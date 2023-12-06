@@ -9,13 +9,10 @@ namespace GUI {
     public:
         typedef std::shared_ptr<Component> Ptr;
     public:
-        Component();
-        virtual void handleEvent(sf::Event &event) = 0;
+        Component() {}
+        virtual void update(sf::Time dt) = 0;
+        virtual void handleEvent(sf::RenderWindow &window, sf::Event &event) = 0;
         virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const = 0;
     };
-
-    class Button;
-    class Carousel;
-    class Container;
 }
 #endif // GUI_COMPONENT_HPP

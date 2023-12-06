@@ -4,7 +4,19 @@ Game::Game() : mWindow(sf::VideoMode(Statistic::SCREEN_WIDTH, Statistic::SCREEN_
 , mStateStack(mWindow) {
     loadTextures();
     loadGifs();
+    loadFonts();
     registerStates();
+}
+
+void Game::loadFonts() {
+    Resources::fonts.load(Fonts::ComfortaaRegular, "media/fonts/Comfortaa/Comfortaa-Regular.ttf");
+    Resources::fonts.load(Fonts::FiraSansRegular, "media/fonts/FiraSans-Regular.ttf");
+    Resources::fonts.load(Fonts::RobotoRegular, "media/fonts/Roboto/Roboto-Regular.ttf");
+    Resources::fonts.load(Fonts::RobotoBold, "media/fonts/Roboto/Roboto-Bold.ttf");
+    Resources::fonts.load(Fonts::FiraMonoRegular, "media/fonts/Fira_Mono/FiraMono-Regular.ttf");
+    Resources::fonts.load(Fonts::RussoOne, "media/fonts/RussoOne-Regular.ttf");
+    Resources::fonts.load(Fonts::PixelifySansRegular, "media/fonts/PixelifySans/PixelifySans-Regular.ttf");
+    Resources::fonts.load(Fonts::JoystixMonospaceRegular, "media/fonts/Joystix-Monospace-Regular.otf");
 }
 
 void Game::loadTextures() {
@@ -32,6 +44,9 @@ void Game::loadTextures() {
     Resources::roadTextures.load(RoadTextures::None, "media/images/road/none1.png");
     Resources::roadTextures.load(RoadTextures::Road, "media/images/road/Road1.png");
     Resources::roadTextures.load(RoadTextures::Rail, "media/images/road/Rail70x70_1.png");
+    Resources::roadTextures.load(RoadTextures::UniformWater, "media/images/road/uniform.png");
+    Resources::roadTextures.load(RoadTextures::AccelerateWater, "media/images/road/accelerate.png");
+    Resources::roadTextures.load(RoadTextures::Wood, "media/images/road/wood.jpg");
 
     Resources::roadTextures.load(RoadTextures::SmallCarLeft, "media/images/road/SmallCarLeft1.png");
     Resources::roadTextures.load(RoadTextures::SmallCarRight, "media/images/road/SmallCarRight1.png");
@@ -42,29 +57,10 @@ void Game::loadTextures() {
     Resources::roadTextures.load(RoadTextures::TrainLeft, "media/images/road/FullTrainLeft4Cabin1.png");
     Resources::roadTextures.load(RoadTextures::TrainRight, "media/images/road/FullTrainRight4Cabin1.png");
 
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState1, "../media/images/characters/1.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState2, "../media/images/characters/2.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState3, "../media/images/characters/3.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1BackwardState4, "../media/images/characters/4.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState1, "../media/images/characters/5.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState2, "../media/images/characters/6.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState3, "../media/images/characters/7.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1ForwardState4, "../media/images/characters/8.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState1, "../media/images/characters/9.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState2, "../media/images/characters/10.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState3, "../media/images/characters/11.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1LeftState4, "../media/images/characters/12.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState1, "../media/images/characters/13.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState2, "../media/images/characters/14.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState3, "../media/images/characters/15.png");
-    // Resources::characterTextures.load(CharacterTextures::CharacterSkin1RightState4, "../media/images/characters/16.png");
-    // Resources::roadTextures.load(RoadTextures::Grass, "../media/images/road/grass3.png");
-    // Resources::roadTextures.load(RoadTextures::Tree, "../media/images/road/tree2.png");
-    // Resources::roadTextures.load(RoadTextures::Rock, "../media/images/road/rock3.png");
-    // Resources::roadTextures.load(RoadTextures::Bush, "../media/images/road/bush1.png");
-    // Resources::roadTextures.load(RoadTextures::None, "../media/images/road/none1.png");
+    Resources::roadTextures.load(RoadTextures::TrafficLightRed, "media/images/road/light_red.png");
+    Resources::roadTextures.load(RoadTextures::TrafficLightYellow, "media/images/road/light_yellow.png");
+    Resources::roadTextures.load(RoadTextures::TrafficLightGreen, "media/images/road/light_green.png");
 }
-
 void Game::loadGifs() {
     std::vector<sf::Sprite> characterSkin1Backward;
     characterSkin1Backward.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1BackwardState1]));
@@ -97,6 +93,7 @@ void Game::loadGifs() {
 
 void Game::registerStates() {
     mStateStack.registerState<GameState>(States::Game);
+    mStateStack.registerState<PauseState>(States::Pause);
 }
 
 void Game::run() {
@@ -131,7 +128,7 @@ void Game::update(sf::Time dt) {
 }
 
 void Game::render() {
-    mWindow.clear();
+    mWindow.clear(sf::Color::Transparent);
     mStateStack.draw();
     mWindow.display();
 }

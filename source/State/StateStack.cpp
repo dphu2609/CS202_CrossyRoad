@@ -24,6 +24,7 @@ void StateStack::registerState(States::ID stateID) {
 }
 
 template void StateStack::registerState<GameState>(States::ID stateID);
+template void StateStack::registerState<PauseState>(States::ID stateID);
 
 State::Ptr StateStack::createState(States::ID stateID) {
     auto found = mFactories.find(stateID);
@@ -42,7 +43,9 @@ void StateStack::update(sf::Time dt) {
 }
 
 void StateStack::draw() {
-    if (!mStack.empty()) mStack.back()->draw();
+    if (!mStack.empty()) {
+        for (auto &stack : mStack) stack->draw();
+    }
 }
 
 void StateStack::pushState(States::ID stateID) {

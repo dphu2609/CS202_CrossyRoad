@@ -29,6 +29,7 @@ public:
     sf::FloatRect getGlobalBounds();
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
+    virtual sf::FloatRect getBoundingRect() const;
 private:
     void move(sf::Time dt);
 private:    

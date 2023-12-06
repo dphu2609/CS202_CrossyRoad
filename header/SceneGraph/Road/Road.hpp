@@ -9,10 +9,7 @@
 
 namespace RoadType {
     enum ID {
-        SmallCar,
-        BigCar,
-        Truck,
-        RailWay,
+        VehicleLane,
         River,
         Grass,
     };
@@ -21,7 +18,12 @@ namespace RoadType {
 class Road : public SceneNode {
 public:
     virtual bool isCollide(const sf::FloatRect &bounds) const {return false;}
+    virtual bool isHitDangerousObjects(const sf::FloatRect &bounds) const {return false;}
     virtual bool isOutOfScreen(const sf::View &view) const {return false;}
+    virtual void readData(std::ifstream &file) {}
+    virtual void writeData(std::ofstream &file) {}
+    virtual RoadType::ID getRoadType() const = 0;
+    virtual sf::Vector2f getVelocity() const {return sf::Vector2f(0.f, 0.f);}
 };
 
 #endif
