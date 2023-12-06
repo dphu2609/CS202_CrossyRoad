@@ -64,6 +64,7 @@ namespace Fonts {
         RobotoBold,
         RussoOne,
         PixelifySansRegular,
+        JoystixMonospaceRegular,
         FiraMonoRegular
     };
 };

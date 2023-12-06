@@ -5,13 +5,20 @@ PauseState::PauseState(StateStack &stack, sf::RenderWindow &window) : State(stac
 }
 
 void PauseState::draw() {
-    mWindow.draw(mSceneGraph);
+    sf::RectangleShape backgroundShape;
+    backgroundShape.setFillColor(sf::Color(0, 0, 0, 100));
+    backgroundShape.setSize(sf::Vector2f(mWindow.getSize()));
+    backgroundShape.setOrigin(backgroundShape.getSize() / 2.f);
+    backgroundShape.setPosition(mWindow.getView().getCenter());
+    mWindow.setView(mWindow.getView());
+    mWindow.draw(backgroundShape);
+    // mWindow.draw(mSceneGraph);
     mWindow.draw(mGUIContainer);
 }
 
 void PauseState::update(sf::Time dt) {
     mSceneGraph.update(dt, mCommandQueue);
-    mGUIContainer.update(dt);
+    mGUIContainer.update(dt);   
 }
 
 void PauseState::handleEvent(sf::Event &event) {
