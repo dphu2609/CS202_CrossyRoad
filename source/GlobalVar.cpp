@@ -37,7 +37,7 @@ namespace Statistic {
     float TRUCK_CAR_HEIGHT = 160;
     float TRAIN_LENGTH = 1500;
     float TRAIN_HEIGHT = 70;
-    sf::Vector2f TRAFFIC_LIGHT_SIZE = sf::Vector2f(50, 100);
+    sf::Vector2f TRAFFIC_LIGHT_SIZE = sf::Vector2f(40, 100);
 
 
     int PLAYER_SCORE = 0;
