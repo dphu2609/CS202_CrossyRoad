@@ -9,16 +9,16 @@
 class SpriteNode : public SceneNode
 {
 	public:
-		explicit			SpriteNode(const sf::Texture& texture);
-							SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect);
+		explicit SpriteNode(const sf::Texture& texture);
+		SpriteNode(const sf::Texture& texture, const sf::IntRect& textureRect);
 
 
 	private:
-		virtual void		drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
+		virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
 
 
 	private:
-		sf::Sprite			mSprite;
+		sf::Sprite mSprite;
 };
 
 #endif // BOOK_SPRITENODE_HPP

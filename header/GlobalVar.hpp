@@ -31,6 +31,8 @@ namespace Statistic
     extern float SCREEN_HEIGHT;
     extern sf::FloatRect SCREEN_BOUNDING;
 
+    extern sf::Vector2f INITIAL_ROAD_SEQUENCE_POSITION;
+
     extern float SCREEN_SPEED;
 
     extern float ROAD_WIDTH;
@@ -46,6 +48,7 @@ namespace Statistic
     extern float TRUCK_CAR_HEIGHT;
     extern float TRAIN_LENGTH;
     extern float TRAIN_HEIGHT;
+    extern sf::Vector2f TRAFFIC_LIGHT_SIZE;
 
     extern int PLAYER_SCORE;
     extern int PLAYER_SKIN_TYPE;

@@ -16,6 +16,8 @@ public:
     void attachChild(Ptr child);
     void pushFrontChild(Ptr child);
     Ptr detachChild(const SceneNode& node);
+    int getChildIndex(const SceneNode& node);
+    void moveChildToIndex(const SceneNode& node, int index);
 
     void update(sf::Time dt, CommandQueue& commandQueue);
     void draw(sf::RenderTarget &target, sf::RenderStates states) const;

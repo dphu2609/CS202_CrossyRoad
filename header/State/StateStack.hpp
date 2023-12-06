@@ -82,4 +82,5 @@ private:
 };
 
 #include <State/GameState/GameState.hpp>  
+#include <State/PauseState.hpp>
 #endif

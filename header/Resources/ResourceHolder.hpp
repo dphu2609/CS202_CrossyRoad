@@ -23,6 +23,9 @@ namespace RoadTextures
         TruckRight,
         TrainLeft,
         TrainRight,
+        TrafficLightRed,
+        TrafficLightYellow,
+        TrafficLightGreen,
         Road,
         Rail,
         None
@@ -60,6 +63,7 @@ namespace Fonts {
         RobotoItalic,
         RobotoBold,
         RussoOne,
+        PixelifySansRegular,
         FiraMonoRegular
     };
 };

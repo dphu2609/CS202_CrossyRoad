@@ -9,13 +9,19 @@
 
 class Character : public SceneNode {
 public:
-    Character(sf::View &view);
+    Character(sf::View &view, int currentRoadIndex);
     sf::FloatRect getSpriteBounding();
 private:
     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void handleCurrentEvent(sf::RenderWindow &window, sf::Event &event);
     virtual unsigned int getCategory() const;
+private:
+    int mCurrentRoadIndex;
+public:
+    int getCurrentRoadIndex();
+    void setCurrentRoadIndex(int currentRoadIndex);
+    void increaseCurrentRoadIndex();
     virtual sf::FloatRect getBoundingRect() const;
 private:
     sf::View &mView;
@@ -45,10 +51,13 @@ private:
     float mCurrentStep = 0.f;
     sf::Vector2f mInitialPosition;
     bool mIsMoving = false;
+    virtual void resetCurrentView();
+public:
+    int getLanePassed() const;
+private:
+    int mLanePassed = 0;
 private:
     std::queue<sf::Keyboard::Key> mKeyInput;
-private:
-    virtual void resetCurrentView();
 };
 
 #endif
