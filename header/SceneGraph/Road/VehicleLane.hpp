@@ -5,6 +5,7 @@
 #include <bits/stdc++.h>
 #include <SceneGraph/Road/Vehicle.hpp>
 #include <SceneGraph/Road/Road.hpp>
+#include <SceneGraph/SpriteNode.hpp>
 
 class VehicleLane : public Road {
 public:
@@ -31,7 +32,14 @@ public:
         TrainRight,
         Count
     };
+    enum Layer {
+        RoadLayer,
+        VehicleLayer,
+        TrafficLightLayer,
+        CountLayer
+    };
 private:
+    std::array<SceneNode*, CountLayer> mSceneLayers;
     std::vector<Vehicle*> mVehicles;
     sf::Sprite mRoadSprite;
     sf::Clock mSpawnTimer; 
@@ -42,7 +50,7 @@ private:
     float mTruckSpawnTime = 2.5;
     float mTrainSpawnTime = 5.f;
 private:
-    std::vector<sf::Sprite> mTrafficLights; // 0: red, 1: yellow, 2: green
+    std::vector<std::shared_ptr<SpriteNode>> mTrafficLights; // 0: red, 1: yellow, 2: green
     int mTrafficLightState;
     sf::Clock mTrafficLightTimer;
 };

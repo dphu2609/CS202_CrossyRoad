@@ -17,3 +17,27 @@ void SpriteNode::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) 
 {
 	target.draw(mSprite, states);
 }
+
+void SpriteNode::setTextureRect(const sf::IntRect& rect) {
+	mSprite.setTextureRect(rect);
+}
+
+void SpriteNode::setOrigin(float x, float y) {
+	mSprite.setOrigin(x, y);
+}
+
+void SpriteNode::setOrigin(const sf::Vector2f& origin) {
+	mSprite.setOrigin(origin);
+}
+
+void SpriteNode::setScale(float x, float y) {
+	mSprite.setScale(x, y);
+}
+
+void SpriteNode::setScale(const sf::Vector2f& scale) {
+	mSprite.setScale(scale);
+}
+
+sf::FloatRect SpriteNode::getGlobalBounds() const {
+	return mSprite.getGlobalBounds();
+}

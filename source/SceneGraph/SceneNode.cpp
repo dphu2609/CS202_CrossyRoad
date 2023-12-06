@@ -23,6 +23,10 @@ SceneNode::Ptr SceneNode::detachChild(const SceneNode& node) {
     return result;
 }
 
+void SceneNode::clearChildren() {
+    mChildren.clear();
+}
+
 int SceneNode::getChildIndex(const SceneNode& node) {
     auto found = std::find_if(mChildren.begin(), mChildren.end(), [&](Ptr& p) -> bool {return p.get() == &node;});
     assert(found != mChildren.end());
