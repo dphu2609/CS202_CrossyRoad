@@ -29,6 +29,7 @@ class RiverArea : public SceneNode
     sf::FloatRect getBoundingRect() const { return getWorldTransform().transformRect(mSprite.getGlobalBounds());}
     void setDirection(int dir) { direction = dir; }
     void setSpeed(sf::Vector2f speed) { waterSpeed = speed; }
+    sf::Vector2f getVelocity() const { return (float)direction * waterSpeed; }
 };
 
 RoadTextures::ID toTextureID(RiverArea::Type type);

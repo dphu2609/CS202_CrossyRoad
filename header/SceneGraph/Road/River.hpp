@@ -30,10 +30,13 @@ private:
 private:
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time dt,CommandQueue& commands);
+    virtual bool isHitDangerousObjects(const sf::FloatRect &bounds) const;
     void spawnWood();
     void removeWood();
 public:
     River();
+    virtual RoadType::ID getRoadType() const {return RoadType::River;}
+    virtual sf::Vector2f getVelocity() const;
 };
 
 

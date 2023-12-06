@@ -80,3 +80,18 @@ void River::removeWood()
     }
 }
 
+bool River::isHitDangerousObjects(const sf::FloatRect &bounds) const {
+    for (auto &wood : woods) {
+        if (wood->getBoundingRect().intersects(bounds)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+sf::Vector2f River::getVelocity() const
+{
+    return areas[currentArea]->getVelocity();
+}
+
+
