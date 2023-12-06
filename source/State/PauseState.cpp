@@ -17,6 +17,9 @@ void PauseState::update(sf::Time dt) {
 void PauseState::handleEvent(sf::Event &event) {
     mSceneGraph.handleEvent(mWindow, event);
     mGUIContainer.handleEvent(mWindow, event);
+    if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+        requestStackPop();
+    }
 }
 
 void PauseState::buildScene() {

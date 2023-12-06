@@ -73,13 +73,13 @@ VehicleLane::VehicleLane() {
 
             int randomTrafficLightPosition = rand() % 2;
             if (randomTrafficLightPosition == 0) {
-                mTrafficLights[0]->setPosition(- Statistic::ROAD_WIDTH / 2 + 350, -15);
-                mTrafficLights[1]->setPosition(- Statistic::ROAD_WIDTH / 2 + 350, -15);
-                mTrafficLights[2]->setPosition(- Statistic::ROAD_WIDTH / 2 + 350, -15);
+                mTrafficLights[0]->setPosition(- Statistic::ROAD_WIDTH / 2 + 450, -15);
+                mTrafficLights[1]->setPosition(- Statistic::ROAD_WIDTH / 2 + 450, -15);
+                mTrafficLights[2]->setPosition(- Statistic::ROAD_WIDTH / 2 + 450, -15);
             } else {
-                mTrafficLights[0]->setPosition(Statistic::ROAD_WIDTH / 2 - 350, -15);
-                mTrafficLights[1]->setPosition(Statistic::ROAD_WIDTH / 2 - 350, -15);
-                mTrafficLights[2]->setPosition(Statistic::ROAD_WIDTH / 2 - 350, -15);
+                mTrafficLights[0]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
+                mTrafficLights[1]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
+                mTrafficLights[2]->setPosition(Statistic::ROAD_WIDTH / 2 - 4    50, -15);
             }
             mTrafficLightState = 0;
         }
@@ -155,15 +155,15 @@ bool VehicleLane::isHitDangerousObjects(const sf::FloatRect &bounds) const {
 }
 
 void VehicleLane::readData(std::ifstream &file) {
-    std::vector<std::vector<float>> pos;
+    std::vector<std::vector<float>> vehicleData;
     int size;
     file >> mType >> mDirection >> size;
     for (int i = 0; i < size; ++i) {
-        pos.push_back(std::vector<float>());
+        vehicleData.push_back(std::vector<float>());
         float x, y;
         file >> x >> y;
-        pos.back().push_back(x);
-        pos.back().push_back(y);
+        vehicleData.back().push_back(x);
+        vehicleData.back().push_back(y);
     }
 
     switch (mType) {
@@ -190,10 +190,12 @@ void VehicleLane::readData(std::ifstream &file) {
 
     for (int i = 0; i < size; ++i) {
         std::shared_ptr<Vehicle> vehicle = std::make_shared<Vehicle>(toVehicleType(mType), Resources::roadTextures, mDirection);
-        vehicle->setPosition(pos[i][0], pos[i][1]);
+        vehicle->setPosition(vehicleData[i][0], vehicleData[i][1]);
         mVehicles.push_back(vehicle.get());
         mSceneLayers[VehicleLayer]->attachChild(std::move(vehicle));
     }
+
+    mSpawnTimer.restart();
 }
 
 void VehicleLane::writeData(std::ofstream &file) {

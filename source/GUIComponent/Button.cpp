@@ -74,29 +74,22 @@ void GUI::Button::handleEvent(sf::RenderWindow &window, sf::Event &event) {
     }
 
     if (checkLeftClick(window, event)) {
+        std::cout << "Button clicked" << std::endl;
         mCallback();
     }
 }
 
 bool GUI::Button::checkHover(sf::RenderWindow &window, sf::Event &event) {
-    sf::Vector2i localPosition(sf::Mouse::getPosition(window));
-    sf::Vector2f localPositionF(static_cast<float>(localPosition.x), static_cast<float>(localPosition.y));
-    localPositionF = window.mapPixelToCoords(localPosition);
+    sf::Vector2f localPosition = window.mapPixelToCoords(sf::Mouse::getPosition(window));
     sf::FloatRect dataBounds;
     if (mType == 0 || mType == 1) {
-        dataBounds = mSprite[0].getGlobalBounds();
+        dataBounds = this->getTransform().transformRect(mSprite[0].getGlobalBounds());
     } else {
-        dataBounds = mShape.getGlobalBounds();
+        dataBounds = this->getTransform().transformRect(mShape.getGlobalBounds());
     }
     sf::Vector2f startPoint(dataBounds.left, dataBounds.top);
     sf::Vector2f endPoint(dataBounds.left + dataBounds.width, dataBounds.top + dataBounds.height);
-    return (
-        localPositionF.x >= dataBounds.left && 
-        localPositionF.x <= dataBounds.left + dataBounds.width && 
-        localPositionF.y >= dataBounds.top && 
-        localPositionF.y <= dataBounds.top + dataBounds.height
-    );
-    return false;
+    return (localPosition.x >= startPoint.x && localPosition.x <= endPoint.x && localPosition.y >= startPoint.y && localPosition.y <= endPoint.y);
 }
 
 bool GUI::Button::checkLeftClick(sf::RenderWindow &window, sf::Event &event) {
