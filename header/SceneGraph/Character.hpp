@@ -11,6 +11,10 @@ class Character : public SceneNode {
 public:
     Character(sf::View &view, int currentRoadIndex);
     sf::FloatRect getSpriteBounding();
+    bool canMoveLeft = true;
+    bool canMoveRight = true;
+    bool canMoveUp = true;
+    bool canMoveDown = true;
 private:
     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;

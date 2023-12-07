@@ -79,9 +79,39 @@ void RoadSequence::drawCurrent(sf::RenderTarget &target, sf::RenderStates states
 
 void RoadSequence::gameControl(sf::Time dt) {
     if (mRoads[mCurrentRoadIndex - 1]->isHitDangerousObjects(mCharacter->getBoundingRect())) {
-        std::cout << "Hit dangerous objects" << std::endl;
+        // std::cout << "Hit dangerous objects" << std::endl;
     } else if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
         mCharacter->move(dt.asSeconds() * mRoads[mCurrentRoadIndex - 1]->getVelocity());
+    }
+
+    sf::FloatRect characterBounding = mCharacter->getBoundingRect();
+    sf::FloatRect ifMoveLeft = characterBounding;
+    ifMoveLeft.left -= Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL;
+    sf::FloatRect ifMoveRight = characterBounding;
+    ifMoveRight.left += Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL;
+    sf::FloatRect ifMoveUp = characterBounding;
+    ifMoveUp.top -= Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL;
+    sf::FloatRect ifMoveDown = characterBounding;
+    ifMoveDown.top += Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL;
+    if(mRoads[mCurrentRoadIndex - 1]->isCollide(ifMoveLeft)) {
+        mCharacter->canMoveLeft = false;
+    } else {
+        mCharacter->canMoveLeft = true;
+    }
+    if(mRoads[mCurrentRoadIndex - 1]->isCollide(ifMoveRight)) {
+        mCharacter->canMoveRight = false;
+    } else {
+        mCharacter->canMoveRight = true;
+    }
+    if(mRoads[mCurrentRoadIndex - 2]->isCollide(ifMoveUp)) {
+        mCharacter->canMoveUp = false;
+    } else {
+        mCharacter->canMoveUp = true;
+    }
+    if(mRoads[mCurrentRoadIndex]->isCollide(ifMoveDown)) {
+        mCharacter->canMoveDown = false;
+    } else {
+        mCharacter->canMoveDown = true;
     }
 }
 

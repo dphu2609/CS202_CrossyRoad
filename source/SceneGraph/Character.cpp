@@ -47,12 +47,16 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
     if (event.type == sf::Event::KeyPressed && !mIsMoving) {
         if (event.key.code == Controller::MOVE_UP) {
+            if(canMoveUp)
             mKeyInput.push(Controller::MOVE_UP);
         } else if (event.key.code == Controller::MOVE_DOWN) {
+            if(canMoveDown)
             mKeyInput.push(Controller::MOVE_DOWN);
         } else if (event.key.code == Controller::MOVE_LEFT) {
+            if(canMoveLeft)
             mKeyInput.push(Controller::MOVE_LEFT);
         } else if (event.key.code == Controller::MOVE_RIGHT) {
+            if(canMoveRight)
             mKeyInput.push(Controller::MOVE_RIGHT);
         }
     }

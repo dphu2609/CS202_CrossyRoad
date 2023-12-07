@@ -10,6 +10,7 @@ class Grass : public Road {
 public:
     Grass();
     virtual bool isCollide(const sf::FloatRect &rect) const;
+    virtual bool isBlock(sf::Vector2f position);
     void randomBlock();
     virtual RoadType::ID getRoadType() const {return RoadType::Grass;}
     void addBlock(int index, Block::Type type);
