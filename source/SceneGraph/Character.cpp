@@ -46,22 +46,18 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
 
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
     if (event.type == sf::Event::KeyPressed && !mIsMoving) {
-        if (event.key.code == Controller::MOVE_UP_SET_1) {
-            mKeyInput.push(Controller::MOVE_UP_SET_1);
-        } else if (event.key.code == Controller::MOVE_DOWN_SET_1) {
-            mKeyInput.push(Controller::MOVE_DOWN_SET_1);
-        } else if (event.key.code == Controller::MOVE_LEFT_SET_1) {
-            mKeyInput.push(Controller::MOVE_LEFT_SET_1);
-        } else if (event.key.code == Controller::MOVE_RIGHT_SET_1) {
-            mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
-        } else if (event.key.code == Controller::MOVE_UP_SET_2) {
-            mKeyInput.push(Controller::MOVE_UP_SET_2);
-        } else if (event.key.code == Controller::MOVE_DOWN_SET_2) {
-            mKeyInput.push(Controller::MOVE_DOWN_SET_2);
-        } else if (event.key.code == Controller::MOVE_LEFT_SET_2) {
-            mKeyInput.push(Controller::MOVE_LEFT_SET_2);
-        } else if (event.key.code == Controller::MOVE_RIGHT_SET_2) {
-            mKeyInput.push(Controller::MOVE_RIGHT_SET_2);
+        if (event.key.code == Controller::MOVE_UP) {
+            if(canMoveUp)
+            mKeyInput.push(Controller::MOVE_UP);
+        } else if (event.key.code == Controller::MOVE_DOWN) {
+            if(canMoveDown)
+            mKeyInput.push(Controller::MOVE_DOWN);
+        } else if (event.key.code == Controller::MOVE_LEFT) {
+            if(canMoveLeft)
+            mKeyInput.push(Controller::MOVE_LEFT);
+        } else if (event.key.code == Controller::MOVE_RIGHT) {
+            if(canMoveRight)
+            mKeyInput.push(Controller::MOVE_RIGHT);
         }
     }
     else if (event.type == sf::Event::KeyReleased && !mIsMoving) {

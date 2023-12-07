@@ -14,8 +14,8 @@ bool Grass::isCollide(const sf::FloatRect &rect) const
 {
     for(auto& ptr : mBlocks)
     {
-        // std::cout << ptr->getPosition().x << " " << ptr->getPosition().y << std::endl;
-        // if(ptr->getPosition().intersects(rect)) return true;
+        if(ptr != nullptr && ptr->getBoundingRect().intersects(rect))
+            return true;
     }
     return false;
 }
@@ -57,4 +57,12 @@ void Grass::randomBlock()
             numBlocks--;
         }
     }
+}
+
+bool Grass::isBlock(sf::Vector2f position)
+{
+    int index = (position.x + Statistic::ROAD_WIDTH / 2) / Statistic::BLOCK_SIZE;
+    if(index < 0 || index >= spaces) return false;
+    if(mBlocks[index] == nullptr) return false;
+    return true;
 }
