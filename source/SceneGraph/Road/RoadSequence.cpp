@@ -79,9 +79,22 @@ void RoadSequence::drawCurrent(sf::RenderTarget &target, sf::RenderStates states
 
 void RoadSequence::gameControl(sf::Time dt) {
     if (mRoads[mCurrentRoadIndex - 1]->isHitDangerousObjects(mCharacter->getBoundingRect())) {
-        // std::cout << "Hit dangerous objects" << std::endl;
-    } else if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
+        std::cout << "Hit dangerous objects" << std::endl;
+        return;
+    }
+
+    if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
         mCharacter->move(dt.asSeconds() * mRoads[mCurrentRoadIndex - 1]->getVelocity());
+        isInRiver = true;
+    } else if (isInRiver) {
+        float dx = mCharacter->getPosition().x - oldPos;
+        int index = dx / Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL;
+        float newDx = index * Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL;
+        mCharacter->move(200 , 0);
+        isInRiver = false;
+    } else
+    {
+        oldPos = mCharacter->getPosition().x;
     }
 
     sf::FloatRect characterBounding = mCharacter->getBoundingRect();

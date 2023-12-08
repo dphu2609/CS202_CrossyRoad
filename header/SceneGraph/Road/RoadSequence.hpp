@@ -15,6 +15,8 @@ private:
     std::shared_ptr<Character> mCharacter;
     int mCurrentRoadIndex;
     sf::View &mView;
+    bool isInRiver = false;
+    float oldPos = 0.f;
 public:
     RoadSequence(sf::View &view);
     virtual void updateCurrent(sf::Time dt, CommandQueue &commands);

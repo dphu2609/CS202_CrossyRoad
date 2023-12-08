@@ -20,9 +20,10 @@ class Wood : public SceneNode
     sf::FloatRect getSpriteBounds() const { return mSprite.getGlobalBounds(); }
     sf::FloatRect getBoundingRect() const { 
         sf::FloatRect rect = mSprite.getGlobalBounds();
-        rect.top -= 10.f;
-        rect.width -= 80.f;
-        rect.left += 40.f;
+        rect.top -= 35.f;
+        // rect.width -= 80.f;
+        rect.height += 70.f;
+        // rect.left += 40.f;
         return getWorldTransform().transformRect(rect); 
     }
     bool isCollide(const sf::FloatRect& rect) const ;
