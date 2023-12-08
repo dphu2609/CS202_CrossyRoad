@@ -99,7 +99,11 @@ void Game::update(sf::Time dt) {
 
 void Game::render() {
     mWindow.clear();
+<<<<<<< Updated upstream
     if(mMenu.playState()==false)
+=======
+    if(Statistic::IS_EXIT_TO_MENU)
+>>>>>>> Stashed changes
     {
         mMenu.draw(mWindow);
     }

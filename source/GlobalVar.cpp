@@ -38,5 +38,26 @@ namespace Statistic {
     sf::Vector2f CHARACTER_SIZE = sf::Vector2f(100, 150);
     sf::Vector2f CHARACTER_SPAWN_POSITION = sf::Vector2f(SCREEN_WIDTH / 2 - CHARACTER_SIZE.x /2, SCREEN_HEIGHT - 100);
 
+<<<<<<< Updated upstream
     float CHARACTER_JUMP_DISTANCE = 100;
+=======
+    float CHARACTER_JUMP_DISTANCE_HORIZONTAL = 100;
+    float CHARACTER_JUMP_DISTANCE_VERTICAL = 70;
+
+    float MINIMUM_WOOD_LENGTH = 100;
+    float MAXIMUM_WOOD_LENGTH = 200;
+
+    sf::Vector2f MAX_RIVER_SPEED = sf::Vector2f(300, 0);
+    sf::Vector2f MIN_RIVER_SPEED = sf::Vector2f(200, 0);
+    sf::Vector2f ADDING_RIVER_SPEED = sf::Vector2f(100, 0);
+
+    float WOOD_HEIGHT = 50;
+    float SCREEN_SPEED = 50.f;
+    float SCREEN_SPEED_DEFAULT = 50.f;
+    float SCREEN_SPEED_INCREASE = 350.f;
+
+    bool IS_GAME_OVER = false;
+
+    bool IS_EXIT_TO_MENU = true;
+>>>>>>> Stashed changes
 };

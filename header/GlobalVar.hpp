@@ -44,7 +44,30 @@ namespace Statistic
 
     extern sf::Vector2f CHARACTER_SIZE;
     extern sf::Vector2f CHARACTER_SPAWN_POSITION;
+<<<<<<< Updated upstream
     extern float CHARACTER_JUMP_DISTANCE;
+=======
+    extern sf::Vector2f INITIAL_VIEW_POSITION;
+    extern sf::Vector2f RESET_VIEW_POSITION;
+
+    extern float CHARACTER_JUMP_DISTANCE_HORIZONTAL;
+    extern float CHARACTER_JUMP_DISTANCE_VERTICAL;
+
+    extern sf::Vector2f MAX_RIVER_SPEED;
+    extern sf::Vector2f MIN_RIVER_SPEED;
+    extern sf::Vector2f ADDING_RIVER_SPEED; 
+    extern float MINIMUM_WOOD_LENGTH;
+    extern float MAXIMUM_WOOD_LENGTH;
+    extern float WOOD_HEIGHT;
+    
+    extern float SCREEN_SPEED;
+    extern float SCREEN_SPEED_DEFAULT;
+    extern float SCREEN_SPEED_INCREASE;
+
+    extern bool IS_GAME_OVER;
+
+    extern bool IS_EXIT_TO_MENU;
+>>>>>>> Stashed changes
 };
 
 #endif

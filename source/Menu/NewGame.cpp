@@ -321,6 +321,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         {
             play.setScale(1,1);
             play.setFillColor(sf::Color::White);
+            Statistic::IS_EXIT_TO_MENU=false;
             return 5;
         }
     }
