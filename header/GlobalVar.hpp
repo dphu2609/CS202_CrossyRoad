@@ -60,6 +60,8 @@ namespace Statistic
 
     extern sf::Vector2f CHARACTER_SIZE;
     extern sf::Vector2f CHARACTER_SPAWN_POSITION;
+
+    extern float CHARACTER_JUMP_DISTANCE;
     extern sf::Vector2f INITIAL_VIEW_POSITION;
     extern sf::Vector2f RESET_VIEW_POSITION;
 
@@ -78,6 +80,8 @@ namespace Statistic
     extern float SCREEN_SPEED_INCREASE;
 
     extern bool IS_GAME_OVER;
+
+    extern bool IS_EXIT_TO_MENU;
 };
 
 #endif

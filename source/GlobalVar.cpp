@@ -53,6 +53,7 @@ namespace Statistic {
     sf::Vector2f INITIAL_VIEW_POSITION = sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 300);
     sf::Vector2f RESET_VIEW_POSITION = sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 290);
 
+    float CHARACTER_JUMP_DISTANCE = 100;
     float CHARACTER_JUMP_DISTANCE_HORIZONTAL = 100;
     float CHARACTER_JUMP_DISTANCE_VERTICAL = 70;
 
@@ -69,4 +70,6 @@ namespace Statistic {
     float SCREEN_SPEED_INCREASE = 350.f;
 
     bool IS_GAME_OVER = false;
+
+    bool IS_EXIT_TO_MENU = true;
 };

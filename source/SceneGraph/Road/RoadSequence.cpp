@@ -80,6 +80,7 @@ void RoadSequence::drawCurrent(sf::RenderTarget &target, sf::RenderStates states
 void RoadSequence::gameControl(sf::Time dt) {
     if (mRoads[mCurrentRoadIndex - 1]->isHitDangerousObjects(mCharacter->getBoundingRect())) {
         Statistic::IS_GAME_OVER = true;
+        // Statistic::IS_GAME_OVER = true;
     } else if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
         mCharacter->move(dt.asSeconds() * mRoads[mCurrentRoadIndex - 1]->getVelocity());
     }

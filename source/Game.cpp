@@ -142,7 +142,7 @@ void Game::update(sf::Time dt) {
 void Game::render() {
     mWindow.clear(sf::Color::Transparent);
     mWindow.clear();
-    if(mMenu.playState() == false)
+    if(Statistic::IS_EXIT_TO_MENU)
     {
         mMenu.draw(mWindow);
     }
