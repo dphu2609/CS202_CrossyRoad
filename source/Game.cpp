@@ -90,13 +90,13 @@ void Game::loadGifs() {
     characterSkin1Right.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState4]));
     Resources::gifsHolder.load(GIFs::CharacterSkin1Right, characterSkin1Right, sf::seconds(0.4f));
 }
-
 void Game::registerStates() {
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);
 }
 
 void Game::run() {
+    registerStates();
     mStateStack.pushState(States::Game);
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
@@ -116,7 +116,15 @@ void Game::run() {
 void Game::processEvents() {
     sf::Event event;
     while (mWindow.pollEvent(event)) {
-        mStateStack.handleEvent(event);
+        if(mMenu.playState()==false)
+        {
+            mMenu.processEvent(event,mWindow);
+        }
+        else 
+        {
+            mStateStack.handleEvent(event);
+            if(event.type==sf::Event::KeyPressed&&event.key.code==sf::Keyboard::F10) mMenu.returnFromEscapeKey();
+        }
         if (event.type == sf::Event::Closed) {
             mWindow.close();
         }
@@ -124,11 +132,23 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time dt) {
+    if (mMenu.playState() == false) {
+        mMenu.update(dt);
+        return;
+    }
     mStateStack.update(dt);
 }
 
 void Game::render() {
     mWindow.clear(sf::Color::Transparent);
-    mStateStack.draw();
+    mWindow.clear();
+    if(mMenu.playState() == false)
+    {
+        mMenu.draw(mWindow);
+    }
+    else 
+    {
+        mStateStack.draw();
+    }
     mWindow.display();
 }
