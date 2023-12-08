@@ -38,8 +38,8 @@ void Grass::addBlock(int index, Block::Type type)
     std::shared_ptr<Block> temp(std::make_shared<Block>(type, Resources::roadTextures));
 
     mBlocks[index] = temp.get();
-    mBlocks[index]->setScale(Statistic::BLOCK_SIZE / mBlocks[index]->getSpriteBounds().width, Statistic::BLOCK_SIZE / mBlocks[index]->getSpriteBounds().height);
-    mBlocks[index]->setOrigin(Statistic::BLOCK_SIZE / 2, Statistic::BLOCK_SIZE / 2);
+    // mBlocks[index]->setScale(Statistic::BLOCK_SIZE / mBlocks[index]->getSpriteBounds().height, Statistic::BLOCK_SIZE / mBlocks[index]->getSpriteBounds().height);
+    mBlocks[index]->setOrigin(mBlocks[index]->getBoundingRect().width / 2, mBlocks[index]->getBoundingRect().height / 2);
     mBlocks[index]->setPosition(x, y);
     this->attachChild(std::move(temp));
 }

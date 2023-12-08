@@ -27,6 +27,9 @@ public:
     void setCurrentRoadIndex(int currentRoadIndex);
     void increaseCurrentRoadIndex();
     virtual sf::FloatRect getBoundingRect() const;
+public:
+    void readData(std::ifstream &file) {}
+    void writeData(std::ofstream &file);
 private:
     sf::View &mView;
     Gif mBackwardState;

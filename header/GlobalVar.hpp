@@ -76,6 +76,8 @@ namespace Statistic
     extern float SCREEN_SPEED;
     extern float SCREEN_SPEED_DEFAULT;
     extern float SCREEN_SPEED_INCREASE;
+
+    extern bool IS_GAME_OVER;
 };
 
 #endif

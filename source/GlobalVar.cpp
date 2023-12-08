@@ -67,4 +67,6 @@ namespace Statistic {
     float SCREEN_SPEED = 50.f;
     float SCREEN_SPEED_DEFAULT = 50.f;
     float SCREEN_SPEED_INCREASE = 350.f;
+
+    bool IS_GAME_OVER = false;
 };

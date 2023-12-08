@@ -25,12 +25,14 @@ void PauseState::handleEvent(sf::Event &event) {
     mSceneGraph.handleEvent(mWindow, event);
     mGUIContainer.handleEvent(mWindow, event);
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+        Statistic::IS_GAME_OVER = false;
         requestStackPop();
     }
 }
 
 void PauseState::buildScene() {
     std::function<void()> continueAction = [&] () {
+        Statistic::IS_GAME_OVER = false;
         requestStackPop();
     };
     std::vector<sf::Color> continueButtonTextColor = {sf::Color::Black, sf::Color::White};

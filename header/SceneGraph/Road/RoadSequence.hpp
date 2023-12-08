@@ -25,6 +25,12 @@ private:
     int mPlayerScore = 0;
 public:
     int getPlayerScore();
+// private:
+//     bool mIsPlayerDead = false;
+// public:
+//     bool isPlayerDead();
+//     void setPlayerDead(bool isPlayerDead);
+//     void reset();
 private:
     void updateRoads(sf::Time dt);
     virtual void resetCurrentView();
