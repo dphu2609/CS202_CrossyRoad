@@ -38,9 +38,7 @@ namespace Statistic {
     sf::Vector2f CHARACTER_SIZE = sf::Vector2f(100, 150);
     sf::Vector2f CHARACTER_SPAWN_POSITION = sf::Vector2f(SCREEN_WIDTH / 2 - CHARACTER_SIZE.x /2, SCREEN_HEIGHT - 100);
 
-<<<<<<< Updated upstream
     float CHARACTER_JUMP_DISTANCE = 100;
-=======
     float CHARACTER_JUMP_DISTANCE_HORIZONTAL = 100;
     float CHARACTER_JUMP_DISTANCE_VERTICAL = 70;
 
@@ -59,5 +57,4 @@ namespace Statistic {
     bool IS_GAME_OVER = false;
 
     bool IS_EXIT_TO_MENU = true;
->>>>>>> Stashed changes
 };
