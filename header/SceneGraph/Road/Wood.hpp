@@ -17,6 +17,7 @@ class Wood : public SceneNode
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     public:
     Wood(const RoadTextureHolder& textures, float maxLength);
+    Wood(float width);
     sf::FloatRect getSpriteBounds() const { return mSprite.getGlobalBounds(); }
     sf::FloatRect getBoundingRect() const { 
         sf::FloatRect rect = mSprite.getGlobalBounds();

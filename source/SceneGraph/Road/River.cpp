@@ -94,4 +94,28 @@ sf::Vector2f River::getVelocity() const
     return areas[currentArea]->getVelocity();
 }
 
+void River::readData(std::ifstream &file)
+{
+    int numWoods;
+    file >> numWoods;
+    for(int i = 0; i < numWoods; i++)
+    {
+        float width, x, y;
+        file >> width >> x >> y;
+        std::shared_ptr<Wood> wood(std::make_shared<Wood>(width));
+        wood->setPosition(x, y);
+        woods.push_back(wood.get());
+        mSceneLayers[WoodLayer]->attachChild(std::move(wood));
+    }
+}
+
+void River::saveData(std::ofstream &file)
+{
+    file << woods.size() << " ";
+    for(auto& wood : woods)
+    {
+        file << wood->getGlobalBounds().width <<wood->getPosition().x << " " << wood->getPosition().y << " ";
+    }
+}   
+
 
