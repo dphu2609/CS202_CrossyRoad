@@ -13,7 +13,7 @@ RoadSequence::RoadSequence(sf::View &view) : mCurrentRoadIndex(0), mView(view) {
 
     mCurrentRoadIndex = 43;
     std::shared_ptr<Character> character = std::make_shared<Character>(mView, mCurrentRoadIndex);
-    character->setPosition(0, - Statistic::ROAD_HEIGHT * 3 - 20);
+    character->setPosition(22.f, - Statistic::ROAD_HEIGHT * 3 - 20);
     character->setScale(Statistic::CHARACTER_SIZE.x / character->getSpriteBounding().width, Statistic::CHARACTER_SIZE.y / character->getSpriteBounding().height);
     mCharacter = character;
     this->attachChild(std::move(character));
@@ -86,16 +86,24 @@ void RoadSequence::gameControl(sf::Time dt) {
     if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
         mCharacter->move(dt.asSeconds() * mRoads[mCurrentRoadIndex - 1]->getVelocity());
         isInRiver = true;
-    } else if (isInRiver) {
-        float dx = mCharacter->getPosition().x - oldPos;
-        int index = dx / Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL;
-        float newDx = index * Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL;
-        mCharacter->move(200 , 0);
-        isInRiver = false;
-    } else
-    {
-        oldPos = mCharacter->getPosition().x;
     }
+    // } else if (isInRiver) {
+    //     // float dx = mCharacter->getPosition().x - oldPos;
+    //     // int index = dx / Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL;
+    //     // float newDx = index * Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL;
+    //     mCharacter->move(200 , 0);
+    //     std::cout << "Out of river" << std::endl;
+    //     isInRiver = false;
+    // } else
+    // {
+    //     oldPos = mCharacter->getPosition().x;
+    // }
+    if(mRoads[mCurrentRoadIndex - 1]->getRoadType() != RoadType::River && isInRiver) {
+        mCharacter->setPosition(0, mCharacter->getPosition().y);
+        std::cout << "Out of river" << std::endl;
+        isInRiver = false;
+    }
+
 
     sf::FloatRect characterBounding = mCharacter->getBoundingRect();
     sf::FloatRect ifMoveLeft = characterBounding;

@@ -16,6 +16,7 @@ void Game::loadFonts() {
     Resources::fonts.load(Fonts::FiraMonoRegular, "media/fonts/Fira_Mono/FiraMono-Regular.ttf");
     Resources::fonts.load(Fonts::RussoOne, "media/fonts/RussoOne-Regular.ttf");
     Resources::fonts.load(Fonts::PixelifySansRegular, "media/fonts/PixelifySans/PixelifySans-Regular.ttf");
+    Resources::fonts.load(Fonts::JoystixMonospaceRegular, "media/fonts/Joystix-Monospace-Regular.otf");
 }
 
 void Game::loadTextures() {
@@ -127,7 +128,7 @@ void Game::update(sf::Time dt) {
 }
 
 void Game::render() {
-    mWindow.clear();
+    mWindow.clear(sf::Color::Transparent);
     mStateStack.draw();
     mWindow.display();
 }

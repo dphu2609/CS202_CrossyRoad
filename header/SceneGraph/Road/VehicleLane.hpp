@@ -43,17 +43,16 @@ private:
     std::array<SceneNode*, CountLayer> mSceneLayers;
     std::vector<Vehicle*> mVehicles;
     sf::Sprite mRoadSprite;
-    sf::Clock mSpawnTimer; 
     int mDirection; // -1: left, 1: right
     int mType;
-    float mSmallCarSpawnTime = 2;
-    float mBigCarSpawnTime = 2;
-    float mTruckSpawnTime = 2.5;
-    float mTrainSpawnTime = 5.f;
+    float mSmallCarDistance = 600;
+    float mBigCarDistance = 450;
+    float mTruckDistance = 550;
+    float mTrainDistance = 10000;
 private:
     std::vector<std::shared_ptr<SpriteNode>> mTrafficLights; // 0: red, 1: yellow, 2: green
     int mTrafficLightState;
-    sf::Clock mTrafficLightTimer;
+
 };
 
 #endif

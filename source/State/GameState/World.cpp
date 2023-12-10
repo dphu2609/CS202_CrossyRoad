@@ -20,7 +20,7 @@ void World::buildScene() {
     roadSequence->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::CHARACTER_SPAWN_POSITION.y + Statistic::ROAD_HEIGHT * 5);
     mSceneLayers[RoadLayer]->attachChild(std::move(roadSequence));
 
-    std::shared_ptr<TextNode> scoreText = std::make_shared<TextNode>(Resources::fonts[Fonts::PixelifySansRegular], "0");
+    std::shared_ptr<TextNode> scoreText = std::make_shared<TextNode>(Resources::fonts[Fonts::JoystixMonospaceRegular], "0");
     mScoreText = scoreText;
     scoreText->setPosition(20, mWorldView.getCenter().y - 500);
     mSceneLayers[ScoreLayer]->attachChild(std::move(scoreText));

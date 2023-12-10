@@ -43,7 +43,9 @@ void StateStack::update(sf::Time dt) {
 }
 
 void StateStack::draw() {
-    if (!mStack.empty()) mStack.back()->draw();
+    if (!mStack.empty()) {
+        for (auto &stack : mStack) stack->draw();
+    }
 }
 
 void StateStack::pushState(States::ID stateID) {

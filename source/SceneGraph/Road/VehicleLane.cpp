@@ -109,37 +109,36 @@ void VehicleLane::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
 }
 
 void VehicleLane::vehicleControl(sf::Time dt) {
-    float spawnTime;
+    float vehicleDistance;
     switch (mType) {
         case SmallCarLeft: 
         case SmallCarRight: {
-            spawnTime = mSmallCarSpawnTime;
+            vehicleDistance = mSmallCarDistance;
             break;
         }
         case BigCarLeft: 
         case BigCarRight: {
-            spawnTime = mBigCarSpawnTime;
+            vehicleDistance = mBigCarDistance;
             break;
         }
         case TruckLeft: 
         case TruckRight: {
-            spawnTime = mTruckSpawnTime;
+            vehicleDistance = mTruckDistance;
             break;
         }
         case TrainLeft: 
         case TrainRight: {
-            spawnTime = mTrainSpawnTime;
+            vehicleDistance = mTrainDistance;
             break;
         }
     }
-    if (mSpawnTimer.getElapsedTime().asSeconds() > spawnTime || mVehicles.size() == 0) {
+    if (mVehicles.size() == 0 || std::abs(mVehicles.back()->getPosition().x - (-mDirection * (Statistic::ROAD_WIDTH / 2 + mVehicles.back()->getGlobalBounds().width))) >= vehicleDistance) {
         std::shared_ptr<Vehicle> vehicle = std::make_shared<Vehicle>(toVehicleType(mType), Resources::roadTextures, mDirection);
         vehicle->setPosition(-mDirection * (Statistic::ROAD_WIDTH / 2 + vehicle->getGlobalBounds().width), 0);
         mVehicles.push_back(vehicle.get());
         mSceneLayers[VehicleLayer]->attachChild(std::move(vehicle));
-        mSpawnTimer.restart();
     }
-    while (!mVehicles.empty() && mVehicles.front()->isOutOfBound()) {
+    while (mVehicles.front()->isOutOfBound() && mVehicles.size() > 1) {
         mSceneLayers[VehicleLayer]->detachChild(*mVehicles.front());
         mVehicles.erase(mVehicles.begin());
     } 
@@ -194,8 +193,6 @@ void VehicleLane::readData(std::ifstream &file) {
         mVehicles.push_back(vehicle.get());
         mSceneLayers[VehicleLayer]->attachChild(std::move(vehicle));
     }
-
-    mSpawnTimer.restart();
 }
 
 void VehicleLane::writeData(std::ofstream &file) {
@@ -207,16 +204,22 @@ void VehicleLane::writeData(std::ofstream &file) {
 
 void VehicleLane::trafficLightControl(sf::Time dt) {
     mSceneLayers[TrafficLightLayer]->clearChildren();
-    if (mSpawnTimer.getElapsedTime().asSeconds() < 1.f) {
-        mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[0]);
-    }
-    else if (mSpawnTimer.getElapsedTime().asSeconds() < 2.25) {
-        mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[2]);
-    }
-    else if (mSpawnTimer.getElapsedTime().asSeconds() < 3.f) {
+
+    if (mVehicles.size() == 0) {
         mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[1]);
-    }
-    else {
-        mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[0]);
+    } else {
+        float dis = std::abs(mVehicles.back()->getPosition().x - (-mDirection * (Statistic::ROAD_WIDTH / 2 + mVehicles.back()->getGlobalBounds().width)));
+        if (dis <= 3000) {
+            mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[0]);
+        }
+        else if (dis <= 5500) {
+            mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[2]);
+        }
+        else if (dis <= 7000) {
+            mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[1]);
+        }
+        else {
+            mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[0]);
+        }
     }
 }

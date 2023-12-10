@@ -5,25 +5,34 @@ PauseState::PauseState(StateStack &stack, sf::RenderWindow &window) : State(stac
 }
 
 void PauseState::draw() {
-    mWindow.draw(mSceneGraph);
+    sf::RectangleShape backgroundShape;
+    backgroundShape.setFillColor(sf::Color(0, 0, 0, 100));
+    backgroundShape.setSize(sf::Vector2f(mWindow.getSize()));
+    backgroundShape.setOrigin(backgroundShape.getSize() / 2.f);
+    backgroundShape.setPosition(mWindow.getView().getCenter());
+    mWindow.setView(mWindow.getView());
+    mWindow.draw(backgroundShape);
+    // mWindow.draw(mSceneGraph);
     mWindow.draw(mGUIContainer);
 }
 
 void PauseState::update(sf::Time dt) {
     mSceneGraph.update(dt, mCommandQueue);
-    mGUIContainer.update(dt);
+    mGUIContainer.update(dt);   
 }
 
 void PauseState::handleEvent(sf::Event &event) {
     mSceneGraph.handleEvent(mWindow, event);
     mGUIContainer.handleEvent(mWindow, event);
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
+        Statistic::IS_GAME_OVER = false;
         requestStackPop();
     }
 }
 
 void PauseState::buildScene() {
     std::function<void()> continueAction = [&] () {
+        Statistic::IS_GAME_OVER = false;
         requestStackPop();
     };
     std::vector<sf::Color> continueButtonTextColor = {sf::Color::Black, sf::Color::White};

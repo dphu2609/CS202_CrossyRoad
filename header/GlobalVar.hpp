@@ -17,10 +17,15 @@ namespace Resources
 
 namespace Controller
 {
-    extern sf::Keyboard::Key MOVE_UP;
-    extern sf::Keyboard::Key MOVE_DOWN;
-    extern sf::Keyboard::Key MOVE_LEFT;
-    extern sf::Keyboard::Key MOVE_RIGHT;
+    extern sf::Keyboard::Key MOVE_UP_SET_1;
+    extern sf::Keyboard::Key MOVE_DOWN_SET_1;
+    extern sf::Keyboard::Key MOVE_LEFT_SET_1;
+    extern sf::Keyboard::Key MOVE_RIGHT_SET_1;
+
+    extern sf::Keyboard::Key MOVE_UP_SET_2;
+    extern sf::Keyboard::Key MOVE_DOWN_SET_2;
+    extern sf::Keyboard::Key MOVE_LEFT_SET_2;
+    extern sf::Keyboard::Key MOVE_RIGHT_SET_2;
 
     extern sf::Keyboard::Key PAUSE;
 };
@@ -71,6 +76,8 @@ namespace Statistic
     extern float SCREEN_SPEED;
     extern float SCREEN_SPEED_DEFAULT;
     extern float SCREEN_SPEED_INCREASE;
+
+    extern bool IS_GAME_OVER;
 };
 
 #endif
