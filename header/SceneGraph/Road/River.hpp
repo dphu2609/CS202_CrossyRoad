@@ -35,6 +35,7 @@ private:
     void removeWood();
 public:
     River();
+    River(std::ifstream &file);
     virtual RoadType::ID getRoadType() const {return RoadType::River;}
     virtual sf::Vector2f getVelocity() const;
     void readData(std::ifstream &file);
