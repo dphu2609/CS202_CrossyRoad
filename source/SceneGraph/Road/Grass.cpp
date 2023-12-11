@@ -20,6 +20,16 @@ bool Grass::isCollide(const sf::FloatRect &rect) const
     return false;
 }
 
+Grass::Grass(std::ifstream &file)
+: mGrass(Resources::roadTextures[RoadTextures::Grass], sf::IntRect(100 - Statistic::ROAD_WIDTH, 100 - Statistic::ROAD_HEIGHT, Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT))
+, spaces(Statistic::ROAD_WIDTH / Statistic::BLOCK_SIZE)
+, mBlocks(spaces, nullptr)
+{
+    mGrass.setOrigin(Statistic::ROAD_WIDTH / 2, Statistic::ROAD_HEIGHT / 2);
+    Resources::roadTextures[RoadTextures::Grass].setRepeated(true);
+    readData(file);
+}
+
 Grass::Grass()
 : mGrass(Resources::roadTextures[RoadTextures::Grass], sf::IntRect(100 - Statistic::ROAD_WIDTH, 100 - Statistic::ROAD_HEIGHT, Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT))
 , spaces(Statistic::ROAD_WIDTH / Statistic::BLOCK_SIZE)
@@ -65,4 +75,26 @@ bool Grass::isBlock(sf::Vector2f position)
     if(index < 0 || index >= spaces) return false;
     if(mBlocks[index] == nullptr) return false;
     return true;
+}
+
+void Grass::readData(std::ifstream &file)
+{
+    for(int i = 0; i < Statistic::BLOCK_NUMBER; i++)
+    {
+        int index, type;
+        file >> index >> type;
+        addBlock(index, (Block::Type)type);
+    }
+}
+
+void Grass::writeData(std::ofstream &file)
+{
+    for(int i = 0; i < spaces; i++)
+    {
+        if(mBlocks[i] != nullptr)
+        {
+            file << i << " " << mBlocks[i]->getType() << " ";
+        }
+    }
+    file << std::endl;
 }
