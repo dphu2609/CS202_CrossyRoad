@@ -39,6 +39,16 @@ private:
     sf::Text onep;
     sf::Text twop;
 
+    sf::Texture up;
+    sf::Sprite upSprite;
+    sf::Texture down;
+    sf::Sprite downSprite;
+    sf::Texture left;
+    sf::Sprite leftSprite;
+    sf::Texture right;
+    sf::Sprite rightSprite;
+    Circle directionCircle;
+
     sf::Text music;
     sf::RectangleShape musicBound;
     sf::RectangleShape musicBar;

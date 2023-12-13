@@ -71,6 +71,34 @@ Setting::Setting()
     save.setOrigin(size.width/2,size.height/2);
     save.setPosition(1770.f,930.f);
 
+    up.loadFromFile("media/images/menu/up.png");
+    upSprite.setTexture(up);
+    size=upSprite.getGlobalBounds();
+    upSprite.setOrigin(size.width/2,size.height/2);
+    upSprite.setScale(200.f/size.width,200.f/size.height);
+    upSprite.setPosition(sf::Vector2f(600.f,300.f));
+
+    down.loadFromFile("media/images/menu/down.png");
+    downSprite.setTexture(down);
+    size=downSprite.getGlobalBounds();
+    downSprite.setOrigin(size.width/2,size.height/2);
+    downSprite.setScale(200.f/size.width,200.f/size.height);
+    downSprite.setPosition(sf::Vector2f(600.f,410.f));
+
+    right.loadFromFile("media/images/menu/right.png");
+    rightSprite.setTexture(right);
+    size=rightSprite.getGlobalBounds();
+    rightSprite.setOrigin(size.width/2,size.height/2);
+    rightSprite.setScale(200.f/size.width,200.f/size.height);
+    rightSprite.setPosition(sf::Vector2f(710.f,410.f));
+
+    left.loadFromFile("media/images/menu/left.png");
+    leftSprite.setTexture(left);
+    size=leftSprite.getGlobalBounds();
+    leftSprite.setOrigin(size.width/2,size.height/2);
+    leftSprite.setScale(200.f/size.width,200.f/size.height);
+    leftSprite.setPosition(sf::Vector2f(490.f,410.f));
+
     musicBound.setSize(sf::Vector2f(sizeBound.x*4.7,sizeBound.y));
     musicBound.setFillColor(colorBound);
     musicBound.setPosition(300.f,630.f);
@@ -313,6 +341,11 @@ void Setting::draw(sf::RenderWindow& mWindow)
     mWindow.draw(title);
     mWindow.draw(returnBound);
     mWindow.draw(returnImageSprite);
+
+    mWindow.draw(upSprite);
+    mWindow.draw(downSprite);
+    mWindow.draw(rightSprite);
+    mWindow.draw(leftSprite);
 
     mWindow.draw(musicBound);
     mWindow.draw(music);
