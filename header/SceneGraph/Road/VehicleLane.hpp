@@ -10,6 +10,7 @@
 class VehicleLane : public Road {
 public:
     VehicleLane();
+    VehicleLane(std::ifstream &file);
     virtual bool isHitDangerousObjects(const sf::FloatRect &bounds) const;
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
@@ -52,7 +53,6 @@ private:
 private:
     std::vector<std::shared_ptr<SpriteNode>> mTrafficLights; // 0: red, 1: yellow, 2: green
     int mTrafficLightState;
-
 };
 
 #endif

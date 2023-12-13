@@ -78,6 +78,9 @@ namespace Statistic
     extern float SCREEN_SPEED_INCREASE;
 
     extern bool IS_GAME_OVER;
+    extern bool IS_LOAD_FROM_FILE;
+
+    extern std::string LOAD_FILE_NAME;
 };
 
 #endif
