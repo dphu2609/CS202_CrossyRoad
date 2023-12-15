@@ -3,6 +3,7 @@
 Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurrentRoadIndex(currentRoadIndex) {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
     this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
+    mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
 }
 
 void Character::setSkin(int skin) {
@@ -183,8 +184,7 @@ bool Character::moveCharacter(sf::Time dt, int direction) {
         mDirection = direction;
         mCurrentStep += mSpeed;
         mCurrentRoadIndex += (direction < 2 ? (direction == 0 ? -1 : 1) : 0);
-        mSoundList.push_back(sf::Sound(Resources::sounds[Sounds::JumpSound]));
-        mSoundList.back().play();
+        mJumpSound.play();
         return mIsMoving = true;
     }
     else if (mCurrentStep < (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL)) {
@@ -239,5 +239,6 @@ Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
     this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
     this->setScale(Statistic::CHARACTER_SIZE.x / this->getSpriteBounding().width, Statistic::CHARACTER_SIZE.y / this->getSpriteBounding().height);
+    mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
     readData(file);
 }  

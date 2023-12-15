@@ -67,7 +67,7 @@ private:
 private:
     std::queue<sf::Keyboard::Key> mKeyInput;
 private:
-    std::list<sf::Sound> mSoundList;
+    sf::Sound mJumpSound;
 };
 
 #endif

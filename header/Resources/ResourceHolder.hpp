@@ -73,8 +73,8 @@ namespace Fonts {
 namespace Sounds {
     enum ID {
         JumpSound,
-        TrainSound,
-        CarSound
+        CarSound,
+        TrainSound
     };
 };
 
