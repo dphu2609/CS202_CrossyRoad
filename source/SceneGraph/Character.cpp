@@ -183,6 +183,8 @@ bool Character::moveCharacter(sf::Time dt, int direction) {
         mDirection = direction;
         mCurrentStep += mSpeed;
         mCurrentRoadIndex += (direction < 2 ? (direction == 0 ? -1 : 1) : 0);
+        mSoundList.push_back(sf::Sound(Resources::sounds[Sounds::JumpSound]));
+        mSoundList.back().play();
         return mIsMoving = true;
     }
     else if (mCurrentStep < (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL)) {

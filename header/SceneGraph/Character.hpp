@@ -2,10 +2,10 @@
 #define CHARACTER_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <bits/stdc++.h>
 #include <SceneGraph/SceneNode.hpp>
-#include <GlobalVar.hpp>
-#include <Resources/Gif.hpp>    
+#include <GlobalVar.hpp>   
 
 class Character : public SceneNode {
 public:
@@ -66,6 +66,8 @@ private:
     int mLanePassed = 0;
 private:
     std::queue<sf::Keyboard::Key> mKeyInput;
+private:
+    std::list<sf::Sound> mSoundList;
 };
 
 #endif

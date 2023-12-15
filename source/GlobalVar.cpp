@@ -4,6 +4,7 @@ namespace Resources {
     ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     ResourceHolder<sf::Font, Fonts::ID> fonts;
     ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
+    ResourceHolder<sf::SoundBuffer, Sounds::ID> sounds;
 
     GifHolder gifsHolder;
 }

@@ -2,6 +2,7 @@
 #define SCENENODE_HPP
 
 #include <SFML/Graphics.hpp>  
+#include <SFML/Audio.hpp>
 #include <bits/stdc++.h>
 #include <CommandQueue.hpp>
 
