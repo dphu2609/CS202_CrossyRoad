@@ -3,6 +3,13 @@
 Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurrentRoadIndex(currentRoadIndex) {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
     this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
+
+    mJumpPositions.push_back(mStartPosition);
+    for (int i = 0; i < 19; i++) {
+        mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
+    }
+
+    mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
 }
 
 void Character::setSkin(int skin) {
@@ -47,21 +54,46 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
     if (event.type == sf::Event::KeyPressed && !mIsMoving) {
         if (event.key.code == Controller::MOVE_UP_SET_1) {
-            mKeyInput.push(Controller::MOVE_UP_SET_1);
+            if(canMoveUp)
+                mKeyInput.push(Controller::MOVE_UP_SET_1);
+            else 
+                mDirection = 0;
         } else if (event.key.code == Controller::MOVE_DOWN_SET_1) {
-            mKeyInput.push(Controller::MOVE_DOWN_SET_1);
+            if(canMoveDown)
+                mKeyInput.push(Controller::MOVE_DOWN_SET_1);
+            else
+                mDirection = 1;
         } else if (event.key.code == Controller::MOVE_LEFT_SET_1) {
-            mKeyInput.push(Controller::MOVE_LEFT_SET_1);
+            if(canMoveLeft)
+                mKeyInput.push(Controller::MOVE_LEFT_SET_1);
+            else
+                mDirection = 2;
         } else if (event.key.code == Controller::MOVE_RIGHT_SET_1) {
-            mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
-        } else if (event.key.code == Controller::MOVE_UP_SET_2) {
-            mKeyInput.push(Controller::MOVE_UP_SET_2);
+            if(canMoveRight)
+                mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
+            else
+                mDirection = 3;
+        }
+        else if (event.key.code == Controller::MOVE_UP_SET_2) {
+            if(canMoveUp)
+                mKeyInput.push(Controller::MOVE_UP_SET_2);
+            else    
+                mDirection = 0;
         } else if (event.key.code == Controller::MOVE_DOWN_SET_2) {
-            mKeyInput.push(Controller::MOVE_DOWN_SET_2);
+            if(canMoveDown)
+                mKeyInput.push(Controller::MOVE_DOWN_SET_2);
+            else
+                mDirection = 1;
         } else if (event.key.code == Controller::MOVE_LEFT_SET_2) {
-            mKeyInput.push(Controller::MOVE_LEFT_SET_2);
+            if(canMoveLeft)
+                mKeyInput.push(Controller::MOVE_LEFT_SET_2);
+            else 
+                mDirection = 2;
         } else if (event.key.code == Controller::MOVE_RIGHT_SET_2) {
-            mKeyInput.push(Controller::MOVE_RIGHT_SET_2);
+            if(canMoveRight)
+                mKeyInput.push(Controller::MOVE_RIGHT_SET_2);
+            else    
+                mDirection = 3;
         }
     }
     else if (event.type == sf::Event::KeyReleased && !mIsMoving) {
@@ -154,10 +186,23 @@ sf::Vector2f Character::getNextDownPosition(float x) {
 bool Character::moveCharacter(sf::Time dt, int direction) {
     float mSpeed = (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL / 5 : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL / 5);
     if (mCurrentStep == 0.f) {
+        if (mIsOutOfRiver) {
+            float delta = std::abs(this->getPosition().x - mJumpPositions.front());
+            float temp = delta + 1;
+            int index = 0;
+            while (delta < temp) {
+                temp = delta;
+                delta = std::abs(this->getPosition().x - mJumpPositions[++index]);
+            }
+            if (index != 0) index--;
+            this->setPosition(mJumpPositions[index], this->getPosition().y);
+            mIsOutOfRiver = false;
+        }
         mInitialPosition = this->getPosition();
         mDirection = direction;
         mCurrentStep += mSpeed;
         mCurrentRoadIndex += (direction < 2 ? (direction == 0 ? -1 : 1) : 0);
+        mJumpSound.play();
         return mIsMoving = true;
     }
     else if (mCurrentStep < (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL)) {
@@ -183,6 +228,10 @@ bool Character::moveCharacter(sf::Time dt, int direction) {
     return mIsMoving = false;
 }
 
+void Character::setPositionAfterJumpOutRiver() {
+    mIsOutOfRiver = true;
+}
+
 sf::FloatRect Character::getSpriteBounding()
 {
     return mForwardState.getGlobalBounds();
@@ -191,4 +240,35 @@ sf::FloatRect Character::getSpriteBounding()
 int Character::getLanePassed() const {
     return mLanePassed;
 }
+
+void Character::writeData(std::ofstream &file) {
+    file << mDirection << std::endl;
+    file << mCurrentRoadIndex << std::endl;
+    file << mLanePassed << std::endl;
+    file << getPosition().x << " " << getPosition().y << std::endl;
+}
     
+void Character::readData(std::ifstream &file) {
+    file >> mDirection;
+    file >> mCurrentRoadIndex;
+    file >> mLanePassed;
+    float x, y;
+    file >> x >> y;
+    setPosition(x, y);
+}
+
+Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
+    this->setSkin(Statistic::PLAYER_SKIN_TYPE);
+    this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
+    this->setScale(Statistic::CHARACTER_SIZE.x / this->getSpriteBounding().width, Statistic::CHARACTER_SIZE.y / this->getSpriteBounding().height);
+    mJumpPositions.push_back(mStartPosition);
+    for (int i = 0; i < 19; i++) {
+        mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
+    }
+    mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
+    readData(file);
+}  
+
+void Character::setCurrentEnvSoundVolume(float volume) {
+    mJumpSound.setVolume(volume);
+}

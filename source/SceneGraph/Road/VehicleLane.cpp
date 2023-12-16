@@ -23,6 +23,9 @@ Vehicle::Type toVehicleType(int type) {
 }
 
 VehicleLane::VehicleLane() {
+    mBackground.setSize(sf::Vector2f(Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT));
+    mBackground.setFillColor(sf::Color::Black);
+    mBackground.setOrigin(Statistic::ROAD_WIDTH / 2, Statistic::ROAD_HEIGHT / 2);
     mType = rand() % Type::Count;
     mSceneLayers[RoadLayer] = new SceneNode();
     mSceneLayers[VehicleLayer] = new SceneNode();
@@ -82,6 +85,8 @@ VehicleLane::VehicleLane() {
                 mTrafficLights[2]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
             }
             mTrafficLightState = 0;
+
+            mTrainAlarmSound.setBuffer(Resources::sounds[Sounds::TrainAlarmSound]);
         }
     }
 
@@ -101,7 +106,22 @@ VehicleLane::VehicleLane() {
     }
 }
 
-void VehicleLane::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {}
+VehicleLane::VehicleLane(std::ifstream &file) {
+    mBackground.setSize(sf::Vector2f(Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT));
+    mBackground.setFillColor(sf::Color::Black);
+    mBackground.setOrigin(Statistic::ROAD_WIDTH / 2, Statistic::ROAD_HEIGHT / 2);
+    mSceneLayers[RoadLayer] = new SceneNode();
+    mSceneLayers[VehicleLayer] = new SceneNode();
+    mSceneLayers[TrafficLightLayer] = new SceneNode();
+    for (int i = 0; i < CountLayer; ++i) {
+        this->attachChild(std::unique_ptr<SceneNode>(mSceneLayers[i]));
+    }
+    readData(file);
+}
+
+void VehicleLane::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(mBackground, states);
+}
 
 void VehicleLane::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
     vehicleControl(dt);
@@ -154,6 +174,9 @@ bool VehicleLane::isHitDangerousObjects(const sf::FloatRect &bounds) const {
 }
 
 void VehicleLane::readData(std::ifstream &file) {
+    float x, y;
+    file >> x >> y;
+    this->setPosition(x, y);
     std::vector<std::vector<float>> vehicleData;
     int size;
     file >> mType >> mDirection >> size;
@@ -173,18 +196,54 @@ void VehicleLane::readData(std::ifstream &file) {
         case TruckLeft: 
         case TruckRight: {
             Resources::roadTextures[RoadTextures::Road].setRepeated(true);
-            mRoadSprite.setTexture(Resources::roadTextures[RoadTextures::Road]);
-            mRoadSprite.setTextureRect(sf::IntRect(0, 0, Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT));
-            mRoadSprite.setOrigin(Statistic::ROAD_WIDTH / 2, Statistic::ROAD_HEIGHT / 2);
+            std::shared_ptr<SpriteNode> roadSprite = std::make_shared<SpriteNode>(Resources::roadTextures[RoadTextures::Road]);
+            roadSprite->setTextureRect(sf::IntRect(0, 0, Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT));
+            roadSprite->setOrigin(Statistic::ROAD_WIDTH / 2, Statistic::ROAD_HEIGHT / 2);
+            mSceneLayers[RoadLayer]->attachChild(std::move(roadSprite));
             break;
         }
         case TrainLeft: 
         case TrainRight: {
             Resources::roadTextures[RoadTextures::Rail].setRepeated(true);
-            mRoadSprite.setTexture(Resources::roadTextures[RoadTextures::Rail]);
-            mRoadSprite.setTextureRect(sf::IntRect(0, 0, Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT));
-            mRoadSprite.setOrigin(Statistic::ROAD_WIDTH / 2, Statistic::ROAD_HEIGHT / 2);
+            std::shared_ptr<SpriteNode> roadSprite = std::make_shared<SpriteNode>(Resources::roadTextures[RoadTextures::Rail]);
+            roadSprite->setTextureRect(sf::IntRect(0, 0, Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT));
+            roadSprite->setOrigin(Statistic::ROAD_WIDTH / 2, Statistic::ROAD_HEIGHT / 2);
+            mSceneLayers[RoadLayer]->attachChild(std::move(roadSprite));
+
+            std::shared_ptr<SpriteNode> trafficLight = std::make_shared<SpriteNode>(Resources::roadTextures[RoadTextures::TrafficLightRed]);
+            mTrafficLights.push_back(trafficLight);
+            mSceneLayers[TrafficLightLayer]->attachChild(std::move(trafficLight));
+
+            std::shared_ptr<SpriteNode> trafficLight2 = std::make_shared<SpriteNode>(Resources::roadTextures[RoadTextures::TrafficLightYellow]);
+            mTrafficLights.push_back(trafficLight2);
+
+            std::shared_ptr<SpriteNode> trafficLight3 = std::make_shared<SpriteNode>(Resources::roadTextures[RoadTextures::TrafficLightGreen]);
+            mTrafficLights.push_back(trafficLight3);
+
+            mTrafficLights[0]->setOrigin(mTrafficLights[0]->getGlobalBounds().width / 2, mTrafficLights[0]->getGlobalBounds().height / 2);
+            mTrafficLights[1]->setOrigin(mTrafficLights[1]->getGlobalBounds().width / 2, mTrafficLights[1]->getGlobalBounds().height / 2);
+            mTrafficLights[2]->setOrigin(mTrafficLights[2]->getGlobalBounds().width / 2, mTrafficLights[2]->getGlobalBounds().height / 2);
+
+            mTrafficLights[0]->setScale(Statistic::TRAFFIC_LIGHT_SIZE.x / mTrafficLights[0]->getGlobalBounds().width, Statistic::TRAFFIC_LIGHT_SIZE.y / mTrafficLights[0]->getGlobalBounds().height);
+            mTrafficLights[1]->setScale(Statistic::TRAFFIC_LIGHT_SIZE.x / mTrafficLights[1]->getGlobalBounds().width, Statistic::TRAFFIC_LIGHT_SIZE.y / mTrafficLights[1]->getGlobalBounds().height);
+            mTrafficLights[2]->setScale(Statistic::TRAFFIC_LIGHT_SIZE.x / mTrafficLights[2]->getGlobalBounds().width, Statistic::TRAFFIC_LIGHT_SIZE.y / mTrafficLights[2]->getGlobalBounds().height);
+
+            int randomTrafficLightPosition = rand() % 2;
+            if (randomTrafficLightPosition == 0) {
+                mTrafficLights[0]->setPosition(- Statistic::ROAD_WIDTH / 2 + 450, -15);
+                mTrafficLights[1]->setPosition(- Statistic::ROAD_WIDTH / 2 + 450, -15);
+                mTrafficLights[2]->setPosition(- Statistic::ROAD_WIDTH / 2 + 450, -15);
+            } else {
+                mTrafficLights[0]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
+                mTrafficLights[1]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
+                mTrafficLights[2]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
+            }
+            mTrafficLightState = 0;
+
+            mTrainAlarmSound.setBuffer(Resources::sounds[Sounds::TrainAlarmSound]);
         }
+
+        
     }
 
     for (int i = 0; i < size; ++i) {
@@ -196,6 +255,7 @@ void VehicleLane::readData(std::ifstream &file) {
 }
 
 void VehicleLane::writeData(std::ofstream &file) {
+    file << this->getPosition().x << " " << this->getPosition().y << std::endl;
     file << mType << " " << mDirection << " " << mVehicles.size() << std::endl;
     for (auto &vehicle : mVehicles) {
         file << vehicle->getPosition().x << " " << vehicle->getPosition().y << std::endl;
@@ -217,9 +277,22 @@ void VehicleLane::trafficLightControl(sf::Time dt) {
         }
         else if (dis <= 7000) {
             mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[1]);
+            if (mIsSoundActivated) mTrainAlarmSound.play();
         }
         else {
             mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[0]);
         }
     }
+}
+
+void VehicleLane::activateSounds() {
+    mIsSoundActivated = true;
+}
+
+void VehicleLane::deactivateSounds() {
+    mIsSoundActivated = false;
+}
+
+void VehicleLane::setCurrentEnvSoundVolume(float volume) {
+    mTrainAlarmSound.setVolume(volume);
 }

@@ -106,3 +106,8 @@ void SceneNode::resetView() {
     resetCurrentView();
     for (const auto& child : mChildren) child->resetView();
 }
+
+void SceneNode::setEnvSoundVolume(float volume) {
+    setCurrentEnvSoundVolume(volume);
+    for (const auto& child : mChildren) child->setEnvSoundVolume(volume);
+}

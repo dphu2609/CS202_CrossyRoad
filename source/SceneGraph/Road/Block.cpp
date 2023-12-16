@@ -18,7 +18,7 @@ RoadTextures::ID toTextureID(Block::Type type)
 
 Block::Block(Type type, const RoadTextureHolder& textures)
     : mType(type)
-    , mSprite(textures[toTextureID(type)], sf::IntRect(0, 0, Statistic::BLOCK_SIZE, Statistic::BLOCK_SIZE))
+    , mSprite(textures[toTextureID(type)])
 {
     sf::FloatRect bounds = mSprite.getLocalBounds();
     mSprite.setOrigin(bounds.width / 2.f, bounds.height / 2.f);
@@ -44,7 +44,3 @@ bool Block::isCollide(const sf::FloatRect &rect) const {
     if(mType == None) return false;
     return mSprite.getGlobalBounds().intersects(rect);
 }
-
-// sf::FloatRect Block::getGlobalBounds() {
-//     // return mSprite.getGlobalBounds();
-// }

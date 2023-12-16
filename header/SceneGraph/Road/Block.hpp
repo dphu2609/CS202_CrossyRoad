@@ -25,7 +25,10 @@ public:
     // sf::FloatRect getGlobalBounds();
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     sf::FloatRect getSpriteBounds() const { return mSprite.getGlobalBounds(); }
-    sf::FloatRect getBoundingRect() const { return getWorldTransform().transformRect(mSprite.getGlobalBounds()); }
+    sf::FloatRect getBoundingRect() const { 
+        return getWorldTransform().transformRect(mSprite.getGlobalBounds()); 
+    }
+    Type getType() const { return mType; }
 private:    
     Type mType;
     sf::Sprite mSprite;

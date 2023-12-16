@@ -15,6 +15,8 @@ private:
     std::shared_ptr<Character> mCharacter;
     int mCurrentRoadIndex;
     sf::View &mView;
+    bool isInRiver = false;
+    float oldPos = 0.f;
 public:
     RoadSequence(sf::View &view);
     virtual void updateCurrent(sf::Time dt, CommandQueue &commands);
@@ -25,11 +27,19 @@ private:
     int mPlayerScore = 0;
 public:
     int getPlayerScore();
+public:
+    void readData(std::ifstream &file);
+    void writeData(std::ofstream &file);
 private:
     void updateRoads(sf::Time dt);
+    void soundController();
     virtual void resetCurrentView();
     void pushBackRandomRoad();
     void popFrontRoad();
+private:
+    sf::Sound mTrafficSound;
+private:
+    virtual void setCurrentEnvSoundVolume(float volume);
 };
 
 #endif
