@@ -83,6 +83,9 @@ namespace Statistic
     extern bool IS_LOAD_FROM_FILE;
 
     extern std::string LOAD_FILE_NAME;
+
+    extern float ENVIROMENT_SOUND_VOLUME;
+    extern float MUSIC_SOUND_VOLUME;
 };
 
 #endif

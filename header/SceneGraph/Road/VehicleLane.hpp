@@ -44,6 +44,7 @@ private:
     std::array<SceneNode*, CountLayer> mSceneLayers;
     std::vector<Vehicle*> mVehicles;
     sf::Sprite mRoadSprite;
+    sf::RectangleShape mBackground;
     int mDirection; // -1: left, 1: right
     int mType;
     float mSmallCarDistance = 600;
@@ -53,6 +54,14 @@ private:
 private:
     std::vector<std::shared_ptr<SpriteNode>> mTrafficLights; // 0: red, 1: yellow, 2: green
     int mTrafficLightState;
+    sf::Sound mTrainAlarmSound;
+    sf::Sound mTrainSound;
+    bool mIsSoundActivated = false;
+public:
+    virtual void activateSounds();
+    virtual void deactivateSounds();
+private:
+    virtual void setCurrentEnvSoundVolume(float volume);
 };
 
 #endif

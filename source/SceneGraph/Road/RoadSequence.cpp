@@ -18,6 +18,11 @@ RoadSequence::RoadSequence(sf::View &view) : mCurrentRoadIndex(0), mView(view) {
     mCharacter = character;
     this->attachChild(std::move(character));
     this->moveChildToIndex(*mCharacter, mCurrentRoadIndex);
+
+    mTrafficSound.setBuffer(Resources::sounds[Sounds::TrafficSound]);
+    mTrafficSound.setLoop(true);
+    mTrafficSound.play();
+
 }   
 
 void RoadSequence::updateCurrent(sf::Time dt, CommandQueue &commands) {
@@ -82,28 +87,13 @@ void RoadSequence::gameControl(sf::Time dt) {
         std::cout << "Hit dangerous objects" << std::endl;
         return;
     }
-
+    if(mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River && (mRoads[mCurrentRoadIndex - 2]->getRoadType() != RoadType::River || mRoads[mCurrentRoadIndex]->getRoadType() != RoadType::River)) {
+        std::cout << "Out of river" << std::endl;
+        mCharacter->setPositionAfterJumpOutRiver();
+    }
     if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
         mCharacter->move(dt.asSeconds() * mRoads[mCurrentRoadIndex - 1]->getVelocity());
-        isInRiver = true;
     }
-    // } else if (isInRiver) {
-    //     // float dx = mCharacter->getPosition().x - oldPos;
-    //     // int index = dx / Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL;
-    //     // float newDx = index * Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL;
-    //     mCharacter->move(200 , 0);
-    //     std::cout << "Out of river" << std::endl;
-    //     isInRiver = false;
-    // } else
-    // {
-    //     oldPos = mCharacter->getPosition().x;
-    // }
-    if(mRoads[mCurrentRoadIndex - 1]->getRoadType() != RoadType::River && isInRiver) {
-        mCharacter->setPosition(0, mCharacter->getPosition().y);
-        std::cout << "Out of river" << std::endl;
-        isInRiver = false;
-    }
-
 
     sf::FloatRect characterBounding = mCharacter->getBoundingRect();
     sf::FloatRect ifMoveLeft = characterBounding;
@@ -134,6 +124,15 @@ void RoadSequence::gameControl(sf::Time dt) {
     } else {
         mCharacter->canMoveDown = true;
     }
+
+    soundController();
+}
+
+void RoadSequence::soundController() {
+    for (int i = 1; i <= 10; i++) {
+        mRoads[mCurrentRoadIndex - i]->activateSounds();
+    }
+    mRoads[mCurrentRoadIndex]->deactivateSounds();
 }
 
 int RoadSequence::getPlayerScore() {
@@ -224,4 +223,8 @@ void RoadSequence::readData(std::ifstream &file) {
                 break;
         };
     }
+}
+
+void RoadSequence::setCurrentEnvSoundVolume(float volume) {
+    mTrafficSound.setVolume(volume);
 }

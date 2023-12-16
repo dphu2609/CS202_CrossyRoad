@@ -3,6 +3,12 @@
 Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurrentRoadIndex(currentRoadIndex) {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
     this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
+
+    mJumpPositions.push_back(mStartPosition);
+    for (int i = 0; i < 19; i++) {
+        mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
+    }
+
     mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
 }
 
@@ -180,6 +186,18 @@ sf::Vector2f Character::getNextDownPosition(float x) {
 bool Character::moveCharacter(sf::Time dt, int direction) {
     float mSpeed = (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL / 5 : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL / 5);
     if (mCurrentStep == 0.f) {
+        if (mIsOutOfRiver) {
+            float delta = std::abs(this->getPosition().x - mJumpPositions.front());
+            float temp = delta + 1;
+            int index = 0;
+            while (delta < temp) {
+                temp = delta;
+                delta = std::abs(this->getPosition().x - mJumpPositions[++index]);
+            }
+            if (index != 0) index--;
+            this->setPosition(mJumpPositions[index], this->getPosition().y);
+            mIsOutOfRiver = false;
+        }
         mInitialPosition = this->getPosition();
         mDirection = direction;
         mCurrentStep += mSpeed;
@@ -208,6 +226,10 @@ bool Character::moveCharacter(sf::Time dt, int direction) {
         else if (mDirection == 1) mLanePassed--;
     }
     return mIsMoving = false;
+}
+
+void Character::setPositionAfterJumpOutRiver() {
+    mIsOutOfRiver = true;
 }
 
 sf::FloatRect Character::getSpriteBounding()
@@ -239,6 +261,14 @@ Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
     this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
     this->setScale(Statistic::CHARACTER_SIZE.x / this->getSpriteBounding().width, Statistic::CHARACTER_SIZE.y / this->getSpriteBounding().height);
+    mJumpPositions.push_back(mStartPosition);
+    for (int i = 0; i < 19; i++) {
+        mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
+    }
     mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
     readData(file);
 }  
+
+void Character::setCurrentEnvSoundVolume(float volume) {
+    mJumpSound.setVolume(volume);
+}

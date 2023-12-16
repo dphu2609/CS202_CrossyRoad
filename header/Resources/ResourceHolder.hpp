@@ -74,7 +74,10 @@ namespace Sounds {
     enum ID {
         JumpSound,
         CarSound,
-        TrainSound
+        TrainAlarmSound,
+        TrainSound,
+        TrafficSound,
+        BackgroundMusic
     };
 };
 

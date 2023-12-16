@@ -52,6 +52,8 @@ private:
 private:
     void loadGame();
     void saveGame();
+public:
+    void setEnvSoundVolume(float volume);
 };
 
 #endif

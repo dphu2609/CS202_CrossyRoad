@@ -2,6 +2,7 @@
 
 GameState::GameState(StateStack &stack, sf::RenderWindow &window)
     : State(stack, window), mWorld(window) {
+    // mWorld.setEnvSoundVolume(70);
 }
 
 void GameState::draw() {

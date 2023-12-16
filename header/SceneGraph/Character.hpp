@@ -68,6 +68,14 @@ private:
     std::queue<sf::Keyboard::Key> mKeyInput;
 private:
     sf::Sound mJumpSound;
+private:
+    virtual void setCurrentEnvSoundVolume(float volume);
+private:
+    bool mIsOutOfRiver = false;
+    std::vector<float> mJumpPositions;
+    float mStartPosition = -878.f;
+public:
+    void setPositionAfterJumpOutRiver();
 };
 
 #endif

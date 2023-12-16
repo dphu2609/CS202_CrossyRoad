@@ -23,6 +23,9 @@ Vehicle::Type toVehicleType(int type) {
 }
 
 VehicleLane::VehicleLane() {
+    mBackground.setSize(sf::Vector2f(Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT));
+    mBackground.setFillColor(sf::Color::Black);
+    mBackground.setOrigin(Statistic::ROAD_WIDTH / 2, Statistic::ROAD_HEIGHT / 2);
     mType = rand() % Type::Count;
     mSceneLayers[RoadLayer] = new SceneNode();
     mSceneLayers[VehicleLayer] = new SceneNode();
@@ -82,6 +85,8 @@ VehicleLane::VehicleLane() {
                 mTrafficLights[2]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
             }
             mTrafficLightState = 0;
+
+            mTrainAlarmSound.setBuffer(Resources::sounds[Sounds::TrainAlarmSound]);
         }
     }
 
@@ -102,6 +107,9 @@ VehicleLane::VehicleLane() {
 }
 
 VehicleLane::VehicleLane(std::ifstream &file) {
+    mBackground.setSize(sf::Vector2f(Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT));
+    mBackground.setFillColor(sf::Color::Black);
+    mBackground.setOrigin(Statistic::ROAD_WIDTH / 2, Statistic::ROAD_HEIGHT / 2);
     mSceneLayers[RoadLayer] = new SceneNode();
     mSceneLayers[VehicleLayer] = new SceneNode();
     mSceneLayers[TrafficLightLayer] = new SceneNode();
@@ -111,7 +119,9 @@ VehicleLane::VehicleLane(std::ifstream &file) {
     readData(file);
 }
 
-void VehicleLane::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {}
+void VehicleLane::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
+    target.draw(mBackground, states);
+}
 
 void VehicleLane::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
     vehicleControl(dt);
@@ -229,6 +239,8 @@ void VehicleLane::readData(std::ifstream &file) {
                 mTrafficLights[2]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
             }
             mTrafficLightState = 0;
+
+            mTrainAlarmSound.setBuffer(Resources::sounds[Sounds::TrainAlarmSound]);
         }
 
         
@@ -265,9 +277,22 @@ void VehicleLane::trafficLightControl(sf::Time dt) {
         }
         else if (dis <= 7000) {
             mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[1]);
+            if (mIsSoundActivated) mTrainAlarmSound.play();
         }
         else {
             mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[0]);
         }
     }
+}
+
+void VehicleLane::activateSounds() {
+    mIsSoundActivated = true;
+}
+
+void VehicleLane::deactivateSounds() {
+    mIsSoundActivated = false;
+}
+
+void VehicleLane::setCurrentEnvSoundVolume(float volume) {
+    mTrainAlarmSound.setVolume(volume);
 }

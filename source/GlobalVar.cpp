@@ -9,6 +9,7 @@ namespace Resources {
     GifHolder gifsHolder;
 }
 
+
 namespace Controller {
     sf::Keyboard::Key MOVE_UP_SET_1 = sf::Keyboard::W;
     sf::Keyboard::Key MOVE_DOWN_SET_1 = sf::Keyboard::S;
@@ -73,4 +74,7 @@ namespace Statistic {
     bool IS_LOAD_FROM_FILE = false;
 
     std::string LOAD_FILE_NAME = "data/save.dat";
+
+    float ENVIROMENT_SOUND_VOLUME = 100.f;
+    float MUSIC_SOUND_VOLUME = 100.f;
 };

@@ -32,9 +32,14 @@ public:
     void writeData(std::ofstream &file);
 private:
     void updateRoads(sf::Time dt);
+    void soundController();
     virtual void resetCurrentView();
     void pushBackRandomRoad();
     void popFrontRoad();
+private:
+    sf::Sound mTrafficSound;
+private:
+    virtual void setCurrentEnvSoundVolume(float volume);
 };
 
 #endif

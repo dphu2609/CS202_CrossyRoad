@@ -27,6 +27,8 @@ private:
     sf::RenderWindow mWindow;
     StateStack mStateStack;
     Menu mMenu;
+private:
+    sf::Sound mBackgroundMusic;
 };
 
 #endif

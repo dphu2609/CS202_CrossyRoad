@@ -7,6 +7,9 @@ Game::Game() : mWindow(sf::VideoMode(Statistic::SCREEN_WIDTH, Statistic::SCREEN_
     loadFonts();
     loadSounds();
     registerStates();
+    mBackgroundMusic.setBuffer(Resources::sounds[Sounds::BackgroundMusic]);
+    mBackgroundMusic.setLoop(true);
+    mBackgroundMusic.play();
 }
 
 void Game::loadFonts() {
@@ -93,7 +96,10 @@ void Game::loadGifs() {
 }
 
 void Game::loadSounds() {
-    Resources::sounds.load(Sounds::JumpSound, "media/sounds/JumpSoundEffect1.wav");
+    Resources::sounds.load(Sounds::JumpSound, "media/sounds/JumpSoundEffect2.wav");
+    Resources::sounds.load(Sounds::TrainAlarmSound, "media/sounds/TrainSound2.wav");
+    Resources::sounds.load(Sounds::TrafficSound, "media/sounds/TrafficSound3.wav");
+    Resources::sounds.load(Sounds::BackgroundMusic, "media/sounds/BackgroundMusic3.wav");
 }
 
 void Game::registerStates() {
