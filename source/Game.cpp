@@ -90,14 +90,15 @@ void Game::loadGifs() {
     characterSkin1Right.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState4]));
     Resources::gifsHolder.load(GIFs::CharacterSkin1Right, characterSkin1Right, sf::seconds(0.4f));
 }
-
 void Game::registerStates() {
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);
+    mStateStack.registerState<MenuState>(States::Menu);
 }
 
 void Game::run() {
-    mStateStack.pushState(States::Game);
+    registerStates();
+    mStateStack.pushState(States::Menu);
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
@@ -128,7 +129,7 @@ void Game::update(sf::Time dt) {
 }
 
 void Game::render() {
-    mWindow.clear(sf::Color::Transparent);
+    mWindow.clear();
     mStateStack.draw();
     mWindow.display();
 }

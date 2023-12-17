@@ -69,4 +69,7 @@ namespace Statistic {
     float SCREEN_SPEED_INCREASE = 350.f;
 
     bool IS_GAME_OVER = false;
+    bool IS_LOAD_FROM_FILE = false;
+
+    std::string LOAD_FILE_NAME = "data/save.dat";
 };

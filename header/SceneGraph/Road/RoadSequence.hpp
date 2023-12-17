@@ -27,12 +27,9 @@ private:
     int mPlayerScore = 0;
 public:
     int getPlayerScore();
-// private:
-//     bool mIsPlayerDead = false;
-// public:
-//     bool isPlayerDead();
-//     void setPlayerDead(bool isPlayerDead);
-//     void reset();
+public:
+    void readData(std::ifstream &file);
+    void writeData(std::ofstream &file);
 private:
     void updateRoads(sf::Time dt);
     virtual void resetCurrentView();

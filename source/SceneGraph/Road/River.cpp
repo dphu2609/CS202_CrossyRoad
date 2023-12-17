@@ -107,15 +107,18 @@ void River::readData(std::ifstream &file)
         woods.push_back(wood.get());
         mSceneLayers[WoodLayer]->attachChild(std::move(wood));
     }
+    float x, y;
+    file >> x >> y;
+    this->setPosition(x, y);
 }
 
-void River::saveData(std::ofstream &file)
+void River::writeData(std::ofstream &file)
 {
     file << direction << " ";
     file << woods.size() << " ";
     for(auto& wood : woods)
     {
-        file << wood->getGlobalBounds().width <<wood->getPosition().x << " " << wood->getPosition().y << " ";
+        file << wood->getGlobalBounds().width << ' ' << wood->getPosition().x << " " << wood->getPosition().y << std::endl;
     }
 }
 

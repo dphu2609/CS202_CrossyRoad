@@ -221,6 +221,21 @@ void Character::writeData(std::ofstream &file) {
     file << mDirection << std::endl;
     file << mCurrentRoadIndex << std::endl;
     file << mLanePassed << std::endl;
-    file << getPosition().x << " " << getPosition().y <<std::endl;
+    file << getPosition().x << " " << getPosition().y << std::endl;
 }
     
+void Character::readData(std::ifstream &file) {
+    file >> mDirection;
+    file >> mCurrentRoadIndex;
+    file >> mLanePassed;
+    float x, y;
+    file >> x >> y;
+    setPosition(x, y);
+}
+
+Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
+    this->setSkin(Statistic::PLAYER_SKIN_TYPE);
+    this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
+    this->setScale(Statistic::CHARACTER_SIZE.x / this->getSpriteBounding().width, Statistic::CHARACTER_SIZE.y / this->getSpriteBounding().height);
+    readData(file);
+}  

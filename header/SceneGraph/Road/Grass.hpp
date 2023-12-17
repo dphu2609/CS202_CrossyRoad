@@ -24,7 +24,6 @@ private:
     sf::Sprite mGrass;
     int spaces;
     std::vector<Block*> mBlocks;
-    
 };
 
 #endif

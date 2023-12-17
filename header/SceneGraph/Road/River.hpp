@@ -38,8 +38,8 @@ public:
     River(std::ifstream &file);
     virtual RoadType::ID getRoadType() const {return RoadType::River;}
     virtual sf::Vector2f getVelocity() const;
-    void readData(std::ifstream &file);
-    void saveData(std::ofstream &file);
+    virtual void readData(std::ifstream &file);
+    virtual void writeData(std::ofstream &file);
 };
 
 

@@ -142,3 +142,86 @@ int RoadSequence::getPlayerScore() {
     }
     return mPlayerScore;
 }
+
+void RoadSequence::writeData(std::ofstream &file) {
+    file << this->getPosition().x << " " << this->getPosition().y << std::endl;
+    file << mCurrentRoadIndex << std::endl;
+    file << mRoads.size() << std::endl;
+    
+    for (int i = 0; i < mCurrentRoadIndex; i++) {
+        file << mRoads[i]->getRoadType() << std::endl;
+        mRoads[i]->writeData(file);
+    }
+    mCharacter->writeData(file);
+
+    for (int i = mCurrentRoadIndex; i < mRoads.size(); i++) {
+        file << mRoads[i]->getRoadType() << std::endl;
+        mRoads[i]->writeData(file);
+    }
+}
+
+void RoadSequence::readData(std::ifstream &file) {
+    float x, y;
+    file >> x >> y;
+    this->setPosition(x, y);
+    file >> mCurrentRoadIndex;
+    int size;
+    file >> size;
+    mRoads.clear();
+    this->clearChildren();
+    for (int i = 0; i < mCurrentRoadIndex; i++) {
+        int type;
+        file >> type;
+        std::shared_ptr<Grass> road;
+        std::shared_ptr<VehicleLane> lane;
+        std::shared_ptr<River> river;
+
+        switch(type) {
+            case RoadType::Grass:
+                road = std::make_shared<Grass>(file);
+                mRoads.push_back(road);
+                this->attachChild(std::move(road));
+                break;
+            case RoadType::VehicleLane:
+                lane = std::make_shared<VehicleLane>(file);
+                mRoads.push_back(lane);
+                this->attachChild(std::move(lane));
+                break;
+            case RoadType::River:
+                river = std::make_shared<River>(file);
+                mRoads.push_back(river);
+                this->attachChild(std::move(river));
+                break;
+        };
+    }
+
+    std::shared_ptr<Character> character = std::make_shared<Character>(mView, file);
+    mCharacter = character;
+    this->attachChild(std::move(character));
+
+    for (int i = mCurrentRoadIndex; i < size; i++) {
+        int type;
+        file >> type;
+        std::shared_ptr<Grass> road;
+        std::shared_ptr<VehicleLane> lane;
+        std::shared_ptr<River> river;
+
+        switch(type) {
+            case RoadType::Grass:
+                road = std::make_shared<Grass>(file);
+                mRoads.push_back(road);
+                this->attachChild(std::move(road));
+                break;
+            case RoadType::VehicleLane:
+                lane = std::make_shared<VehicleLane>(file);
+                mRoads.push_back(lane);
+                this->attachChild(std::move(lane));
+                break;
+            case RoadType::River:
+                river = std::make_shared<River>(file);
+                mRoads.push_back(river);
+                this->attachChild(std::move(river));
+                break;
+        };
+    }
+}

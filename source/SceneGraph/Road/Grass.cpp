@@ -79,6 +79,9 @@ bool Grass::isBlock(sf::Vector2f position)
 
 void Grass::readData(std::ifstream &file)
 {
+    float x, y;
+    file >> x >> y;
+    this->setPosition(x, y);
     for(int i = 0; i < Statistic::BLOCK_NUMBER; i++)
     {
         int index, type;
@@ -89,12 +92,12 @@ void Grass::readData(std::ifstream &file)
 
 void Grass::writeData(std::ofstream &file)
 {
+    file << this->getPosition().x << ' ' << this->getPosition().y << std::endl;
     for(int i = 0; i < spaces; i++)
     {
         if(mBlocks[i] != nullptr)
         {
-            file << i << " " << mBlocks[i]->getType() << " ";
+            file << i << " " << mBlocks[i]->getType() << std::endl;
         }
     }
-    file << std::endl;
 }

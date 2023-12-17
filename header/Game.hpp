@@ -5,6 +5,7 @@
 #include <bits/stdc++.h>
 #include <State/StateStack.hpp>
 #include <GlobalVar.hpp>
+#include <Menu/Menu.hpp>
 
 class Game {
 public:
@@ -23,6 +24,7 @@ private:
 private:
     sf::RenderWindow mWindow;
     StateStack mStateStack;
+    Menu mMenu;
 };
 
 #endif
