@@ -2,6 +2,7 @@
 #define RESOURCEHOLDER_HPP
 
 #include <bits/stdc++.h>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace RoadTextures
@@ -66,6 +67,17 @@ namespace Fonts {
         PixelifySansRegular,
         JoystixMonospaceRegular,
         FiraMonoRegular
+    };
+};
+
+namespace Sounds {
+    enum ID {
+        JumpSound,
+        CarSound,
+        TrainAlarmSound,
+        TrainSound,
+        TrafficSound,
+        BackgroundMusic
     };
 };
 

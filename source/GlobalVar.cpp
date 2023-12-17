@@ -4,9 +4,11 @@ namespace Resources {
     ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     ResourceHolder<sf::Font, Fonts::ID> fonts;
     ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
+    ResourceHolder<sf::SoundBuffer, Sounds::ID> sounds;
 
     GifHolder gifsHolder;
 }
+
 
 namespace Controller {
     sf::Keyboard::Key MOVE_UP_SET_1 = sf::Keyboard::W;
@@ -72,4 +74,7 @@ namespace Statistic {
     bool IS_LOAD_FROM_FILE = false;
 
     std::string LOAD_FILE_NAME = "data/save.dat";
+
+    float ENVIROMENT_SOUND_VOLUME = 100.f;
+    float MUSIC_SOUND_VOLUME = 100.f;
 };

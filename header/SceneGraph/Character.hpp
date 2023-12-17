@@ -2,10 +2,10 @@
 #define CHARACTER_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <bits/stdc++.h>
 #include <SceneGraph/SceneNode.hpp>
-#include <GlobalVar.hpp>
-#include <Resources/Gif.hpp>    
+#include <GlobalVar.hpp>   
 
 class Character : public SceneNode {
 public:
@@ -66,6 +66,16 @@ private:
     int mLanePassed = 0;
 private:
     std::queue<sf::Keyboard::Key> mKeyInput;
+private:
+    sf::Sound mJumpSound;
+private:
+    virtual void setCurrentEnvSoundVolume(float volume);
+private:
+    bool mIsOutOfRiver = false;
+    std::vector<float> mJumpPositions;
+    float mStartPosition = -878.f;
+public:
+    void setPositionAfterJumpOutRiver();
 };
 
 #endif

@@ -21,7 +21,7 @@ template <typename Resource, typename Identifier>
 const Resource& ResourceHolder<Resource, Identifier>::operator [] (Identifier id) const {
     auto found = this->mResourceMap.find(id);
     if (found == this->mResourceMap.end()) {
-        throw std::runtime_error("ResourceHolder::get() - resource not found");
+        throw std::runtime_error("ResourceHolder::[] - resource not found");
     }
     return *(found->second);
 }
@@ -29,4 +29,4 @@ const Resource& ResourceHolder<Resource, Identifier>::operator [] (Identifier id
 template class ResourceHolder<sf::Texture, RoadTextures::ID>;
 template class ResourceHolder<sf::Texture, CharacterTextures::ID>;
 template class ResourceHolder<sf::Font, Fonts::ID>;
- 
+template class ResourceHolder<sf::SoundBuffer, Sounds::ID>;

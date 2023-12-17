@@ -2,6 +2,7 @@
 #define SCENENODE_HPP
 
 #include <SFML/Graphics.hpp>  
+#include <SFML/Audio.hpp>
 #include <bits/stdc++.h>
 #include <CommandQueue.hpp>
 
@@ -50,6 +51,10 @@ public:
     sf::Vector2f			getWorldPosition() const;
 	sf::Transform			getWorldTransform() const;
     virtual sf::FloatRect	getBoundingRect() const;
+public:
+    void setEnvSoundVolume(float volume);
+private:
+    virtual void setCurrentEnvSoundVolume(float volume) {}
 };
 
 #endif // SCENENODE_HPP

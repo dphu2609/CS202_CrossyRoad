@@ -5,7 +5,11 @@ Game::Game() : mWindow(sf::VideoMode(Statistic::SCREEN_WIDTH, Statistic::SCREEN_
     loadTextures();
     loadGifs();
     loadFonts();
+    loadSounds();
     registerStates();
+    mBackgroundMusic.setBuffer(Resources::sounds[Sounds::BackgroundMusic]);
+    mBackgroundMusic.setLoop(true);
+    mBackgroundMusic.play();
 }
 
 void Game::loadFonts() {
@@ -90,6 +94,14 @@ void Game::loadGifs() {
     characterSkin1Right.push_back(sf::Sprite(Resources::characterTextures[CharacterTextures::CharacterSkin1RightState4]));
     Resources::gifsHolder.load(GIFs::CharacterSkin1Right, characterSkin1Right, sf::seconds(0.4f));
 }
+
+void Game::loadSounds() {
+    Resources::sounds.load(Sounds::JumpSound, "media/sounds/JumpSoundEffect2.wav");
+    Resources::sounds.load(Sounds::TrainAlarmSound, "media/sounds/TrainSound2.wav");
+    Resources::sounds.load(Sounds::TrafficSound, "media/sounds/TrafficSound3.wav");
+    Resources::sounds.load(Sounds::BackgroundMusic, "media/sounds/BackgroundMusic3.wav");
+}
+
 void Game::registerStates() {
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);

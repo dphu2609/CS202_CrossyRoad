@@ -103,3 +103,6 @@ void World::writeData(std::ofstream &file) {
     mRoadSequence->writeData(file);
 }
 
+void World::setEnvSoundVolume(float volume) {
+    mSceneGraph.setEnvSoundVolume(volume);
+}

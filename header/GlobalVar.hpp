@@ -2,6 +2,7 @@
 #define GLOBAL_VAR_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <Resources/ResourceHolder.hpp>
 #include <Resources/GifHolder.hpp>
 
@@ -10,6 +11,7 @@ namespace Resources
     extern ResourceHolder<sf::Font, Fonts::ID> fonts;
     extern ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     extern ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
+    extern ResourceHolder<sf::SoundBuffer, Sounds::ID> sounds;
 
     extern GifHolder gifsHolder;
     // add more resource holder here
@@ -81,6 +83,9 @@ namespace Statistic
     extern bool IS_LOAD_FROM_FILE;
 
     extern std::string LOAD_FILE_NAME;
+
+    extern float ENVIROMENT_SOUND_VOLUME;
+    extern float MUSIC_SOUND_VOLUME;
 };
 
 #endif
