@@ -303,6 +303,14 @@ void Setting::setCurrent()
         directionCircle.changeToLight();
         letterCircle.changeToDark();
     }
+    int newKey=arrayDirection[0]; // Convert Char to digit
+    Controller::MOVE_UP_SET_1 = static_cast<sf::Keyboard::Key>(newKey);
+    newKey=arrayDirection[1];
+    Controller::MOVE_DOWN_SET_1 = static_cast<sf::Keyboard::Key>(newKey);
+    newKey=arrayDirection[2];
+    Controller::MOVE_LEFT_SET_1 = static_cast<sf::Keyboard::Key>(newKey);
+    newKey=arrayDirection[3];
+    Controller::MOVE_RIGHT_SET_1 = static_cast<sf::Keyboard::Key>(newKey);
 }
 
 void Setting::setOldCurrent()
@@ -337,6 +345,10 @@ void Setting::setReset()
     controlType=0;
     directionCircle.changeToDark();
     letterCircle.changeToLight();
+    Controller::MOVE_UP_SET_1 = sf::Keyboard::W;
+    Controller::MOVE_DOWN_SET_1 = sf::Keyboard::S;
+    Controller::MOVE_LEFT_SET_1 = sf::Keyboard::A;
+    Controller::MOVE_RIGHT_SET_1 = sf::Keyboard::D;
 }
 
 int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
