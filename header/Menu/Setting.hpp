@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <Menu/Element.hpp>
 #include <vector>
-
+#include <iostream>
 using namespace std;
 
 class Setting
@@ -27,6 +27,7 @@ private:
     sf::Font _font;
     sf::Color colorCharacter;
     unsigned int sizeCharacter;
+    unsigned int sizeCharacterDirection;
 
     sf::Text title;
     sf::RectangleShape returnBound;
@@ -38,6 +39,35 @@ private:
     sf::RectangleShape saveBound;
     sf::Text onep;
     sf::Text twop;
+
+    sf::Texture up;
+    sf::Sprite upSprite;
+    sf::Texture down;
+    sf::Sprite downSprite;
+    sf::Texture left;
+    sf::Sprite leftSprite;
+    sf::Texture right;
+    sf::Sprite rightSprite;
+    Circle directionCircle;
+    sf::Text wText;
+    sf::Texture w;
+    sf::Sprite wSprite;
+    sf::RectangleShape wBound;
+    sf::Text sText;
+    sf::Texture s;
+    sf::Sprite sSprite;
+    sf::RectangleShape sBound;
+    sf::Text aText;
+    sf::Texture a;
+    sf::Sprite aSprite;
+    sf::RectangleShape aBound;
+    sf::Text dText;
+    sf::Texture d;
+    sf::Sprite dSprite;
+    sf::RectangleShape dBound;
+    Circle letterCircle;
+    int controlType;
+    int isChosen;
 
     sf::Text music;
     sf::RectangleShape musicBound;
