@@ -4,8 +4,10 @@ project(CrossyRoad VERSION 0.1.0 LANGUAGES C CXX)
 include(CTest)
 enable_testing()
 
-set(SFML_LIB_DIR "C:/SFML-2.5.1/lib")
-set(SFML_INCLUDE_DIR "C:/SFML-2.5.1/include")
+# Set the path to the SFML directory
+set(SFML_DIR "D:/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/lib/cmake/SFML")
+set(SFML_LIB_DIR "D:/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/lib")
+set(SFML_INCLUDE_DIR "D:/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/include")
 
 include_directories(${SFML_INCLUDE_DIR})
 link_directories(${SFML_LIB_DIR})

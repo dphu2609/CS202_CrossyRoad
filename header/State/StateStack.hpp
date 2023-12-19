@@ -79,6 +79,10 @@ private:
     std::vector<State::Ptr> mStack;
     std::vector<PendingChange> mPendingList;
     std::map<States::ID, std::function<State::Ptr()>> mFactories;
+public:
+    int getSize() const {
+        return mStack.size();
+    }
 };
 
 #include <State/GameState/GameState.hpp>  

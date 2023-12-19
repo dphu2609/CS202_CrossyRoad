@@ -142,13 +142,13 @@ void MainScreen::setBackground(bool isBackgoundLight)
 
 int MainScreen::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {   
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(mWindow);
+    sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
     int size=packs.size();
     for(int i=0;i<size;i++)
     {
         auto& x=packs[i];
-        sf::FloatRect RecBound=x.getGlobalBounds();
-        bool isMouseOn=RecBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+        sf::FloatRect recBound = x.getGlobalBounds();
+        bool isMouseOn = recBound.contains(mousePosition);
         if(isMouseOn)
         {
             sf::FloatRect size;

@@ -241,13 +241,13 @@ void HighScore::setBackground(bool isBackgoundLight)
 
 int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(mWindow);
+    sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
     sf::FloatRect recBound;
     bool isMouseOn;
     if(event.type==sf::Event::MouseWheelScrolled)
     {
         recBound=firstBound.getGlobalBounds();
-        isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+        isMouseOn=recBound.contains(mousePosition);
         if(isMouseOn)
         {
             if(sizeLeftTexts)

@@ -81,6 +81,13 @@ namespace Sounds {
     };
 };
 
+namespace MenuTextures {
+    enum ID {
+        ReturnButton,
+        ReturnButtonHovered
+    };
+};
+
 template <typename Resource, typename Identifier>
 class ResourceHolder {
 public:

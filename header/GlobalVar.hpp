@@ -11,6 +11,7 @@ namespace Resources
     extern ResourceHolder<sf::Font, Fonts::ID> fonts;
     extern ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     extern ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
+    extern ResourceHolder<sf::Texture, MenuTextures::ID> menuTextures;
     extern ResourceHolder<sf::SoundBuffer, Sounds::ID> sounds;
 
     extern GifHolder gifsHolder;
@@ -62,6 +63,8 @@ namespace Statistic
 
     extern sf::Vector2f CHARACTER_SIZE;
     extern sf::Vector2f CHARACTER_SPAWN_POSITION;
+
+    extern float CHARACTER_JUMP_DISTANCE;
     extern sf::Vector2f INITIAL_VIEW_POSITION;
     extern sf::Vector2f RESET_VIEW_POSITION;
 
@@ -86,6 +89,8 @@ namespace Statistic
 
     extern float ENVIROMENT_SOUND_VOLUME;
     extern float MUSIC_SOUND_VOLUME;
+
+    extern bool IS_EXIT_TO_MENU;
 };
 
 #endif

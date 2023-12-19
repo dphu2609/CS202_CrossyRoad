@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <menu/Element.hpp>
+#include <GlobalVar.hpp>
 #include <SceneGraph/Character.hpp>
 #include <vector>
 

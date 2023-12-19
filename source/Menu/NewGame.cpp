@@ -244,13 +244,13 @@ void NewGame::changeToTwoPlayer()
 
 int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
-    sf::Vector2i mousePosition=sf::Mouse::getPosition(mWindow);
+    sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
     int size=packs.size();
     for(int i=0;i<size;i++)
     {
         auto& x=packs[i];
-        sf::FloatRect recBound=x.getGlobalBounds();
-        bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+        sf::FloatRect recBound = x.getGlobalBounds();
+        bool isMouseOn = recBound.contains(mousePosition);
         if(isMouseOn)
         {
             if(i==0) onep.setFillColor(sf::Color::Magenta);
@@ -287,7 +287,6 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     {
         returnImage.loadFromFile("media/images/menu/Back1.png");
         returnImageSprite.setTexture(returnImage);
-
     }
 
     for(int i=0;i<4;i++)
@@ -321,6 +320,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         {
             play.setScale(1,1);
             play.setFillColor(sf::Color::White);
+            Statistic::IS_EXIT_TO_MENU=false;
             return 5;
         }
     }

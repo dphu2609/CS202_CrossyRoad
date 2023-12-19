@@ -4,6 +4,7 @@ namespace Resources {
     ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     ResourceHolder<sf::Font, Fonts::ID> fonts;
     ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
+    ResourceHolder<sf::Texture, MenuTextures::ID> menuTextures;
     ResourceHolder<sf::SoundBuffer, Sounds::ID> sounds;
 
     GifHolder gifsHolder;
@@ -55,6 +56,7 @@ namespace Statistic {
     sf::Vector2f INITIAL_VIEW_POSITION = sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 300);
     sf::Vector2f RESET_VIEW_POSITION = sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 290);
 
+    float CHARACTER_JUMP_DISTANCE = 100;
     float CHARACTER_JUMP_DISTANCE_HORIZONTAL = 100;
     float CHARACTER_JUMP_DISTANCE_VERTICAL = 70;
 
@@ -77,4 +79,6 @@ namespace Statistic {
 
     float ENVIROMENT_SOUND_VOLUME = 100.f;
     float MUSIC_SOUND_VOLUME = 100.f;
+
+    bool IS_EXIT_TO_MENU = true;
 };

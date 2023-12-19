@@ -64,6 +64,9 @@ void Game::loadTextures() {
     Resources::roadTextures.load(RoadTextures::TrafficLightRed, "media/images/road/light_red.png");
     Resources::roadTextures.load(RoadTextures::TrafficLightYellow, "media/images/road/light_yellow.png");
     Resources::roadTextures.load(RoadTextures::TrafficLightGreen, "media/images/road/light_green.png");
+
+    Resources::menuTextures.load(MenuTextures::ReturnButton, "media/images/menu/Back1.png");
+    Resources::menuTextures.load(MenuTextures::ReturnButtonHovered, "media/images/menu/Back2.png");
 }
 void Game::loadGifs() {
     std::vector<sf::Sprite> characterSkin1Backward;
@@ -142,6 +145,18 @@ void Game::update(sf::Time dt) {
 
 void Game::render() {
     mWindow.clear();
+    // if(Statistic::IS_EXIT_TO_MENU)
+    // {
+    //     mMenu.draw(mWindow);
+    // }
+    // else 
+    // {
+    //     if (mStateStack.getSize() == 0) {
+    //         mStateStack.pushState(States::Game);
+    //     }
+    //     mStateStack.draw();
+    // }
+
     mStateStack.draw();
     mWindow.display();
 }
