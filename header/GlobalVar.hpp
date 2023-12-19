@@ -17,15 +17,15 @@ namespace Resources
 
 namespace Controller
 {
-    extern sf::Keyboard::Key MOVE_UP_SET_1;
-    extern sf::Keyboard::Key MOVE_DOWN_SET_1;
-    extern sf::Keyboard::Key MOVE_LEFT_SET_1;
-    extern sf::Keyboard::Key MOVE_RIGHT_SET_1;
+    extern char MOVE_UP_SET_1;
+    extern char MOVE_DOWN_SET_1;
+    extern char MOVE_LEFT_SET_1;
+    extern char MOVE_RIGHT_SET_1;
 
-    extern sf::Keyboard::Key MOVE_UP_SET_2;
-    extern sf::Keyboard::Key MOVE_DOWN_SET_2;
-    extern sf::Keyboard::Key MOVE_LEFT_SET_2;
-    extern sf::Keyboard::Key MOVE_RIGHT_SET_2;
+    extern char MOVE_UP_SET_2;
+    extern char MOVE_DOWN_SET_2;
+    extern char MOVE_LEFT_SET_2;
+    extern char MOVE_RIGHT_SET_2;
 
     extern sf::Keyboard::Key PAUSE;
 };

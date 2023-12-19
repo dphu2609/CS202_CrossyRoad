@@ -186,11 +186,15 @@ Setting::Setting()
     letterCircle.setPosition(1320.f,500.f);
     isChosen=0;
 
+    arrayDirection[0]='w';
+    arrayDirection[1]='s';
+    arrayDirection[2]='a';
+    arrayDirection[3]='d';
     oldControlType=0;
-    oldArrayDirection[0]='W';
-    oldArrayDirection[1]='S';
-    oldArrayDirection[2]='A';
-    oldArrayDirection[3]='D';
+    oldArrayDirection[0]='w';
+    oldArrayDirection[1]='s';
+    oldArrayDirection[2]='a';
+    oldArrayDirection[3]='d';
 
     musicBound.setSize(sf::Vector2f(sizeBound.x*4.7,sizeBound.y));
     musicBound.setFillColor(colorBound);
@@ -303,14 +307,10 @@ void Setting::setCurrent()
         directionCircle.changeToLight();
         letterCircle.changeToDark();
     }
-    int newKey=arrayDirection[0]; // Convert Char to digit
-    Controller::MOVE_UP_SET_1 = static_cast<sf::Keyboard::Key>(newKey);
-    newKey=arrayDirection[1];
-    Controller::MOVE_DOWN_SET_1 = static_cast<sf::Keyboard::Key>(newKey);
-    newKey=arrayDirection[2];
-    Controller::MOVE_LEFT_SET_1 = static_cast<sf::Keyboard::Key>(newKey);
-    newKey=arrayDirection[3];
-    Controller::MOVE_RIGHT_SET_1 = static_cast<sf::Keyboard::Key>(newKey);
+    Controller::MOVE_UP_SET_1 = arrayDirection[0];
+    Controller::MOVE_DOWN_SET_1 = arrayDirection[1];
+    Controller::MOVE_LEFT_SET_1 = arrayDirection[2];
+    Controller::MOVE_RIGHT_SET_1 = arrayDirection[3];
 }
 
 void Setting::setOldCurrent()
@@ -330,14 +330,18 @@ void Setting::setOldCurrent()
         directionCircle.changeToLight();
         letterCircle.changeToDark();
     }
+    Controller::MOVE_UP_SET_1 = arrayDirection[0];
+    Controller::MOVE_DOWN_SET_1 = arrayDirection[1];
+    Controller::MOVE_LEFT_SET_1 = arrayDirection[2];
+    Controller::MOVE_RIGHT_SET_1 = arrayDirection[3];
 }
 
 void Setting::setReset()
 {
-    arrayDirection[0]='W';
-    arrayDirection[1]='S';
-    arrayDirection[2]='A';
-    arrayDirection[3]='D';
+    arrayDirection[0]='w';
+    arrayDirection[1]='s';
+    arrayDirection[2]='a';
+    arrayDirection[3]='d';
     wText.setString(arrayDirection[0]);
     sText.setString(arrayDirection[1]);
     aText.setString(arrayDirection[2]);
@@ -345,10 +349,6 @@ void Setting::setReset()
     controlType=0;
     directionCircle.changeToDark();
     letterCircle.changeToLight();
-    Controller::MOVE_UP_SET_1 = sf::Keyboard::W;
-    Controller::MOVE_DOWN_SET_1 = sf::Keyboard::S;
-    Controller::MOVE_LEFT_SET_1 = sf::Keyboard::A;
-    Controller::MOVE_RIGHT_SET_1 = sf::Keyboard::D;
 }
 
 int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
@@ -390,6 +390,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(isChosen==1&&event.type==sf::Event::TextEntered)
         {
             char c=static_cast<char>(event.text.unicode);
+            cout<<c<<endl;
             arrayDirection[0]=c;
             string tmp="";
             tmp+=c;
@@ -421,6 +422,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(isChosen==2&&event.type==sf::Event::TextEntered)
         {
             char c=static_cast<char>(event.text.unicode);
+            cout<<c<<endl;
             arrayDirection[1]=c;
             string tmp="";
             tmp+=c;
@@ -452,6 +454,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(isChosen==3&&event.type==sf::Event::TextEntered)
         {
             char c=static_cast<char>(event.text.unicode);
+            cout<<c<<endl;
             arrayDirection[2]=c;
             string tmp="";
             tmp+=c;
@@ -483,7 +486,8 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(isChosen==4&&event.type==sf::Event::TextEntered)
         {
             char c=static_cast<char>(event.text.unicode);
-            arrayDirection[4]=c;
+            cout<<c<<endl;
+            arrayDirection[3]=c;
             string tmp="";
             tmp+=c;
             dText.setString(tmp);

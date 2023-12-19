@@ -64,7 +64,7 @@ public:
 private:
     int mLanePassed = 0;
 private:
-    std::queue<sf::Keyboard::Key> mKeyInput;
+    std::queue<char> mKeyInput;
 };
 
 #endif

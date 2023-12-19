@@ -1,4 +1,6 @@
 #include <SceneGraph/Character.hpp>
+#include <iostream>
+using namespace std;
 
 Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurrentRoadIndex(currentRoadIndex) {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
@@ -45,46 +47,54 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
 } 
 
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
-    if (event.type == sf::Event::KeyPressed && !mIsMoving) {
-        if (event.key.code == Controller::MOVE_UP_SET_1) {
+    if (event.type == sf::Event::TextEntered && !mIsMoving) {
+        cout<<event.text.unicode<<endl;
+        cout<<static_cast<char>(Controller::MOVE_UP_SET_1)<<endl;
+        cout<<static_cast<char>(Controller::MOVE_DOWN_SET_1)<<endl;
+        cout<<static_cast<char>(Controller::MOVE_LEFT_SET_1)<<endl;
+        cout<<static_cast<char>(Controller::MOVE_RIGHT_SET_1)<<endl;
+
+        if (event.text.unicode == Controller::MOVE_UP_SET_1) {
             if(canMoveUp)
                 mKeyInput.push(Controller::MOVE_UP_SET_1);
             else 
                 mDirection = 0;
-        } else if (event.key.code == Controller::MOVE_DOWN_SET_1) {
+        } else if (event.text.unicode == Controller::MOVE_DOWN_SET_1) {
             if(canMoveDown)
                 mKeyInput.push(Controller::MOVE_DOWN_SET_1);
             else
                 mDirection = 1;
-        } else if (event.key.code == Controller::MOVE_LEFT_SET_1) {
+        } else if (event.text.unicode == Controller::MOVE_LEFT_SET_1) {
             if(canMoveLeft)
                 mKeyInput.push(Controller::MOVE_LEFT_SET_1);
             else
                 mDirection = 2;
-        } else if (event.key.code == Controller::MOVE_RIGHT_SET_1) {
+        } else if (event.text.unicode == Controller::MOVE_RIGHT_SET_1) {
             if(canMoveRight)
                 mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
             else
                 mDirection = 3;
         }
-        else if (event.key.code == Controller::MOVE_UP_SET_2) {
+    }
+    else if (event.type == sf::Event::KeyPressed && !mIsMoving) {
+        if (event.key.code == sf::Keyboard::Up) {
             if(canMoveUp)
-                mKeyInput.push(Controller::MOVE_UP_SET_2);
+                mKeyInput.push(Controller::MOVE_UP_SET_1);
             else    
                 mDirection = 0;
-        } else if (event.key.code == Controller::MOVE_DOWN_SET_2) {
+        } else if (event.key.code == sf::Keyboard::Down) {
             if(canMoveDown)
-                mKeyInput.push(Controller::MOVE_DOWN_SET_2);
+                mKeyInput.push(Controller::MOVE_DOWN_SET_1);
             else
                 mDirection = 1;
-        } else if (event.key.code == Controller::MOVE_LEFT_SET_2) {
+        } else if (event.key.code == sf::Keyboard::Left) {
             if(canMoveLeft)
-                mKeyInput.push(Controller::MOVE_LEFT_SET_2);
+                mKeyInput.push(Controller::MOVE_LEFT_SET_1);
             else 
                 mDirection = 2;
-        } else if (event.key.code == Controller::MOVE_RIGHT_SET_2) {
+        } else if (event.key.code == sf::Keyboard::Right) {
             if(canMoveRight)
-                mKeyInput.push(Controller::MOVE_RIGHT_SET_2);
+                mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
             else    
                 mDirection = 3;
         }
@@ -102,7 +112,7 @@ sf::FloatRect Character::getBoundingRect() const {
 
 void Character::updateMove(sf::Time dt) {
     if (!mKeyInput.empty()) {
-        sf::Keyboard::Key key = mKeyInput.front();
+        char key = mKeyInput.front();
         int direction = -1;
         if (key == Controller::MOVE_UP_SET_1 || key == Controller::MOVE_UP_SET_2) {
             direction = 0;
