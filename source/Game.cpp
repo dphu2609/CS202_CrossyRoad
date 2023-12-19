@@ -145,18 +145,13 @@ void Game::update(sf::Time dt) {
 
 void Game::render() {
     mWindow.clear();
-    // if(Statistic::IS_EXIT_TO_MENU)
-    // {
-    //     mMenu.draw(mWindow);
-    // }
-    // else 
-    // {
-    //     if (mStateStack.getSize() == 0) {
-    //         mStateStack.pushState(States::Game);
-    //     }
-    //     mStateStack.draw();
-    // }
-
-    mStateStack.draw();
+    if(Statistic::IS_GAME_OVER)
+    {
+        mMenu.draw(mWindow);
+    }
+    else 
+    {
+        mStateStack.draw();
+    }
     mWindow.display();
 }
