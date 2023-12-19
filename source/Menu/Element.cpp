@@ -191,6 +191,8 @@ void BarArray::increaseByOne()
 void BarArray::reset()
 {
     current=6;
+    Statistic::MUSIC_SOUND_VOLUME=50.f;
+    Statistic::ENVIROMENT_SOUND_VOLUME=50.f;
 }
 
 void BarArray::setOldCurrent()
@@ -201,6 +203,17 @@ void BarArray::setOldCurrent()
 void BarArray::setCurrent()
 {
     current=oldcurrent;
+    
+}
+
+void BarArray::setMusic()
+{
+    Statistic::MUSIC_SOUND_VOLUME=Statistic::MUSIC_SOUND_VOLUME*current/12;
+}
+
+void BarArray::setSound()
+{
+    Statistic::ENVIROMENT_SOUND_VOLUME=Statistic::ENVIROMENT_SOUND_VOLUME*current/12;
 }
 
 void BarArray::draw(sf::RenderWindow& mWindow)

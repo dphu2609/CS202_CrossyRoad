@@ -17,6 +17,11 @@ public:
     void setPosBackgroundLight2(sf::Vector2f pos);
     bool stateBackgroundLight();  
     void setBackground(bool isBackgoundLight);   
+
+    void setCurrent();
+    void setOldCurrent();
+    void setReset();
+
     int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
     void update(sf::Time dt);
     void draw(sf::RenderWindow& mWindow);
@@ -66,8 +71,11 @@ private:
     sf::Sprite dSprite;
     sf::RectangleShape dBound;
     Circle letterCircle;
-    int controlType;
     int isChosen;
+    int controlType;
+    int oldControlType;
+    char arrayDirection[4];
+    char oldArrayDirection[4];
 
     sf::Text music;
     sf::RectangleShape musicBound;

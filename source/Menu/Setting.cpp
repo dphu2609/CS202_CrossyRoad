@@ -186,6 +186,12 @@ Setting::Setting()
     letterCircle.setPosition(1320.f,500.f);
     isChosen=0;
 
+    oldControlType=0;
+    oldArrayDirection[0]='W';
+    oldArrayDirection[1]='S';
+    oldArrayDirection[2]='A';
+    oldArrayDirection[3]='D';
+
     musicBound.setSize(sf::Vector2f(sizeBound.x*4.7,sizeBound.y));
     musicBound.setFillColor(colorBound);
     musicBound.setPosition(300.f,630.f);
@@ -276,6 +282,63 @@ void Setting::setBackground(bool isBackgoundLight)
     }
 }  
 
+void Setting::setCurrent()
+{
+    arrayDirection[0]=oldArrayDirection[0];
+    arrayDirection[1]=oldArrayDirection[1];
+    arrayDirection[2]=oldArrayDirection[2];
+    arrayDirection[3]=oldArrayDirection[3];
+    wText.setString(arrayDirection[0]);
+    sText.setString(arrayDirection[1]);
+    aText.setString(arrayDirection[2]);
+    dText.setString(arrayDirection[3]);
+    controlType=oldControlType;
+    if(controlType==0)
+    {
+        directionCircle.changeToDark();
+        letterCircle.changeToLight();
+    }
+    else
+    {
+        directionCircle.changeToLight();
+        letterCircle.changeToDark();
+    }
+}
+
+void Setting::setOldCurrent()
+{
+    oldArrayDirection[0]=arrayDirection[0];
+    oldArrayDirection[1]=arrayDirection[1];
+    oldArrayDirection[2]=arrayDirection[2];
+    oldArrayDirection[3]=arrayDirection[3];
+    oldControlType=controlType;
+    if(controlType==0)
+    {
+        directionCircle.changeToDark();
+        letterCircle.changeToLight();
+    }
+    else
+    {
+        directionCircle.changeToLight();
+        letterCircle.changeToDark();
+    }
+}
+
+void Setting::setReset()
+{
+    arrayDirection[0]='W';
+    arrayDirection[1]='S';
+    arrayDirection[2]='A';
+    arrayDirection[3]='D';
+    wText.setString(arrayDirection[0]);
+    sText.setString(arrayDirection[1]);
+    aText.setString(arrayDirection[2]);
+    dText.setString(arrayDirection[3]);
+    controlType=0;
+    directionCircle.changeToDark();
+    letterCircle.changeToLight();
+}
+
 int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
     sf::Vector2f mousePosition=mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
@@ -290,7 +353,10 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             musicBarArray.setCurrent();
+            musicBarArray.setMusic();
             soundBarArray.setCurrent();
+            soundBarArray.setSound();
+            setCurrent();
             return 0;
         }
     }
@@ -312,6 +378,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(isChosen==1&&event.type==sf::Event::TextEntered)
         {
             char c=static_cast<char>(event.text.unicode);
+            arrayDirection[0]=c;
             string tmp="";
             tmp+=c;
             wText.setString(tmp);
@@ -342,6 +409,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(isChosen==2&&event.type==sf::Event::TextEntered)
         {
             char c=static_cast<char>(event.text.unicode);
+            arrayDirection[1]=c;
             string tmp="";
             tmp+=c;
             sText.setString(tmp);
@@ -372,6 +440,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(isChosen==3&&event.type==sf::Event::TextEntered)
         {
             char c=static_cast<char>(event.text.unicode);
+            arrayDirection[2]=c;
             string tmp="";
             tmp+=c;
             aText.setString(tmp);
@@ -402,6 +471,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(isChosen==4&&event.type==sf::Event::TextEntered)
         {
             char c=static_cast<char>(event.text.unicode);
+            arrayDirection[4]=c;
             string tmp="";
             tmp+=c;
             dText.setString(tmp);
@@ -458,6 +528,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             musicBarArray.increaseByOne();
+            musicBarArray.setMusic();
         }
     }
     else
@@ -473,6 +544,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             musicBarArray.decreaseByOne();
+            musicBarArray.setMusic();
         }
     }
     else
@@ -488,6 +560,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             soundBarArray.increaseByOne();
+            soundBarArray.setSound();
         }
     }
     else
@@ -503,6 +576,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
             soundBarArray.decreaseByOne();
+            soundBarArray.setSound();
         }
     }
     else
@@ -519,6 +593,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         {
             musicBarArray.reset();
             soundBarArray.reset();
+            setReset();
         }
     }
     else
@@ -535,6 +610,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
         {
             musicBarArray.setOldCurrent();
             soundBarArray.setOldCurrent();
+            setOldCurrent();
             return 0;
         }
     }

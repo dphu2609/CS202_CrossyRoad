@@ -72,4 +72,8 @@ namespace Statistic {
     bool IS_GAME_OVER = false;
 
     bool IS_EXIT_TO_MENU = true;
+    std::string LOAD_FILE_NAME = "data/save.dat";
+
+    float ENVIROMENT_SOUND_VOLUME = 50.f;
+    float MUSIC_SOUND_VOLUME = 50.f;
 };
