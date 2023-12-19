@@ -6,6 +6,7 @@ Setting::Setting()
     sizeBound=sf::Vector2f(100.f,100.f);
     sizeTheme=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
+    sizeCharacterDirection=90;
     sf::FloatRect size;
 
     mTime=sf::Time::Zero;
@@ -99,6 +100,92 @@ Setting::Setting()
     leftSprite.setScale(200.f/size.width,200.f/size.height);
     leftSprite.setPosition(sf::Vector2f(490.f,410.f));
 
+    directionCircle.setPosition(600.f,500);
+    controlType=0;
+    directionCircle.changeToDark();
+
+    w.loadFromFile("media/images/menu/letterControl.png");
+    wSprite.setTexture(w);
+    size=wSprite.getGlobalBounds();
+    wSprite.setOrigin(size.width/2,size.height/2);
+    wSprite.setScale(200.f/size.width,200.f/size.height);
+    wSprite.setPosition(sf::Vector2f(1320.f,300.f));
+
+    wBound.setSize(sf::Vector2f(sizeBound.x,sizeBound.y));
+    wBound.setFillColor(colorBound);
+    wBound.setPosition(1270.f,250.f);
+
+    s.loadFromFile("media/images/menu/letterControl.png");
+    sSprite.setTexture(s);
+    size=sSprite.getGlobalBounds();
+    sSprite.setOrigin(size.width/2,size.height/2);
+    sSprite.setScale(200.f/size.width,200.f/size.height);
+    sSprite.setPosition(sf::Vector2f(1320.f,410.f));
+
+    sBound.setSize(sf::Vector2f(sizeBound.x,sizeBound.y));
+    sBound.setFillColor(colorBound);
+    sBound.setPosition(1270.f,360.f);
+
+    a.loadFromFile("media/images/menu/letterControl.png");
+    aSprite.setTexture(a);
+    size=aSprite.getGlobalBounds();
+    aSprite.setOrigin(size.width/2,size.height/2);
+    aSprite.setScale(200.f/size.width,200.f/size.height);
+    aSprite.setPosition(sf::Vector2f(1210.f,410.f));
+
+    aBound.setSize(sf::Vector2f(sizeBound.x,sizeBound.y));
+    aBound.setFillColor(colorBound);
+    aBound.setPosition(1160.f,360.f);
+
+    d.loadFromFile("media/images/menu/letterControl.png");
+    dSprite.setTexture(d);
+    size=dSprite.getGlobalBounds();
+    dSprite.setOrigin(size.width/2,size.height/2);
+    dSprite.setScale(200.f/size.width,200.f/size.height);
+    dSprite.setPosition(sf::Vector2f(1430.f,410.f));
+
+    dBound.setSize(sf::Vector2f(sizeBound.x,sizeBound.y));
+    dBound.setFillColor(colorBound);
+    dBound.setPosition(1380.f,360.f);
+
+    wText.setString("W");
+    wText.setFont(_font);
+    wText.setCharacterSize(sizeCharacterDirection);
+    wText.setFillColor(colorCharacter);
+    size=wText.getGlobalBounds();
+    wText.setOrigin(size.width/2,size.height/2);
+    wText.setPosition(sf::Vector2f(1318.f,265.f));
+    //wText.setScale(1.75,0.8);
+
+    sText.setString("S");
+    sText.setFont(_font);
+    sText.setCharacterSize(sizeCharacterDirection);
+    sText.setFillColor(colorCharacter);
+    size=sText.getGlobalBounds();
+    sText.setOrigin(size.width/2,size.height/2);
+    sText.setPosition(sf::Vector2f(1318.f,375.f));
+    //wText.setScale(1.75,0.8);
+
+    aText.setString("A");
+    aText.setFont(_font);
+    aText.setCharacterSize(sizeCharacterDirection);
+    aText.setFillColor(colorCharacter);
+    size=aText.getGlobalBounds();
+    aText.setOrigin(size.width/2,size.height/2);
+    aText.setPosition(sf::Vector2f(1208.f,375.f));
+
+    dText.setString("D");
+    dText.setFont(_font);
+    dText.setCharacterSize(sizeCharacterDirection);
+    dText.setFillColor(colorCharacter);
+    size=dText.getGlobalBounds();
+    dText.setOrigin(size.width/2,size.height/2);
+    dText.setPosition(sf::Vector2f(1428.f,375.f));
+    //wText.setScale(1.75,0.8);
+
+    letterCircle.setPosition(1320.f,500.f);
+    isChosen=0;
+
     musicBound.setSize(sf::Vector2f(sizeBound.x*4.7,sizeBound.y));
     musicBound.setFillColor(colorBound);
     musicBound.setPosition(300.f,630.f);
@@ -191,7 +278,8 @@ void Setting::setBackground(bool isBackgoundLight)
 
 int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
-    sf::Vector2i mousePosition=sf::Mouse::getPosition(mWindow);
+    sf::Vector2f mousePosition=mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
+    sf::FloatRect size;
 
     sf::FloatRect recBound=returnBound.getGlobalBounds();
     bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
@@ -210,6 +298,156 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     {
         returnImage.loadFromFile("media/images/menu/Back1.png");
         returnImageSprite.setTexture(returnImage);
+    }
+    
+    recBound=wBound.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+                wText.setFillColor(sf::Color::Cyan);
+                isChosen=1;
+        }
+        if(isChosen==1&&event.type==sf::Event::TextEntered)
+        {
+            char c=static_cast<char>(event.text.unicode);
+            string tmp="";
+            tmp+=c;
+            wText.setString(tmp);
+            wText.setCharacterSize(sizeCharacterDirection);
+            size=wText.getGlobalBounds();
+            wText.setOrigin(size.width/2,size.height/2);
+            wText.setPosition(sf::Vector2f(1318.f,265.f));
+        }
+    }
+    else
+    {
+        if(isChosen==1)
+        {
+            wText.setFillColor(colorCharacter);
+            isChosen=0;
+        }
+    }    
+
+    recBound=sBound.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+                sText.setFillColor(sf::Color::Cyan);
+                isChosen=2;
+        }
+        if(isChosen==2&&event.type==sf::Event::TextEntered)
+        {
+            char c=static_cast<char>(event.text.unicode);
+            string tmp="";
+            tmp+=c;
+            sText.setString(tmp);
+            // sText.setCharacterSize(sizeCharacter);
+            // size=sText.getGlobalBounds();
+            // sText.setOrigin(size.width/2,size.height/2);
+            // sText.setPosition(sf::Vector2f(1318.f,375.f));
+        }
+    }
+    else
+    {
+        if(isChosen==2)
+        {
+            sText.setFillColor(colorCharacter);
+            isChosen=0;
+        }
+    }    
+
+    recBound=aBound.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+                aText.setFillColor(sf::Color::Cyan);
+                isChosen=3;
+        }
+        if(isChosen==3&&event.type==sf::Event::TextEntered)
+        {
+            char c=static_cast<char>(event.text.unicode);
+            string tmp="";
+            tmp+=c;
+            aText.setString(tmp);
+            // aText.setCharacterSize(sizeCharacter);
+            // size=aText.getGlobalBounds();
+            // aText.setOrigin(size.width/2,size.height/2);
+            // aText.setPosition(sf::Vector2f(1208.f,375.f));
+        }
+    }
+    else
+    {
+        if(isChosen==3)
+        {
+            aText.setFillColor(colorCharacter);
+            isChosen=0;
+        }
+    }    
+
+    recBound=dBound.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+                dText.setFillColor(sf::Color::Cyan);
+                isChosen=4;
+        }
+        if(isChosen==4&&event.type==sf::Event::TextEntered)
+        {
+            char c=static_cast<char>(event.text.unicode);
+            string tmp="";
+            tmp+=c;
+            dText.setString(tmp);
+            // dText.setCharacterSize(sizeCharacter);
+            // size=dText.getGlobalBounds();
+            // dText.setOrigin(size.width/2,size.height/2);
+            // dText.setPosition(sf::Vector2f(1428.f,375.f));
+        }
+    }
+    else
+    {
+        if(isChosen==4)
+        {
+            dText.setFillColor(colorCharacter);
+            isChosen=0;
+        }
+    }    
+
+    recBound=directionCircle.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        directionCircle.changeToDark();
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            controlType=0;
+        }
+    }
+    else
+    {
+        if(controlType) directionCircle.changeToLight();
+    }
+
+    recBound=letterCircle.getGlobalBounds();
+    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+    if(isMouseOn)
+    {
+        letterCircle.changeToDark();
+        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        {
+            controlType=1;
+        }
+    }
+    else
+    {
+        if(!controlType) letterCircle.changeToLight();
     }
 
     recBound=musicIncrease.getGlobalBounds();
@@ -346,6 +584,21 @@ void Setting::draw(sf::RenderWindow& mWindow)
     mWindow.draw(downSprite);
     mWindow.draw(rightSprite);
     mWindow.draw(leftSprite);
+    directionCircle.draw(mWindow);
+
+    mWindow.draw(wBound);
+    mWindow.draw(wSprite);
+    mWindow.draw(sBound);
+    mWindow.draw(sSprite);
+    mWindow.draw(aBound);
+    mWindow.draw(aSprite);
+    mWindow.draw(dBound);
+    mWindow.draw(dSprite);
+    mWindow.draw(wText);
+    mWindow.draw(sText);
+    mWindow.draw(aText);
+    mWindow.draw(dText);
+    letterCircle.draw(mWindow);
 
     mWindow.draw(musicBound);
     mWindow.draw(music);
