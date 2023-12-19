@@ -25,6 +25,8 @@ public:
     virtual void writeData(std::ofstream &file) {}
     virtual RoadType::ID getRoadType() const = 0;
     virtual sf::Vector2f getVelocity() const {return sf::Vector2f(0.f, 0.f);}
+    virtual void activateSounds() {};
+    virtual void deactivateSounds() {};
 };
 
 #endif

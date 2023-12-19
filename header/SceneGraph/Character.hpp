@@ -2,14 +2,15 @@
 #define CHARACTER_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <bits/stdc++.h>
 #include <SceneGraph/SceneNode.hpp>
-#include <GlobalVar.hpp>
-#include <Resources/Gif.hpp>    
+#include <GlobalVar.hpp>   
 
 class Character : public SceneNode {
 public:
     Character(sf::View &view, int currentRoadIndex);
+    Character(sf::View &view, std::ifstream &file);
     sf::FloatRect getSpriteBounding();
     bool canMoveLeft = true;
     bool canMoveRight = true;
@@ -28,7 +29,7 @@ public:
     void increaseCurrentRoadIndex();
     virtual sf::FloatRect getBoundingRect() const;
 public:
-    void readData(std::ifstream &file) {}
+    void readData(std::ifstream &file);
     void writeData(std::ofstream &file);
 private:
     sf::View &mView;
@@ -65,6 +66,16 @@ private:
     int mLanePassed = 0;
 private:
     std::queue<sf::Keyboard::Key> mKeyInput;
+private:
+    sf::Sound mJumpSound;
+private:
+    virtual void setCurrentEnvSoundVolume(float volume);
+private:
+    bool mIsOutOfRiver = false;
+    std::vector<float> mJumpPositions;
+    float mStartPosition = -878.f;
+public:
+    void setPositionAfterJumpOutRiver();
 };
 
 #endif

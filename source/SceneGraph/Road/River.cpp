@@ -94,4 +94,71 @@ sf::Vector2f River::getVelocity() const
     return areas[currentArea]->getVelocity();
 }
 
+void River::readData(std::ifstream &file)
+{
+    int numWoods;
+    file >> numWoods;
+    for(int i = 0; i < numWoods; i++)
+    {
+        float width, x, y;
+        file >> width >> x >> y;
+        std::shared_ptr<Wood> wood(std::make_shared<Wood>(width));
+        wood->setPosition(x, y);
+        woods.push_back(wood.get());
+        mSceneLayers[WoodLayer]->attachChild(std::move(wood));
+    }
+    float x, y;
+    file >> x >> y;
+    this->setPosition(x, y);
+}
+
+void River::writeData(std::ofstream &file)
+{
+    file << direction << std::endl;
+    file << woods.size() << std::endl;
+    for(auto& wood : woods)
+    {
+        file << wood->getGlobalBounds().width << ' ' << wood->getPosition().x << " " << wood->getPosition().y << std::endl;
+    }
+    file << this->getPosition().x << ' ' << this->getPosition().y << std::endl;
+}   
+
+River::River(std::ifstream &file)
+: areas(3)
+,currentArea(1)
+,spawnTime(sf::seconds(2.5f))
+{
+    for(int i = 0; i < Count; i++)
+    {
+        SceneNode::Ptr layer(new SceneNode());
+        mSceneLayers[i] = layer.get();
+        this->attachChild(std::move(layer));
+    }
+    std::shared_ptr <RiverArea> area1(std::make_shared<RiverArea>(RiverArea::Accelerate, Resources::roadTextures));
+    areas[0] = area1.get();
+    std::shared_ptr <RiverArea> area2(std::make_shared<RiverArea>(RiverArea::Uniform, Resources::roadTextures));
+    areas[1] = area2.get();
+    std::shared_ptr <RiverArea> area3(std::make_shared<RiverArea>(RiverArea::Accelerate, Resources::roadTextures));
+    areas[2] = area3.get();
+    area1->setPosition(-1.f * Statistic::ROAD_WIDTH / 4 - Statistic::ROAD_WIDTH / 8 , 0.f);
+    area2->setPosition(0.f, 0.f);
+    area3->setPosition(Statistic::ROAD_WIDTH / 4 + Statistic::ROAD_WIDTH / 8, 0.f);
+
+    file >> direction;
+    int speed = Statistic::MIN_RIVER_SPEED.x + rand() % (int)(Statistic::MAX_RIVER_SPEED.x - Statistic::MIN_RIVER_SPEED.x);
+
+    area1->setDirection(direction);
+    area2->setDirection(direction);
+    area3->setDirection(direction);
+
+    area1->setSpeed(sf::Vector2f(speed + Statistic::ADDING_RIVER_SPEED.x, 0));
+    area2->setSpeed(sf::Vector2f(speed, 0));
+    area3->setSpeed(sf::Vector2f(speed + Statistic::ADDING_RIVER_SPEED.x, 0));
+
+    mSceneLayers[AreaLayer]->attachChild(std::move(area1));
+    mSceneLayers[AreaLayer]->attachChild(std::move(area2));
+    mSceneLayers[AreaLayer]->attachChild(std::move(area3));
+    readData(file);
+}
+
 

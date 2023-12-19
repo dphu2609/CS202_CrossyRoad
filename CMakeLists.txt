@@ -30,7 +30,7 @@ file (GLOB MENU "source/Menu/*.cpp")
 set(SOURCES ${MAIN_SOURCES})
 
 add_executable(CrossyRoad ${SOURCES} ${GUI} ${SCENEGRAPH} ${ROAD} ${STATE} ${GAMESTATE} ${RESOURCES} ${MENU})
-target_link_libraries(CrossyRoad PRIVATE sfml-system sfml-window sfml-graphics)
+target_link_libraries(CrossyRoad PRIVATE sfml-system sfml-window sfml-graphics sfml-audio)
 target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})

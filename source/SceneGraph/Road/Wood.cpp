@@ -8,6 +8,14 @@ Wood::Wood(const RoadTextureHolder& textures, float maxLength)
     Resources::roadTextures[RoadTextures::Wood].setRepeated(true);
 }
 
+Wood::Wood(float width)
+: length(width)
+, mSprite(Resources::roadTextures[RoadTextures::Wood], sf::IntRect(0, 0, width, Statistic::WOOD_HEIGHT))
+{
+    mSprite.setOrigin(mSprite.getGlobalBounds().width / 2, mSprite.getGlobalBounds().height / 2);
+    Resources::roadTextures[RoadTextures::Wood].setRepeated(true);
+}
+
 bool Wood::isCollide(const sf::FloatRect& rect) const
 {
     return getBoundingRect().intersects(rect);

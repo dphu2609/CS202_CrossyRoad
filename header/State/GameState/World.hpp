@@ -19,6 +19,7 @@
 class World : private sf::NonCopyable {
 public:
     explicit World(sf::RenderWindow &window);
+    void writeData(std::ofstream &file);
     void update(sf::Time dt);
     void updateWorldView(sf::Time dt);
     void draw();
@@ -26,6 +27,7 @@ public:
     CommandQueue &getCommandQueue();
 private:
     void buildScene();
+    void buildSceneFromFile(std::ifstream &file);   
 private:
     enum Layer {
         RoadLayer,
@@ -40,7 +42,6 @@ private:
     SceneNode mSceneGraph;
     std::array<SceneNode*, LayerCount> mSceneLayers;
     CommandQueue mCommandQueue;
-    GUI::Container mGUIContainer;
     std::shared_ptr<RoadSequence> mRoadSequence;
     std::shared_ptr<TextNode> mScoreText;
 private:
@@ -51,6 +52,8 @@ private:
 private:
     void loadGame();
     void saveGame();
+public:
+    void setEnvSoundVolume(float volume);
 };
 
 #endif
