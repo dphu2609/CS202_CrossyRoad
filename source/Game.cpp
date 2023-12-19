@@ -132,7 +132,11 @@ void Game::run() {
 void Game::processEvents() {
     sf::Event event;
     while (mWindow.pollEvent(event)) {
-        mStateStack.handleEvent(event);
+        // if (Statistic::IS_GAME_OVER) {
+        //     mMenu.processEvent(event, mWindow);
+        // }
+        // else
+             mStateStack.handleEvent(event);
         if (event.type == sf::Event::Closed) {
             mWindow.close();
         }
@@ -140,18 +144,25 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time dt) {
-    mStateStack.update(dt);
+    // if (Statistic::IS_GAME_OVER) {
+    //     mMenu.update(dt);
+    // }
+    // else 
+        mStateStack.update(dt);
 }
 
 void Game::render() {
     mWindow.clear();
-    if(Statistic::IS_GAME_OVER)
-    {
-        mMenu.draw(mWindow);
-    }
-    else 
-    {
+    // if(Statistic::IS_GAME_OVER)
+    // {
+    //     mMenu.draw(mWindow);
+    // }
+    // else 
+    // {
+    //     if (mStateStack.isEmpty()) {
+    //         mStateStack.pushState(States::Game);
+    //     }
         mStateStack.draw();
-    }
+    // }
     mWindow.display();
 }
