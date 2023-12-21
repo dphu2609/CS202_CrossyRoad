@@ -120,6 +120,8 @@ void River::writeData(std::ofstream &file)
     {
         file << wood->getGlobalBounds().width << ' ' << wood->getPosition().x << " " << wood->getPosition().y << std::endl;
     }
+
+    file << this->getPosition().x << " " << this->getPosition().y << std::endl;
 }
 
 River::River(std::ifstream &file)

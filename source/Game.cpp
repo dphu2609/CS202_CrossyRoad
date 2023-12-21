@@ -64,6 +64,10 @@ void Game::loadTextures() {
     Resources::roadTextures.load(RoadTextures::TrafficLightRed, "media/images/road/light_red.png");
     Resources::roadTextures.load(RoadTextures::TrafficLightYellow, "media/images/road/light_yellow.png");
     Resources::roadTextures.load(RoadTextures::TrafficLightGreen, "media/images/road/light_green.png");
+
+    Resources::roadTextures.load(RoadTextures::Background, "media/images/background/end1.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterCry1, "media/images/characters/cry1.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterCry2, "media/images/characters/cry2.png");
 }
 void Game::loadGifs() {
     std::vector<sf::Sprite> characterSkin1Backward;
@@ -106,6 +110,7 @@ void Game::registerStates() {
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);
     mStateStack.registerState<MenuState>(States::Menu);
+    mStateStack.registerState<EndState>(States::End);
 }
 
 void Game::run() {

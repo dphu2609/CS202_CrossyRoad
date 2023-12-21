@@ -24,6 +24,10 @@ void GameState::handleEvent(sf::Event &event) {
         mWorld.writeData(file);
         requestStackPush(States::Pause);
     }
+
+    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::E) {
+        requestStackPush(States::End);
+    }
 }
 
 
