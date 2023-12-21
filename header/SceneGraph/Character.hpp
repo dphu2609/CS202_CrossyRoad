@@ -50,6 +50,7 @@ private:
     void updateMove(sf::Time dt);
     void updateWorldView(sf::Time dt);
     bool moveCharacter(sf::Time dt, int direction); 
+    void updateIfOutOfScreen(sf::Time dt);
     
     sf::Vector2f getNextRightPosition(float x);
     sf::Vector2f getNextLeftPosition(float x);
@@ -65,7 +66,7 @@ public:
 private:
     int mLanePassed = 0;
 private:
-    std::queue<sf::Keyboard::Key> mKeyInput;
+    std::queue<char> mKeyInput;
 private:
     sf::Sound mJumpSound;
 private:

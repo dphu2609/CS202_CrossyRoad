@@ -84,7 +84,11 @@ namespace Sounds {
 namespace MenuTextures {
     enum ID {
         ReturnButton,
-        ReturnButtonHovered
+        ReturnButtonHovered,
+        BackGroundLight,
+        BackGroundDark,
+        Return,
+        ReturnDark,
     };
 };
 

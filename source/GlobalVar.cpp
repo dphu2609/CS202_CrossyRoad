@@ -12,15 +12,15 @@ namespace Resources {
 
 
 namespace Controller {
-    sf::Keyboard::Key MOVE_UP_SET_1 = sf::Keyboard::W;
-    sf::Keyboard::Key MOVE_DOWN_SET_1 = sf::Keyboard::S;
-    sf::Keyboard::Key MOVE_LEFT_SET_1 = sf::Keyboard::A;
-    sf::Keyboard::Key MOVE_RIGHT_SET_1 = sf::Keyboard::D;
+    char MOVE_UP_SET_1 = 'w';
+    char MOVE_DOWN_SET_1 = 's';
+    char MOVE_LEFT_SET_1 = 'a';
+    char MOVE_RIGHT_SET_1 = 'd';
 
-    sf::Keyboard::Key MOVE_UP_SET_2 = sf::Keyboard::Up;
-    sf::Keyboard::Key MOVE_DOWN_SET_2 = sf::Keyboard::Down;
-    sf::Keyboard::Key MOVE_LEFT_SET_2 = sf::Keyboard::Left;
-    sf::Keyboard::Key MOVE_RIGHT_SET_2 = sf::Keyboard::Right;
+    char MOVE_UP_SET_2 = static_cast<char>(24);
+    char MOVE_DOWN_SET_2 = static_cast<char>(25);
+    char MOVE_LEFT_SET_2 = static_cast<char>(27);
+    char MOVE_RIGHT_SET_2 = static_cast<char>(26);
 
     sf::Keyboard::Key PAUSE = sf::Keyboard::Escape;
 }

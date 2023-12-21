@@ -51,6 +51,15 @@ NewGame::NewGame()
     returnImageSprite.setPosition(sf::Vector2f(100.f,100.f));
     returnImageSprite.setScale(300.f/size.width,300.f/size.height);
 
+    returnImageDark.loadFromFile("media/images/menu/Back2.png");
+    returnImageDarkSprite.setTexture(returnImageDark);
+    size=returnImageDarkSprite.getGlobalBounds();
+    returnImageDarkSprite.setOrigin(size.width/2,size.height/2);
+    returnImageDarkSprite.setPosition(sf::Vector2f(100.f,100.f));
+    returnImageDarkSprite.setScale(300.f/size.width,300.f/size.height);
+
+    isReturnOn=false;
+
     onepBound.setSize(sizeBound);
     onepBound.setFillColor(colorBound);
     onepBound.setPosition(1670.f,50.f);
@@ -261,6 +270,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
                 if(numPlayer==1) changeToOnePlayer();
                 else changeToTwoPlayer();
             }
+            return 1;
         }
         else
         {
@@ -276,17 +286,18 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
     if(isMouseOn)
     {
-        returnImage.loadFromFile("media/images/menu/Back2.png");
-        returnImageSprite.setTexture(returnImage);
+        isReturnOn=true;
         if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
         {
+            isReturnOn=false;
             return 0;
         }
+        return 1;
     }
     else
     {
-        returnImage.loadFromFile("media/images/menu/Back1.png");
-        returnImageSprite.setTexture(returnImage);
+        isReturnOn=false;
+
     }
 
     for(int i=0;i<4;i++)
@@ -300,6 +311,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
             {
                 modeSwitch=i;
             }
+            return 1;
         }
         else
         {
@@ -323,6 +335,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
             Statistic::IS_GAME_OVER=false;
             return 5;
         }
+        return 1;
     }
     else
     {
@@ -335,29 +348,29 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 
 void NewGame::update(sf::Time dt)
 {
-    mTime+=dt;
-    if(mTime>timePerFrame){
-        if (lightScreen)
-        {
-            backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
-            backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
-        }
-        else
-        {
-            backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-            backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-        }
-        lightScreen = !lightScreen;
-        mTime=sf::Time::Zero;
-    }
+    // mTime+=dt;
+    // if(mTime>timePerFrame){
+    //     if (lightScreen)
+    //     {
+    //         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
+    //         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
+    //     }
+    //     else
+    //     {
+    //         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    //         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    //     }
+    //     lightScreen = !lightScreen;
+    //     mTime=sf::Time::Zero;
+    // }
 
-    backgroundLightSprite.setPosition(backgroundLightSprite.getPosition().x-0.5,0.f);
-    backgroundLight2Sprite.setPosition(backgroundLight2Sprite.getPosition().x-0.5,0.f);
-    if(backgroundLight2Sprite.getPosition().x==0.f)
-    {
-        backgroundLightSprite.setPosition(0.f,0.f);
-        backgroundLight2Sprite.setPosition(1920.f,0.f);
-    }
+    // backgroundLightSprite.setPosition(backgroundLightSprite.getPosition().x-0.5,0.f);
+    // backgroundLight2Sprite.setPosition(backgroundLight2Sprite.getPosition().x-0.5,0.f);
+    // if(backgroundLight2Sprite.getPosition().x==0.f)
+    // {
+    //     backgroundLightSprite.setPosition(0.f,0.f);
+    //     backgroundLight2Sprite.setPosition(1920.f,0.f);
+    // }
 
     cTime+=dt;
     if(cTime>timePerCharacter)
@@ -371,11 +384,18 @@ void NewGame::update(sf::Time dt)
 
 void NewGame::draw(sf::RenderWindow& mWindow)
 {
-    mWindow.draw(backgroundLightSprite);
-    mWindow.draw(backgroundLight2Sprite);
+    // mWindow.draw(backgroundLightSprite);
+    // mWindow.draw(backgroundLight2Sprite);
     mWindow.draw(title);
     mWindow.draw(returnBound);
-    mWindow.draw(returnImageSprite);
+    if(isReturnOn)
+    {
+        mWindow.draw(returnImageDarkSprite);
+    }
+    else
+    {
+        mWindow.draw(returnImageSprite);
+    }
     mWindow.draw(onepBound);
     mWindow.draw(onep);
     mWindow.draw(twopBound);

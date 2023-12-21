@@ -109,3 +109,7 @@ void World::writeData(std::ofstream &file) {
 void World::setEnvSoundVolume(float volume) {
     mSceneGraph.setEnvSoundVolume(volume);
 }
+
+bool World::isEndGame() const {
+    return mRoadSequence->isEndGame();
+}

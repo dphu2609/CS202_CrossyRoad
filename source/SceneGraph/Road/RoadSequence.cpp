@@ -98,7 +98,7 @@ void RoadSequence::gameControl(sf::Time dt) {
     }
 
     if(mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River && (mRoads[mCurrentRoadIndex - 2]->getRoadType() != RoadType::River || mRoads[mCurrentRoadIndex]->getRoadType() != RoadType::River)) {
-        std::cout << "Out of river" << std::endl;
+        // std::cout << "Out of river" << std::endl;
         mCharacter->setPositionAfterJumpOutRiver();
     }
     if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
@@ -237,4 +237,8 @@ void RoadSequence::readData(std::ifstream &file) {
 
 void RoadSequence::setCurrentEnvSoundVolume(float volume) {
     mTrafficSound.setVolume(volume);
+}
+
+bool RoadSequence::isEndGame() const {
+    return mCharacter->isDead();
 }

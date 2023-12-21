@@ -48,52 +48,61 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
     } else if (mDirection == 3) {
         mRightState.update(dt);
     }
+    updateIfOutOfScreen(dt);
     deathController(dt);
     updateMove(dt);
     updateWorldView(dt);
 } 
 
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
-    if (event.type == sf::Event::KeyPressed && !mIsMoving) {
-        if (event.key.code == Controller::MOVE_UP_SET_1) {
+    if (event.type == sf::Event::TextEntered && !mIsMoving) {
+        // cout<<event.text.unicode<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_UP_SET_1)<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_DOWN_SET_1)<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_LEFT_SET_1)<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_RIGHT_SET_1)<<endl;
+
+        if (event.text.unicode == Controller::MOVE_UP_SET_1) {
             if(canMoveUp)
                 mKeyInput.push(Controller::MOVE_UP_SET_1);
             else 
                 mDirection = 0;
-        } else if (event.key.code == Controller::MOVE_DOWN_SET_1) {
+        } else if (event.text.unicode == Controller::MOVE_DOWN_SET_1) {
             if(canMoveDown)
                 mKeyInput.push(Controller::MOVE_DOWN_SET_1);
             else
                 mDirection = 1;
-        } else if (event.key.code == Controller::MOVE_LEFT_SET_1) {
+        } else if (event.text.unicode == Controller::MOVE_LEFT_SET_1) {
             if(canMoveLeft)
                 mKeyInput.push(Controller::MOVE_LEFT_SET_1);
             else
                 mDirection = 2;
-        } else if (event.key.code == Controller::MOVE_RIGHT_SET_1) {
+        } else if (event.text.unicode == Controller::MOVE_RIGHT_SET_1) {
             if(canMoveRight)
                 mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
             else
                 mDirection = 3;
         }
-        else if (event.key.code == Controller::MOVE_UP_SET_2) {
+    }
+    else if (event.type == sf::Event::KeyPressed && !mIsMoving) {
+        if (event.key.code == sf::Keyboard::Up) {
             if(canMoveUp)
-                mKeyInput.push(Controller::MOVE_UP_SET_2);
+                mKeyInput.push(Controller::MOVE_UP_SET_1);
             else    
                 mDirection = 0;
-        } else if (event.key.code == Controller::MOVE_DOWN_SET_2) {
+        } else if (event.key.code == sf::Keyboard::Down) {
             if(canMoveDown)
-                mKeyInput.push(Controller::MOVE_DOWN_SET_2);
+                mKeyInput.push(Controller::MOVE_DOWN_SET_1);
             else
                 mDirection = 1;
-        } else if (event.key.code == Controller::MOVE_LEFT_SET_2) {
+        } else if (event.key.code == sf::Keyboard::Left) {
             if(canMoveLeft)
-                mKeyInput.push(Controller::MOVE_LEFT_SET_2);
+                mKeyInput.push(Controller::MOVE_LEFT_SET_1);
             else 
                 mDirection = 2;
-        } else if (event.key.code == Controller::MOVE_RIGHT_SET_2) {
+        } else if (event.key.code == sf::Keyboard::Right) {
             if(canMoveRight)
-                mKeyInput.push(Controller::MOVE_RIGHT_SET_2);
+                mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
             else    
                 mDirection = 3;
         }
@@ -111,7 +120,7 @@ sf::FloatRect Character::getBoundingRect() const {
 
 void Character::updateMove(sf::Time dt) {
     if (!mKeyInput.empty()) {
-        sf::Keyboard::Key key = mKeyInput.front();
+        char key = mKeyInput.front();
         int direction = -1;
         if (key == Controller::MOVE_UP_SET_1 || key == Controller::MOVE_UP_SET_2) {
             direction = 0;
@@ -126,6 +135,32 @@ void Character::updateMove(sf::Time dt) {
             mKeyInput.pop();
             mCurrentStep = 0.f;
         }
+    }
+}
+
+void Character::updateIfOutOfScreen(sf::Time dt) {
+    if (this->getPosition().x < - Statistic::SCREEN_WIDTH / 2 + 100) {
+        while (!mKeyInput.empty()) {
+            if (mKeyInput.front() == Controller::MOVE_LEFT_SET_1 || mKeyInput.front() == Controller::MOVE_LEFT_SET_2) {
+                mKeyInput.pop();
+            } 
+            else break;
+        }   
+    }
+    if (this->getPosition().x > Statistic::SCREEN_WIDTH / 2 - 100) {
+        while (!mKeyInput.empty()) {
+            if (mKeyInput.front() == Controller::MOVE_RIGHT_SET_1 || mKeyInput.front() == Controller::MOVE_RIGHT_SET_2) {
+                mKeyInput.pop();
+            }
+            else break;
+        }
+    }
+
+
+    sf::Vector2f globalPosition = this->getWorldTransform().transformPoint(this->getPosition());
+
+    if (globalPosition.y - mView.getCenter().y > 500) {
+        mIsDead = true;
     }
 }
 
@@ -326,18 +361,7 @@ void Character::setDeadByRightVehicleAnimation(sf::Time dt) {
 }
 
 void Character::setDeadByRiverAnimation(sf::Time dt) {
-    mBackwardState.setScale(mCurrentSize.x / mBackwardState.getGlobalBounds().width, mCurrentSize.y / mBackwardState.getGlobalBounds().height);
-    mForwardState.setScale(mCurrentSize.x / mForwardState.getGlobalBounds().width, mCurrentSize.y / mForwardState.getGlobalBounds().height);
-    mLeftState.setScale(mCurrentSize.x / mLeftState.getGlobalBounds().width, mCurrentSize.y / mLeftState.getGlobalBounds().height);
-    mRightState.setScale(mCurrentSize.x / mRightState.getGlobalBounds().width, mCurrentSize.y / mRightState.getGlobalBounds().height);
-    // mBackwardState.setPosition(mBackwardState.getPosition().x, mBackwardState.getPosition().y + 17.5);
-    // mForwardState.setPosition(mForwardState.getPosition().x, mForwardState.getPosition().y + 17.5);
-    // mLeftState.setPosition(mLeftState.getPosition().x, mLeftState.getPosition().y + 17.5);
-    // mRightState.setPosition(mRightState.getPosition().x, mRightState.getPosition().y + 17.5);
-    mCurrentSize.y -= 10;
-    if (mCurrentSize.y < 0) {
-        mIsDead = true;
-    }
+    mIsDead = true;
 }
 
 void Character::deathController(sf::Time dt) {
@@ -349,4 +373,8 @@ void Character::deathController(sf::Time dt) {
     } else if (mIsDeadByRiver) {
         setDeadByRiverAnimation(dt);
     }
+}
+
+bool Character::isDead() const {
+    return mIsDead;
 }

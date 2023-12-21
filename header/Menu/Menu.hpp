@@ -28,6 +28,16 @@ private:
     sf::Vector2f posBackgroundLight2;
     bool isBackgroundLight;
     bool isPlay;
+
+    sf::Vector2f sizeTheme;
+    sf::Texture backgroundLight; 
+    sf::Sprite backgroundLightSprite;
+    sf::Texture backgroundLight2; 
+    sf::Sprite backgroundLight2Sprite;
+
+    bool lightScreen;
+    sf::Time mTime;
+    sf::Time timePerFrame;
 };
 
 

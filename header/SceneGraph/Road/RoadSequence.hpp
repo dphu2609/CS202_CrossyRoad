@@ -40,6 +40,8 @@ private:
     sf::Sound mTrafficSound;
 private:
     virtual void setCurrentEnvSoundVolume(float volume);
+public:
+    bool isEndGame() const;
 };
 
 #endif

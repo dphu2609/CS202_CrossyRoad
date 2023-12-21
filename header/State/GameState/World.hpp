@@ -54,6 +54,8 @@ private:
     void saveGame();
 public:
     void setEnvSoundVolume(float volume);
+public:
+    bool isEndGame() const;
 };
 
 #endif

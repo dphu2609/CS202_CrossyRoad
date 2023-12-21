@@ -24,6 +24,9 @@ void GameState::handleEvent(sf::Event &event) {
         mWorld.writeData(file);
         requestStackPush(States::Pause);
     }
+    if (mWorld.isEndGame()) {
+        requestStackPush(States::Pause);
+    }
 }
 
 

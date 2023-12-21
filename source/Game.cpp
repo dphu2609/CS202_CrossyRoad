@@ -65,8 +65,11 @@ void Game::loadTextures() {
     Resources::roadTextures.load(RoadTextures::TrafficLightYellow, "media/images/road/light_yellow.png");
     Resources::roadTextures.load(RoadTextures::TrafficLightGreen, "media/images/road/light_green.png");
 
-    Resources::menuTextures.load(MenuTextures::ReturnButton, "media/images/menu/Back1.png");
-    Resources::menuTextures.load(MenuTextures::ReturnButtonHovered, "media/images/menu/Back2.png");
+    Resources::menuTextures.load(MenuTextures::BackGroundLight, "media/images/menu/background_glacial_mountains_lightened.png");
+    Resources::menuTextures.load(MenuTextures::BackGroundDark, "media/images/menu/background_glacial_mountains.png");
+    Resources::menuTextures.load(MenuTextures::Return, "media/images/menu/Back1.png");
+    Resources::menuTextures.load(MenuTextures::ReturnDark, "media/images/menu/Back2.png");
+
 }
 void Game::loadGifs() {
     std::vector<sf::Sprite> characterSkin1Backward;
