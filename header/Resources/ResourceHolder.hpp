@@ -69,6 +69,15 @@ namespace Fonts {
     };
 };
 
+namespace MenuTextures {
+    enum ID {
+        BackGroundLight,
+        BackGroundDark,
+        Return,
+        ReturnDark,
+    };
+};
+
 template <typename Resource, typename Identifier>
 class ResourceHolder {
 public:

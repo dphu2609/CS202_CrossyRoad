@@ -10,7 +10,7 @@ namespace Resources
     extern ResourceHolder<sf::Font, Fonts::ID> fonts;
     extern ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     extern ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
-
+    extern ResourceHolder<sf::Texture, MenuTextures::ID> menuTextures;
     extern GifHolder gifsHolder;
     // add more resource holder here
 };
