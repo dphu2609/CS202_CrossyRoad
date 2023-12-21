@@ -22,7 +22,6 @@ RoadSequence::RoadSequence(sf::View &view) : mCurrentRoadIndex(0), mView(view) {
     mTrafficSound.setBuffer(Resources::sounds[Sounds::TrafficSound]);
     mTrafficSound.setLoop(true);
     mTrafficSound.play();
-
 }   
 
 void RoadSequence::updateCurrent(sf::Time dt, CommandQueue &commands) {

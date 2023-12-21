@@ -86,9 +86,9 @@ void PauseState::buildScene() {
     );
     
     std::function<void()> backToMenuAction = [&] () {
-        Statistic::IS_GAME_OVER = false;
+        Statistic::IS_GAME_OVER = true;
         requestStateClear();
-        requestStackPush(States::Menu);
+        requestStackPush(States::Game);
     };
 
     GUI::Component *backToMenuButton = new GUI::Button(

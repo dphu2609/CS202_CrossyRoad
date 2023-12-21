@@ -10,6 +10,7 @@ Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurre
     }
 
     mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
+    mHitSound.setBuffer(Resources::sounds[Sounds::HitSound]);
 }
 
 void Character::setSkin(int skin) {
@@ -159,7 +160,8 @@ void Character::updateIfOutOfScreen(sf::Time dt) {
 
     sf::Vector2f globalPosition = this->getWorldTransform().transformPoint(this->getPosition());
 
-    if (globalPosition.y - mView.getCenter().y > 500) {
+    if (globalPosition.y - mView.getCenter().y > 550) {
+        mHitSound.play();
         mIsDead = true;
     }
 }
@@ -303,6 +305,7 @@ Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
         mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
     }
     mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
+    mHitSound.setBuffer(Resources::sounds[Sounds::HitSound]);
     readData(file);
 }  
 
@@ -311,17 +314,20 @@ void Character::setCurrentEnvSoundVolume(float volume) {
 }
 
 void Character::setDeadByLeftVehicle() {
+    mHitSound.play();
     mIsDeathAnimationExecuting = true;
     mIsDeadByLeftVehicle = true;
 }
 
 void Character::setDeadByRightVehicle() {
+    mHitSound.play();
     mIsDeathAnimationExecuting = true;
     mIsDeadByRightVehicle = true;
 }
 
 
 void Character::setDeadByRiver() {
+    mHitSound.play();
     mIsDeathAnimationExecuting = true;
     mIsDeadByRiver = true;
 }
@@ -361,7 +367,14 @@ void Character::setDeadByRightVehicleAnimation(sf::Time dt) {
 }
 
 void Character::setDeadByRiverAnimation(sf::Time dt) {
-    mIsDead = true;
+    mBackwardState.setOpacity(mCurrentOpacity);
+    mForwardState.setOpacity(mCurrentOpacity);
+    mLeftState.setOpacity(mCurrentOpacity);
+    mRightState.setOpacity(mCurrentOpacity);
+    mCurrentOpacity -= 0.1;
+    if (mCurrentOpacity <= 0) {
+        mIsDead = true;
+    }
 }
 
 void Character::deathController(sf::Time dt) {

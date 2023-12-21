@@ -81,6 +81,7 @@ private:
     bool mIsDead = false;   
     bool mIsDeathAnimationExecuting = false;
     float mCurrentAngle = 0.f;
+    float mCurrentOpacity = 1.f;
     sf::Vector2f mCurrentSize = Statistic::CHARACTER_SIZE;
     bool mIsDeadByLeftVehicle = false;
     bool mIsDeadByRightVehicle = false;
@@ -90,6 +91,7 @@ private:
     void setDeadByRightVehicleAnimation(sf::Time dt);
     void setDeadByRiverAnimation(sf::Time dt);
     void deathController(sf::Time dt);
+    sf::Sound mHitSound;
 public:
     bool isDead() const;
     void setDeadByLeftVehicle();

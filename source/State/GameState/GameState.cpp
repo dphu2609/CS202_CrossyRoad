@@ -14,6 +14,15 @@ void GameState::update(sf::Time dt) {
     if (Statistic::IS_GAME_OVER) {
         requestStackPush(States::Pause);
     }
+    if (mEnvVolume != Statistic::ENVIROMENT_SOUND_VOLUME) {
+        mEnvVolume = Statistic::ENVIROMENT_SOUND_VOLUME;
+        mWorld.setEnvSoundVolume(mEnvVolume);
+    }
+    if (mWorld.isEndGame()) {
+        mWorld.setEnvSoundVolume(0);
+        requestStateClear();
+        requestStackPush(States::End);
+    }
 }
 
 void GameState::handleEvent(sf::Event &event) {
@@ -22,9 +31,7 @@ void GameState::handleEvent(sf::Event &event) {
         std::ofstream file;
         file.open(Statistic::LOAD_FILE_NAME);
         mWorld.writeData(file);
-        requestStackPush(States::Pause);
-    }
-    if (mWorld.isEndGame()) {
+        file.close();
         requestStackPush(States::Pause);
     }
 }

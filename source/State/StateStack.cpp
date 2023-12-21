@@ -26,6 +26,7 @@ void StateStack::registerState(States::ID stateID) {
 template void StateStack::registerState<GameState>(States::ID stateID);
 template void StateStack::registerState<PauseState>(States::ID stateID);
 template void StateStack::registerState<MenuState>(States::ID stateID);
+template void StateStack::registerState<EndState>(States::ID stateID);
 
 State::Ptr StateStack::createState(States::ID stateID) {
     auto found = mFactories.find(stateID);
