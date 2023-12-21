@@ -241,7 +241,7 @@ void HighScore::setBackground(bool isBackgoundLight)
 
 int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
-    sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
+    sf::Vector2f mousePosition =mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
     sf::FloatRect recBound;
     bool isMouseOn;
     if(event.type==sf::Event::MouseWheelScrolled)

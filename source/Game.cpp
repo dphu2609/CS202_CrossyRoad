@@ -113,7 +113,7 @@ void Game::registerStates() {
 
 void Game::run() {
     registerStates();
-    mStateStack.pushState(States::Menu);
+    // mStateStack.pushState(States::Menu);
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
@@ -132,10 +132,10 @@ void Game::run() {
 void Game::processEvents() {
     sf::Event event;
     while (mWindow.pollEvent(event)) {
-        // if (Statistic::IS_GAME_OVER) {
-        //     mMenu.processEvent(event, mWindow);
-        // }
-        // else
+        if (Statistic::IS_GAME_OVER) {
+            mMenu.processEvent(event, mWindow);
+        }
+        else
              mStateStack.handleEvent(event);
         if (event.type == sf::Event::Closed) {
             mWindow.close();
@@ -144,25 +144,26 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time dt) {
-    // if (Statistic::IS_GAME_OVER) {
-    //     mMenu.update(dt);
-    // }
-    // else 
+    if (Statistic::IS_GAME_OVER) {
+        mMenu.update(dt);
+    }
+    else 
         mStateStack.update(dt);
 }
 
 void Game::render() {
     mWindow.clear();
-    // if(Statistic::IS_GAME_OVER)
-    // {
-    //     mMenu.draw(mWindow);
-    // }
-    // else 
-    // {
-    //     if (mStateStack.isEmpty()) {
-    //         mStateStack.pushState(States::Game);
-    //     }
+    if(Statistic::IS_GAME_OVER)
+    {
+        mMenu.draw(mWindow);
+    }
+    else 
+    {
+        if (mStateStack.isEmpty()) {
+            std::cout << "Push game state\n";
+            mStateStack.pushState(States::Game);
+        }
         mStateStack.draw();
-    // }
+    }
     mWindow.display();
 }

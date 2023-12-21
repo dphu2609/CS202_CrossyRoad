@@ -84,9 +84,19 @@ void RoadSequence::drawCurrent(sf::RenderTarget &target, sf::RenderStates states
 
 void RoadSequence::gameControl(sf::Time dt) {
     if (mRoads[mCurrentRoadIndex - 1]->isHitDangerousObjects(mCharacter->getBoundingRect())) {
-        std::cout << "Hit dangerous objects" << std::endl;
-        return;
+        switch (mRoads[mCurrentRoadIndex - 1]->getDeathCause()) {
+            case DeathCause::VehicleLeft:
+                mCharacter->setDeadByLeftVehicle();
+                break;
+            case DeathCause::VehicleRight:
+                mCharacter->setDeadByRightVehicle();
+                break;
+            case DeathCause::River:
+                mCharacter->setDeadByRiver();
+                break;
+        }
     }
+
     if(mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River && (mRoads[mCurrentRoadIndex - 2]->getRoadType() != RoadType::River || mRoads[mCurrentRoadIndex]->getRoadType() != RoadType::River)) {
         std::cout << "Out of river" << std::endl;
         mCharacter->setPositionAfterJumpOutRiver();

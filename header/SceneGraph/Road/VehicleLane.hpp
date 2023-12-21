@@ -62,6 +62,8 @@ public:
     virtual void deactivateSounds();
 private:
     virtual void setCurrentEnvSoundVolume(float volume);
+public:
+    virtual DeathCause::ID getDeathCause() const;
 };
 
 #endif

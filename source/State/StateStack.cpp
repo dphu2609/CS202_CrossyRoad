@@ -81,5 +81,5 @@ void StateStack::applyPendingChanges() {
 }
 
 bool StateStack::isEmpty() const {
-    return mStack.empty();
+    return mStack.size() == 0;
 }

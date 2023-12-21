@@ -128,7 +128,7 @@ void Instruction::setBackground(bool isBackgoundLight)
 
 int Instruction::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
-    sf::Vector2f mousePosition= mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
+    sf::Vector2f mousePosition=mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
     sf::FloatRect recBound=returnBound.getGlobalBounds();
     bool isMouseOn=recBound.contains(mousePosition);
     if(isMouseOn)

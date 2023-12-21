@@ -15,6 +15,15 @@ namespace RoadType {
     };
 };
 
+namespace DeathCause {
+    enum ID {
+        VehicleLeft,
+        VehicleRight,
+        River,
+        None
+    };
+};
+
 class Road : public SceneNode {
 public:
     virtual bool isCollide(const sf::FloatRect &bounds) const {return false;}
@@ -24,6 +33,7 @@ public:
     virtual void readData(std::ifstream &file) {}
     virtual void writeData(std::ofstream &file) {}
     virtual RoadType::ID getRoadType() const = 0;
+    virtual DeathCause::ID getDeathCause() const {return DeathCause::None;}
     virtual sf::Vector2f getVelocity() const {return sf::Vector2f(0.f, 0.f);}
     virtual void activateSounds() {};
     virtual void deactivateSounds() {};

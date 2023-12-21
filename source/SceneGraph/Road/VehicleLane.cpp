@@ -296,3 +296,8 @@ void VehicleLane::deactivateSounds() {
 void VehicleLane::setCurrentEnvSoundVolume(float volume) {
     mTrainAlarmSound.setVolume(volume);
 }
+
+DeathCause::ID VehicleLane::getDeathCause() const {
+    if (mDirection == -1) return DeathCause::VehicleLeft;
+    return DeathCause::VehicleRight;
+}

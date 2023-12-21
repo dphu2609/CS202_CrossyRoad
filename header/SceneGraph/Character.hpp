@@ -76,6 +76,24 @@ private:
     float mStartPosition = -878.f;
 public:
     void setPositionAfterJumpOutRiver();
+private:
+    bool mIsDead = false;   
+    bool mIsDeathAnimationExecuting = false;
+    float mCurrentAngle = 0.f;
+    sf::Vector2f mCurrentSize = Statistic::CHARACTER_SIZE;
+    bool mIsDeadByLeftVehicle = false;
+    bool mIsDeadByRightVehicle = false;
+    bool mIsDeadByRiver = false;
+    bool mIsDeadByTrain = false;
+    void setDeadByLeftVehicleAnimation(sf::Time dt);
+    void setDeadByRightVehicleAnimation(sf::Time dt);
+    void setDeadByRiverAnimation(sf::Time dt);
+    void deathController(sf::Time dt);
+public:
+    bool isDead() const;
+    void setDeadByLeftVehicle();
+    void setDeadByRightVehicle();
+    void setDeadByRiver();
 };
 
 #endif

@@ -34,7 +34,8 @@ void Character::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) c
 }
 
 void Character::handleCurrentEvent(sf::RenderWindow &window, sf::Event &event) {
-    handleMoveEvent(window, event);
+    if (!mIsDeathAnimationExecuting)
+        handleMoveEvent(window, event);
 }
 
 void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
@@ -47,6 +48,7 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
     } else if (mDirection == 3) {
         mRightState.update(dt);
     }
+    deathController(dt);
     updateMove(dt);
     updateWorldView(dt);
 } 
@@ -271,4 +273,80 @@ Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
 
 void Character::setCurrentEnvSoundVolume(float volume) {
     mJumpSound.setVolume(volume);
+}
+
+void Character::setDeadByLeftVehicle() {
+    mIsDeathAnimationExecuting = true;
+    mIsDeadByLeftVehicle = true;
+}
+
+void Character::setDeadByRightVehicle() {
+    mIsDeathAnimationExecuting = true;
+    mIsDeadByRightVehicle = true;
+}
+
+
+void Character::setDeadByRiver() {
+    mIsDeathAnimationExecuting = true;
+    mIsDeadByRiver = true;
+}
+
+void Character::setDeadByLeftVehicleAnimation(sf::Time dt) {
+    if (mCurrentAngle == 0) {
+        while (!mKeyInput.empty()) {
+            mKeyInput.pop();
+        }
+        mKeyInput.push(Controller::MOVE_LEFT_SET_1);
+    }
+    mBackwardState.setRotation(mCurrentAngle);
+    mForwardState.setRotation(mCurrentAngle);
+    mLeftState.setRotation(mCurrentAngle);
+    mRightState.setRotation(mCurrentAngle);
+    mCurrentAngle -= 90 / 5;
+    if (mCurrentAngle < -90) {
+        mIsDead = true;
+    }   
+}
+
+void Character::setDeadByRightVehicleAnimation(sf::Time dt) {
+    if (mCurrentAngle == 0) {
+        while (!mKeyInput.empty()) {
+            mKeyInput.pop();
+        }
+        mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
+    }
+    mBackwardState.setRotation(mCurrentAngle);
+    mForwardState.setRotation(mCurrentAngle);
+    mLeftState.setRotation(mCurrentAngle);
+    mRightState.setRotation(mCurrentAngle);
+    mCurrentAngle += 90 / 5;
+    if (mCurrentAngle > 90) {
+        mIsDead = true;
+    }   
+}
+
+void Character::setDeadByRiverAnimation(sf::Time dt) {
+    mBackwardState.setScale(mCurrentSize.x / mBackwardState.getGlobalBounds().width, mCurrentSize.y / mBackwardState.getGlobalBounds().height);
+    mForwardState.setScale(mCurrentSize.x / mForwardState.getGlobalBounds().width, mCurrentSize.y / mForwardState.getGlobalBounds().height);
+    mLeftState.setScale(mCurrentSize.x / mLeftState.getGlobalBounds().width, mCurrentSize.y / mLeftState.getGlobalBounds().height);
+    mRightState.setScale(mCurrentSize.x / mRightState.getGlobalBounds().width, mCurrentSize.y / mRightState.getGlobalBounds().height);
+    // mBackwardState.setPosition(mBackwardState.getPosition().x, mBackwardState.getPosition().y + 17.5);
+    // mForwardState.setPosition(mForwardState.getPosition().x, mForwardState.getPosition().y + 17.5);
+    // mLeftState.setPosition(mLeftState.getPosition().x, mLeftState.getPosition().y + 17.5);
+    // mRightState.setPosition(mRightState.getPosition().x, mRightState.getPosition().y + 17.5);
+    mCurrentSize.y -= 10;
+    if (mCurrentSize.y < 0) {
+        mIsDead = true;
+    }
+}
+
+void Character::deathController(sf::Time dt) {
+    if (mIsDead) return;
+    if (mIsDeadByLeftVehicle) {
+        setDeadByLeftVehicleAnimation(dt);
+    } else if (mIsDeadByRightVehicle) {
+        setDeadByRightVehicleAnimation(dt);
+    } else if (mIsDeadByRiver) {
+        setDeadByRiverAnimation(dt);
+    }
 }
