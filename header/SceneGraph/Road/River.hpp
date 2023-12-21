@@ -40,6 +40,8 @@ public:
     virtual sf::Vector2f getVelocity() const;
     virtual void readData(std::ifstream &file);
     virtual void writeData(std::ofstream &file);
+
+    virtual DeathCause::ID getDeathCause() const {return DeathCause::River;}
 };
 
 

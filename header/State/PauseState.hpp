@@ -22,6 +22,14 @@ private:
     sf::RenderWindow &mWindow;
     GUI::Container mGUIContainer;
     std::function<void()> mContinueAction;
+    std::function<void()> mBackToMenuAction;
+    std::function<void()> mRestartAction;
+    std::function<void()> mExitAction;
+    sf::Text mPauseText;
+    sf::RectangleShape mHorizontalLine1;
+    sf::RectangleShape mHorizontalLine2;
+    sf::RectangleShape mVerticalLine1;
+    sf::RectangleShape mVerticalLine2;
 };
 
 #endif

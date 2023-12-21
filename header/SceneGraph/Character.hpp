@@ -50,6 +50,7 @@ private:
     void updateMove(sf::Time dt);
     void updateWorldView(sf::Time dt);
     bool moveCharacter(sf::Time dt, int direction); 
+    void updateIfOutOfScreen(sf::Time dt);
     
     sf::Vector2f getNextRightPosition(float x);
     sf::Vector2f getNextLeftPosition(float x);
@@ -65,7 +66,7 @@ public:
 private:
     int mLanePassed = 0;
 private:
-    std::queue<sf::Keyboard::Key> mKeyInput;
+    std::queue<char> mKeyInput;
 private:
     sf::Sound mJumpSound;
 private:
@@ -76,6 +77,26 @@ private:
     float mStartPosition = -878.f;
 public:
     void setPositionAfterJumpOutRiver();
+private:
+    bool mIsDead = false;   
+    bool mIsDeathAnimationExecuting = false;
+    float mCurrentAngle = 0.f;
+    float mCurrentOpacity = 1.f;
+    sf::Vector2f mCurrentSize = Statistic::CHARACTER_SIZE;
+    bool mIsDeadByLeftVehicle = false;
+    bool mIsDeadByRightVehicle = false;
+    bool mIsDeadByRiver = false;
+    bool mIsDeadByTrain = false;
+    void setDeadByLeftVehicleAnimation(sf::Time dt);
+    void setDeadByRightVehicleAnimation(sf::Time dt);
+    void setDeadByRiverAnimation(sf::Time dt);
+    void deathController(sf::Time dt);
+    sf::Sound mHitSound;
+public:
+    bool isDead() const;
+    void setDeadByLeftVehicle();
+    void setDeadByRightVehicle();
+    void setDeadByRiver();
 };
 
 #endif

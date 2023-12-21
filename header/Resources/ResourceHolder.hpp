@@ -29,6 +29,7 @@ namespace RoadTextures
         TrafficLightGreen,
         Road,
         Rail,
+        Background,
         None
     };
 };
@@ -50,7 +51,9 @@ namespace CharacterTextures {
         CharacterSkin1RightState1,
         CharacterSkin1RightState2,
         CharacterSkin1RightState3,
-        CharacterSkin1RightState4
+        CharacterSkin1RightState4,
+        CharacterCry1,
+        CharacterCry2
     };
 };
 
@@ -77,7 +80,20 @@ namespace Sounds {
         TrainAlarmSound,
         TrainSound,
         TrafficSound,
-        BackgroundMusic
+        BackgroundMusic,
+        HitSound,
+        None
+    };
+};
+
+namespace MenuTextures {
+    enum ID {
+        ReturnButton,
+        ReturnButtonHovered,
+        BackGroundLight,
+        BackGroundDark,
+        Return,
+        ReturnDark,
     };
 };
 

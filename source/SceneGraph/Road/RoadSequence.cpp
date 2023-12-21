@@ -22,7 +22,6 @@ RoadSequence::RoadSequence(sf::View &view) : mCurrentRoadIndex(0), mView(view) {
     mTrafficSound.setBuffer(Resources::sounds[Sounds::TrafficSound]);
     mTrafficSound.setLoop(true);
     mTrafficSound.play();
-
 }   
 
 void RoadSequence::updateCurrent(sf::Time dt, CommandQueue &commands) {
@@ -84,11 +83,21 @@ void RoadSequence::drawCurrent(sf::RenderTarget &target, sf::RenderStates states
 
 void RoadSequence::gameControl(sf::Time dt) {
     if (mRoads[mCurrentRoadIndex - 1]->isHitDangerousObjects(mCharacter->getBoundingRect())) {
-        std::cout << "Hit dangerous objects" << std::endl;
-        return;
+        switch (mRoads[mCurrentRoadIndex - 1]->getDeathCause()) {
+            case DeathCause::VehicleLeft:
+                mCharacter->setDeadByLeftVehicle();
+                break;
+            case DeathCause::VehicleRight:
+                mCharacter->setDeadByRightVehicle();
+                break;
+            case DeathCause::River:
+                mCharacter->setDeadByRiver();
+                break;
+        }
     }
+
     if(mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River && (mRoads[mCurrentRoadIndex - 2]->getRoadType() != RoadType::River || mRoads[mCurrentRoadIndex]->getRoadType() != RoadType::River)) {
-        std::cout << "Out of river" << std::endl;
+        // std::cout << "Out of river" << std::endl;
         mCharacter->setPositionAfterJumpOutRiver();
     }
     if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
@@ -227,4 +236,8 @@ void RoadSequence::readData(std::ifstream &file) {
 
 void RoadSequence::setCurrentEnvSoundVolume(float volume) {
     mTrafficSound.setVolume(volume);
+}
+
+bool RoadSequence::isEndGame() const {
+    return mCharacter->isDead();
 }

@@ -2,6 +2,7 @@
 #define ELEMENT_HPP
 
 #include <SFML/Graphics.hpp>
+#include <GlobalVar.hpp>
 #include <string>
 
 using namespace std;
@@ -84,6 +85,8 @@ public:
     void reset();
     void setOldCurrent();
     void setCurrent();
+    void setMusic();
+    void setSound();
 
     void draw(sf::RenderWindow& mWindow);
 private:

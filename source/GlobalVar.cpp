@@ -4,6 +4,7 @@ namespace Resources {
     ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     ResourceHolder<sf::Font, Fonts::ID> fonts;
     ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
+    ResourceHolder<sf::Texture, MenuTextures::ID> menuTextures;
     ResourceHolder<sf::SoundBuffer, Sounds::ID> sounds;
 
     GifHolder gifsHolder;
@@ -11,15 +12,15 @@ namespace Resources {
 
 
 namespace Controller {
-    sf::Keyboard::Key MOVE_UP_SET_1 = sf::Keyboard::W;
-    sf::Keyboard::Key MOVE_DOWN_SET_1 = sf::Keyboard::S;
-    sf::Keyboard::Key MOVE_LEFT_SET_1 = sf::Keyboard::A;
-    sf::Keyboard::Key MOVE_RIGHT_SET_1 = sf::Keyboard::D;
+    char MOVE_UP_SET_1 = 'w';
+    char MOVE_DOWN_SET_1 = 's';
+    char MOVE_LEFT_SET_1 = 'a';
+    char MOVE_RIGHT_SET_1 = 'd';
 
-    sf::Keyboard::Key MOVE_UP_SET_2 = sf::Keyboard::Up;
-    sf::Keyboard::Key MOVE_DOWN_SET_2 = sf::Keyboard::Down;
-    sf::Keyboard::Key MOVE_LEFT_SET_2 = sf::Keyboard::Left;
-    sf::Keyboard::Key MOVE_RIGHT_SET_2 = sf::Keyboard::Right;
+    char MOVE_UP_SET_2 = static_cast<char>(24);
+    char MOVE_DOWN_SET_2 = static_cast<char>(25);
+    char MOVE_LEFT_SET_2 = static_cast<char>(27);
+    char MOVE_RIGHT_SET_2 = static_cast<char>(26);
 
     sf::Keyboard::Key PAUSE = sf::Keyboard::Escape;
 }
@@ -55,6 +56,7 @@ namespace Statistic {
     sf::Vector2f INITIAL_VIEW_POSITION = sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 300);
     sf::Vector2f RESET_VIEW_POSITION = sf::Vector2f(SCREEN_WIDTH / 2, SCREEN_HEIGHT - 290);
 
+    float CHARACTER_JUMP_DISTANCE = 100;
     float CHARACTER_JUMP_DISTANCE_HORIZONTAL = 100;
     float CHARACTER_JUMP_DISTANCE_VERTICAL = 70;
 
@@ -70,11 +72,13 @@ namespace Statistic {
     float SCREEN_SPEED_DEFAULT = 50.f;
     float SCREEN_SPEED_INCREASE = 350.f;
 
-    bool IS_GAME_OVER = false;
+    bool IS_GAME_OVER = true;
     bool IS_LOAD_FROM_FILE = false;
 
     std::string LOAD_FILE_NAME = "data/save.dat";
 
     float ENVIROMENT_SOUND_VOLUME = 100.f;
     float MUSIC_SOUND_VOLUME = 100.f;
+
+    bool IS_EXIT_TO_MENU = true;
 };

@@ -142,13 +142,13 @@ void MainScreen::setBackground(bool isBackgoundLight)
 
 int MainScreen::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {   
-    sf::Vector2i mousePosition = sf::Mouse::getPosition(mWindow);
+    sf::Vector2f mousePosition = mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
     int size=packs.size();
     for(int i=0;i<size;i++)
     {
         auto& x=packs[i];
-        sf::FloatRect RecBound=x.getGlobalBounds();
-        bool isMouseOn=RecBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+        sf::FloatRect recBound = x.getGlobalBounds();
+        bool isMouseOn = recBound.contains(mousePosition);
         if(isMouseOn)
         {
             sf::FloatRect size;
@@ -215,34 +215,34 @@ int MainScreen::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 
 void MainScreen::update(sf::Time dt)
 {
-    mTime+=dt;
-    if(mTime>timePerFrame){
-        if (lightScreen)
-        {
-            backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
-            backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
-        }
-        else
-        {
-            backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-            backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-        }
-        lightScreen = !lightScreen;
-        mTime=sf::Time::Zero;
-    }
-    backgroundLightSprite.setPosition(backgroundLightSprite.getPosition().x-0.5,0.f);
-    backgroundLight2Sprite.setPosition(backgroundLight2Sprite.getPosition().x-0.5,0.f);
-    if(backgroundLight2Sprite.getPosition().x==0.f)
-    {
-        backgroundLightSprite.setPosition(0.f,0.f);
-        backgroundLight2Sprite.setPosition(1920.f,0.f);
-    }
+    // mTime+=dt;
+    // if(mTime>timePerFrame){
+    //     if (lightScreen)
+    //     {
+    //         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
+    //         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
+    //     }
+    //     else
+    //     {
+    //         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    //         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    //     }
+    //     lightScreen = !lightScreen;
+    //     mTime=sf::Time::Zero;
+    // }
+    // backgroundLightSprite.setPosition(backgroundLightSprite.getPosition().x-0.5,0.f);
+    // backgroundLight2Sprite.setPosition(backgroundLight2Sprite.getPosition().x-0.5,0.f);
+    // if(backgroundLight2Sprite.getPosition().x==0.f)
+    // {
+    //     backgroundLightSprite.setPosition(0.f,0.f);
+    //     backgroundLight2Sprite.setPosition(1920.f,0.f);
+    // }
 }
 
 void MainScreen::draw(sf::RenderWindow& mWindow)
 {
-    mWindow.draw(backgroundLightSprite);
-    mWindow.draw(backgroundLight2Sprite);
+    // mWindow.draw(backgroundLightSprite);
+    // mWindow.draw(backgroundLight2Sprite);
     mWindow.draw(title);
     mWindow.draw(newgameBound);
     mWindow.draw(newgame);

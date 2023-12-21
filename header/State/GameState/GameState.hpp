@@ -18,6 +18,7 @@ private:
     World mWorld;
     // Player &mPlayer;
     GUI::Container mGUIContainer;
+    float mEnvVolume = 100;
 };
 
 #endif

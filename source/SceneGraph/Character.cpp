@@ -10,6 +10,7 @@ Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurre
     }
 
     mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
+    mHitSound.setBuffer(Resources::sounds[Sounds::HitSound]);
 }
 
 void Character::setSkin(int skin) {
@@ -34,7 +35,8 @@ void Character::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) c
 }
 
 void Character::handleCurrentEvent(sf::RenderWindow &window, sf::Event &event) {
-    handleMoveEvent(window, event);
+    if (!mIsDeathAnimationExecuting)
+        handleMoveEvent(window, event);
 }
 
 void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
@@ -47,51 +49,61 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
     } else if (mDirection == 3) {
         mRightState.update(dt);
     }
+    updateIfOutOfScreen(dt);
+    deathController(dt);
     updateMove(dt);
     updateWorldView(dt);
 } 
 
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
-    if (event.type == sf::Event::KeyPressed && !mIsMoving) {
-        if (event.key.code == Controller::MOVE_UP_SET_1) {
+    if (event.type == sf::Event::TextEntered && !mIsMoving) {
+        // cout<<event.text.unicode<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_UP_SET_1)<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_DOWN_SET_1)<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_LEFT_SET_1)<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_RIGHT_SET_1)<<endl;
+
+        if (event.text.unicode == Controller::MOVE_UP_SET_1) {
             if(canMoveUp)
                 mKeyInput.push(Controller::MOVE_UP_SET_1);
             else 
                 mDirection = 0;
-        } else if (event.key.code == Controller::MOVE_DOWN_SET_1) {
+        } else if (event.text.unicode == Controller::MOVE_DOWN_SET_1) {
             if(canMoveDown)
                 mKeyInput.push(Controller::MOVE_DOWN_SET_1);
             else
                 mDirection = 1;
-        } else if (event.key.code == Controller::MOVE_LEFT_SET_1) {
+        } else if (event.text.unicode == Controller::MOVE_LEFT_SET_1) {
             if(canMoveLeft)
                 mKeyInput.push(Controller::MOVE_LEFT_SET_1);
             else
                 mDirection = 2;
-        } else if (event.key.code == Controller::MOVE_RIGHT_SET_1) {
+        } else if (event.text.unicode == Controller::MOVE_RIGHT_SET_1) {
             if(canMoveRight)
                 mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
             else
                 mDirection = 3;
         }
-        else if (event.key.code == Controller::MOVE_UP_SET_2) {
+    }
+    else if (event.type == sf::Event::KeyPressed && !mIsMoving) {
+        if (event.key.code == sf::Keyboard::Up) {
             if(canMoveUp)
-                mKeyInput.push(Controller::MOVE_UP_SET_2);
+                mKeyInput.push(Controller::MOVE_UP_SET_1);
             else    
                 mDirection = 0;
-        } else if (event.key.code == Controller::MOVE_DOWN_SET_2) {
+        } else if (event.key.code == sf::Keyboard::Down) {
             if(canMoveDown)
-                mKeyInput.push(Controller::MOVE_DOWN_SET_2);
+                mKeyInput.push(Controller::MOVE_DOWN_SET_1);
             else
                 mDirection = 1;
-        } else if (event.key.code == Controller::MOVE_LEFT_SET_2) {
+        } else if (event.key.code == sf::Keyboard::Left) {
             if(canMoveLeft)
-                mKeyInput.push(Controller::MOVE_LEFT_SET_2);
+                mKeyInput.push(Controller::MOVE_LEFT_SET_1);
             else 
                 mDirection = 2;
-        } else if (event.key.code == Controller::MOVE_RIGHT_SET_2) {
+        } else if (event.key.code == sf::Keyboard::Right) {
             if(canMoveRight)
-                mKeyInput.push(Controller::MOVE_RIGHT_SET_2);
+                mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
             else    
                 mDirection = 3;
         }
@@ -109,7 +121,7 @@ sf::FloatRect Character::getBoundingRect() const {
 
 void Character::updateMove(sf::Time dt) {
     if (!mKeyInput.empty()) {
-        sf::Keyboard::Key key = mKeyInput.front();
+        char key = mKeyInput.front();
         int direction = -1;
         if (key == Controller::MOVE_UP_SET_1 || key == Controller::MOVE_UP_SET_2) {
             direction = 0;
@@ -124,6 +136,33 @@ void Character::updateMove(sf::Time dt) {
             mKeyInput.pop();
             mCurrentStep = 0.f;
         }
+    }
+}
+
+void Character::updateIfOutOfScreen(sf::Time dt) {
+    if (this->getPosition().x < - Statistic::SCREEN_WIDTH / 2 + 100) {
+        while (!mKeyInput.empty()) {
+            if (mKeyInput.front() == Controller::MOVE_LEFT_SET_1 || mKeyInput.front() == Controller::MOVE_LEFT_SET_2) {
+                mKeyInput.pop();
+            } 
+            else break;
+        }   
+    }
+    if (this->getPosition().x > Statistic::SCREEN_WIDTH / 2 - 100) {
+        while (!mKeyInput.empty()) {
+            if (mKeyInput.front() == Controller::MOVE_RIGHT_SET_1 || mKeyInput.front() == Controller::MOVE_RIGHT_SET_2) {
+                mKeyInput.pop();
+            }
+            else break;
+        }
+    }
+
+
+    sf::Vector2f globalPosition = this->getWorldTransform().transformPoint(this->getPosition());
+
+    if (globalPosition.y - mView.getCenter().y > 550) {
+        mHitSound.play();
+        mIsDead = true;
     }
 }
 
@@ -266,9 +305,89 @@ Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
         mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
     }
     mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
+    mHitSound.setBuffer(Resources::sounds[Sounds::HitSound]);
     readData(file);
 }  
 
 void Character::setCurrentEnvSoundVolume(float volume) {
     mJumpSound.setVolume(volume);
+}
+
+void Character::setDeadByLeftVehicle() {
+    mHitSound.play();
+    mIsDeathAnimationExecuting = true;
+    mIsDeadByLeftVehicle = true;
+}
+
+void Character::setDeadByRightVehicle() {
+    mHitSound.play();
+    mIsDeathAnimationExecuting = true;
+    mIsDeadByRightVehicle = true;
+}
+
+
+void Character::setDeadByRiver() {
+    mHitSound.play();
+    mIsDeathAnimationExecuting = true;
+    mIsDeadByRiver = true;
+}
+
+void Character::setDeadByLeftVehicleAnimation(sf::Time dt) {
+    if (mCurrentAngle == 0) {
+        while (!mKeyInput.empty()) {
+            mKeyInput.pop();
+        }
+        mKeyInput.push(Controller::MOVE_LEFT_SET_1);
+    }
+    mBackwardState.setRotation(mCurrentAngle);
+    mForwardState.setRotation(mCurrentAngle);
+    mLeftState.setRotation(mCurrentAngle);
+    mRightState.setRotation(mCurrentAngle);
+    mCurrentAngle -= 90 / 5;
+    if (mCurrentAngle < -90) {
+        mIsDead = true;
+    }   
+}
+
+void Character::setDeadByRightVehicleAnimation(sf::Time dt) {
+    if (mCurrentAngle == 0) {
+        while (!mKeyInput.empty()) {
+            mKeyInput.pop();
+        }
+        mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
+    }
+    mBackwardState.setRotation(mCurrentAngle);
+    mForwardState.setRotation(mCurrentAngle);
+    mLeftState.setRotation(mCurrentAngle);
+    mRightState.setRotation(mCurrentAngle);
+    mCurrentAngle += 90 / 5;
+    if (mCurrentAngle > 90) {
+        mIsDead = true;
+    }   
+}
+
+void Character::setDeadByRiverAnimation(sf::Time dt) {
+    mBackwardState.setOpacity(mCurrentOpacity);
+    mForwardState.setOpacity(mCurrentOpacity);
+    mLeftState.setOpacity(mCurrentOpacity);
+    mRightState.setOpacity(mCurrentOpacity);
+    mCurrentOpacity -= 0.1;
+    if (mCurrentOpacity <= 0) {
+        mIsDead = true;
+    }
+}
+
+void Character::deathController(sf::Time dt) {
+    if (mIsDead) return;
+    if (mIsDeadByLeftVehicle) {
+        setDeadByLeftVehicleAnimation(dt);
+    } else if (mIsDeadByRightVehicle) {
+        setDeadByRightVehicleAnimation(dt);
+    } else if (mIsDeadByRiver) {
+        setDeadByRiverAnimation(dt);
+    }
+}
+
+bool Character::isDead() const {
+    return mIsDead;
 }

@@ -20,16 +20,19 @@ void World::buildScene() {
         mSceneLayers[i] = layer.get();
         mSceneGraph.attachChild(layer);
     }
+
     
     std::shared_ptr<RoadSequence> roadSequence = std::make_shared<RoadSequence>(mWorldView);
     mRoadSequence = roadSequence;
     roadSequence->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::CHARACTER_SPAWN_POSITION.y + Statistic::ROAD_HEIGHT * 5);
     mSceneLayers[RoadLayer]->attachChild(std::move(roadSequence));
 
+
     std::shared_ptr<TextNode> scoreText = std::make_shared<TextNode>(Resources::fonts[Fonts::JoystixMonospaceRegular], std::to_string(Statistic::PLAYER_SCORE));
     mScoreText = scoreText;
     scoreText->setPosition(20, mWorldView.getCenter().y - 500);
     mSceneLayers[ScoreLayer]->attachChild(std::move(scoreText));
+
 
     mWorldView.setCenter(Statistic::INITIAL_VIEW_POSITION - sf::Vector2f(0, 20));
 }
@@ -105,4 +108,8 @@ void World::writeData(std::ofstream &file) {
 
 void World::setEnvSoundVolume(float volume) {
     mSceneGraph.setEnvSoundVolume(volume);
+}
+
+bool World::isEndGame() const {
+    return mRoadSequence->isEndGame();
 }

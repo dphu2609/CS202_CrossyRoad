@@ -29,6 +29,7 @@ private:
     Menu mMenu;
 private:
     sf::Sound mBackgroundMusic;
+    float mCurrentVolume = 100.f;
 };
 
 #endif

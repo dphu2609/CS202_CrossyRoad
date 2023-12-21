@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <menu/Element.hpp>
+#include <GlobalVar.hpp>
 #include <SceneGraph/Character.hpp>
 #include <vector>
 
@@ -37,9 +38,14 @@ private:
     sf::Vector2f modePos;
 
     sf::Text title;
+
+    bool isReturnOn;
     sf::RectangleShape returnBound;
     sf::Texture returnImage;
     sf::Sprite returnImageSprite;
+    sf::Texture returnImageDark;
+    sf::Sprite returnImageDarkSprite;
+
     sf::RectangleShape onepBound;
     sf::Text onep;
     sf::RectangleShape twopBound;

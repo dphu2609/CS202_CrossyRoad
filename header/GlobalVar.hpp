@@ -11,6 +11,7 @@ namespace Resources
     extern ResourceHolder<sf::Font, Fonts::ID> fonts;
     extern ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     extern ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
+    extern ResourceHolder<sf::Texture, MenuTextures::ID> menuTextures;
     extern ResourceHolder<sf::SoundBuffer, Sounds::ID> sounds;
 
     extern GifHolder gifsHolder;
@@ -19,15 +20,15 @@ namespace Resources
 
 namespace Controller
 {
-    extern sf::Keyboard::Key MOVE_UP_SET_1;
-    extern sf::Keyboard::Key MOVE_DOWN_SET_1;
-    extern sf::Keyboard::Key MOVE_LEFT_SET_1;
-    extern sf::Keyboard::Key MOVE_RIGHT_SET_1;
+    extern char MOVE_UP_SET_1;
+    extern char MOVE_DOWN_SET_1;
+    extern char MOVE_LEFT_SET_1;
+    extern char MOVE_RIGHT_SET_1;
 
-    extern sf::Keyboard::Key MOVE_UP_SET_2;
-    extern sf::Keyboard::Key MOVE_DOWN_SET_2;
-    extern sf::Keyboard::Key MOVE_LEFT_SET_2;
-    extern sf::Keyboard::Key MOVE_RIGHT_SET_2;
+    extern char MOVE_UP_SET_2;
+    extern char MOVE_DOWN_SET_2;
+    extern char MOVE_LEFT_SET_2;
+    extern char MOVE_RIGHT_SET_2;
 
     extern sf::Keyboard::Key PAUSE;
 };
@@ -62,6 +63,8 @@ namespace Statistic
 
     extern sf::Vector2f CHARACTER_SIZE;
     extern sf::Vector2f CHARACTER_SPAWN_POSITION;
+
+    extern float CHARACTER_JUMP_DISTANCE;
     extern sf::Vector2f INITIAL_VIEW_POSITION;
     extern sf::Vector2f RESET_VIEW_POSITION;
 
@@ -81,6 +84,13 @@ namespace Statistic
 
     extern bool IS_GAME_OVER;
     extern bool IS_LOAD_FROM_FILE;
+
+    extern std::string LOAD_FILE_NAME;
+
+    extern float ENVIROMENT_SOUND_VOLUME;
+    extern float MUSIC_SOUND_VOLUME;
+
+    extern bool IS_EXIT_TO_MENU;
 
     extern std::string LOAD_FILE_NAME;
 

@@ -114,14 +114,14 @@ void River::readData(std::ifstream &file)
 
 void River::writeData(std::ofstream &file)
 {
-    file << direction << std::endl;
-    file << woods.size() << std::endl;
+    file << direction << " ";
+    file << woods.size() << " ";
     for(auto& wood : woods)
     {
         file << wood->getGlobalBounds().width << ' ' << wood->getPosition().x << " " << wood->getPosition().y << std::endl;
     }
     file << this->getPosition().x << ' ' << this->getPosition().y << std::endl;
-}   
+}
 
 River::River(std::ifstream &file)
 : areas(3)
@@ -160,5 +160,4 @@ River::River(std::ifstream &file)
     mSceneLayers[AreaLayer]->attachChild(std::move(area3));
     readData(file);
 }
-
 
