@@ -270,6 +270,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
                 if(numPlayer==1) changeToOnePlayer();
                 else changeToTwoPlayer();
             }
+            return 1;
         }
         else
         {
@@ -291,6 +292,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
             isReturnOn=false;
             return 0;
         }
+        return 1;
     }
     else
     {
@@ -309,6 +311,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
             {
                 modeSwitch=i;
             }
+            return 1;
         }
         else
         {
@@ -332,6 +335,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
             Statistic::IS_EXIT_TO_MENU=false;
             return 5;
         }
+        return 1;
     }
     else
     {
