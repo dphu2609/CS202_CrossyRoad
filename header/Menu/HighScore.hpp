@@ -38,19 +38,40 @@ private:
     unsigned int sizeCharacter;
 
     sf::Text title;
+
+    bool isReturnOn;
     sf::RectangleShape returnBound;
     sf::Texture returnImage;
     sf::Sprite returnImageSprite;
+    sf::Texture returnImageDark;
+    sf::Sprite returnImageDarkSprite;
+
     sf::Text onep;
     sf::Text twop;
     sf::RectangleShape firstBound;
     sf::RectangleShape secondBound;
     sf::Text modeOneP;
     sf::Text modeTwoP;
-    Triangle leftOneP;
-    Triangle rightOneP;
-    Triangle leftTwoP;
-    Triangle rightTwoP;
+
+    bool isOneIncreaseOn;
+    bool isOneDecreaseOn;
+    bool isTwoIncreaseOn;
+    bool isTwoDecreaseOn;
+    sf::Texture triangle;
+    sf::Texture triangleDark;
+    sf::RectangleShape oneIncreaseBound;
+    sf::Sprite oneIncreaseTriangle;
+    sf::Sprite oneIncreaseTriangleDark;
+    sf::RectangleShape oneDecreaseBound;
+    sf::Sprite oneDecreaseTriangle;
+    sf::Sprite oneDecreaseTriangleDark;
+    sf::RectangleShape twoIncreaseBound;
+    sf::Sprite twoIncreaseTriangle;
+    sf::Sprite twoIncreaseTriangleDark;
+    sf::RectangleShape twoDecreaseBound;
+    sf::Sprite twoDecreaseTriangle;
+    sf::Sprite twoDecreaseTriangleDark;
+
     vector<string> modes;
     int modeFirst;
     int modeSecond;

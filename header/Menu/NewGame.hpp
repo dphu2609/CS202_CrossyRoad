@@ -82,7 +82,26 @@ private:
     sf::Text extreme;
     
     vector<Circle> circles;
+
     int modeSwitch;
+    bool isFirstCircleOn;
+    bool isSecondCircleOn;
+    bool isThirdCircleOn;
+    bool isFourthCircleOn;
+    sf::Texture circleImage;
+    sf::Texture circleImageDark;
+    sf::CircleShape firstCircleBound;
+    sf::Sprite firstCircle;
+    sf::Sprite firstCircleDark;
+    sf::CircleShape secondCircleBound;
+    sf::Sprite secondCircle;
+    sf::Sprite secondCircleDark;
+    sf::CircleShape thirdCircleBound;
+    sf::Sprite thirdCircle;
+    sf::Sprite thirdCircleDark;
+    sf::CircleShape fourthCircleBound;
+    sf::Sprite fourthCircle;
+    sf::Sprite fourthCircleDark;
 
     sf::RectangleShape playBound;
     sf::Text play;
@@ -91,7 +110,7 @@ private:
     // sf::Texture backgroundLight2; 
     // sf::Sprite backgroundLight2Sprite;
 
-    vector<Pack> packs;
+    // vector<Pack> packs;
     // bool lightScreen;
     // sf::Time mTime; // background time
     // sf::Time timePerFrame;

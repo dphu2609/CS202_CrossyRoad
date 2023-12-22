@@ -204,6 +204,11 @@ int MainScreen::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
             }
             if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
             {
+                if(i==4)
+                {
+                    loadGame();
+                    return 0;
+                }
                 return i+1;
             }
             return 0;

@@ -155,13 +155,85 @@ NewGame::NewGame()
     extreme.setPosition(sf::Vector2f(modePos.x,modePos.y+300));
 
     modePos.y=320.f;
-    circles.resize(4);
-    for(int i=0;i<4;i++)
-    {
-        circles[i].setPosition(modePos.x+300,modePos.y+i*100+50.f);
-    }
+    // circles.resize(4);
+    // for(int i=0;i<4;i++)
+    // {
+    //     circles[i].setPosition(modePos.x+300,modePos.y+i*100+50.f);
+    // }
+    // circles[0].changeToDark();
+
     modeSwitch=0;
-    circles[0].changeToDark();
+    isFirstCircleOn=true;
+    isSecondCircleOn=false;
+    isThirdCircleOn=false;
+    isFourthCircleOn=false;
+
+    circleImage.loadFromFile("media/images/menu/Circle1.png");
+    circleImageDark.loadFromFile("media/images/menu/Circle2.png");
+
+    firstCircleBound.setRadius(20.f);
+    firstCircleBound.setFillColor(sf::Color::Green);
+    size=firstCircleBound.getGlobalBounds();
+    firstCircleBound.setOrigin(size.width/2,size.height/2); 
+    firstCircleBound.setPosition(modePos.x+300,modePos.y+0*100+50.f); //
+    firstCircle.setTexture(circleImage); 
+    size=firstCircle.getGlobalBounds();
+    firstCircle.setOrigin(size.width/2,size.height/2);
+    firstCircle.setScale(120.f/size.width,120.f/size.height);
+    firstCircle.setPosition(modePos.x+300,modePos.y+0*100+50.f); //
+    firstCircleDark.setTexture(circleImageDark);
+    size=firstCircleDark.getGlobalBounds();
+    firstCircleDark.setOrigin(size.width/2,size.height/2);
+    firstCircleDark.setScale(120.f/size.width,120.f/size.height);
+    firstCircleDark.setPosition(modePos.x+300,modePos.y+0*100+50.f); //
+
+    secondCircleBound.setRadius(20.f);
+    secondCircleBound.setFillColor(sf::Color::Green);
+    size=secondCircleBound.getGlobalBounds();
+    secondCircleBound.setOrigin(size.width/2,size.height/2); 
+    secondCircleBound.setPosition(modePos.x+300,modePos.y+1*100+50.f); //
+    secondCircle.setTexture(circleImage); 
+    size=secondCircle.getGlobalBounds();
+    secondCircle.setOrigin(size.width/2,size.height/2);
+    secondCircle.setScale(120.f/size.width,120.f/size.height);
+    secondCircle.setPosition(modePos.x+300,modePos.y+1*100+50.f); //
+    secondCircleDark.setTexture(circleImageDark);
+    size=secondCircleDark.getGlobalBounds();
+    secondCircleDark.setOrigin(size.width/2,size.height/2);
+    secondCircleDark.setScale(120.f/size.width,120.f/size.height);
+    secondCircleDark.setPosition(modePos.x+300,modePos.y+1*100+50.f); //
+
+    thirdCircleBound.setRadius(20.f);
+    thirdCircleBound.setFillColor(sf::Color::Green);
+    size=thirdCircleBound.getGlobalBounds();
+    thirdCircleBound.setOrigin(size.width/2,size.height/2); 
+    thirdCircleBound.setPosition(modePos.x+300,modePos.y+2*100+50.f); //
+    thirdCircle.setTexture(circleImage); 
+    size=thirdCircle.getGlobalBounds();
+    thirdCircle.setOrigin(size.width/2,size.height/2);
+    thirdCircle.setScale(120.f/size.width,120.f/size.height);
+    thirdCircle.setPosition(modePos.x+300,modePos.y+2*100+50.f); //
+    thirdCircleDark.setTexture(circleImageDark);
+    size=thirdCircleDark.getGlobalBounds();
+    thirdCircleDark.setOrigin(size.width/2,size.height/2);
+    thirdCircleDark.setScale(120.f/size.width,120.f/size.height);
+    thirdCircleDark.setPosition(modePos.x+300,modePos.y+2*100+50.f); //
+
+    fourthCircleBound.setRadius(20.f);
+    fourthCircleBound.setFillColor(sf::Color::Green);
+    size=fourthCircleBound.getGlobalBounds();
+    fourthCircleBound.setOrigin(size.width/2,size.height/2); 
+    fourthCircleBound.setPosition(modePos.x+300,modePos.y+3*100+50.f); //
+    fourthCircle.setTexture(circleImage); 
+    size=fourthCircle.getGlobalBounds();
+    fourthCircle.setOrigin(size.width/2,size.height/2);
+    fourthCircle.setScale(120.f/size.width,120.f/size.height);
+    fourthCircle.setPosition(modePos.x+300,modePos.y+3*100+50.f); //
+    fourthCircleDark.setTexture(circleImageDark);
+    size=fourthCircleDark.getGlobalBounds();
+    fourthCircleDark.setOrigin(size.width/2,size.height/2);
+    fourthCircleDark.setScale(120.f/size.width,120.f/size.height);
+    fourthCircleDark.setPosition(modePos.x+300,modePos.y+3*100+50.f); //
 
     playBound.setSize(sf::Vector2f(sizeBound.x*2,sizeBound.y));
     playBound.setFillColor(colorBound);
@@ -173,8 +245,8 @@ NewGame::NewGame()
     play.setFillColor(colorCharacter);
     play.setPosition(1500.f,800.f);
 
-    packs.push_back(Pack(onepBound,onep));
-    packs.push_back(Pack(twopBound,twop));
+    // packs.push_back(Pack(onepBound,onep));
+    // packs.push_back(Pack(twopBound,twop));
     //packs.push_back(Pack(playBound,play));
 }
 
@@ -271,77 +343,157 @@ void NewGame::setMode()
 int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
     sf::Vector2f mousePosition=mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
-    int size=packs.size();
-    for(int i=0;i<size;i++)
+    sf::FloatRect recBound = onepBound.getGlobalBounds();
+    bool isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        auto& x=packs[i];
-        sf::FloatRect recBound=x.getGlobalBounds();
-        bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-        if(isMouseOn)
+        onep.setFillColor(sf::Color::Magenta);
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-            if(i==0) onep.setFillColor(sf::Color::Magenta);
-            else if(i==1) twop.setFillColor(sf::Color::Magenta); 
-            if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
-            {
-                numPlayer=i+1;
-                if(numPlayer==1) changeToOnePlayer();
-                else changeToTwoPlayer();
-            }
-            return 1;
+            numPlayer = 1;
+            changeToOnePlayer();
         }
-        else
+        return 1;
+    }
+    else
+    {
+        if (1 != numPlayer)
         {
-            if(i+1!=numPlayer)
-            {
-                if(i==0) onep.setFillColor(sf::Color::White);
-                else if(i==1) twop.setFillColor(sf::Color::White); 
-            }
+            onep.setFillColor(sf::Color::White);
         }
     }
-    
-    sf::FloatRect recBound=returnBound.getGlobalBounds();
-    bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+
+    recBound = twopBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        isReturnOn=true;
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        twop.setFillColor(sf::Color::Magenta);
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-            isReturnOn=false;
+            numPlayer = 2;
+            changeToTwoPlayer();
+        }
+        return 1;
+    }
+    else
+    {
+        if (2 != numPlayer)
+        {
+            twop.setFillColor(sf::Color::White);
+        }
+    }
+
+    recBound = returnBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
+    {
+        isReturnOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+        {
+            isReturnOn = false;
             return 0;
         }
         return 1;
     }
     else
     {
-        isReturnOn=false;
-
+        isReturnOn = false;
     }
 
-    for(int i=0;i<4;i++)
+    recBound = firstCircleBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        recBound = circles[i].getGlobalBounds();
-        isMouseOn = recBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
-        if (isMouseOn)
+        isFirstCircleOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-            circles[i].changeToDark();
-            if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-            {
-                modeSwitch=i;
-                setMode();
-            }
-            return 1;
+            modeSwitch = 0;
+            setMode();
+            isSecondCircleOn=false;
+            isThirdCircleOn=false;
+            isFourthCircleOn=false;
         }
-        else
+        return 1;
+    }
+    else
+    {
+        if (0 != modeSwitch)
         {
-            if(i!=modeSwitch)
-            {
-                circles[i].changeToLight();
-            }
+            isFirstCircleOn = false;
+        }
+    }
+
+    recBound = secondCircleBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
+    {
+        isSecondCircleOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+        {
+            modeSwitch = 1;
+            setMode();
+            isFirstCircleOn=false;
+            isThirdCircleOn=false;
+            isFourthCircleOn=false;
+        }
+        return 1;
+    }
+    else
+    {
+        if (1 != modeSwitch)
+        {
+            isSecondCircleOn = false;
+        }
+    }
+
+    recBound = thirdCircleBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
+    {
+        isThirdCircleOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+        {
+            modeSwitch = 2;
+            setMode();
+            isFirstCircleOn=false;
+            isSecondCircleOn=false;
+            isFourthCircleOn=false;
+        }
+        return 1;
+    }
+    else
+    {
+        if (2 != modeSwitch)
+        {
+            isThirdCircleOn = false;
+        }
+    }
+
+    recBound = fourthCircleBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
+    {
+        isFourthCircleOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
+        {
+            modeSwitch = 3;
+            setMode();
+            isFirstCircleOn=false;
+            isSecondCircleOn=false;
+            isThirdCircleOn=false;
+        }
+        return 1;
+    }
+    else
+    {
+        if (3 != modeSwitch)
+        {
+            isFourthCircleOn = false;
         }
     }
 
     recBound = playBound.getGlobalBounds();
-    isMouseOn = recBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+    isMouseOn = recBound.contains(mousePosition);
     if (isMouseOn)
     {
         play.setScale(1.2,1.2);
@@ -394,7 +546,7 @@ void NewGame::update(sf::Time dt)
     if(cTime>timePerCharacter)
     {
         ++currentImage;
-        if(currentImage==numImages-1) currentImage=0;
+        if(currentImage==numImages) currentImage=0;
         cTime=sf::Time::Zero;
     }
 }
@@ -434,10 +586,30 @@ void NewGame::draw(sf::RenderWindow& mWindow)
     mWindow.draw(medium);
     mWindow.draw(hard);
     mWindow.draw(extreme);
-    for(int i=0;i<circles.size();i++)
+    mWindow.draw(firstCircleBound);
+    if(isFirstCircleOn)
     {
-        circles[i].draw(mWindow);
+        mWindow.draw(firstCircleDark);
     }
+    else mWindow.draw(firstCircle);
+    mWindow.draw(secondCircleBound);
+    if(isSecondCircleOn)
+    {
+        mWindow.draw(secondCircleDark);
+    }
+    else mWindow.draw(secondCircle);
+    mWindow.draw(thirdCircleBound);
+    if(isThirdCircleOn)
+    {
+        mWindow.draw(thirdCircleDark);
+    }
+    else mWindow.draw(thirdCircle);
+    mWindow.draw(fourthCircleBound);
+    if(isFourthCircleOn)
+    {
+        mWindow.draw(fourthCircleDark);
+    }
+    else mWindow.draw(fourthCircle);
     mWindow.draw(playBound);
     mWindow.draw(play);
 }

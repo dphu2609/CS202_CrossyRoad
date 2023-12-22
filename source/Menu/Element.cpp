@@ -203,7 +203,6 @@ void BarArray::setOldCurrent()
 void BarArray::setCurrent()
 {
     current=oldcurrent;
-    
 }
 
 void BarArray::setMusic()

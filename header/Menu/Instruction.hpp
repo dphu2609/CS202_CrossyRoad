@@ -30,13 +30,27 @@ private:
     unsigned int sizeCharacter;
 
     sf::Text title;
+
+    bool isReturnOn;
     sf::RectangleShape returnBound;
     sf::Texture returnImage;
     sf::Sprite returnImageSprite;
+    sf::Texture returnImageDark;
+    sf::Sprite returnImageDarkSprite;
+
+    bool isOneIncreaseOn;
+    bool isOneDecreaseOn;
+    sf::Texture triangle;
+    sf::Texture triangleDark;
+    sf::RectangleShape oneIncreaseBound;
+    sf::Sprite oneIncreaseTriangle;
+    sf::Sprite oneIncreaseTriangleDark;
+    sf::RectangleShape oneDecreaseBound;
+    sf::Sprite oneDecreaseTriangle;
+    sf::Sprite oneDecreaseTriangleDark;
     sf::RectangleShape bound;
     sf::Text part;
-    Triangle left;
-    Triangle right;
+    
     // sf::Texture backgroundLight; 
     // sf::Sprite backgroundLightSprite;
     // sf::Texture backgroundLight2; 
