@@ -4,7 +4,7 @@ NewGame::NewGame()
 {
     colorBound=sf::Color::Transparent;
     sizeBound=sf::Vector2f(100.f,100.f);
-    sizeTheme=sf::Vector2f(1920.f,1080.f);
+    // sizeTheme=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
     modePos=sf::Vector2f(1500.f,300.f);
     sf::FloatRect size;
@@ -12,23 +12,23 @@ NewGame::NewGame()
     numImages=16;
     currentImage=0;
 
-    mTime=sf::Time::Zero;
-    timePerFrame=sf::seconds(60.f/60.f);
+    // mTime=sf::Time::Zero;
+    // timePerFrame=sf::seconds(60.f/60.f);
     cTime=sf::Time::Zero;
     timePerCharacter=sf::seconds(40.f/60.f);
 
-    lightScreen=true;
+    // lightScreen=true;
 
-    backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLightSprite.setTexture(backgroundLight);
-    sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
-    backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLightSprite.setTexture(backgroundLight);
+    // sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
+    // backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
 
-    backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLight2Sprite.setTexture(backgroundLight2);
-    sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
-    backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
-    backgroundLight2Sprite.setPosition(1920.f,0.f);
+    // backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLight2Sprite.setTexture(backgroundLight2);
+    // sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
+    // backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("media/font/Alinore.otf");
     colorCharacter=sf::Color::White;
@@ -108,19 +108,25 @@ NewGame::NewGame()
 
     setFirstPlayerTexture();
     //firstPlayer.loadFromFile("media/images/characters/1.png");
-    firstPlayerSprite.setTexture(firstPlayers[0]);
-    size=firstPlayerSprite.getGlobalBounds();
-    firstPlayerSprite.setOrigin(size.width/2,size.height/2);
-    firstPlayerSprite.setPosition(sf::Vector2f(437.5,550.f));
-    firstPlayerSprite.setScale(0.6,0.6);
+    for (int i = 0; i < numImages; i++)
+    {
+        firstPlayerSprites[i].setTexture(firstPlayers[i]);
+        size = firstPlayerSprites[i].getGlobalBounds();
+        firstPlayerSprites[i].setOrigin(size.width / 2, size.height / 2);
+        firstPlayerSprites[i].setPosition(sf::Vector2f(437.5, 550.f));
+        firstPlayerSprites[i].setScale(0.6, 0.6);
+    }
 
     setSecondPlayerTexture();
     //secondPlayer.loadFromFile("media/images/characters/1.png");
-    secondPlayerSprite.setTexture(secondPlayers[0]);
-    size=secondPlayerSprite.getGlobalBounds();
-    secondPlayerSprite.setOrigin(size.width/2,size.height/2);
-    secondPlayerSprite.setPosition(sf::Vector2f(1062.5,550.f));
-    secondPlayerSprite.setScale(0.6,0.6);
+    for (int i = 0; i < numImages; i++)
+    {
+        secondPlayerSprites[i].setTexture(secondPlayers[i]);
+        size = secondPlayerSprites[i].getGlobalBounds();
+        secondPlayerSprites[i].setOrigin(size.width / 2, size.height / 2);
+        secondPlayerSprites[i].setPosition(sf::Vector2f(1062.5, 550.f));
+        secondPlayerSprites[i].setScale(0.6, 0.6);
+    }
 
     changeToOnePlayer();
 
@@ -172,44 +178,44 @@ NewGame::NewGame()
     //packs.push_back(Pack(playBound,play));
 }
 
-sf::Vector2f NewGame::posBackGroundLight()
-{
-    return backgroundLightSprite.getPosition();
-}
+// sf::Vector2f NewGame::posBackGroundLight()
+// {
+//     return backgroundLightSprite.getPosition();
+// }
 
-sf::Vector2f NewGame::posBackGroundLight2()
-{
-    return backgroundLight2Sprite.getPosition();
-}
+// sf::Vector2f NewGame::posBackGroundLight2()
+// {
+//     return backgroundLight2Sprite.getPosition();
+// }
 
-void NewGame::setPosBackgroundLight(sf::Vector2f pos)
-{
-    backgroundLightSprite.setPosition(pos);
-}
+// void NewGame::setPosBackgroundLight(sf::Vector2f pos)
+// {
+//     backgroundLightSprite.setPosition(pos);
+// }
 
-void NewGame::setPosBackgroundLight2(sf::Vector2f pos)
-{
-    backgroundLight2Sprite.setPosition(pos);
-} 
+// void NewGame::setPosBackgroundLight2(sf::Vector2f pos)
+// {
+//     backgroundLight2Sprite.setPosition(pos);
+// } 
 
-bool NewGame::stateBackgroundLight()
-{
-    return lightScreen;
-}  
+// bool NewGame::stateBackgroundLight()
+// {
+//     return lightScreen;
+// }  
 
-void NewGame::setBackground(bool isBackgoundLight)
-{
-    if (isBackgoundLight)
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    }
-    else
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
-    }
-}  
+// void NewGame::setBackground(bool isBackgoundLight)
+// {
+//     if (isBackgoundLight)
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//     }
+//     else
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//     }
+// }  
 
 void NewGame::setFirstPlayerTexture()
 {
@@ -236,7 +242,10 @@ void NewGame::changeToOnePlayer()
     numPlayer=1;
     firstpBound.setPosition(462.5,700.f);
     firstp.setPosition(750.f,700.f);
-    firstPlayerSprite.setPosition(sf::Vector2f(750.f,550.f));
+    for(int i=0;i<numImages;i++)
+    {
+        firstPlayerSprites[i].setPosition(sf::Vector2f(750.f,550.f));
+    }
     onep.setFillColor(sf::Color::Magenta);
     twop.setFillColor(sf::Color::White);
 }
@@ -246,9 +255,17 @@ void NewGame::changeToTwoPlayer()
     numPlayer=2;
     firstpBound.setPosition(150.f,700.f);
     firstp.setPosition(437.5,700.f);
-    firstPlayerSprite.setPosition(sf::Vector2f(437.5,550.f));
+    for(int i=0;i<numImages;i++)
+    {
+        firstPlayerSprites[i].setPosition(sf::Vector2f(437.5,550.f));
+    }
     onep.setFillColor(sf::Color::White);
     twop.setFillColor(sf::Color::Magenta);
+}
+
+void NewGame::setMode()
+{
+    Statistic::SCREEN_SPEED_DEFAULT=50+modeSwitch*20;
 }
 
 int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
@@ -310,6 +327,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
             if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
             {
                 modeSwitch=i;
+                setMode();
             }
             return 1;
         }
@@ -375,8 +393,7 @@ void NewGame::update(sf::Time dt)
     cTime+=dt;
     if(cTime>timePerCharacter)
     {
-        firstPlayerSprite.setTexture(firstPlayers[++currentImage]);
-        secondPlayerSprite.setTexture(secondPlayers[currentImage]);
+        ++currentImage;
         if(currentImage==numImages-1) currentImage=0;
         cTime=sf::Time::Zero;
     }
@@ -407,11 +424,11 @@ void NewGame::draw(sf::RenderWindow& mWindow)
         mWindow.draw(secondpBound);
         mWindow.draw(secondp);
     }
-    mWindow.draw(firstPlayerSprite);
+    mWindow.draw(firstPlayerSprites[currentImage]);
     //first.draw(mWindow);
     if(numPlayer==2)
     {
-        mWindow.draw(secondPlayerSprite);
+        mWindow.draw(secondPlayerSprites[currentImage]);
     }
     mWindow.draw(easy);
     mWindow.draw(medium);

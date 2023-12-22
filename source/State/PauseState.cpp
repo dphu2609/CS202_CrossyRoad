@@ -47,5 +47,57 @@ void PauseState::buildScene() {
         continueButtonBackgroundColor, 
         continueButtonOutlineColor
     );
+<<<<<<< Updated upstream
+=======
+    
+    std::function<void()> backToMenuAction = [&] () {
+        Statistic::IS_GAME_OVER = true;
+        std::cout<<"Back To Menu "<<Statistic::IS_GAME_OVER<<std::endl;
+        requestStateClear();
+        requestStackPush(States::Game);
+    };
+
+    GUI::Component *backToMenuButton = new GUI::Button(
+        backToMenuAction, 
+        sf::Vector2f(250, 50), 
+        mWindow.getView().getCenter() + sf::Vector2f(-125, 15),
+        Resources::fonts[Fonts::ComfortaaRegular], "Main Menu", 
+        continueButtonTextColor,
+        continueButtonBackgroundColor,
+        continueButtonOutlineColor
+    );
+
+    std::function<void()> restartAction = [&] () {
+        Statistic::IS_GAME_OVER = false;
+        requestStateClear();
+        requestStackPush(States::Game);
+    };
+
+    GUI::Component *restartButton = new GUI::Button(
+        restartAction, 
+        sf::Vector2f(250, 50), 
+        mWindow.getView().getCenter() + sf::Vector2f(-125, -65),
+        Resources::fonts[Fonts::ComfortaaRegular], "Restart", 
+        continueButtonTextColor,
+        continueButtonBackgroundColor,
+        continueButtonOutlineColor
+    );
+
+    std::function<void()> exitAction = [&] () {
+        Statistic::IS_GAME_OVER = false;
+        requestStateClear();
+        requestStackPush(States::HighScore);
+    };
+
+    GUI::Component *exitButton = new GUI::Button(
+        exitAction, 
+        sf::Vector2f(250, 50), 
+        mWindow.getView().getCenter() + sf::Vector2f(-125, 95),
+        Resources::fonts[Fonts::ComfortaaRegular], "Exit", 
+        continueButtonTextColor,
+        continueButtonBackgroundColor,
+        continueButtonOutlineColor
+    );
+>>>>>>> Stashed changes
     mGUIContainer.pack(continueButton);
 }

@@ -4,25 +4,25 @@ HighScore::HighScore()
 {
     colorBound=sf::Color::Transparent;
     sizeBound=sf::Vector2f(100.f,100.f);
-    sizeTheme=sf::Vector2f(1920.f,1080.f);
+    // sizeTheme=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
     sf::FloatRect size;
 
-    mTime=sf::Time::Zero;
-    timePerFrame=sf::seconds(60.f/60.f);
+    // mTime=sf::Time::Zero;
+    // timePerFrame=sf::seconds(60.f/60.f);
 
-    lightScreen=true;
+    // lightScreen=true;
 
-    backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLightSprite.setTexture(backgroundLight);
-    sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
-    backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLightSprite.setTexture(backgroundLight);
+    // sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
+    // backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
 
-    backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLight2Sprite.setTexture(backgroundLight2);
-    sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
-    backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
-    backgroundLight2Sprite.setPosition(1920.f,0.f);
+    // backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLight2Sprite.setTexture(backgroundLight2);
+    // sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
+    // backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("media/font/Alinore.otf");
     colorCharacter=sf::Color::White;
@@ -115,14 +115,14 @@ HighScore::HighScore()
     rightTwoP.setPosition(1537.5,985.f);
     rightTwoP.rotate(180.f);
 
-    onepText.push_back("media/text/HighScore1PEasy.txt");
-    onepText.push_back("media/text/HighScore1PMedi.txt");
-    onepText.push_back("media/text/HighScore1PHard.txt");
-    onepText.push_back("media/text/HighScore1PEXtre.txt");
-    twopText.push_back("media/text/HighScore2PEasy.txt");
-    twopText.push_back("media/text/HighScore2PMedi.txt");
-    twopText.push_back("media/text/HighScore2PHard.txt");
-    twopText.push_back("media/text/HighScore2PXtre.txt");
+    onepText.push_back("data/HighScore1PEasy.txt");
+    onepText.push_back("data/HighScore1PMedi.txt");
+    onepText.push_back("data/HighScore1PHard.txt");
+    onepText.push_back("data/HighScore1PXtre.txt");
+    twopText.push_back("data/HighScore2PEasy.txt");
+    twopText.push_back("data/HighScore2PMedi.txt");
+    twopText.push_back("data/HighScore2PHard.txt");
+    twopText.push_back("data/HighScore2PXtre.txt");
 
     sizeLeftTexts=0;
     sizeRightTexts=0;
@@ -130,30 +130,44 @@ HighScore::HighScore()
     loadRightTextFromFile();
 }
 
-sf::Vector2f HighScore::posBackGroundLight()
-{
-    return backgroundLightSprite.getPosition();
-}
+// sf::Vector2f HighScore::posBackGroundLight()
+// {
+//     return backgroundLightSprite.getPosition();
+// }
 
-sf::Vector2f HighScore::posBackGroundLight2()
-{
-    return backgroundLight2Sprite.getPosition();
-}
+// sf::Vector2f HighScore::posBackGroundLight2()
+// {
+//     return backgroundLight2Sprite.getPosition();
+// }
 
-void HighScore::setPosBackgroundLight(sf::Vector2f pos)
-{
-    backgroundLightSprite.setPosition(pos);
-}
+// void HighScore::setPosBackgroundLight(sf::Vector2f pos)
+// {
+//     backgroundLightSprite.setPosition(pos);
+// }
 
-void HighScore::setPosBackgroundLight2(sf::Vector2f pos)
-{
-    backgroundLight2Sprite.setPosition(pos);
-} 
+// void HighScore::setPosBackgroundLight2(sf::Vector2f pos)
+// {
+//     backgroundLight2Sprite.setPosition(pos);
+// } 
 
-bool HighScore::stateBackgroundLight()
-{
-    return lightScreen;
-}  
+// bool HighScore::stateBackgroundLight()
+// {
+//     return lightScreen;
+// }  
+
+// void HighScore::setBackground(bool isBackgoundLight)
+// {
+//     if (isBackgoundLight)
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//     }
+//     else
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//     }
+// }  
 
 void HighScore::previousFirst()
 {
@@ -185,7 +199,7 @@ void HighScore::loadLeftTextsFromfile()
     leftTexts.clear();
     ifstream fin;
     fin.open(onepText[modeFirst]);
-    if(!fin.is_open()) return;
+    if(!fin.is_open()) {cout<<"Cannot load"<<endl;return;}
     string file;
     while(!fin.eof())
     {
@@ -208,7 +222,7 @@ void HighScore::loadRightTextFromFile()
     rightTexts.clear();
     ifstream fin;
     fin.open(twopText[modeSecond]);
-    if(!fin.is_open()) return;
+    if(!fin.is_open()) {cout<<"Cannot load"<<endl;return;}
     string file;
     while(!fin.eof())
     {
@@ -224,20 +238,6 @@ void HighScore::loadRightTextFromFile()
     }
     fin.close();
 }
-
-void HighScore::setBackground(bool isBackgoundLight)
-{
-    if (isBackgoundLight)
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    }
-    else
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
-    }
-}  
 
 int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {

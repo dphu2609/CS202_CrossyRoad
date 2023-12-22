@@ -5,25 +5,25 @@ Instruction::Instruction()
 {
     colorBound=sf::Color::Transparent;
     sizeBound=sf::Vector2f(100.f,100.f);
-    sizeTheme=sf::Vector2f(1920.f,1080.f);
+    // sizeTheme=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
     sf::FloatRect size;
 
-    mTime=sf::Time::Zero;
-    timePerFrame=sf::seconds(60.f/60.f);
+    // mTime=sf::Time::Zero;
+    // timePerFrame=sf::seconds(60.f/60.f);
 
-    lightScreen=true;
+    // lightScreen=true;
 
-    backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLightSprite.setTexture(backgroundLight);
-    sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
-    backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLightSprite.setTexture(backgroundLight);
+    // sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
+    // backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
 
-    backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLight2Sprite.setTexture(backgroundLight2);
-    sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
-    backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
-    backgroundLight2Sprite.setPosition(1920.f,0.f);
+    // backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLight2Sprite.setTexture(backgroundLight2);
+    // sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
+    // backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("media/font/Alinore.otf");
     colorCharacter=sf::Color::White;
@@ -67,30 +67,44 @@ Instruction::Instruction()
     right.rotate(180.f);
 }
 
-sf::Vector2f Instruction::posBackGroundLight()
-{
-    return backgroundLightSprite.getPosition();
-}
+// sf::Vector2f Instruction::posBackGroundLight()
+// {
+//     return backgroundLightSprite.getPosition();
+// }
 
-sf::Vector2f Instruction::posBackGroundLight2()
-{
-    return backgroundLight2Sprite.getPosition();
-}
+// sf::Vector2f Instruction::posBackGroundLight2()
+// {
+//     return backgroundLight2Sprite.getPosition();
+// }
 
-void Instruction::setPosBackgroundLight(sf::Vector2f pos)
-{
-    backgroundLightSprite.setPosition(pos);
-}
+// void Instruction::setPosBackgroundLight(sf::Vector2f pos)
+// {
+//     backgroundLightSprite.setPosition(pos);
+// }
 
-void Instruction::setPosBackgroundLight2(sf::Vector2f pos)
-{
-    backgroundLight2Sprite.setPosition(pos);
-} 
+// void Instruction::setPosBackgroundLight2(sf::Vector2f pos)
+// {
+//     backgroundLight2Sprite.setPosition(pos);
+// } 
 
-bool Instruction::stateBackgroundLight()
-{
-    return lightScreen;
-}  
+// bool Instruction::stateBackgroundLight()
+// {
+//     return lightScreen;
+// }  
+
+// void Instruction::setBackground(bool isBackgoundLight)
+// {
+//     if (isBackgoundLight)
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//     }
+//     else
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//     }
+// } 
 
 void Instruction::previous()
 {
@@ -110,21 +124,7 @@ void Instruction::next()
     if(current<4) ++current;
     tmp=to_string(current)+tmp;
     part.setString(tmp);
-}  
-
-void Instruction::setBackground(bool isBackgoundLight)
-{
-    if (isBackgoundLight)
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    }
-    else
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
-    }
-}  
+}   
 
 int Instruction::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {

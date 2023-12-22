@@ -13,12 +13,12 @@ class HighScore
 public:
     HighScore();
     
-    sf::Vector2f posBackGroundLight();
-    sf::Vector2f posBackGroundLight2();
-    void setPosBackgroundLight(sf::Vector2f pos);
-    void setPosBackgroundLight2(sf::Vector2f pos); 
-    bool stateBackgroundLight();  
-    void setBackground(bool isBackgoundLight);  
+    // sf::Vector2f posBackGroundLight();
+    // sf::Vector2f posBackGroundLight2();
+    // void setPosBackgroundLight(sf::Vector2f pos);
+    // void setPosBackgroundLight2(sf::Vector2f pos); 
+    // bool stateBackgroundLight();  
+    // void setBackground(bool isBackgoundLight);  
     void previousFirst();
     void nextFirst();
     void previousSecond();
@@ -32,7 +32,7 @@ public:
 private:
     sf::Color colorBound;
     sf::Vector2f sizeBound;
-    sf::Vector2f sizeTheme;
+    // sf::Vector2f sizeTheme;
     sf::Font _font;
     sf::Color colorCharacter;
     unsigned int sizeCharacter;
@@ -64,14 +64,14 @@ private:
 
     sf::RectangleShape aboveBound;
     sf::RectangleShape bellowBound;
-    sf::Texture backgroundLight; 
-    sf::Sprite backgroundLightSprite;
-    sf::Texture backgroundLight2; 
-    sf::Sprite backgroundLight2Sprite;
+    // sf::Texture backgroundLight; 
+    // sf::Sprite backgroundLightSprite;
+    // sf::Texture backgroundLight2; 
+    // sf::Sprite backgroundLight2Sprite;
 
-    bool lightScreen;
-    sf::Time mTime;
-    sf::Time timePerFrame;
+    // bool lightScreen;
+    // sf::Time mTime;
+    // sf::Time timePerFrame;
 };
 
 #endif //HIGHSCORE_HPP

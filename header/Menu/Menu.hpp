@@ -12,10 +12,12 @@ class Menu
 {
 public:
     Menu(); 
+
     bool playState();
     void returnFromEscapeKey();
-    void update(sf::Time dt);
+
     void processEvent(sf::Event& event,sf::RenderWindow& mWindow);
+    void update(sf::Time dt);
     void draw(sf::RenderWindow& mWindow);
 private:
     int state;
