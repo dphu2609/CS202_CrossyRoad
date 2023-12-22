@@ -11,13 +11,13 @@ class Setting
 {
 public:
     Setting();
-    sf::Vector2f posBackGroundLight();
-    sf::Vector2f posBackGroundLight2();
-    void setPosBackgroundLight(sf::Vector2f pos);
-    void setPosBackgroundLight2(sf::Vector2f pos);
-    bool stateBackgroundLight();  
-    void setBackground(bool isBackgoundLight);   
 
+    // sf::Vector2f posBackGroundLight();
+    // sf::Vector2f posBackGroundLight2();
+    // void setPosBackgroundLight(sf::Vector2f pos);
+    // void setPosBackgroundLight2(sf::Vector2f pos);
+    // bool stateBackgroundLight();  
+    // void setBackground(bool isBackgoundLight);   
     void setCurrent();
     void setOldCurrent();
     void setReset();
@@ -28,20 +28,26 @@ public:
 private:
     sf::Color colorBound;
     sf::Vector2f sizeBound;
-    sf::Vector2f sizeTheme;
+    // sf::Vector2f sizeTheme;
     sf::Font _font;
     sf::Color colorCharacter;
     unsigned int sizeCharacter;
     unsigned int sizeCharacterDirection;
 
     sf::Text title;
+
+    bool isReturnOn;
     sf::RectangleShape returnBound;
     sf::Texture returnImage;
     sf::Sprite returnImageSprite;
+    sf::Texture returnImageDark;
+    sf::Sprite returnImageDarkSprite;
+
     sf::Text reset;
     sf::RectangleShape resetBound;
     sf::Text save;
     sf::RectangleShape saveBound;
+
     sf::Text onep;
     sf::Text twop;
 
@@ -53,7 +59,18 @@ private:
     sf::Sprite leftSprite;
     sf::Texture right;
     sf::Sprite rightSprite;
-    Circle directionCircle;
+
+    bool isFirstCircleOn;
+    bool isSecondCircleOn;
+    sf::Texture circleImage;
+    sf::Texture circleImageDark;
+    sf::CircleShape firstCircleBound;
+    sf::Sprite firstCircle;
+    sf::Sprite firstCircleDark;
+    sf::CircleShape secondCircleBound;
+    sf::Sprite secondCircle;
+    sf::Sprite secondCircleDark;
+
     sf::Text wText;
     sf::Texture w;
     sf::Sprite wSprite;
@@ -70,7 +87,7 @@ private:
     sf::Texture d;
     sf::Sprite dSprite;
     sf::RectangleShape dBound;
-    Circle letterCircle;
+    
     int isChosen;
     int controlType;
     int oldControlType;
@@ -85,20 +102,39 @@ private:
     sf::RectangleShape soundBar;
     BarArray musicBarArray;
     BarArray soundBarArray;
-    Triangle musicIncrease;
-    Triangle musicDecrease;
-    Triangle soundIncrease;
-    Triangle soundDecrease;
+    // Triangle musicIncrease;
+    // Triangle musicDecrease;
+    // Triangle soundIncrease;
+    // Triangle soundDecrease;
 
-    sf::Texture backgroundLight; 
-    sf::Sprite backgroundLightSprite;
-    sf::Texture backgroundLight2; 
-    sf::Sprite backgroundLight2Sprite;
+    bool isMusicIncreaseOn;
+    bool isMusicDecreaseOn;
+    bool isSoundIncreaseOn;
+    bool isSoundDecreaseOn;
+    sf::Texture triangle;
+    sf::Texture triangleDark;
+    sf::RectangleShape musicIncreaseBound;
+    sf::Sprite musicIncreaseTriangle;
+    sf::Sprite musicIncreaseTriangleDark;
+    sf::RectangleShape musicDecreaseBound;
+    sf::Sprite musicDecreaseTriangle;
+    sf::Sprite musicDecreaseTriangleDark;
+    sf::RectangleShape soundIncreaseBound;
+    sf::Sprite soundIncreaseTriangle;
+    sf::Sprite soundIncreaseTriangleDark;
+    sf::RectangleShape soundDecreaseBound;
+    sf::Sprite soundDecreaseTriangle;
+    sf::Sprite soundDecreaseTriangleDark;
+
+    // sf::Texture backgroundLight; 
+    // sf::Sprite backgroundLightSprite;
+    // sf::Texture backgroundLight2; 
+    // sf::Sprite backgroundLight2Sprite;
 
     // vector<Pack> packs;
-    bool lightScreen;
-    sf::Time mTime;
-    sf::Time timePerFrame;
+    // bool lightScreen;
+    // sf::Time mTime;
+    // sf::Time timePerFrame;
 };
 
 #endif //SETTING_HPP

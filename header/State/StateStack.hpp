@@ -13,6 +13,7 @@ namespace States {
         HighScore,
         Game,
         Pause,
+        MenuState,
         End
     };
 };
@@ -89,4 +90,5 @@ public:
 #include <State/PauseState.hpp>
 #include <State/MenuState.hpp>
 #include <State/EndState.hpp>
+#include <Menu/Menu.hpp>
 #endif

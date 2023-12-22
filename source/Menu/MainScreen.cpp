@@ -5,24 +5,24 @@ MainScreen::MainScreen()
     pos=sf::Vector2f(700.f,100.f);
     sizeBound=sf::Vector2f(200.f,100.f);
     colorBound=sf::Color::Transparent;
-    sizeTheme=sf::Vector2f(1920.f,1080.f);
+    // sizeTheme=sf::Vector2f(1920.f,1080.f);
     sf::FloatRect size;
 
-    mTime=sf::Time::Zero;
-    timePerFrame=sf::seconds(60.f/60.f);
+    // mTime=sf::Time::Zero;
+    // timePerFrame=sf::seconds(60.f/60.f);
 
-    lightScreen=true;
+    // lightScreen=true;
 
-    backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLightSprite.setTexture(backgroundLight);
-    sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
-    backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLightSprite.setTexture(backgroundLight);
+    // sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
+    // backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
 
-    backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLight2Sprite.setTexture(backgroundLight2);
-    sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
-    backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
-    backgroundLight2Sprite.setPosition(1920.f,0.f);
+    // backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLight2Sprite.setTexture(backgroundLight2);
+    // sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
+    // backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("media/font/Alinore.otf");
     sizeCharacter=100;
@@ -71,6 +71,14 @@ MainScreen::MainScreen()
     instruction.setOrigin(size.width/2,size.height/2);
     instruction.setPosition(pos.x,pos.y*5);
 
+    loadgame.setString("Load Game");
+    loadgame.setFont(_font);
+    loadgame.setCharacterSize(sizeCharacter);
+    loadgame.setFillColor(colorCharacter);
+    size=loadgame.getGlobalBounds();
+    loadgame.setOrigin(size.width/2,size.height/2);
+    loadgame.setPosition(pos.x,pos.y*6);
+
     newgameBound.setSize(sf::Vector2f(sizeBound.x*2,sizeBound.y));
     size=newgameBound.getGlobalBounds();
     newgameBound.setOrigin(size.width/2,size.height/6);
@@ -95,50 +103,63 @@ MainScreen::MainScreen()
     instructionBound.setPosition(pos.x,pos.y*5);
     instructionBound.setFillColor(colorBound);
 
+    loadgameBound.setSize(sf::Vector2f(sizeBound.x*2,sizeBound.y));
+    size=loadgameBound.getGlobalBounds();
+    loadgameBound.setOrigin(size.width/2,size.height/6);
+    loadgameBound.setPosition(pos.x,pos.y*6);
+    loadgameBound.setFillColor(colorBound);
+
     packs.push_back(Pack(newgameBound,newgame));
     packs.push_back(Pack(highscoreBound,highscore));
     packs.push_back(Pack(settingBound,setting));
     packs.push_back(Pack(instructionBound,instruction));
+    packs.push_back(Pack(loadgameBound,loadgame));
 }
 
-sf::Vector2f MainScreen::posBackGroundLight()
+// sf::Vector2f MainScreen::posBackGroundLight()
+// {
+//     return backgroundLightSprite.getPosition();
+// }
+
+// sf::Vector2f MainScreen::posBackGroundLight2()
+// {
+//     return backgroundLight2Sprite.getPosition();
+// }
+
+// void MainScreen::setPosBackgroundLight(sf::Vector2f pos)
+// {
+//     backgroundLightSprite.setPosition(pos);
+// }
+
+// void MainScreen::setPosBackgroundLight2(sf::Vector2f pos)
+// {
+//     backgroundLight2Sprite.setPosition(pos);
+// } 
+
+// bool MainScreen::stateBackgroundLight()
+// {
+//     return lightScreen;
+// }  
+
+// void MainScreen::setBackground(bool isBackgoundLight)
+// {
+//     if (isBackgoundLight)
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//     }
+//     else
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//     }
+// }  
+
+void MainScreen::loadGame()
 {
-    return backgroundLightSprite.getPosition();
+    Statistic::IS_LOAD_FROM_FILE=true;
+    Statistic::IS_GAME_OVER=false;
 }
-
-sf::Vector2f MainScreen::posBackGroundLight2()
-{
-    return backgroundLight2Sprite.getPosition();
-}
-
-void MainScreen::setPosBackgroundLight(sf::Vector2f pos)
-{
-    backgroundLightSprite.setPosition(pos);
-}
-
-void MainScreen::setPosBackgroundLight2(sf::Vector2f pos)
-{
-    backgroundLight2Sprite.setPosition(pos);
-} 
-
-bool MainScreen::stateBackgroundLight()
-{
-    return lightScreen;
-}  
-
-void MainScreen::setBackground(bool isBackgoundLight)
-{
-    if (isBackgoundLight)
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    }
-    else
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
-    }
-}  
 
 int MainScreen::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {   
@@ -176,10 +197,22 @@ int MainScreen::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
                 size=instruction.getGlobalBounds();
                 instruction.setOrigin(size.width/2,size.height/2);
             }
+            else if(i==4) 
+            {
+                loadgame.setCharacterSize(120);
+                size=loadgame.getGlobalBounds();
+                loadgame.setOrigin(size.width/2,size.height/2);
+            }
             if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
             {
+                if(i==4)
+                {
+                    loadGame();
+                    return 0;
+                }
                 return i+1;
             }
+            return 0;
         }
         else
         {
@@ -207,6 +240,12 @@ int MainScreen::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
                 instruction.setCharacterSize(100);
                 size=instruction.getGlobalBounds();
                 instruction.setOrigin(size.width/2,size.height/2);
+            }
+            else if(i==4) 
+            {
+                loadgame.setCharacterSize(100);
+                size=loadgame.getGlobalBounds();
+                loadgame.setOrigin(size.width/2,size.height/2);
             }
         }
     }
@@ -252,4 +291,6 @@ void MainScreen::draw(sf::RenderWindow& mWindow)
     mWindow.draw(setting);
     mWindow.draw(instructionBound);
     mWindow.draw(instruction);
+    mWindow.draw(loadgameBound);
+    mWindow.draw(loadgame);
 } 

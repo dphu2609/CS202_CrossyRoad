@@ -13,6 +13,7 @@ class SceneNode : public sf::Transformable, public sf::Drawable, private sf::Non
 public:
     typedef std::shared_ptr<SceneNode> Ptr;
     SceneNode();
+    virtual ~SceneNode() {}
 
     void attachChild(Ptr child);
     void pushFrontChild(Ptr child);
@@ -55,6 +56,9 @@ public:
     void setEnvSoundVolume(float volume);
 private:
     virtual void setCurrentEnvSoundVolume(float volume) {}
+    virtual void stopEnvSound() {}
+public:
+    void stopTotalEnvSound();
 };
 
 #endif // SCENENODE_HPP

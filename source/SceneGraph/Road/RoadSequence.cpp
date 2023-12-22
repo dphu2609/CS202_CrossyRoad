@@ -2,7 +2,7 @@
 
 RoadSequence::RoadSequence(sf::View &view) : mCurrentRoadIndex(0), mView(view) {
     for (int i = 0; i < 6; ++i) {
-        std::shared_ptr<Grass> road = std::make_shared<Grass>();
+        std::shared_ptr<Grass> road = std::make_shared<Grass>(false);
         road->setPosition(0, - i * Statistic::ROAD_HEIGHT);
         mRoads.insert(mRoads.begin(), road);
         this->pushFrontChild(std::move(road));
@@ -19,10 +19,12 @@ RoadSequence::RoadSequence(sf::View &view) : mCurrentRoadIndex(0), mView(view) {
     this->attachChild(std::move(character));
     this->moveChildToIndex(*mCharacter, mCurrentRoadIndex);
 
-    mTrafficSound.setBuffer(Resources::sounds[Sounds::TrafficSound]);
-    mTrafficSound.setLoop(true);
-    mTrafficSound.play();
-}   
+    GameSounds::TRAFFIC_SOUND.play();
+}       
+
+RoadSequence::~RoadSequence() {
+    GameSounds::TRAFFIC_SOUND.stop();
+}
 
 void RoadSequence::updateCurrent(sf::Time dt, CommandQueue &commands) {
     updateRoads(dt);
@@ -97,7 +99,6 @@ void RoadSequence::gameControl(sf::Time dt) {
     }
 
     if(mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River && (mRoads[mCurrentRoadIndex - 2]->getRoadType() != RoadType::River || mRoads[mCurrentRoadIndex]->getRoadType() != RoadType::River)) {
-        // std::cout << "Out of river" << std::endl;
         mCharacter->setPositionAfterJumpOutRiver();
     }
     if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
@@ -235,7 +236,11 @@ void RoadSequence::readData(std::ifstream &file) {
 }
 
 void RoadSequence::setCurrentEnvSoundVolume(float volume) {
-    mTrafficSound.setVolume(volume);
+    GameSounds::TRAFFIC_SOUND.setVolume(volume);
+}
+
+void RoadSequence::stopEnvSound() {
+    GameSounds::TRAFFIC_SOUND.stop();
 }
 
 bool RoadSequence::isEndGame() const {

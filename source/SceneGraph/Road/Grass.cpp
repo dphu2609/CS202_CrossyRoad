@@ -30,14 +30,21 @@ Grass::Grass(std::ifstream &file)
     readData(file);
 }
 
-Grass::Grass()
+Grass::Grass(bool isCreateObject)
 : mGrass(Resources::roadTextures[RoadTextures::Grass], sf::IntRect(100 - Statistic::ROAD_WIDTH, 100 - Statistic::ROAD_HEIGHT, Statistic::ROAD_WIDTH, Statistic::ROAD_HEIGHT))
 , spaces(Statistic::ROAD_WIDTH / Statistic::BLOCK_SIZE)
 , mBlocks(spaces, nullptr)
 {
     mGrass.setOrigin(Statistic::ROAD_WIDTH / 2, Statistic::ROAD_HEIGHT / 2);
     Resources::roadTextures[RoadTextures::Grass].setRepeated(true);
-    randomBlock();
+    if (isCreateObject) randomBlock();
+    else {
+        std::vector<int> pos = {1, 2, 18, 19};
+        for (int i = 0; i < 4; i++) {
+            int type = Block::Tree;
+            addBlock(pos[i], (Block::Type)type);
+        }
+    }
 }
 
 void Grass::addBlock(int index, Block::Type type)

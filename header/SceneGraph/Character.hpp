@@ -11,6 +11,7 @@ class Character : public SceneNode {
 public:
     Character(sf::View &view, int currentRoadIndex);
     Character(sf::View &view, std::ifstream &file);
+    ~Character();
     sf::FloatRect getSpriteBounding();
     bool canMoveLeft = true;
     bool canMoveRight = true;
@@ -71,6 +72,7 @@ private:
     sf::Sound mJumpSound;
 private:
     virtual void setCurrentEnvSoundVolume(float volume);
+    virtual void stopEnvSound();
 private:
     bool mIsOutOfRiver = false;
     std::vector<float> mJumpPositions;
@@ -92,6 +94,8 @@ private:
     void setDeadByRiverAnimation(sf::Time dt);
     void deathController(sf::Time dt);
     sf::Sound mHitSound;
+    sf::Clock mDelayClock;
+    bool mIsDelayClockStarted = false;
 public:
     bool isDead() const;
     void setDeadByLeftVehicle();

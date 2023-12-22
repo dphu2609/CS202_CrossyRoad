@@ -25,6 +25,7 @@ private:
     std::vector<Wood*> woods;
     int currentArea;
     int direction;
+    int speed;
     sf::Time spawnTime;
     sf::Clock spawnClock;
 private:

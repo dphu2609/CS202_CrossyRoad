@@ -4,26 +4,26 @@ Setting::Setting()
 {
     colorBound=sf::Color::Transparent;
     sizeBound=sf::Vector2f(100.f,100.f);
-    sizeTheme=sf::Vector2f(1920.f,1080.f);
+    // sizeTheme=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
     sizeCharacterDirection=90;
     sf::FloatRect size;
 
-    mTime=sf::Time::Zero;
-    timePerFrame=sf::seconds(60.f/60.f);
+    // mTime=sf::Time::Zero;
+    // timePerFrame=sf::seconds(60.f/60.f);
 
-    lightScreen=true;
+    // lightScreen=true;
 
-    backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLightSprite.setTexture(backgroundLight);
-    sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
-    backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLightSprite.setTexture(backgroundLight);
+    // sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
+    // backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
 
-    backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLight2Sprite.setTexture(backgroundLight2);
-    sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
-    backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
-    backgroundLight2Sprite.setPosition(1920.f,0.f);
+    // backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLight2Sprite.setTexture(backgroundLight2);
+    // sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
+    // backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("media/font/Alinore.otf");
     colorCharacter=sf::Color::White;
@@ -47,6 +47,15 @@ Setting::Setting()
     returnImageSprite.setOrigin(size.width/2,size.height/2);
     returnImageSprite.setPosition(sf::Vector2f(100.f,100.f));
     returnImageSprite.setScale(300.f/size.width,300.f/size.height);
+
+    returnImageDark.loadFromFile("media/images/menu/Back2.png");
+    returnImageDarkSprite.setTexture(returnImageDark);
+    size=returnImageDarkSprite.getGlobalBounds();
+    returnImageDarkSprite.setOrigin(size.width/2,size.height/2);
+    returnImageDarkSprite.setPosition(sf::Vector2f(100.f,100.f));
+    returnImageDarkSprite.setScale(300.f/size.width,300.f/size.height);
+
+    isReturnOn=false;
     
     resetBound.setSize(sf::Vector2f(sizeBound.x*2,sizeBound.y));
     resetBound.setFillColor(colorBound);
@@ -100,9 +109,46 @@ Setting::Setting()
     leftSprite.setScale(200.f/size.width,200.f/size.height);
     leftSprite.setPosition(sf::Vector2f(490.f,410.f));
 
-    directionCircle.setPosition(600.f,500);
+    //directionCircle.setPosition(600.f,500);
+    //directionCircle.changeToDark();
     controlType=0;
-    directionCircle.changeToDark();
+    isFirstCircleOn=true;
+    isSecondCircleOn=false;
+
+    circleImage.loadFromFile("media/images/menu/Circle1.png");
+    circleImageDark.loadFromFile("media/images/menu/Circle2.png");
+
+    firstCircleBound.setRadius(20.f);
+    firstCircleBound.setFillColor(sf::Color::Green);
+    size=firstCircleBound.getGlobalBounds();
+    firstCircleBound.setOrigin(size.width/2,size.height/2); 
+    firstCircleBound.setPosition(600.f,500); //
+    firstCircle.setTexture(circleImage); 
+    size=firstCircle.getGlobalBounds();
+    firstCircle.setOrigin(size.width/2,size.height/2);
+    firstCircle.setScale(120.f/size.width,120.f/size.height);
+    firstCircle.setPosition(600.f,500); //
+    firstCircleDark.setTexture(circleImageDark);
+    size=firstCircleDark.getGlobalBounds();
+    firstCircleDark.setOrigin(size.width/2,size.height/2);
+    firstCircleDark.setScale(120.f/size.width,120.f/size.height);
+    firstCircleDark.setPosition(600.f,500); //
+
+    secondCircleBound.setRadius(20.f);
+    secondCircleBound.setFillColor(sf::Color::Green);
+    size=secondCircleBound.getGlobalBounds();
+    secondCircleBound.setOrigin(size.width/2,size.height/2); 
+    secondCircleBound.setPosition(1320.f,500.f); //
+    secondCircle.setTexture(circleImage); 
+    size=secondCircle.getGlobalBounds();
+    secondCircle.setOrigin(size.width/2,size.height/2);
+    secondCircle.setScale(120.f/size.width,120.f/size.height);
+    secondCircle.setPosition(1320.f,500.f); //
+    secondCircleDark.setTexture(circleImageDark);
+    size=secondCircleDark.getGlobalBounds();
+    secondCircleDark.setOrigin(size.width/2,size.height/2);
+    secondCircleDark.setScale(120.f/size.width,120.f/size.height);
+    secondCircleDark.setPosition(1320.f,500.f); //
 
     w.loadFromFile("media/images/menu/letterControl.png");
     wSprite.setTexture(w);
@@ -183,7 +229,7 @@ Setting::Setting()
     dText.setPosition(sf::Vector2f(1428.f,375.f));
     //wText.setScale(1.75,0.8);
 
-    letterCircle.setPosition(1320.f,500.f);
+    // letterCircle.setPosition(1320.f,500.f);
     isChosen=0;
 
     arrayDirection[0]='w';
@@ -214,9 +260,46 @@ Setting::Setting()
     musicBar.setOutlineColor(sf::Color::Green);
     musicBar.setPosition(920.f,630.f);
 
-    musicIncrease.setPosition(1584.f,665.f);
-    musicDecrease.setPosition(854.f,665.f);
-    musicIncrease.rotate(180.f);
+    // musicIncrease.setPosition(1584.f,665.f);
+    // musicDecrease.setPosition(854.f,665.f);
+    // musicIncrease.rotate(180.f);
+
+    triangle.loadFromFile("media/images/menu/Backward1.png");
+    triangleDark.loadFromFile("media/images/menu/Backward2.png");
+
+    musicIncreaseBound.setSize(sf::Vector2f(70.f,70.f));
+    musicIncreaseBound.setFillColor(sf::Color::Transparent);
+    size=musicIncreaseBound.getLocalBounds();
+    musicIncreaseBound.setOrigin(size.width/2,size.height/2); 
+    musicIncreaseBound.setPosition(1584.f,665.f); //
+    musicIncreaseTriangle.setTexture(triangle);
+    size=musicIncreaseTriangle.getGlobalBounds();
+    musicIncreaseTriangle.setOrigin(size.width/2,size.height/2);
+    musicIncreaseTriangle.setScale(220.f/size.width,220.f/size.height);
+    musicIncreaseTriangle.setPosition(1584.f,665.f);
+    musicIncreaseTriangle.rotate(180.f); //
+    musicIncreaseTriangleDark.setTexture(triangleDark);
+    size=musicIncreaseTriangleDark.getGlobalBounds();
+    musicIncreaseTriangleDark.setOrigin(size.width/2,size.height/2);
+    musicIncreaseTriangleDark.setScale(220.f/size.width,220.f/size.height);
+    musicIncreaseTriangleDark.setPosition(1584.f,665.f);
+    musicIncreaseTriangleDark.rotate(180.f); //
+
+    musicDecreaseBound.setSize(sf::Vector2f(70.f,70.f));
+    musicDecreaseBound.setFillColor(sf::Color::Transparent);
+    size=musicDecreaseBound.getLocalBounds();
+    musicDecreaseBound.setOrigin(size.width/2,size.height/2); 
+    musicDecreaseBound.setPosition(854.f,665.f); //
+    musicDecreaseTriangle.setTexture(triangle);
+    size=musicDecreaseTriangle.getGlobalBounds();
+    musicDecreaseTriangle.setOrigin(size.width/2,size.height/2);
+    musicDecreaseTriangle.setScale(220.f/size.width,220.f/size.height);
+    musicDecreaseTriangle.setPosition(854.f,665.f); //
+    musicDecreaseTriangleDark.setTexture(triangleDark);
+    size=musicDecreaseTriangleDark.getGlobalBounds();
+    musicDecreaseTriangleDark.setOrigin(size.width/2,size.height/2);
+    musicDecreaseTriangleDark.setScale(220.f/size.width,220.f/size.height);
+    musicDecreaseTriangleDark.setPosition(854.f,665.f);
 
     soundBound.setSize(sf::Vector2f(sizeBound.x*4.7,sizeBound.y));
     soundBound.setFillColor(colorBound);
@@ -236,55 +319,94 @@ Setting::Setting()
     soundBar.setOutlineColor(sf::Color::Green);
     soundBar.setPosition(920.f,780.f);
 
-    soundIncrease.setPosition(1584.f,815.f);
-    soundDecrease.setPosition(854.f,815.f);
-    soundIncrease.rotate(180.f);
+    // soundIncrease.setPosition(1584.f,815.f);
+    // soundDecrease.setPosition(854.f,815.f);
+    // soundIncrease.rotate(180.f);
+
+    soundIncreaseBound.setSize(sf::Vector2f(70.f,70.f));
+    soundIncreaseBound.setFillColor(sf::Color::Transparent);
+    size=soundIncreaseBound.getLocalBounds();
+    soundIncreaseBound.setOrigin(size.width/2,size.height/2); 
+    soundIncreaseBound.setPosition(1584.f,815.f); //
+    soundIncreaseTriangle.setTexture(triangle);
+    size=soundIncreaseTriangle.getGlobalBounds();
+    soundIncreaseTriangle.setOrigin(size.width/2,size.height/2);
+    soundIncreaseTriangle.setScale(220.f/size.width,220.f/size.height);
+    soundIncreaseTriangle.setPosition(1584.f,815.f);
+    soundIncreaseTriangle.rotate(180.f); //
+    soundIncreaseTriangleDark.setTexture(triangleDark);
+    size=soundIncreaseTriangleDark.getGlobalBounds();
+    soundIncreaseTriangleDark.setOrigin(size.width/2,size.height/2);
+    soundIncreaseTriangleDark.setScale(220.f/size.width,220.f/size.height);
+    soundIncreaseTriangleDark.setPosition(1584.f,815.f);
+    soundIncreaseTriangleDark.rotate(180.f); //
+
+    soundDecreaseBound.setSize(sf::Vector2f(70.f,70.f));
+    soundDecreaseBound.setFillColor(sf::Color::Transparent);
+    size=soundDecreaseBound.getLocalBounds();
+    soundDecreaseBound.setOrigin(size.width/2,size.height/2); 
+    soundDecreaseBound.setPosition(854.f,815.f); //
+    soundDecreaseTriangle.setTexture(triangle);
+    size=soundDecreaseTriangle.getGlobalBounds();
+    soundDecreaseTriangle.setOrigin(size.width/2,size.height/2);
+    soundDecreaseTriangle.setScale(220.f/size.width,220.f/size.height);
+    soundDecreaseTriangle.setPosition(854.f,815.f); //
+    soundDecreaseTriangleDark.setTexture(triangleDark);
+    size=soundDecreaseTriangleDark.getGlobalBounds();
+    soundDecreaseTriangleDark.setOrigin(size.width/2,size.height/2);
+    soundDecreaseTriangleDark.setScale(220.f/size.width,220.f/size.height);
+    soundDecreaseTriangleDark.setPosition(854.f,815.f);
 
     musicBarArray.setPosition(920.f,630.f);
     soundBarArray.setPosition(920.f,780.f);
+
+    isMusicIncreaseOn=false;
+    isMusicDecreaseOn=false;
+    isSoundIncreaseOn=false;
+    isSoundDecreaseOn=false;
 
     // packs.push_back(Pack(resetBound,reset));
     // packs.push_back(Pack(saveBound,save));
 }
 
-sf::Vector2f Setting::posBackGroundLight()
-{
-    return backgroundLightSprite.getPosition();
-}
+// sf::Vector2f Setting::posBackGroundLight()
+// {
+//     return backgroundLightSprite.getPosition();
+// }
 
-sf::Vector2f Setting::posBackGroundLight2()
-{
-    return backgroundLight2Sprite.getPosition();
-}
+// sf::Vector2f Setting::posBackGroundLight2()
+// {
+//     return backgroundLight2Sprite.getPosition();
+// }
 
-void Setting::setPosBackgroundLight(sf::Vector2f pos)
-{
-    backgroundLightSprite.setPosition(pos);
-}
+// void Setting::setPosBackgroundLight(sf::Vector2f pos)
+// {
+//     backgroundLightSprite.setPosition(pos);
+// }
 
-void Setting::setPosBackgroundLight2(sf::Vector2f pos)
-{
-    backgroundLight2Sprite.setPosition(pos);
-} 
+// void Setting::setPosBackgroundLight2(sf::Vector2f pos)
+// {
+//     backgroundLight2Sprite.setPosition(pos);
+// } 
 
-bool Setting::stateBackgroundLight()
-{
-    return lightScreen;
-}  
+// bool Setting::stateBackgroundLight()
+// {
+//     return lightScreen;
+// }  
 
-void Setting::setBackground(bool isBackgoundLight)
-{
-    if (isBackgoundLight)
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    }
-    else
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
-    }
-}  
+// void Setting::setBackground(bool isBackgoundLight)
+// {
+//     if (isBackgoundLight)
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//     }
+//     else
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//     }
+// }  
 
 void Setting::setCurrent()
 {
@@ -299,13 +421,13 @@ void Setting::setCurrent()
     controlType=oldControlType;
     if(controlType==0)
     {
-        directionCircle.changeToDark();
-        letterCircle.changeToLight();
+        isFirstCircleOn=true;
+        isSecondCircleOn=false;
     }
     else
     {
-        directionCircle.changeToLight();
-        letterCircle.changeToDark();
+        isFirstCircleOn=false;
+        isSecondCircleOn=true;
     }
     Controller::MOVE_UP_SET_1 = arrayDirection[0];
     Controller::MOVE_DOWN_SET_1 = arrayDirection[1];
@@ -322,13 +444,13 @@ void Setting::setOldCurrent()
     oldControlType=controlType;
     if(controlType==0)
     {
-        directionCircle.changeToDark();
-        letterCircle.changeToLight();
+        isFirstCircleOn=true;
+        isSecondCircleOn=false;
     }
     else
     {
-        directionCircle.changeToLight();
-        letterCircle.changeToDark();
+        isFirstCircleOn=false;
+        isSecondCircleOn=true;
     }
     Controller::MOVE_UP_SET_1 = arrayDirection[0];
     Controller::MOVE_DOWN_SET_1 = arrayDirection[1];
@@ -347,8 +469,8 @@ void Setting::setReset()
     aText.setString(arrayDirection[2]);
     dText.setString(arrayDirection[3]);
     controlType=0;
-    directionCircle.changeToDark();
-    letterCircle.changeToLight();
+    isFirstCircleOn=true;
+    isSecondCircleOn=false;
 }
 
 int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
@@ -356,283 +478,299 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     sf::Vector2f mousePosition=mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
     sf::FloatRect size;
 
-    sf::FloatRect recBound=returnBound.getGlobalBounds();
-    bool isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    sf::FloatRect recBound = returnBound.getGlobalBounds();
+    bool isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        returnImage.loadFromFile("media/images/menu/Back2.png");
-        returnImageSprite.setTexture(returnImage);
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isReturnOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             musicBarArray.setCurrent();
             musicBarArray.setMusic();
             soundBarArray.setCurrent();
             soundBarArray.setSound();
             setCurrent();
+            isReturnOn = false;
             return 0;
         }
+        return 3;
     }
     else
     {
-        returnImage.loadFromFile("media/images/menu/Back1.png");
-        returnImageSprite.setTexture(returnImage);
+        isReturnOn = false;
     }
-    
-    recBound=wBound.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+
+    recBound = wBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-                wText.setFillColor(sf::Color::Cyan);
-                isChosen=1;
+            wText.setFillColor(sf::Color::Cyan);
+            isChosen = 1;
         }
-        if(isChosen==1&&event.type==sf::Event::TextEntered)
+        if (isChosen == 1 && event.type == sf::Event::TextEntered)
         {
-            char c=static_cast<char>(event.text.unicode);
-            cout<<c<<endl;
-            arrayDirection[0]=c;
-            string tmp="";
-            tmp+=c;
+            char c = static_cast<char>(event.text.unicode);
+            cout << c << endl;
+            arrayDirection[0] = c;
+            string tmp = "";
+            tmp += c;
             wText.setString(tmp);
             wText.setCharacterSize(sizeCharacterDirection);
-            size=wText.getGlobalBounds();
-            wText.setOrigin(size.width/2,size.height/2);
-            wText.setPosition(sf::Vector2f(1318.f,265.f));
+            size = wText.getGlobalBounds();
+            wText.setOrigin(size.width / 2, size.height / 2);
+            wText.setPosition(sf::Vector2f(1318.f, 265.f));
         }
+        return 3;
     }
     else
     {
-        if(isChosen==1)
+        if (isChosen == 1)
         {
             wText.setFillColor(colorCharacter);
-            isChosen=0;
+            isChosen = 0;
         }
-    }    
+    }
 
-    recBound=sBound.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = sBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-                sText.setFillColor(sf::Color::Cyan);
-                isChosen=2;
+            sText.setFillColor(sf::Color::Cyan);
+            isChosen = 2;
         }
-        if(isChosen==2&&event.type==sf::Event::TextEntered)
+        if (isChosen == 2 && event.type == sf::Event::TextEntered)
         {
-            char c=static_cast<char>(event.text.unicode);
-            cout<<c<<endl;
-            arrayDirection[1]=c;
-            string tmp="";
-            tmp+=c;
+            char c = static_cast<char>(event.text.unicode);
+            cout << c << endl;
+            arrayDirection[1] = c;
+            string tmp = "";
+            tmp += c;
             sText.setString(tmp);
             // sText.setCharacterSize(sizeCharacter);
             // size=sText.getGlobalBounds();
             // sText.setOrigin(size.width/2,size.height/2);
             // sText.setPosition(sf::Vector2f(1318.f,375.f));
         }
+        return 3;
     }
     else
     {
-        if(isChosen==2)
+        if (isChosen == 2)
         {
             sText.setFillColor(colorCharacter);
-            isChosen=0;
+            isChosen = 0;
         }
-    }    
+    }
 
-    recBound=aBound.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = aBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-                aText.setFillColor(sf::Color::Cyan);
-                isChosen=3;
+            aText.setFillColor(sf::Color::Cyan);
+            isChosen = 3;
         }
-        if(isChosen==3&&event.type==sf::Event::TextEntered)
+        if (isChosen == 3 && event.type == sf::Event::TextEntered)
         {
-            char c=static_cast<char>(event.text.unicode);
-            cout<<c<<endl;
-            arrayDirection[2]=c;
-            string tmp="";
-            tmp+=c;
+            char c = static_cast<char>(event.text.unicode);
+            cout << c << endl;
+            arrayDirection[2] = c;
+            string tmp = "";
+            tmp += c;
             aText.setString(tmp);
             // aText.setCharacterSize(sizeCharacter);
             // size=aText.getGlobalBounds();
             // aText.setOrigin(size.width/2,size.height/2);
             // aText.setPosition(sf::Vector2f(1208.f,375.f));
         }
+        return 3;
     }
     else
     {
-        if(isChosen==3)
+        if (isChosen == 3)
         {
             aText.setFillColor(colorCharacter);
-            isChosen=0;
+            isChosen = 0;
         }
-    }    
+    }
 
-    recBound=dBound.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = dBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-                dText.setFillColor(sf::Color::Cyan);
-                isChosen=4;
+            dText.setFillColor(sf::Color::Cyan);
+            isChosen = 4;
         }
-        if(isChosen==4&&event.type==sf::Event::TextEntered)
+        if (isChosen == 4 && event.type == sf::Event::TextEntered)
         {
-            char c=static_cast<char>(event.text.unicode);
-            cout<<c<<endl;
-            arrayDirection[3]=c;
-            string tmp="";
-            tmp+=c;
+            char c = static_cast<char>(event.text.unicode);
+            cout << c << endl;
+            arrayDirection[3] = c;
+            string tmp = "";
+            tmp += c;
             dText.setString(tmp);
             // dText.setCharacterSize(sizeCharacter);
             // size=dText.getGlobalBounds();
             // dText.setOrigin(size.width/2,size.height/2);
             // dText.setPosition(sf::Vector2f(1428.f,375.f));
         }
+        return 3;
     }
     else
     {
-        if(isChosen==4)
+        if (isChosen == 4)
         {
             dText.setFillColor(colorCharacter);
-            isChosen=0;
+            isChosen = 0;
         }
-    }    
+    }
 
-    recBound=directionCircle.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = firstCircleBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        directionCircle.changeToDark();
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isFirstCircleOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-            controlType=0;
+            controlType = 0;
+            isSecondCircleOn=false;
         }
+        return 3;
     }
     else
     {
-        if(controlType) directionCircle.changeToLight();
+        if (controlType)
+            isFirstCircleOn = false;
     }
 
-    recBound=letterCircle.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = secondCircleBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        letterCircle.changeToDark();
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isSecondCircleOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-            controlType=1;
+            controlType = 1;
+            isFirstCircleOn=false;
         }
+        return 3;
     }
     else
     {
-        if(!controlType) letterCircle.changeToLight();
+        if (!controlType)
+            isSecondCircleOn = false;
     }
 
-    recBound=musicIncrease.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = musicIncreaseBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        musicIncrease.changeToDark();
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isMusicIncreaseOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             musicBarArray.increaseByOne();
             musicBarArray.setMusic();
         }
+        return 3;
     }
     else
     {
-        musicIncrease.changeToLight();
+        isMusicIncreaseOn = false;
     }
 
-    recBound=musicDecrease.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = musicDecreaseBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        musicDecrease.changeToDark();
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isMusicDecreaseOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             musicBarArray.decreaseByOne();
             musicBarArray.setMusic();
         }
+        return 3;
     }
     else
     {
-        musicDecrease.changeToLight();
+        isMusicDecreaseOn = false;
     }
 
-    recBound=soundIncrease.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = soundIncreaseBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        soundIncrease.changeToDark();
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isSoundIncreaseOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             soundBarArray.increaseByOne();
             soundBarArray.setSound();
         }
+        return 3;
     }
     else
     {
-        soundIncrease.changeToLight();
+        isSoundIncreaseOn = false;
     }
 
-    recBound=soundDecrease.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = soundDecreaseBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        soundDecrease.changeToDark();
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isSoundDecreaseOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             soundBarArray.decreaseByOne();
             soundBarArray.setSound();
         }
+        return 3;
     }
     else
     {
-        soundDecrease.changeToLight();
+        isSoundDecreaseOn = false;
     }
 
-    recBound=resetBound.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = resetBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        reset.setScale(1.2,1.2);
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        reset.setScale(1.2, 1.2);
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             musicBarArray.reset();
             soundBarArray.reset();
             setReset();
         }
+        return 3;
     }
     else
     {
-        reset.setScale(1,1);
+        reset.setScale(1, 1);
     }
 
-    recBound=saveBound.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = saveBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        save.setScale(1.2,1.2);
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        save.setScale(1.2, 1.2);
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             musicBarArray.setOldCurrent();
             soundBarArray.setOldCurrent();
             setOldCurrent();
             return 0;
         }
+        return 3;
     }
     else
     {
-        save.setScale(1,1);
+        save.setScale(1, 1);
     }
 
     return 3;
@@ -670,13 +808,25 @@ void Setting::draw(sf::RenderWindow& mWindow)
     // mWindow.draw(backgroundLight2Sprite);
     mWindow.draw(title);
     mWindow.draw(returnBound);
-    mWindow.draw(returnImageSprite);
+    if(isReturnOn)
+    {
+        mWindow.draw(returnImageDarkSprite);
+    }
+    else
+    {
+        mWindow.draw(returnImageSprite);
+    }
 
     mWindow.draw(upSprite);
     mWindow.draw(downSprite);
     mWindow.draw(rightSprite);
     mWindow.draw(leftSprite);
-    directionCircle.draw(mWindow);
+    mWindow.draw(firstCircleBound);
+    if(isFirstCircleOn)
+    {
+        mWindow.draw(firstCircleDark);
+    }
+    else mWindow.draw(firstCircle);
 
     mWindow.draw(wBound);
     mWindow.draw(wSprite);
@@ -691,21 +841,48 @@ void Setting::draw(sf::RenderWindow& mWindow)
     mWindow.draw(sText);
     mWindow.draw(aText);
     mWindow.draw(dText);
-    letterCircle.draw(mWindow);
+    mWindow.draw(secondCircleBound);
+    if(isSecondCircleOn)
+    {
+        mWindow.draw(secondCircleDark);
+    }
+    else mWindow.draw(secondCircle);
 
     mWindow.draw(musicBound);
     mWindow.draw(music);
     mWindow.draw(musicBar);
-    musicIncrease.draw(mWindow);
-    musicDecrease.draw(mWindow);
     musicBarArray.draw(mWindow);
+
+    mWindow.draw(musicIncreaseBound);
+    if(isMusicIncreaseOn)
+    {
+        mWindow.draw(musicIncreaseTriangleDark);
+    }
+    else mWindow.draw(musicIncreaseTriangle);
+    mWindow.draw(musicDecreaseBound);
+    if(isMusicDecreaseOn)
+    {
+        mWindow.draw(musicDecreaseTriangleDark);
+    }
+    else mWindow.draw(musicDecreaseTriangle);
+
     mWindow.draw(soundBound);
     mWindow.draw(sound);
     mWindow.draw(soundBar);
-
-    soundIncrease.draw(mWindow);
-    soundDecrease.draw(mWindow);
     soundBarArray.draw(mWindow);
+
+    mWindow.draw(soundIncreaseBound);
+    if(isSoundIncreaseOn)
+    {
+        mWindow.draw(soundIncreaseTriangleDark);
+    }
+    else mWindow.draw(soundIncreaseTriangle);
+    mWindow.draw(soundDecreaseBound);
+    if(isSoundDecreaseOn)
+    {
+        mWindow.draw(soundDecreaseTriangleDark);
+    }
+    else mWindow.draw(soundDecreaseTriangle);
 
     mWindow.draw(resetBound);
     mWindow.draw(reset);

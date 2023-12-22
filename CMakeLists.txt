@@ -4,10 +4,8 @@ project(CrossyRoad VERSION 0.1.0 LANGUAGES C CXX)
 include(CTest)
 enable_testing()
 
-# Set the path to the SFML directory
-set(SFML_DIR "D:/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/lib/cmake/SFML")
-set(SFML_LIB_DIR "D:/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/lib")
-set(SFML_INCLUDE_DIR "D:/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit/SFML-2.5.1/include")
+set(SFML_LIB_DIR "C:/SFML-2.5.1/lib")
+set(SFML_INCLUDE_DIR "C:/SFML-2.5.1/include")
 
 include_directories(${SFML_INCLUDE_DIR})
 link_directories(${SFML_LIB_DIR})
@@ -37,6 +35,11 @@ add_custom_command(TARGET CrossyRoad POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${PROJECT_SOURCE_DIR}/media"
         $<TARGET_FILE_DIR:CrossyRoad>/media)
+
+    add_custom_command(TARGET CrossyRoad POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/data"
+        $<TARGET_FILE_DIR:CrossyRoad>/data)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

@@ -11,6 +11,7 @@ class VehicleLane : public Road {
 public:
     VehicleLane();
     VehicleLane(std::ifstream &file);
+    ~VehicleLane();
     virtual bool isHitDangerousObjects(const sf::FloatRect &bounds) const;
     virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const;
     virtual void updateCurrent(sf::Time dt, CommandQueue &commandQueue);
@@ -62,6 +63,7 @@ public:
     virtual void deactivateSounds();
 private:
     virtual void setCurrentEnvSoundVolume(float volume);
+    virtual void stopEnvSound();
 public:
     virtual DeathCause::ID getDeathCause() const;
 };

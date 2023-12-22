@@ -31,6 +31,7 @@ void PauseState::handleEvent(sf::Event &event) {
     mGUIContainer.handleEvent(mWindow, event);
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
         Statistic::IS_GAME_OVER = false;
+        Statistic::IS_GAME_PAUSE = false;
         requestStackPop();
     }
 }
@@ -38,6 +39,7 @@ void PauseState::handleEvent(sf::Event &event) {
 void PauseState::buildScene() {
     std::function<void()> continueAction = [&] () {
         Statistic::IS_GAME_OVER = false;
+        Statistic::IS_GAME_PAUSE = false;
         requestStackPop();
     };
 
@@ -88,7 +90,7 @@ void PauseState::buildScene() {
     std::function<void()> backToMenuAction = [&] () {
         Statistic::IS_GAME_OVER = true;
         requestStateClear();
-        requestStackPush(States::Game);
+        requestStackPush(States::Menu);
     };
 
     GUI::Component *backToMenuButton = new GUI::Button(

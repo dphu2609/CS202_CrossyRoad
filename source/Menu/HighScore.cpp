@@ -4,25 +4,25 @@ HighScore::HighScore()
 {
     colorBound=sf::Color::Transparent;
     sizeBound=sf::Vector2f(100.f,100.f);
-    sizeTheme=sf::Vector2f(1920.f,1080.f);
+    // sizeTheme=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
     sf::FloatRect size;
 
-    mTime=sf::Time::Zero;
-    timePerFrame=sf::seconds(60.f/60.f);
+    // mTime=sf::Time::Zero;
+    // timePerFrame=sf::seconds(60.f/60.f);
 
-    lightScreen=true;
+    // lightScreen=true;
 
-    backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLightSprite.setTexture(backgroundLight);
-    sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
-    backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLightSprite.setTexture(backgroundLight);
+    // sf::FloatRect sizeThemeOrigin=backgroundLightSprite.getGlobalBounds();
+    // backgroundLightSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
 
-    backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    backgroundLight2Sprite.setTexture(backgroundLight2);
-    sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
-    backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
-    backgroundLight2Sprite.setPosition(1920.f,0.f);
+    // backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+    // backgroundLight2Sprite.setTexture(backgroundLight2);
+    // sizeThemeOrigin=backgroundLight2Sprite.getGlobalBounds();
+    // backgroundLight2Sprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    // backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("media/font/Alinore.otf");
     colorCharacter=sf::Color::White;
@@ -54,6 +54,15 @@ HighScore::HighScore()
     returnImageSprite.setOrigin(size.width/2,size.height/2);
     returnImageSprite.setPosition(sf::Vector2f(100.f,100.f));
     returnImageSprite.setScale(300.f/size.width,300.f/size.height);
+
+    returnImageDark.loadFromFile("media/images/menu/Back2.png");
+    returnImageDarkSprite.setTexture(returnImageDark);
+    size=returnImageDarkSprite.getGlobalBounds();
+    returnImageDarkSprite.setOrigin(size.width/2,size.height/2);
+    returnImageDarkSprite.setPosition(sf::Vector2f(100.f,100.f));
+    returnImageDarkSprite.setScale(300.f/size.width,300.f/size.height);
+
+    isReturnOn=false;
 
     onep.setString("1P");
     onep.setFont(_font);
@@ -99,9 +108,46 @@ HighScore::HighScore()
     modeOneP.setOrigin(size.width/2,size.height/2);
     modeOneP.setPosition(sf::Vector2f(502.5,950.f));
 
-    leftOneP.setPosition(382.5,985.f);
-    rightOneP.setPosition(622.5,985.f);
-    rightOneP.rotate(180.f);
+    // leftOneP.setPosition(382.5,985.f);
+    // rightOneP.setPosition(622.5,985.f);
+    // rightOneP.rotate(180.f);
+
+    triangle.loadFromFile("media/images/menu/Backward1.png");
+    triangleDark.loadFromFile("media/images/menu/Backward2.png");
+
+    oneIncreaseBound.setSize(sf::Vector2f(70.f,70.f));
+    oneIncreaseBound.setFillColor(sf::Color::Transparent);
+    size=oneIncreaseBound.getLocalBounds();
+    oneIncreaseBound.setOrigin(size.width/2,size.height/2); 
+    oneIncreaseBound.setPosition(622.5,985.f); //
+    oneIncreaseTriangle.setTexture(triangle);
+    size=oneIncreaseTriangle.getGlobalBounds();
+    oneIncreaseTriangle.setOrigin(size.width/2,size.height/2);
+    oneIncreaseTriangle.setScale(220.f/size.width,220.f/size.height);
+    oneIncreaseTriangle.setPosition(622.5,985.f);
+    oneIncreaseTriangle.rotate(180.f); //
+    oneIncreaseTriangleDark.setTexture(triangleDark);
+    size=oneIncreaseTriangleDark.getGlobalBounds();
+    oneIncreaseTriangleDark.setOrigin(size.width/2,size.height/2);
+    oneIncreaseTriangleDark.setScale(220.f/size.width,220.f/size.height);
+    oneIncreaseTriangleDark.setPosition(622.5,985.f);
+    oneIncreaseTriangleDark.rotate(180.f); //
+
+    oneDecreaseBound.setSize(sf::Vector2f(70.f,70.f));
+    oneDecreaseBound.setFillColor(sf::Color::Transparent);
+    size=oneDecreaseBound.getLocalBounds();
+    oneDecreaseBound.setOrigin(size.width/2,size.height/2); 
+    oneDecreaseBound.setPosition(382.5,985.f); //
+    oneDecreaseTriangle.setTexture(triangle);
+    size=oneDecreaseTriangle.getGlobalBounds();
+    oneDecreaseTriangle.setOrigin(size.width/2,size.height/2);
+    oneDecreaseTriangle.setScale(220.f/size.width,220.f/size.height);
+    oneDecreaseTriangle.setPosition(382.5,985.f); //
+    oneDecreaseTriangleDark.setTexture(triangleDark);
+    size=oneDecreaseTriangleDark.getGlobalBounds();
+    oneDecreaseTriangleDark.setOrigin(size.width/2,size.height/2);
+    oneDecreaseTriangleDark.setScale(220.f/size.width,220.f/size.height);
+    oneDecreaseTriangleDark.setPosition(382.5,985.f);
 
     modeTwoP.setString(modes[modeSecond]);
     modeTwoP.setFont(_font);
@@ -111,18 +157,57 @@ HighScore::HighScore()
     modeTwoP.setOrigin(size.width/2,size.height/2);
     modeTwoP.setPosition(sf::Vector2f(1417.5,950.f));
 
-    leftTwoP.setPosition(1297.5,985.f);
-    rightTwoP.setPosition(1537.5,985.f);
-    rightTwoP.rotate(180.f);
+    // leftTwoP.setPosition(1297.5,985.f);
+    // rightTwoP.setPosition(1537.5,985.f);
+    // rightTwoP.rotate(180.f);
 
-    onepText.push_back("media/text/HighScore1PEasy.txt");
-    onepText.push_back("media/text/HighScore1PMedi.txt");
-    onepText.push_back("media/text/HighScore1PHard.txt");
-    onepText.push_back("media/text/HighScore1PEXtre.txt");
-    twopText.push_back("media/text/HighScore2PEasy.txt");
-    twopText.push_back("media/text/HighScore2PMedi.txt");
-    twopText.push_back("media/text/HighScore2PHard.txt");
-    twopText.push_back("media/text/HighScore2PXtre.txt");
+    twoIncreaseBound.setSize(sf::Vector2f(70.f,70.f));
+    twoIncreaseBound.setFillColor(sf::Color::Transparent);
+    size=twoIncreaseBound.getLocalBounds();
+    twoIncreaseBound.setOrigin(size.width/2,size.height/2); 
+    twoIncreaseBound.setPosition(1537.5,985.f); //
+    twoIncreaseTriangle.setTexture(triangle);
+    size=twoIncreaseTriangle.getGlobalBounds();
+    twoIncreaseTriangle.setOrigin(size.width/2,size.height/2);
+    twoIncreaseTriangle.setScale(220.f/size.width,220.f/size.height);
+    twoIncreaseTriangle.setPosition(1537.5,985.f);
+    twoIncreaseTriangle.rotate(180.f); //
+    twoIncreaseTriangleDark.setTexture(triangleDark);
+    size=twoIncreaseTriangleDark.getGlobalBounds();
+    twoIncreaseTriangleDark.setOrigin(size.width/2,size.height/2);
+    twoIncreaseTriangleDark.setScale(220.f/size.width,220.f/size.height);
+    twoIncreaseTriangleDark.setPosition(1537.5,985.f);
+    twoIncreaseTriangleDark.rotate(180.f); //
+
+    twoDecreaseBound.setSize(sf::Vector2f(70.f,70.f));
+    twoDecreaseBound.setFillColor(sf::Color::Transparent);
+    size=twoDecreaseBound.getLocalBounds();
+    twoDecreaseBound.setOrigin(size.width/2,size.height/2); 
+    twoDecreaseBound.setPosition(1297.5,985.f); //
+    twoDecreaseTriangle.setTexture(triangle);
+    size=twoDecreaseTriangle.getGlobalBounds();
+    twoDecreaseTriangle.setOrigin(size.width/2,size.height/2);
+    twoDecreaseTriangle.setScale(220.f/size.width,220.f/size.height);
+    twoDecreaseTriangle.setPosition(1297.5,985.f); //
+    twoDecreaseTriangleDark.setTexture(triangleDark);
+    size=twoDecreaseTriangleDark.getGlobalBounds();
+    twoDecreaseTriangleDark.setOrigin(size.width/2,size.height/2);
+    twoDecreaseTriangleDark.setScale(220.f/size.width,220.f/size.height);
+    twoDecreaseTriangleDark.setPosition(1297.5,985.f);
+
+    isOneIncreaseOn=false;
+    isOneDecreaseOn=false;
+    isTwoIncreaseOn=false;
+    isTwoDecreaseOn=false;
+
+    onepText.push_back("data/HighScore1PEasy.txt");
+    onepText.push_back("data/HighScore1PMedi.txt");
+    onepText.push_back("data/HighScore1PHard.txt");
+    onepText.push_back("data/HighScore1PXtre.txt");
+    twopText.push_back("data/HighScore2PEasy.txt");
+    twopText.push_back("data/HighScore2PMedi.txt");
+    twopText.push_back("data/HighScore2PHard.txt");
+    twopText.push_back("data/HighScore2PXtre.txt");
 
     sizeLeftTexts=0;
     sizeRightTexts=0;
@@ -130,30 +215,44 @@ HighScore::HighScore()
     loadRightTextFromFile();
 }
 
-sf::Vector2f HighScore::posBackGroundLight()
-{
-    return backgroundLightSprite.getPosition();
-}
+// sf::Vector2f HighScore::posBackGroundLight()
+// {
+//     return backgroundLightSprite.getPosition();
+// }
 
-sf::Vector2f HighScore::posBackGroundLight2()
-{
-    return backgroundLight2Sprite.getPosition();
-}
+// sf::Vector2f HighScore::posBackGroundLight2()
+// {
+//     return backgroundLight2Sprite.getPosition();
+// }
 
-void HighScore::setPosBackgroundLight(sf::Vector2f pos)
-{
-    backgroundLightSprite.setPosition(pos);
-}
+// void HighScore::setPosBackgroundLight(sf::Vector2f pos)
+// {
+//     backgroundLightSprite.setPosition(pos);
+// }
 
-void HighScore::setPosBackgroundLight2(sf::Vector2f pos)
-{
-    backgroundLight2Sprite.setPosition(pos);
-} 
+// void HighScore::setPosBackgroundLight2(sf::Vector2f pos)
+// {
+//     backgroundLight2Sprite.setPosition(pos);
+// } 
 
-bool HighScore::stateBackgroundLight()
-{
-    return lightScreen;
-}  
+// bool HighScore::stateBackgroundLight()
+// {
+//     return lightScreen;
+// }  
+
+// void HighScore::setBackground(bool isBackgoundLight)
+// {
+//     if (isBackgoundLight)
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
+//     }
+//     else
+//     {
+//         backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//         backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
+//     }
+// }  
 
 void HighScore::previousFirst()
 {
@@ -185,7 +284,7 @@ void HighScore::loadLeftTextsFromfile()
     leftTexts.clear();
     ifstream fin;
     fin.open(onepText[modeFirst]);
-    if(!fin.is_open()) return;
+    if(!fin.is_open()) {cout<<"Cannot load"<<endl;return;}
     string file;
     while(!fin.eof())
     {
@@ -208,7 +307,7 @@ void HighScore::loadRightTextFromFile()
     rightTexts.clear();
     ifstream fin;
     fin.open(twopText[modeSecond]);
-    if(!fin.is_open()) return;
+    if(!fin.is_open()) {cout<<"Cannot load"<<endl;return;}
     string file;
     while(!fin.eof())
     {
@@ -225,25 +324,12 @@ void HighScore::loadRightTextFromFile()
     fin.close();
 }
 
-void HighScore::setBackground(bool isBackgoundLight)
-{
-    if (isBackgoundLight)
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains_lightened.png");
-    }
-    else
-    {
-        backgroundLight.loadFromFile("media/images/menu/background_glacial_mountains.png");
-        backgroundLight2.loadFromFile("media/images/menu/background_glacial_mountains.png");
-    }
-}  
-
 int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
     sf::Vector2f mousePosition =mWindow.mapPixelToCoords(sf::Mouse::getPosition(mWindow));
     sf::FloatRect recBound;
     bool isMouseOn;
+
     if(event.type==sf::Event::MouseWheelScrolled)
     {
         recBound=firstBound.getGlobalBounds();
@@ -269,11 +355,12 @@ int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
                     }
                 }
             }
+            return 2;
         }
         else
         {
             recBound = secondBound.getGlobalBounds();
-            isMouseOn = recBound.contains(static_cast<float>(mousePosition.x), static_cast<float>(mousePosition.y));
+            isMouseOn = recBound.contains(mousePosition);
             if (isMouseOn)
             {
                 if (sizeRightTexts)
@@ -295,89 +382,94 @@ int HighScore::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
                         }
                     }
                 }
+                return 2;
             }
         }
     }
 
-    recBound=returnBound.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = returnBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        returnImage.loadFromFile("media/images/menu/Back2.png");
-        returnImageSprite.setTexture(returnImage);
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isReturnOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
+            isReturnOn = false;
             return 0;
         }
+        return 2;
     }
     else
     {
-        returnImage.loadFromFile("media/images/menu/Back1.png");
-        returnImageSprite.setTexture(returnImage);
+        isReturnOn = false;
     }
 
-    recBound=leftOneP.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = oneDecreaseBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        leftOneP.changeToDark();
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isOneDecreaseOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             previousFirst();
             loadLeftTextsFromfile();
         }
+        return 2;
     }
     else
     {
-        leftOneP.changeToLight();
+        isOneDecreaseOn = false;
     }
 
-    recBound=rightOneP.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = oneIncreaseBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        rightOneP.changeToDark();
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isOneIncreaseOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             nextFirst();
             loadLeftTextsFromfile();
         }
+        return 2;
     }
     else
     {
-        rightOneP.changeToLight();
+        isOneIncreaseOn = false;
     }
 
-    recBound=leftTwoP.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = twoDecreaseBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        leftTwoP.changeToDark();
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isTwoDecreaseOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             previousSecond();
             loadRightTextFromFile();
         }
+        return 2;
     }
     else
     {
-        leftTwoP.changeToLight();
+        isTwoDecreaseOn = false;
     }
 
-    recBound=rightTwoP.getGlobalBounds();
-    isMouseOn=recBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
-    if(isMouseOn)
+    recBound = twoIncreaseBound.getGlobalBounds();
+    isMouseOn = recBound.contains(mousePosition);
+    if (isMouseOn)
     {
-        rightTwoP.changeToDark();
-        if(event.type==sf::Event::MouseButtonPressed&&event.mouseButton.button==sf::Mouse::Left)
+        isTwoIncreaseOn = true;
+        if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
-            nextSecond();   
+            nextSecond();
             loadRightTextFromFile();
         }
+        return 2;
     }
     else
     {
-        rightTwoP.changeToLight();
+        isTwoIncreaseOn = false;
     }
 
     return 2;
@@ -434,13 +526,40 @@ void HighScore::draw(sf::RenderWindow& mWindow)
     mWindow.draw(secondBound);
 
     mWindow.draw(modeOneP);
-    leftOneP.draw(mWindow);
-    rightOneP.draw(mWindow);
+    mWindow.draw(oneIncreaseBound);
+    if(isOneIncreaseOn)
+    {
+        mWindow.draw(oneIncreaseTriangleDark);
+    }
+    else mWindow.draw(oneIncreaseTriangle);
+    mWindow.draw(oneDecreaseBound);
+    if(isOneDecreaseOn)
+    {
+        mWindow.draw(oneDecreaseTriangleDark);
+    }
+    else mWindow.draw(oneDecreaseTriangle);
 
     mWindow.draw(modeTwoP);
-    leftTwoP.draw(mWindow);
-    rightTwoP.draw(mWindow);
+    mWindow.draw(twoIncreaseBound);
+    if(isTwoIncreaseOn)
+    {
+        mWindow.draw(twoIncreaseTriangleDark);
+    }
+    else mWindow.draw(twoIncreaseTriangle);
+    mWindow.draw(twoDecreaseBound);
+    if(isTwoDecreaseOn)
+    {
+        mWindow.draw(twoDecreaseTriangleDark);
+    }
+    else mWindow.draw(twoDecreaseTriangle);
 
     mWindow.draw(returnBound);
-    mWindow.draw(returnImageSprite);
+    if(isReturnOn)
+    {
+        mWindow.draw(returnImageDarkSprite);
+    }
+    else
+    {
+        mWindow.draw(returnImageSprite);
+    }
 }

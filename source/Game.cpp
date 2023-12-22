@@ -12,6 +12,10 @@ Game::Game() : mWindow(sf::VideoMode(Statistic::SCREEN_WIDTH, Statistic::SCREEN_
     mBackgroundMusic.play();
 }
 
+Game::~Game() {
+    mBackgroundMusic.stop();    
+}
+
 void Game::loadFonts() {
     Resources::fonts.load(Fonts::ComfortaaRegular, "media/fonts/Comfortaa/Comfortaa-Regular.ttf");
     Resources::fonts.load(Fonts::FiraSansRegular, "media/fonts/FiraSans-Regular.ttf");
@@ -110,18 +114,29 @@ void Game::loadSounds() {
     Resources::sounds.load(Sounds::TrafficSound, "media/sounds/TrafficSound3.wav");
     Resources::sounds.load(Sounds::BackgroundMusic, "media/sounds/BackgroundMusic3.wav");
     Resources::sounds.load(Sounds::HitSound, "media/sounds/HitSound1.wav");
+
+    GameSounds::HIT_SOUND = sf::Sound(Resources::sounds[Sounds::HitSound]);
+    GameSounds::HIT_SOUND.setVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
+    GameSounds::JUMP_SOUND = sf::Sound(Resources::sounds[Sounds::JumpSound]);
+    GameSounds::JUMP_SOUND.setVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
+    GameSounds::TRAIN_SOUND = sf::Sound(Resources::sounds[Sounds::TrainAlarmSound]);
+    GameSounds::TRAIN_SOUND.setVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
+    GameSounds::TRAFFIC_SOUND = sf::Sound(Resources::sounds[Sounds::TrafficSound]);
+    GameSounds::TRAFFIC_SOUND.setVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
+    GameSounds::TRAFFIC_SOUND.setLoop(true);
 }
 
 void Game::registerStates() {
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);
-    mStateStack.registerState<MenuState>(States::Menu);
+    mStateStack.registerState<MenuState>(States::MenuState);
     mStateStack.registerState<EndState>(States::End);
+    mStateStack.registerState<Menu>(States::Menu);
 }
 
 void Game::run() {
     registerStates();
-    mStateStack.pushState(States::Game);
+    mStateStack.pushState(States::Menu);
     sf::Clock clock;
     sf::Time timeSinceLastUpdate = sf::Time::Zero;
     sf::Time TimePerFrame = sf::seconds(1.f / 60.f);
@@ -140,11 +155,7 @@ void Game::run() {
 void Game::processEvents() {
     sf::Event event;
     while (mWindow.pollEvent(event)) {
-        if (Statistic::IS_GAME_OVER) {
-            mMenu.processEvent(event, mWindow);
-        }
-        else
-             mStateStack.handleEvent(event);
+        mStateStack.handleEvent(event);
         if (event.type == sf::Event::Closed) {
             mWindow.close();
         }
@@ -152,12 +163,7 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time dt) {
-    if (Statistic::IS_GAME_OVER) {
-        mMenu.update(dt);
-    }
-    else 
-        mStateStack.update(dt);
-
+    mStateStack.update(dt);
     if (mCurrentVolume != Statistic::MUSIC_SOUND_VOLUME) {
         mCurrentVolume = Statistic::MUSIC_SOUND_VOLUME;
         mBackgroundMusic.setVolume(mCurrentVolume);
@@ -166,13 +172,6 @@ void Game::update(sf::Time dt) {
 
 void Game::render() {
     mWindow.clear();
-    if(Statistic::IS_GAME_OVER)
-    {
-        mMenu.draw(mWindow);
-    }
-    else 
-    {
-        mStateStack.draw();
-    }
+    mStateStack.draw();
     mWindow.display();
 }

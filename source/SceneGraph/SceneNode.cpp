@@ -111,3 +111,8 @@ void SceneNode::setEnvSoundVolume(float volume) {
     setCurrentEnvSoundVolume(volume);
     for (const auto& child : mChildren) child->setEnvSoundVolume(volume);
 }
+
+void SceneNode::stopTotalEnvSound() {
+    stopEnvSound();
+    for (const auto& child : mChildren) child->stopTotalEnvSound();
+}
