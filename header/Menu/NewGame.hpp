@@ -13,7 +13,6 @@ class NewGame
 {
 public:
     NewGame();
-    
     sf::Vector2f posBackGroundLight();
     sf::Vector2f posBackGroundLight2();
     void setPosBackgroundLight(sf::Vector2f pos);

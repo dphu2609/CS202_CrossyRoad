@@ -7,16 +7,20 @@
 #include <Menu/HighScore.hpp>
 #include <Menu/Setting.hpp>
 #include <Menu/Instruction.hpp>
+#include <State/StateStack.hpp>
 
-class Menu
+class Menu : public State
 {
 public:
-    Menu(); 
+    Menu(StateStack &stack, sf::RenderWindow &window);
     bool playState();
     void returnFromEscapeKey();
-    void update(sf::Time dt);
-    void processEvent(sf::Event& event,sf::RenderWindow& mWindow);
-    void draw(sf::RenderWindow& mWindow);
+    virtual void buildScene();
+    virtual void draw();
+    virtual void update(sf::Time dt);
+    virtual void handleEvent(sf::Event &event);
+private:
+    sf::RenderWindow &mWindow;
 private:
     int state;
     MainScreen mainscreen;
@@ -38,6 +42,8 @@ private:
     bool lightScreen;
     sf::Time mTime;
     sf::Time timePerFrame;
+
+    bool mIsGameOver = true;
 };
 
 
