@@ -344,7 +344,7 @@ void Character::setDeadByLeftVehicleAnimation(sf::Time dt) {
     mLeftState.setRotation(mCurrentAngle);
     mRightState.setRotation(mCurrentAngle);
     mCurrentAngle -= 90 / 5;
-    if (mCurrentAngle < -90) {
+    if (mCurrentAngle < - 110) {
         mIsDead = true;
     }   
 }
@@ -361,7 +361,7 @@ void Character::setDeadByRightVehicleAnimation(sf::Time dt) {
     mLeftState.setRotation(mCurrentAngle);
     mRightState.setRotation(mCurrentAngle);
     mCurrentAngle += 90 / 5;
-    if (mCurrentAngle > 90) {
+    if (mCurrentAngle > 110) {
         mIsDead = true;
     }   
 }

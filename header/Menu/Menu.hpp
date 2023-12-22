@@ -9,16 +9,16 @@
 #include <Menu/Instruction.hpp>
 #include <State/StateStack.hpp>
 
-class Menu : public State
+class Menu : public State // Phu have changed here
 {
 public:
-    Menu(StateStack &stack, sf::RenderWindow &window);
+    Menu(StateStack &stack, sf::RenderWindow &window); // Phu have changed here
     bool playState();
     void returnFromEscapeKey();
-    virtual void buildScene();
-    virtual void draw();
-    virtual void update(sf::Time dt);
-    virtual void handleEvent(sf::Event &event);
+    virtual void buildScene(); // Phu have changed here
+    virtual void draw(); // Phu have changed here
+    virtual void update(sf::Time dt); // Phu have changed here
+    virtual void handleEvent(sf::Event &event); // Phu have changed here
 private:
     sf::RenderWindow &mWindow;
 private:
@@ -43,7 +43,7 @@ private:
     sf::Time mTime;
     sf::Time timePerFrame;
 
-    bool mIsGameOver = true;
+    bool mIsGameOver = true; // Phu have changed here
 };
 
 

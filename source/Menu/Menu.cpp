@@ -1,12 +1,12 @@
 #include <Menu/Menu.hpp>
 
-Menu::Menu(StateStack &stack, sf::RenderWindow &window) : State(stack, window), mWindow(window)
+Menu::Menu(StateStack &stack, sf::RenderWindow &window) : State(stack, window), mWindow(window) // Phu have changed here
 {   
     buildScene();
 }
 
 void Menu::buildScene() {
-    mWindow.setView(mWindow.getDefaultView());
+    mWindow.setView(mWindow.getDefaultView()); // Phu have changed here
     state = 0;
     isPlay = false;
     isBackgroundLight = true;
@@ -156,12 +156,12 @@ void Menu::update(sf::Time dt)
         }
     }
     
-    if (Statistic::IS_GAME_OVER == false && mIsGameOver == true)
+    if (Statistic::IS_GAME_OVER == false && mIsGameOver == true) // Phu have changed here
     {
         mIsGameOver = false;
         this->requestStateClear();
         this->requestStackPush(States::Game);
-    }
+    } // Phu have changed here
 }
 
 void Menu::draw()
