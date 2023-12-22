@@ -2,6 +2,7 @@
 #define RESOURCEHOLDER_HPP
 
 #include <bits/stdc++.h>
+#include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 
 namespace RoadTextures
@@ -74,7 +75,18 @@ namespace MenuTextures {
         BackGroundLight,
         BackGroundDark,
         Return,
-        ReturnDark,
+        ReturnDark
+    };
+};
+
+namespace Sounds {
+    enum ID {
+        JumpSound,
+        CarSound,
+        TrainAlarmSound,
+        TrainSound,
+        TrafficSound,
+        BackgroundMusic
     };
 };
 

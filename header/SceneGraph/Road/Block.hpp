@@ -28,6 +28,7 @@ public:
     sf::FloatRect getBoundingRect() const { 
         return getWorldTransform().transformRect(mSprite.getGlobalBounds()); 
     }
+    Type getType() const { return mType; }
 private:    
     Type mType;
     sf::Sprite mSprite;

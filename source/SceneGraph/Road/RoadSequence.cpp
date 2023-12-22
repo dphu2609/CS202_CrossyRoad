@@ -13,11 +13,16 @@ RoadSequence::RoadSequence(sf::View &view) : mCurrentRoadIndex(0), mView(view) {
 
     mCurrentRoadIndex = 43;
     std::shared_ptr<Character> character = std::make_shared<Character>(mView, mCurrentRoadIndex);
-    character->setPosition(0, - Statistic::ROAD_HEIGHT * 3 - 20);
+    character->setPosition(22.f, - Statistic::ROAD_HEIGHT * 3 - 20);
     character->setScale(Statistic::CHARACTER_SIZE.x / character->getSpriteBounding().width, Statistic::CHARACTER_SIZE.y / character->getSpriteBounding().height);
     mCharacter = character;
     this->attachChild(std::move(character));
     this->moveChildToIndex(*mCharacter, mCurrentRoadIndex);
+
+    mTrafficSound.setBuffer(Resources::sounds[Sounds::TrafficSound]);
+    mTrafficSound.setLoop(true);
+    mTrafficSound.play();
+
 }   
 
 void RoadSequence::updateCurrent(sf::Time dt, CommandQueue &commands) {
@@ -79,9 +84,14 @@ void RoadSequence::drawCurrent(sf::RenderTarget &target, sf::RenderStates states
 
 void RoadSequence::gameControl(sf::Time dt) {
     if (mRoads[mCurrentRoadIndex - 1]->isHitDangerousObjects(mCharacter->getBoundingRect())) {
-        Statistic::IS_GAME_OVER = true;
-        // Statistic::IS_GAME_OVER = true;
-    } else if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
+        std::cout << "Hit dangerous objects" << std::endl;
+        return;
+    }
+    if(mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River && (mRoads[mCurrentRoadIndex - 2]->getRoadType() != RoadType::River || mRoads[mCurrentRoadIndex]->getRoadType() != RoadType::River)) {
+        std::cout << "Out of river" << std::endl;
+        mCharacter->setPositionAfterJumpOutRiver();
+    }
+    if (mRoads[mCurrentRoadIndex - 1]->getRoadType() == RoadType::River) {
         mCharacter->move(dt.asSeconds() * mRoads[mCurrentRoadIndex - 1]->getVelocity());
     }
 
@@ -114,6 +124,15 @@ void RoadSequence::gameControl(sf::Time dt) {
     } else {
         mCharacter->canMoveDown = true;
     }
+
+    soundController();
+}
+
+void RoadSequence::soundController() {
+    for (int i = 1; i <= 10; i++) {
+        mRoads[mCurrentRoadIndex - i]->activateSounds();
+    }
+    mRoads[mCurrentRoadIndex]->deactivateSounds();
 }
 
 int RoadSequence::getPlayerScore() {
@@ -121,4 +140,91 @@ int RoadSequence::getPlayerScore() {
         mPlayerScore = mCharacter->getLanePassed();
     }
     return mPlayerScore;
+}
+
+void RoadSequence::writeData(std::ofstream &file) {
+    file << this->getPosition().x << " " << this->getPosition().y << std::endl;
+    file << mCurrentRoadIndex << std::endl;
+    file << mRoads.size() << std::endl;
+    
+    for (int i = 0; i < mCurrentRoadIndex; i++) {
+        file << mRoads[i]->getRoadType() << std::endl;
+        mRoads[i]->writeData(file);
+    }
+    mCharacter->writeData(file);
+
+    for (int i = mCurrentRoadIndex; i < mRoads.size(); i++) {
+        file << mRoads[i]->getRoadType() << std::endl;
+        mRoads[i]->writeData(file);
+    }
+}
+
+void RoadSequence::readData(std::ifstream &file) {
+    float x, y;
+    file >> x >> y;
+    this->setPosition(x, y);
+    file >> mCurrentRoadIndex;
+    int size;
+    file >> size;
+    mRoads.clear();
+    this->clearChildren();
+    for (int i = 0; i < mCurrentRoadIndex; i++) {
+        int type;
+        file >> type;
+        std::shared_ptr<Grass> road;
+        std::shared_ptr<VehicleLane> lane;
+        std::shared_ptr<River> river;
+
+        switch(type) {
+            case RoadType::Grass:
+                road = std::make_shared<Grass>(file);
+                mRoads.push_back(road);
+                this->attachChild(std::move(road));
+                break;
+            case RoadType::VehicleLane:
+                lane = std::make_shared<VehicleLane>(file);
+                mRoads.push_back(lane);
+                this->attachChild(std::move(lane));
+                break;
+            case RoadType::River:
+                river = std::make_shared<River>(file);
+                mRoads.push_back(river);
+                this->attachChild(std::move(river));
+                break;
+        };
+    }
+
+    std::shared_ptr<Character> character = std::make_shared<Character>(mView, file);
+    mCharacter = character;
+    this->attachChild(std::move(character));
+
+    for (int i = mCurrentRoadIndex; i < size; i++) {
+        int type;
+        file >> type;
+        std::shared_ptr<Grass> road;
+        std::shared_ptr<VehicleLane> lane;
+        std::shared_ptr<River> river;
+
+        switch(type) {
+            case RoadType::Grass:
+                road = std::make_shared<Grass>(file);
+                mRoads.push_back(road);
+                this->attachChild(std::move(road));
+                break;
+            case RoadType::VehicleLane:
+                lane = std::make_shared<VehicleLane>(file);
+                mRoads.push_back(lane);
+                this->attachChild(std::move(lane));
+                break;
+            case RoadType::River:
+                river = std::make_shared<River>(file);
+                mRoads.push_back(river);
+                this->attachChild(std::move(river));
+                break;
+        };
+    }
+}
+
+void RoadSequence::setCurrentEnvSoundVolume(float volume) {
+    mTrafficSound.setVolume(volume);
 }

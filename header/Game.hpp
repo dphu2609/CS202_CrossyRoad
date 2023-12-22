@@ -2,10 +2,12 @@
 #define GAME_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <bits/stdc++.h>
 #include <State/StateStack.hpp>
 #include <GlobalVar.hpp>
 #include <Menu/Menu.hpp>
+
 
 class Game {
 public:
@@ -19,12 +21,14 @@ private:
     void loadTextures();
     void loadGifs();
     void loadFonts();
-    void loadMusics() {}
+    void loadSounds();
     void registerStates();
 private:
     sf::RenderWindow mWindow;
     StateStack mStateStack;
     Menu mMenu;
+private:
+    sf::Sound mBackgroundMusic;
 };
 
 #endif

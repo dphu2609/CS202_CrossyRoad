@@ -2,6 +2,7 @@
 #define GLOBAL_VAR_HPP
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <Resources/ResourceHolder.hpp>
 #include <Resources/GifHolder.hpp>
 
@@ -11,6 +12,8 @@ namespace Resources
     extern ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;
     extern ResourceHolder<sf::Texture, RoadTextures::ID> roadTextures;
     extern ResourceHolder<sf::Texture, MenuTextures::ID> menuTextures;
+    extern ResourceHolder<sf::SoundBuffer, Sounds::ID> sounds;
+
     extern GifHolder gifsHolder;
     // add more resource holder here
 };
@@ -80,8 +83,7 @@ namespace Statistic
     extern float SCREEN_SPEED_INCREASE;
 
     extern bool IS_GAME_OVER;
-
-    extern bool IS_EXIT_TO_MENU;
+    extern bool IS_LOAD_FROM_FILE;
 
     extern std::string LOAD_FILE_NAME;
 
