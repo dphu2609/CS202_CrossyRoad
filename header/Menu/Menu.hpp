@@ -20,7 +20,7 @@ public:
     virtual void update(sf::Time dt); // Phu have changed here
     virtual void handleEvent(sf::Event &event); // Phu have changed here
 private:
-    sf::RenderWindow &mWindow;
+    sf::RenderWindow &mWindow; // Phu have changed here
 private:
     int state;
     MainScreen mainscreen;
