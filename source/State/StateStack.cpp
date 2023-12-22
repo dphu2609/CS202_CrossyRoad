@@ -26,6 +26,8 @@ void StateStack::registerState(States::ID stateID) {
 template void StateStack::registerState<GameState>(States::ID stateID);
 template void StateStack::registerState<PauseState>(States::ID stateID);
 template void StateStack::registerState<MenuState>(States::ID stateID);
+template void StateStack::registerState<EndState>(States::ID stateID);
+template void StateStack::registerState<Menu>(States::ID stateID);
 
 State::Ptr StateStack::createState(States::ID stateID) {
     auto found = mFactories.find(stateID);
@@ -81,5 +83,5 @@ void StateStack::applyPendingChanges() {
 }
 
 bool StateStack::isEmpty() const {
-    return mStack.empty();
+    return mStack.size() == 0;
 }

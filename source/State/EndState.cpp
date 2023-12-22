@@ -36,7 +36,7 @@ void EndState::handleEvent(sf::Event &event) {
 
 void EndState::buildScene() {
 
-   sf::Sprite cry1(Resources::characterTextures[CharacterTextures::CharacterCry1]);
+    sf::Sprite cry1(Resources::characterTextures[CharacterTextures::CharacterCry1]);
     cry1.setOrigin(cry1.getGlobalBounds().width / 2.f, cry1.getGlobalBounds().height / 2.f);
     cry1.setPosition(mWindow.getView().getCenter() + sf::Vector2f(450, 0));
     cry1.setScale(0.5f, 0.5f);
@@ -82,9 +82,8 @@ void EndState::buildScene() {
     
     std::function<void()> backToMenuAction = [&] () {
         Statistic::IS_GAME_OVER = true;
-        std::cout<<"Back To Menu "<<Statistic::IS_GAME_OVER<<std::endl;
         requestStateClear();
-        requestStackPush(States::Game);
+        requestStackPush(States::Menu);
     };
 
     GUI::Component *backToMenuButton = new GUI::Button(

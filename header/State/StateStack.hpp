@@ -13,7 +13,8 @@ namespace States {
         HighScore,
         Game,
         Pause,
-        GameOver
+        MenuState,
+        End
     };
 };
 
@@ -79,9 +80,15 @@ private:
     std::vector<State::Ptr> mStack;
     std::vector<PendingChange> mPendingList;
     std::map<States::ID, std::function<State::Ptr()>> mFactories;
+public:
+    int getSize() const {
+        return mStack.size();
+    }
 };
 
 #include <State/GameState/GameState.hpp>  
 #include <State/PauseState.hpp>
 #include <State/MenuState.hpp>
+#include <State/EndState.hpp>
+#include <Menu/Menu.hpp>
 #endif

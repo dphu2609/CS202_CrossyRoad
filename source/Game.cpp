@@ -70,6 +70,9 @@ void Game::loadTextures() {
     Resources::menuTextures.load(MenuTextures::Return, "media/images/menu/Back1.png");
     Resources::menuTextures.load(MenuTextures::ReturnDark, "media/images/menu/Back2.png");
 
+    Resources::roadTextures.load(RoadTextures::Background, "media/images/background/end1.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterCry1, "media/images/characters/cry1.png");
+    Resources::characterTextures.load(CharacterTextures::CharacterCry2, "media/images/characters/cry2.png");
 }
 void Game::loadGifs() {
     std::vector<sf::Sprite> characterSkin1Backward;
@@ -106,12 +109,15 @@ void Game::loadSounds() {
     Resources::sounds.load(Sounds::TrainAlarmSound, "media/sounds/TrainSound2.wav");
     Resources::sounds.load(Sounds::TrafficSound, "media/sounds/TrafficSound3.wav");
     Resources::sounds.load(Sounds::BackgroundMusic, "media/sounds/BackgroundMusic3.wav");
+    Resources::sounds.load(Sounds::HitSound, "media/sounds/HitSound1.wav");
 }
 
 void Game::registerStates() {
     mStateStack.registerState<GameState>(States::Game);
     mStateStack.registerState<PauseState>(States::Pause);
-    mStateStack.registerState<MenuState>(States::Menu);
+    mStateStack.registerState<MenuState>(States::MenuState);
+    mStateStack.registerState<EndState>(States::End);
+    mStateStack.registerState<Menu>(States::Menu);
 }
 
 void Game::run() {
@@ -144,17 +150,14 @@ void Game::processEvents() {
 
 void Game::update(sf::Time dt) {
     mStateStack.update(dt);
+    if (mCurrentVolume != Statistic::MUSIC_SOUND_VOLUME) {
+        mCurrentVolume = Statistic::MUSIC_SOUND_VOLUME;
+        mBackgroundMusic.setVolume(mCurrentVolume);
+    }
 }
 
 void Game::render() {
     mWindow.clear();
-    if(Statistic::IS_GAME_OVER)
-    {
-        mMenu.draw(mWindow);
-    }
-    else 
-    {
-        mStateStack.draw();
-    }
+    mStateStack.draw();
     mWindow.display();
 }
