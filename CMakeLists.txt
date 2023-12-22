@@ -31,7 +31,17 @@ set(SOURCES ${MAIN_SOURCES})
 
 add_executable(CrossyRoad ${SOURCES} ${GUI} ${SCENEGRAPH} ${ROAD} ${STATE} ${GAMESTATE} ${RESOURCES} ${MENU})
 target_link_libraries(CrossyRoad PRIVATE sfml-system sfml-window sfml-graphics sfml-audio)
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+#target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+
+add_custom_command(TARGET CrossyRoad POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/media"
+        $<TARGET_FILE_DIR:CrossyRoad>/media)
+
+add_custom_command(TARGET CrossyRoad POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${PROJECT_SOURCE_DIR}/data"
+        $<TARGET_FILE_DIR:CrossyRoad>/data)
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})
