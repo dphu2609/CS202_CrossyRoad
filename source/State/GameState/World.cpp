@@ -93,6 +93,7 @@ void World::draw() {
 void World::scoreControl() {
     if (mRoadSequence->getPlayerScore() != mPlayerScore) {
         mPlayerScore = mRoadSequence->getPlayerScore();
+        Statistic::PLAYER_SCORE = mPlayerScore;
         mScoreText->setString(std::to_string(mPlayerScore));
     }
 }

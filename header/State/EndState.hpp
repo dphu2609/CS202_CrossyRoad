@@ -12,12 +12,15 @@
 class EndState : public State {
 public:
     EndState(StateStack &stack, sf::RenderWindow &window);
+    ~EndState();
     virtual void draw();
     virtual void update(sf::Time dt);
     virtual void handleEvent(sf::Event &event);
     virtual void buildScene();
 private:
     CommandQueue mCommandQueue;
+    void saveHighScore(const std::string &name);
+
 private:
     sf::RenderWindow &mWindow;
     GUI::Container mGUIContainer;
@@ -30,6 +33,7 @@ private:
     sf::Time mChangeTime;
     sf::Text mEndText;
     sf::Sprite mBackground;
+    sf::Text HighScore;
 };
 
 #endif

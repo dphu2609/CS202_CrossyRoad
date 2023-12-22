@@ -1,4 +1,5 @@
 #include <State/EndState.hpp>
+#include "GlobalVar.hpp"
 
 EndState::EndState(StateStack &stack, sf::RenderWindow &window) : State(stack, window), mWindow(window) {
     buildScene();
@@ -12,6 +13,7 @@ void EndState::draw() {
     mWindow.draw(mBackground);
     mWindow.draw(mGUIContainer);
     mWindow.draw(mEndText);
+    mWindow.draw(HighScore);
     mWindow.draw(CharacterSprites[cur]);
 }
 
@@ -36,15 +38,16 @@ void EndState::handleEvent(sf::Event &event) {
 
 void EndState::buildScene() {
 
+    saveHighScore("data/HighScore.txt");
     sf::Sprite cry1(Resources::characterTextures[CharacterTextures::CharacterCry1]);
     cry1.setOrigin(cry1.getGlobalBounds().width / 2.f, cry1.getGlobalBounds().height / 2.f);
-    cry1.setPosition(mWindow.getView().getCenter() + sf::Vector2f(450, 0));
+    cry1.setPosition(mWindow.getView().getCenter() + sf::Vector2f(450, 10 + 30));
     cry1.setScale(0.5f, 0.5f);
     CharacterSprites.push_back(cry1);
 
     sf::Sprite cry2(Resources::characterTextures[CharacterTextures::CharacterCry2]);
     cry2.setOrigin(cry2.getGlobalBounds().width / 2.f, cry2.getGlobalBounds().height / 2.f);
-    cry2.setPosition(mWindow.getView().getCenter() + sf::Vector2f(450, 0));
+    cry2.setPosition(mWindow.getView().getCenter() + sf::Vector2f(450, 10 + 30));
     cry2.setScale(0.5f, 0.5f);
     CharacterSprites.push_back(cry2);
 
@@ -57,7 +60,16 @@ void EndState::buildScene() {
    mEndText.setOutlineColor(sf::Color::Black);
    mEndText.setOutlineThickness(2);
    mEndText.setOrigin(mEndText.getLocalBounds().width / 2.f,mEndText.getLocalBounds().height / 2.f);
-   mEndText.setPosition(mWindow.getView().getCenter() + sf::Vector2f(0, -350));
+   mEndText.setPosition(mWindow.getView().getCenter() + sf::Vector2f(0, -350 + 30));
+
+   HighScore.setFont(Resources::fonts[Fonts::RobotoRegular]);
+    HighScore.setString("Your Score: " + std::to_string(Statistic::PLAYER_SCORE));
+    HighScore.setCharacterSize(60);
+    HighScore.setFillColor(sf::Color::White);
+    HighScore.setOutlineColor(sf::Color::Black);
+    HighScore.setOutlineThickness(2);
+    HighScore.setOrigin(HighScore.getLocalBounds().width / 2.f,HighScore.getLocalBounds().height / 2.f);
+    HighScore.setPosition(mWindow.getView().getCenter() + sf::Vector2f(0, -200 + 30));
 
     std::function<void()> restartAction = [&] () {
         Statistic::IS_GAME_OVER = false;
@@ -73,7 +85,7 @@ void EndState::buildScene() {
     GUI::Component *restartButton = new GUI::Button(
         restartAction, 
         sf::Vector2f(250, 50), 
-        mWindow.getView().getCenter() + sf::Vector2f(-125, -145),
+        mWindow.getView().getCenter() + sf::Vector2f(-125, -95 + 30),
         Resources::fonts[Fonts::ComfortaaRegular], "Try Again", 
         continueButtonTextColor, 
         continueButtonBackgroundColor, 
@@ -89,7 +101,7 @@ void EndState::buildScene() {
     GUI::Component *backToMenuButton = new GUI::Button(
         backToMenuAction, 
         sf::Vector2f(250, 50), 
-        mWindow.getView().getCenter() + sf::Vector2f(-125, -65),
+        mWindow.getView().getCenter() + sf::Vector2f(-125, -15 + 30),
         Resources::fonts[Fonts::ComfortaaRegular], "Main Menu", 
         continueButtonTextColor,
         continueButtonBackgroundColor,
@@ -105,7 +117,7 @@ void EndState::buildScene() {
     GUI::Component *exitButton = new GUI::Button(
         exitAction, 
         sf::Vector2f(250, 50), 
-        mWindow.getView().getCenter() + sf::Vector2f(-125, 15),
+        mWindow.getView().getCenter() + sf::Vector2f(-125, 65 + 30),
         Resources::fonts[Fonts::ComfortaaRegular], "Exit", 
         continueButtonTextColor,
         continueButtonBackgroundColor,
@@ -115,3 +127,36 @@ void EndState::buildScene() {
     mGUIContainer.pack(backToMenuButton);
     mGUIContainer.pack(exitButton);
 }
+
+EndState::~EndState()
+{
+   
+}
+
+void EndState::saveHighScore(const std::string &name)
+{
+    std::ifstream fin(name);
+    std::vector<int> scores;
+    int x; 
+    fin >> x;
+    while(!fin.eof()) {
+        scores.push_back(x);
+        fin >> x;
+    }
+
+    fin.close();
+    for(auto &x : scores) {
+        if(x == Statistic::PLAYER_SCORE) return;
+    }
+    
+    scores.push_back(Statistic::PLAYER_SCORE);
+    sort(scores.begin(), scores.end(), std::greater<int>());
+    if(scores.size() > 5) scores.pop_back();
+
+    std::ofstream fout(name);
+    for(int i = 0; i < scores.size(); i++) {
+        fout << scores[i] << "\n";
+    }
+    fout.close();
+}
+
