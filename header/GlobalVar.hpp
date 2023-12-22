@@ -100,4 +100,11 @@ namespace Statistic
     extern bool IS_GAME_PAUSE;
 };
 
+namespace GameSounds {
+    extern sf::Sound HIT_SOUND;
+    extern sf::Sound JUMP_SOUND;   
+    extern sf::Sound TRAFFIC_SOUND;
+    extern sf::Sound TRAIN_SOUND; 
+};
+
 #endif

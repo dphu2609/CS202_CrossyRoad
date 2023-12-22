@@ -9,8 +9,13 @@ Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurre
         mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
     }
 
-    mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
-    mHitSound.setBuffer(Resources::sounds[Sounds::HitSound]);
+    GameSounds::JUMP_SOUND.setBuffer(Resources::sounds[Sounds::JumpSound]);
+    GameSounds::HIT_SOUND.setBuffer(Resources::sounds[Sounds::HitSound]);
+}
+
+Character::~Character() {
+    // GameSounds::JUMP_SOUND.stop();
+    // GameSounds::HIT_SOUND.stop();
 }
 
 void Character::setSkin(int skin) {
@@ -161,7 +166,7 @@ void Character::updateIfOutOfScreen(sf::Time dt) {
     sf::Vector2f globalPosition = this->getWorldTransform().transformPoint(this->getPosition());
 
     if (globalPosition.y - mView.getCenter().y > 550) {
-        mHitSound.play();
+        GameSounds::HIT_SOUND.play();
         mIsDead = true;
     }
 }
@@ -241,7 +246,7 @@ bool Character::moveCharacter(sf::Time dt, int direction) {
         mDirection = direction;
         mCurrentStep += mSpeed;
         mCurrentRoadIndex += (direction < 2 ? (direction == 0 ? -1 : 1) : 0);
-        mJumpSound.play();
+        GameSounds::JUMP_SOUND.play();
         return mIsMoving = true;
     }
     else if (mCurrentStep < (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL)) {
@@ -304,35 +309,41 @@ Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
     for (int i = 0; i < 19; i++) {
         mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
     }
-    mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
-    mHitSound.setBuffer(Resources::sounds[Sounds::HitSound]);
     readData(file);
 }  
 
 void Character::setCurrentEnvSoundVolume(float volume) {
-    mJumpSound.setVolume(volume);
+    GameSounds::JUMP_SOUND.setVolume(volume);
+}
+
+void Character::stopEnvSound() {
+    GameSounds::JUMP_SOUND.stop();
 }
 
 void Character::setDeadByLeftVehicle() {
-    mHitSound.play();
+    GameSounds::HIT_SOUND.play();
     mIsDeathAnimationExecuting = true;
     mIsDeadByLeftVehicle = true;
 }
 
 void Character::setDeadByRightVehicle() {
-    mHitSound.play();
+    GameSounds::HIT_SOUND.play();
     mIsDeathAnimationExecuting = true;
     mIsDeadByRightVehicle = true;
 }
 
 
 void Character::setDeadByRiver() {
-    mHitSound.play();
+    GameSounds::HIT_SOUND.play();
     mIsDeathAnimationExecuting = true;
     mIsDeadByRiver = true;
 }
 
 void Character::setDeadByLeftVehicleAnimation(sf::Time dt) {
+    if (mIsDelayClockStarted && mDelayClock.getElapsedTime().asSeconds() > 0.3) {
+        mIsDead = true;
+    }
+    if (mIsDelayClockStarted) return;
     if (mCurrentAngle == 0) {
         while (!mKeyInput.empty()) {
             mKeyInput.pop();
@@ -344,12 +355,17 @@ void Character::setDeadByLeftVehicleAnimation(sf::Time dt) {
     mLeftState.setRotation(mCurrentAngle);
     mRightState.setRotation(mCurrentAngle);
     mCurrentAngle -= 90 / 5;
-    if (mCurrentAngle < - 110) {
-        mIsDead = true;
+    if (mCurrentAngle < -90) {
+        mIsDelayClockStarted = true;
+        mDelayClock.restart();
     }   
 }
 
 void Character::setDeadByRightVehicleAnimation(sf::Time dt) {
+    if (mIsDelayClockStarted && mDelayClock.getElapsedTime().asSeconds() > 0.3) {
+        mIsDead = true;
+    }
+    if (mIsDelayClockStarted) return;
     if (mCurrentAngle == 0) {
         while (!mKeyInput.empty()) {
             mKeyInput.pop();
@@ -361,19 +377,25 @@ void Character::setDeadByRightVehicleAnimation(sf::Time dt) {
     mLeftState.setRotation(mCurrentAngle);
     mRightState.setRotation(mCurrentAngle);
     mCurrentAngle += 90 / 5;
-    if (mCurrentAngle > 110) {
-        mIsDead = true;
+    if (mCurrentAngle > 90) {
+        mIsDelayClockStarted = true;
+        mDelayClock.restart();
     }   
 }
 
 void Character::setDeadByRiverAnimation(sf::Time dt) {
+    if (mIsDelayClockStarted && mDelayClock.getElapsedTime().asSeconds() > 0.3) {
+        mIsDead = true;
+    }
+    if (mIsDelayClockStarted) return;
     mBackwardState.setOpacity(mCurrentOpacity);
     mForwardState.setOpacity(mCurrentOpacity);
     mLeftState.setOpacity(mCurrentOpacity);
     mRightState.setOpacity(mCurrentOpacity);
     mCurrentOpacity -= 0.1;
     if (mCurrentOpacity <= 0) {
-        mIsDead = true;
+        mIsDelayClockStarted = true;
+        mDelayClock.restart();
     }
 }
 

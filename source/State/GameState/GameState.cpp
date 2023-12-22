@@ -18,9 +18,9 @@ void GameState::update(sf::Time dt) {
         mWorld.setEnvSoundVolume(mEnvVolume);
     }
     if (mWorld.isEndGame()) {
-        mWorld.setEnvSoundVolume(0);
         requestStateClear();
         requestStackPush(States::End);
+        mWorld.stopEnvSound();
     }
     if (!Statistic::IS_GAME_PAUSE && !mIsGamePause) {
         mIsGamePause = true;

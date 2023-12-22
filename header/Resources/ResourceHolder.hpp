@@ -93,7 +93,7 @@ namespace MenuTextures {
         BackGroundLight,
         BackGroundDark,
         Return,
-        ReturnDark,
+        ReturnDark
     };
 };
 

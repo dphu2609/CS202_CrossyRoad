@@ -8,7 +8,7 @@
 
 class Grass : public Road {
 public:
-    Grass();
+    Grass(bool isCreateObject = true);
     Grass(std::ifstream &file);
     virtual bool isCollide(const sf::FloatRect &rect) const;
     virtual bool isBlock(sf::Vector2f position);
