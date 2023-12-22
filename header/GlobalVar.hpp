@@ -96,6 +96,8 @@ namespace Statistic
 
     extern float ENVIROMENT_SOUND_VOLUME;
     extern float MUSIC_SOUND_VOLUME;
+
+    extern bool IS_GAME_PAUSE;
 };
 
 #endif

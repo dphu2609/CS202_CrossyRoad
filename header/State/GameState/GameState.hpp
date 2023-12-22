@@ -19,6 +19,7 @@ private:
     // Player &mPlayer;
     GUI::Container mGUIContainer;
     float mEnvVolume = 100;
+    bool mIsGamePause = false;
 };
 
 #endif

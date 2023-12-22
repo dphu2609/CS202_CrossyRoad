@@ -2,7 +2,6 @@
 
 GameState::GameState(StateStack &stack, sf::RenderWindow &window)
     : State(stack, window), mWorld(window) {
-    // mWorld.setEnvSoundVolume(70);
 }
 
 void GameState::draw() {
@@ -23,6 +22,10 @@ void GameState::update(sf::Time dt) {
         requestStateClear();
         requestStackPush(States::End);
     }
+    if (!Statistic::IS_GAME_PAUSE && !mIsGamePause) {
+        mIsGamePause = true;
+        mWorld.setEnvSoundVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
+    }
 }
 
 void GameState::handleEvent(sf::Event &event) {
@@ -32,6 +35,8 @@ void GameState::handleEvent(sf::Event &event) {
         file.open(Statistic::LOAD_FILE_NAME);
         mWorld.writeData(file);
         file.close();
+        Statistic::IS_GAME_PAUSE = true;
+        mWorld.setEnvSoundVolume(0);
         requestStackPush(States::Pause);
     }
 }

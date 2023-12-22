@@ -81,4 +81,5 @@ namespace Statistic {
     float MUSIC_SOUND_VOLUME = 100.f;
 
     bool IS_EXIT_TO_MENU = true;
+    bool IS_GAME_PAUSE = false;
 };
