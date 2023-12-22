@@ -47,8 +47,6 @@ void PauseState::buildScene() {
         continueButtonBackgroundColor, 
         continueButtonOutlineColor
     );
-<<<<<<< Updated upstream
-=======
     
     std::function<void()> backToMenuAction = [&] () {
         Statistic::IS_GAME_OVER = true;
@@ -98,6 +96,5 @@ void PauseState::buildScene() {
         continueButtonBackgroundColor,
         continueButtonOutlineColor
     );
->>>>>>> Stashed changes
     mGUIContainer.pack(continueButton);
 }
