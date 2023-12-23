@@ -5,7 +5,10 @@ Instruction::Instruction()
 {
     colorBound=sf::Color::Transparent;
     sizeBound=sf::Vector2f(100.f,100.f);
-    // sizeTheme=sf::Vector2f(1920.f,1080.f);
+    sizeTheme=sf::Vector2f(1000.f,568.f);
+    sizePic=sf::Vector2f(2100.f,1182.f);
+    sizeX=sf::Vector2f(500.f,500.f);
+    sizePodium=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
     sizeCharacterDirection=90;
     sf::FloatRect size;
@@ -260,7 +263,7 @@ Instruction::Instruction()
     dText.setPosition(sf::Vector2f(1428.f,375.f));
     //wText.setScale(1.75,0.8);
 
-    setFirstPlayerTexture();
+    setPlayerTexture();
     //firstPlayer.loadFromFile("media/images/characters/1.png");
     for (int i = 0; i < numImages; i++)
     {
@@ -271,16 +274,152 @@ Instruction::Instruction()
         firstPlayerSprites[i].setScale(0.6, 0.6);
     }
 
-    setSecondPlayerTexture();
     //secondPlayer.loadFromFile("media/images/characters/1.png");
     for (int i = 0; i < numImages; i++)
     {
         secondPlayerSprites[i].setTexture(secondPlayers[i]);
         size = secondPlayerSprites[i].getGlobalBounds();
         secondPlayerSprites[i].setOrigin(size.width / 2, size.height / 2);
-        secondPlayerSprites[i].setPosition(sf::Vector2f(1062.5, 550.f));
+        secondPlayerSprites[i].setPosition(sf::Vector2f(960, 730.f));
         secondPlayerSprites[i].setScale(0.6, 0.6);
     }
+
+    secondIns.setString("Go through all lanes");
+    secondIns.setFont(_font);
+    secondIns.setCharacterSize(50);
+    secondIns.setFillColor(colorCharacter);
+    size=secondIns.getGlobalBounds();
+    secondIns.setOrigin(size.width/2,size.height/2);
+    secondIns.setPosition(960.f,570.f);
+
+    laneImage.loadFromFile("media/images/menu/lane3.png");
+    laneImageSprite.setTexture(laneImage);
+    size=laneImageSprite.getGlobalBounds();
+    laneImageSprite.setOrigin(size.width/2,size.height/2);
+    sf::FloatRect sizeThemeOrigin=laneImageSprite.getGlobalBounds();
+    laneImageSprite.setScale(sf::Vector2f(sizeTheme.x/sizeThemeOrigin.width,sizeTheme.y/sizeThemeOrigin.height));
+    laneImageSprite.setPosition(960.f,500.f);
+
+    thirdIns1.setString("Crashed by car");
+    thirdIns1.setFont(_font);
+    thirdIns1.setCharacterSize(50);
+    thirdIns1.setFillColor(colorCharacter);
+    size=thirdIns1.getGlobalBounds();
+    thirdIns1.setOrigin(size.width/2,size.height/2);
+    thirdIns1.setPosition(480.f,335.f);
+
+    thirdIns2.setString("Crashed by train");
+    thirdIns2.setFont(_font);
+    thirdIns2.setCharacterSize(50);
+    thirdIns2.setFillColor(colorCharacter);
+    size=thirdIns2.getGlobalBounds();
+    thirdIns2.setOrigin(size.width/2,size.height/2);
+    thirdIns2.setPosition(1440.f,335.f);
+
+    thirdIns3.setString("Dive into the river");
+    thirdIns3.setFont(_font);
+    thirdIns3.setCharacterSize(50);
+    thirdIns3.setFillColor(colorCharacter);
+    size=thirdIns3.getGlobalBounds();
+    thirdIns3.setOrigin(size.width/2,size.height/2);
+    thirdIns3.setPosition(480.f,660.f);
+
+    thirdIns4.setString("Slide out the screen");
+    thirdIns4.setFont(_font);
+    thirdIns4.setCharacterSize(50);
+    thirdIns4.setFillColor(colorCharacter);
+    size=thirdIns4.getGlobalBounds();
+    thirdIns4.setOrigin(size.width/2,size.height/2);
+    thirdIns4.setPosition(1440.f,660.f);    
+
+    carImage.loadFromFile("media/images/menu/car.png");
+    carImageSprite.setTexture(carImage);
+    size=carImageSprite.getGlobalBounds();
+    carImageSprite.setOrigin(size.width/2,size.height/2);
+    sizeThemeOrigin=carImageSprite.getGlobalBounds();
+    carImageSprite.setScale(sf::Vector2f(sizePic.x/sizeThemeOrigin.width,sizePic.y/sizeThemeOrigin.height));
+    carImageSprite.setPosition(480.f,300.f);
+
+    trainImage.loadFromFile("media/images/menu/train.png");
+    trainImageSprite.setTexture(trainImage);
+    size=trainImageSprite.getGlobalBounds();
+    trainImageSprite.setOrigin(size.width/2,size.height/2);
+    sizeThemeOrigin=trainImageSprite.getGlobalBounds();
+    trainImageSprite.setScale(sf::Vector2f(sizePic.x/sizeThemeOrigin.width,sizePic.y/sizeThemeOrigin.height));
+    trainImageSprite.setPosition(1440.f,300.f);
+
+    riverImage.loadFromFile("media/images/menu/river.png");
+    riverImageSprite.setTexture(riverImage);
+    size=riverImageSprite.getGlobalBounds();
+    riverImageSprite.setOrigin(size.width/2,size.height/2);
+    sizeThemeOrigin=riverImageSprite.getGlobalBounds();
+    riverImageSprite.setScale(sf::Vector2f(sizePic.x/sizeThemeOrigin.width,sizePic.y/sizeThemeOrigin.height));
+    riverImageSprite.setPosition(480.f,600.f);
+
+    outImage.loadFromFile("media/images/menu/out.png");
+    outImageSprite.setTexture(outImage);
+    size=outImageSprite.getGlobalBounds();
+    outImageSprite.setOrigin(size.width/2,size.height/2);
+    sizeThemeOrigin=outImageSprite.getGlobalBounds();
+    outImageSprite.setScale(sf::Vector2f(sizePic.x/sizeThemeOrigin.width,sizePic.y/sizeThemeOrigin.height));
+    outImageSprite.setPosition(1440.f,600.f);
+
+    xImage.loadFromFile("media/images/menu/x4.png");
+    xImageSprite.setTexture(xImage);
+    size=xImageSprite.getGlobalBounds();
+    xImageSprite.setOrigin(size.width/2,size.height/2);
+    sizeThemeOrigin=xImageSprite.getGlobalBounds();
+    xImageSprite.setScale(sf::Vector2f(sizeX.x/sizeThemeOrigin.width,sizeX.y/sizeThemeOrigin.height));
+    xImageSprite.setPosition(960.f,440.f);
+
+    for (int i = 0; i < numImages; i++)
+    {
+        thirdPlayerSprites[i].setTexture(thirdPlayers[i]);
+        size = thirdPlayerSprites[i].getGlobalBounds();
+        thirdPlayerSprites[i].setOrigin(size.width / 2, size.height / 2);
+        thirdPlayerSprites[i].setPosition(sf::Vector2f(480, 450.f));
+        thirdPlayerSprites[i].setScale(0.3, 0.3);
+
+        fourthPlayerSprites[i].setTexture(fourthPlayers[i]);
+        size = fourthPlayerSprites[i].getGlobalBounds();
+        fourthPlayerSprites[i].setOrigin(size.width / 2, size.height / 2);
+        fourthPlayerSprites[i].setPosition(sf::Vector2f(1440, 450.f));
+        fourthPlayerSprites[i].setScale(0.3, 0.3);
+
+        fifthPlayerSprites[i].setTexture(fifthPlayers[i]);
+        size = fifthPlayerSprites[i].getGlobalBounds();
+        fifthPlayerSprites[i].setOrigin(size.width / 2, size.height / 2);
+        fifthPlayerSprites[i].setPosition(sf::Vector2f(480, 780.f));
+        fifthPlayerSprites[i].setScale(0.3, 0.3);
+
+        sixthPlayerSprites[i].setTexture(sixthPlayers[i]);
+        size = sixthPlayerSprites[i].getGlobalBounds();
+        sixthPlayerSprites[i].setOrigin(size.width / 2, size.height / 2);
+        sixthPlayerSprites[i].setPosition(sf::Vector2f(1440, 780.f));
+        sixthPlayerSprites[i].setScale(0.3, 0.3);
+
+        seventhPlayerSprites[i].setTexture(seventhPlayers[i]);
+        size = seventhPlayerSprites[i].getGlobalBounds();
+        seventhPlayerSprites[i].setOrigin(size.width / 2, size.height / 2);
+        seventhPlayerSprites[i].setPosition(sf::Vector2f(960, 310.f));
+        seventhPlayerSprites[i].setScale(0.4, 0.4);
+    }
+
+    fourthIns.setString("Attain the Podium");
+    fourthIns.setFont(_font);
+    fourthIns.setCharacterSize(50);
+    fourthIns.setFillColor(colorCharacter);
+    size=fourthIns.getGlobalBounds();
+    fourthIns.setOrigin(size.width/2,size.height/2);
+    fourthIns.setPosition(960.f,815.f);
+
+    podiumImage.loadFromFile("media/images/menu/podium2.png");
+    podiumImageSprite.setTexture(podiumImage);
+    size=podiumImageSprite.getGlobalBounds();
+    podiumImageSprite.setOrigin(size.width/2,size.height/2);
+    sizeThemeOrigin=podiumImageSprite.getGlobalBounds();
+    podiumImageSprite.setScale(sf::Vector2f(sizePodium.x/sizeThemeOrigin.width,sizePodium.y/sizeThemeOrigin.height));
+    podiumImageSprite.setPosition(960.f,600.f);
 }
 
 // sf::Vector2f Instruction::posBackGroundLight()
@@ -342,25 +481,22 @@ void Instruction::next()
     part.setString(tmp);
 }   
 
-void Instruction::setFirstPlayerTexture()
+void Instruction::setPlayerTexture()
 {
     sf::FloatRect size;
     for(int i=1;i<=numImages;i++)
     {
-        firstPlayer.loadFromFile(Link(i).getLink());
+        string link=Link(i).getLink();
+        firstPlayer.loadFromFile(link);
         firstPlayers.push_back(firstPlayer);
+        secondPlayers.push_back(firstPlayer);
+        thirdPlayers.push_back(firstPlayer);
+        fourthPlayers.push_back(firstPlayer);
+        fifthPlayers.push_back(firstPlayer);
+        sixthPlayers.push_back(firstPlayer);
+        seventhPlayers.push_back(firstPlayer);
     }
 }
-
-void Instruction::setSecondPlayerTexture()
-{
-    sf::FloatRect size;
-    for(int i=1;i<=numImages;i++)
-    {
-        secondPlayer.loadFromFile(Link(i).getLink());
-        secondPlayers.push_back(secondPlayer);
-    }
-}  
 
 int Instruction::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
@@ -491,6 +627,34 @@ void Instruction::draw(sf::RenderWindow& mWindow)
         mWindow.draw(rightImageDarkSprite);
         mWindow.draw(upImageDarkSprite);
         mWindow.draw(firstPlayerSprites[currentImage]);
+    }
+    else if(layout==2)
+    {
+        mWindow.draw(secondIns);
+        mWindow.draw(laneImageSprite);
+        mWindow.draw(secondPlayerSprites[currentImage]);
+    }
+    else if(layout==3)
+    {
+        mWindow.draw(carImageSprite);
+        mWindow.draw(trainImageSprite);
+        mWindow.draw(riverImageSprite);
+        mWindow.draw(outImageSprite);
+        mWindow.draw(xImageSprite);
+        mWindow.draw(thirdIns1);
+        mWindow.draw(thirdIns2);
+        mWindow.draw(thirdIns3);
+        mWindow.draw(thirdIns4);
+        mWindow.draw(thirdPlayerSprites[currentImage]);
+        mWindow.draw(fourthPlayerSprites[currentImage]);
+        mWindow.draw(fifthPlayerSprites[currentImage]);
+        mWindow.draw(sixthPlayerSprites[currentImage]);
+    }
+    else if(layout==4)
+    {
+        mWindow.draw(podiumImageSprite);
+        mWindow.draw(fourthIns);
+        mWindow.draw(seventhPlayerSprites[currentImage]);
     }
 
     mWindow.draw(returnBound);

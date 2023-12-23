@@ -17,8 +17,7 @@ public:
     // void setBackground(bool isBackgoundLight);
     void previous();
     void next();  
-    void setFirstPlayerTexture();
-    void setSecondPlayerTexture();
+    void setPlayerTexture();
 
     int processEvent(sf::Event& event,sf::RenderWindow& mWindow);
     void update(sf::Time dt);
@@ -26,7 +25,7 @@ public:
 private:
     sf::Color colorBound;
     sf::Vector2f sizeBound;
-    // sf::Vector2f sizeTheme;
+    sf::Vector2f sizeTheme;
     sf::Font _font;
     sf::Color colorCharacter;
     unsigned int sizeCharacter;
@@ -100,6 +99,56 @@ private:
     vector<sf::Texture> secondPlayers;
     // sf::Sprite secondPlayerSprite;
     vector<sf::Sprite> secondPlayerSprites{16};
+
+    sf::Text secondIns;
+
+    sf::Texture laneImage;
+    sf::Sprite laneImageSprite;
+
+    sf::Text thirdIns1;
+    sf::Text thirdIns2;
+    sf::Text thirdIns3;
+    sf::Text thirdIns4;
+
+    sf::Vector2f sizePic;
+    sf::Texture trainImage;
+    sf::Sprite trainImageSprite;
+    sf::Texture carImage;
+    sf::Sprite carImageSprite;
+    sf::Texture riverImage;
+    sf::Sprite riverImageSprite;
+    sf::Texture outImage;
+    sf::Sprite outImageSprite;
+    sf::Vector2f sizeX;
+    sf::Texture xImage;
+    sf::Sprite xImageSprite;
+
+    sf::Texture thirdPlayer;
+    vector<sf::Texture> thirdPlayers;
+    // sf::Sprite firstPlayerSprite;
+    vector<sf::Sprite> thirdPlayerSprites{16};
+    sf::Texture fourthPlayer;
+    vector<sf::Texture> fourthPlayers;
+    // sf::Sprite secondPlayerSprite;
+    vector<sf::Sprite> fourthPlayerSprites{16};
+    sf::Texture fifthPlayer;
+    vector<sf::Texture> fifthPlayers;
+    // sf::Sprite firstPlayerSprite;
+    vector<sf::Sprite> fifthPlayerSprites{16};
+    sf::Texture sixthPlayer;
+    vector<sf::Texture> sixthPlayers;
+    // sf::Sprite secondPlayerSprite;
+    vector<sf::Sprite> sixthPlayerSprites{16};
+
+    sf::Text fourthIns;
+
+    sf::Texture seventhPlayer;
+    vector<sf::Texture> seventhPlayers;
+    // sf::Sprite secondPlayerSprite;
+    vector<sf::Sprite> seventhPlayerSprites{16};
+    sf::Vector2f sizePodium;
+    sf::Texture podiumImage;
+    sf::Sprite podiumImageSprite;
     
     // sf::Texture backgroundLight; 
     // sf::Sprite backgroundLightSprite;
