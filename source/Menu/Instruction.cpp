@@ -7,7 +7,15 @@ Instruction::Instruction()
     sizeBound=sf::Vector2f(100.f,100.f);
     // sizeTheme=sf::Vector2f(1920.f,1080.f);
     sizeCharacter=100;
+    sizeCharacterDirection=90;
     sf::FloatRect size;
+
+    numImages=16;
+    currentImage=0;
+    layout=1;
+
+    cTime=sf::Time::Zero;
+    timePerCharacter=sf::seconds(40.f/60.f);
 
     // mTime=sf::Time::Zero;
     // timePerFrame=sf::seconds(60.f/60.f);
@@ -114,6 +122,165 @@ Instruction::Instruction()
 
     isOneIncreaseOn=false;
     isOneDecreaseOn=false;
+
+    firstIns.setString("Use keyboards to move");
+    firstIns.setFont(_font);
+    firstIns.setCharacterSize(50);
+    firstIns.setFillColor(colorCharacter);
+    size=firstIns.getGlobalBounds();
+    firstIns.setOrigin(size.width/2,size.height/2);
+    firstIns.setPosition(960.f,280.f);
+
+    leftImageDark.loadFromFile("media/images/menu/leftIns.png");
+    leftImageDarkSprite.setTexture(leftImageDark);
+    size=leftImageDarkSprite.getGlobalBounds();
+    leftImageDarkSprite.setOrigin(size.width/2,size.height/2);
+    leftImageDarkSprite.setPosition(sf::Vector2f(740.f,770.f));
+    leftImageDarkSprite.setScale(500.f/size.width,500.f/size.height);
+
+    rightImageDark.loadFromFile("media/images/menu/leftIns.png");
+    rightImageDarkSprite.setTexture(rightImageDark);
+    size=rightImageDarkSprite.getGlobalBounds();
+    rightImageDarkSprite.setOrigin(size.width/2,size.height/2);
+    rightImageDarkSprite.setPosition(sf::Vector2f(1180.f,760.f));
+    rightImageDarkSprite.setScale(500.f/size.width,500.f/size.height);
+    rightImageDarkSprite.rotate(180);
+
+    upImageDark.loadFromFile("media/images/menu/upIns.png");
+    upImageDarkSprite.setTexture(upImageDark);
+    size=upImageDarkSprite.getGlobalBounds();
+    upImageDarkSprite.setOrigin(size.width/2,size.height/2);
+    upImageDarkSprite.setPosition(sf::Vector2f(960.f,520.f));
+    upImageDarkSprite.setScale(500.f/size.width,500.f/size.height);
+
+    up.loadFromFile("media/images/menu/up.png");
+    upSprite.setTexture(up);
+    size=upSprite.getGlobalBounds();
+    upSprite.setOrigin(size.width/2,size.height/2);
+    upSprite.setScale(200.f/size.width,200.f/size.height);
+    upSprite.setPosition(sf::Vector2f(600.f,300.f));
+
+    down.loadFromFile("media/images/menu/down.png");
+    downSprite.setTexture(down);
+    size=downSprite.getGlobalBounds();
+    downSprite.setOrigin(size.width/2,size.height/2);
+    downSprite.setScale(200.f/size.width,200.f/size.height);
+    downSprite.setPosition(sf::Vector2f(600.f,410.f));
+
+    right.loadFromFile("media/images/menu/right.png");
+    rightSprite.setTexture(right);
+    size=rightSprite.getGlobalBounds();
+    rightSprite.setOrigin(size.width/2,size.height/2);
+    rightSprite.setScale(200.f/size.width,200.f/size.height);
+    rightSprite.setPosition(sf::Vector2f(710.f,410.f));
+
+    left.loadFromFile("media/images/menu/left.png");
+    leftSprite.setTexture(left);
+    size=leftSprite.getGlobalBounds();
+    leftSprite.setOrigin(size.width/2,size.height/2);
+    leftSprite.setScale(200.f/size.width,200.f/size.height);
+    leftSprite.setPosition(sf::Vector2f(490.f,410.f));
+
+    w.loadFromFile("media/images/menu/letterControl.png");
+    wSprite.setTexture(w);
+    size=wSprite.getGlobalBounds();
+    wSprite.setOrigin(size.width/2,size.height/2);
+    wSprite.setScale(200.f/size.width,200.f/size.height);
+    wSprite.setPosition(sf::Vector2f(1320.f,300.f));
+
+    // wBound.setSize(sf::Vector2f(sizeBound.x,sizeBound.y));
+    // wBound.setFillColor(colorBound);
+    // wBound.setPosition(1270.f,250.f);
+
+    s.loadFromFile("media/images/menu/letterControl.png");
+    sSprite.setTexture(s);
+    size=sSprite.getGlobalBounds();
+    sSprite.setOrigin(size.width/2,size.height/2);
+    sSprite.setScale(200.f/size.width,200.f/size.height);
+    sSprite.setPosition(sf::Vector2f(1320.f,410.f));
+
+    // sBound.setSize(sf::Vector2f(sizeBound.x,sizeBound.y));
+    // sBound.setFillColor(colorBound);
+    // sBound.setPosition(1270.f,360.f);
+
+    a.loadFromFile("media/images/menu/letterControl.png");
+    aSprite.setTexture(a);
+    size=aSprite.getGlobalBounds();
+    aSprite.setOrigin(size.width/2,size.height/2);
+    aSprite.setScale(200.f/size.width,200.f/size.height);
+    aSprite.setPosition(sf::Vector2f(1210.f,410.f));
+
+    // aBound.setSize(sf::Vector2f(sizeBound.x,sizeBound.y));
+    // aBound.setFillColor(colorBound);
+    // aBound.setPosition(1160.f,360.f);
+
+    d.loadFromFile("media/images/menu/letterControl.png");
+    dSprite.setTexture(d);
+    size=dSprite.getGlobalBounds();
+    dSprite.setOrigin(size.width/2,size.height/2);
+    dSprite.setScale(200.f/size.width,200.f/size.height);
+    dSprite.setPosition(sf::Vector2f(1430.f,410.f));
+
+    // dBound.setSize(sf::Vector2f(sizeBound.x,sizeBound.y));
+    // dBound.setFillColor(colorBound);
+    // dBound.setPosition(1380.f,360.f);
+
+    wText.setString("W");
+    wText.setFont(_font);
+    wText.setCharacterSize(sizeCharacterDirection);
+    wText.setFillColor(colorCharacter);
+    size=wText.getGlobalBounds();
+    wText.setOrigin(size.width/2,size.height/2);
+    wText.setPosition(sf::Vector2f(1318.f,265.f));
+    //wText.setScale(1.75,0.8);
+
+    sText.setString("S");
+    sText.setFont(_font);
+    sText.setCharacterSize(sizeCharacterDirection);
+    sText.setFillColor(colorCharacter);
+    size=sText.getGlobalBounds();
+    sText.setOrigin(size.width/2,size.height/2);
+    sText.setPosition(sf::Vector2f(1318.f,375.f));
+    //wText.setScale(1.75,0.8);
+
+    aText.setString("A");
+    aText.setFont(_font);
+    aText.setCharacterSize(sizeCharacterDirection);
+    aText.setFillColor(colorCharacter);
+    size=aText.getGlobalBounds();
+    aText.setOrigin(size.width/2,size.height/2);
+    aText.setPosition(sf::Vector2f(1208.f,375.f));
+
+    dText.setString("D");
+    dText.setFont(_font);
+    dText.setCharacterSize(sizeCharacterDirection);
+    dText.setFillColor(colorCharacter);
+    size=dText.getGlobalBounds();
+    dText.setOrigin(size.width/2,size.height/2);
+    dText.setPosition(sf::Vector2f(1428.f,375.f));
+    //wText.setScale(1.75,0.8);
+
+    setFirstPlayerTexture();
+    //firstPlayer.loadFromFile("media/images/characters/1.png");
+    for (int i = 0; i < numImages; i++)
+    {
+        firstPlayerSprites[i].setTexture(firstPlayers[i]);
+        size = firstPlayerSprites[i].getGlobalBounds();
+        firstPlayerSprites[i].setOrigin(size.width / 2, size.height / 2);
+        firstPlayerSprites[i].setPosition(sf::Vector2f(960, 680.f));
+        firstPlayerSprites[i].setScale(0.6, 0.6);
+    }
+
+    setSecondPlayerTexture();
+    //secondPlayer.loadFromFile("media/images/characters/1.png");
+    for (int i = 0; i < numImages; i++)
+    {
+        secondPlayerSprites[i].setTexture(secondPlayers[i]);
+        size = secondPlayerSprites[i].getGlobalBounds();
+        secondPlayerSprites[i].setOrigin(size.width / 2, size.height / 2);
+        secondPlayerSprites[i].setPosition(sf::Vector2f(1062.5, 550.f));
+        secondPlayerSprites[i].setScale(0.6, 0.6);
+    }
 }
 
 // sf::Vector2f Instruction::posBackGroundLight()
@@ -160,7 +327,7 @@ void Instruction::previous()
     string tmp=part.getString();
     int current=tmp[0]-'0';
     tmp.erase(tmp.begin());
-    if(current>1) --current;
+    if(current>1) {--current;layout=current;}
     tmp=to_string(current)+tmp;
     part.setString(tmp);
 }
@@ -170,10 +337,30 @@ void Instruction::next()
     string tmp=part.getString();
     int current=tmp[0]-'0';
     tmp.erase(tmp.begin());
-    if(current<4) ++current;
+    if(current<4) {++current;layout=current;}
     tmp=to_string(current)+tmp;
     part.setString(tmp);
 }   
+
+void Instruction::setFirstPlayerTexture()
+{
+    sf::FloatRect size;
+    for(int i=1;i<=numImages;i++)
+    {
+        firstPlayer.loadFromFile(Link(i).getLink());
+        firstPlayers.push_back(firstPlayer);
+    }
+}
+
+void Instruction::setSecondPlayerTexture()
+{
+    sf::FloatRect size;
+    for(int i=1;i<=numImages;i++)
+    {
+        secondPlayer.loadFromFile(Link(i).getLink());
+        secondPlayers.push_back(secondPlayer);
+    }
+}  
 
 int Instruction::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
 {
@@ -254,6 +441,14 @@ void Instruction::update(sf::Time dt)
     //     backgroundLightSprite.setPosition(0.f,0.f);
     //     backgroundLight2Sprite.setPosition(1920.f,0.f);
     // }
+
+    cTime+=dt;
+    if(cTime>timePerCharacter)
+    {
+        ++currentImage;
+        if(currentImage==numImages) currentImage=0;
+        cTime=sf::Time::Zero;
+    }
 }
 
 void Instruction::draw(sf::RenderWindow& mWindow)
@@ -276,6 +471,27 @@ void Instruction::draw(sf::RenderWindow& mWindow)
         mWindow.draw(oneDecreaseTriangleDark);
     }
     else mWindow.draw(oneDecreaseTriangle);
+
+    if (layout == 1)
+    {
+        mWindow.draw(firstIns);
+        mWindow.draw(upSprite);
+        mWindow.draw(downSprite);
+        mWindow.draw(rightSprite);
+        mWindow.draw(leftSprite);
+        mWindow.draw(wSprite);
+        mWindow.draw(sSprite);
+        mWindow.draw(aSprite);
+        mWindow.draw(dSprite);
+        mWindow.draw(wText);
+        mWindow.draw(sText);
+        mWindow.draw(aText);
+        mWindow.draw(dText);
+        mWindow.draw(leftImageDarkSprite);
+        mWindow.draw(rightImageDarkSprite);
+        mWindow.draw(upImageDarkSprite);
+        mWindow.draw(firstPlayerSprites[currentImage]);
+    }
 
     mWindow.draw(returnBound);
     if(isReturnOn)
