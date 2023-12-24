@@ -118,11 +118,6 @@ VehicleLane::VehicleLane(std::ifstream &file) {
 }
 
 VehicleLane::~VehicleLane() {
-    for (int i = 0; i < CountLayer; ++i) {
-        delete mSceneLayers[i];
-    }
-    mTrainSound.stop();
-    GameSounds::TRAIN_SOUND.stop();
 }
 
 void VehicleLane::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {

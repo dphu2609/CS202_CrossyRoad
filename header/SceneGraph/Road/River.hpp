@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <bits/stdc++.h>
 #include <SceneGraph/Road/Road.hpp>
-#include <GlobalVar.hpp>
+#include <Configs.hpp>
 #include <Resources/ResourceHolder.hpp>
 #include <SceneGraph/Road/RiverArea.hpp>
 

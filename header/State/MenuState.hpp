@@ -7,7 +7,7 @@
 #include <SceneGraph/SceneNode.hpp>
 #include <GUI/Container.hpp>
 #include <GUI/Button.hpp>
-#include <GlobalVar.hpp>
+#include <Configs.hpp>
 
 class MenuState : public State {
 public:

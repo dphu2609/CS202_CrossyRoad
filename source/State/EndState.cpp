@@ -1,5 +1,4 @@
 #include <State/EndState.hpp>
-#include "GlobalVar.hpp"
 
 EndState::EndState(StateStack &stack, sf::RenderWindow &window) : State(stack, window), mWindow(window) {
     buildScene();

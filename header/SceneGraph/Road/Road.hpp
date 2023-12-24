@@ -11,7 +11,7 @@ namespace RoadType {
     enum ID {
         VehicleLane,
         River,
-        Grass,
+        Grass
     };
 };
 

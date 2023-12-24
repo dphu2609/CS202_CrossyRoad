@@ -55,8 +55,6 @@ private:
 private:
     std::vector<std::shared_ptr<SpriteNode>> mTrafficLights; // 0: red, 1: yellow, 2: green
     int mTrafficLightState;
-    sf::Sound mTrainAlarmSound;
-    sf::Sound mTrainSound;
     bool mIsSoundActivated = false;
 public:
     virtual void activateSounds();
