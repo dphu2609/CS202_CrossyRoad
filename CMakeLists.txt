@@ -4,8 +4,8 @@ project(CrossyRoad VERSION 0.1.0 LANGUAGES C CXX)
 include(CTest)
 enable_testing()
 
-set(SFML_LIB_DIR "C:/SFML-2.5.1/lib")
-set(SFML_INCLUDE_DIR "C:/SFML-2.5.1/include")
+set(SFML_LIB_DIR "D:/SFML-2.5.1/lib")
+set(SFML_INCLUDE_DIR "D:/SFML-2.5.1/include")
 
 include_directories(${SFML_INCLUDE_DIR})
 link_directories(${SFML_LIB_DIR})
@@ -29,7 +29,7 @@ set(SOURCES ${MAIN_SOURCES})
 
 add_executable(CrossyRoad ${SOURCES} ${GUI} ${SCENEGRAPH} ${ROAD} ${STATE} ${GAMESTATE} ${RESOURCES} ${MENU})
 target_link_libraries(CrossyRoad PRIVATE sfml-system sfml-window sfml-graphics sfml-audio)
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+#target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
 
 add_custom_command(TARGET CrossyRoad POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
