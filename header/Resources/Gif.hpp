@@ -20,6 +20,7 @@ public:
     void update(sf::Time dt);
     void draw(sf::RenderTarget& target, sf::RenderStates states) const;
     sf::FloatRect getGlobalBounds() const;
+    void setOpacity(float opacity);
 };
 
 #endif

@@ -19,6 +19,7 @@
 class World : private sf::NonCopyable {
 public:
     explicit World(sf::RenderWindow &window);
+    ~World();
     void writeData(std::ofstream &file);
     void update(sf::Time dt);
     void updateWorldView(sf::Time dt);
@@ -54,6 +55,9 @@ private:
     void saveGame();
 public:
     void setEnvSoundVolume(float volume);
+    void stopEnvSound();
+public:
+    bool isEndGame() const;
 };
 
 #endif

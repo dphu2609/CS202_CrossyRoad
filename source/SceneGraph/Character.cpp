@@ -1,6 +1,4 @@
 #include <SceneGraph/Character.hpp>
-#include <iostream>
-using namespace std;
 
 Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurrentRoadIndex(currentRoadIndex) {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
@@ -11,7 +9,13 @@ Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurre
         mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
     }
 
-    mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
+    GameSounds::JUMP_SOUND.setBuffer(Resources::sounds[Sounds::JumpSound]);
+    GameSounds::HIT_SOUND.setBuffer(Resources::sounds[Sounds::HitSound]);
+}
+
+Character::~Character() {
+    // GameSounds::JUMP_SOUND.stop();
+    // GameSounds::HIT_SOUND.stop();
 }
 
 void Character::setSkin(int skin) {
@@ -36,7 +40,8 @@ void Character::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) c
 }
 
 void Character::handleCurrentEvent(sf::RenderWindow &window, sf::Event &event) {
-    handleMoveEvent(window, event);
+    if (!mIsDeathAnimationExecuting)
+        handleMoveEvent(window, event);
 }
 
 void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
@@ -49,17 +54,19 @@ void Character::updateCurrent(sf::Time dt, CommandQueue &commandQueue) {
     } else if (mDirection == 3) {
         mRightState.update(dt);
     }
+    updateIfOutOfScreen(dt);
+    deathController(dt);
     updateMove(dt);
     updateWorldView(dt);
 } 
 
 void Character::handleMoveEvent(sf::RenderWindow &window, sf::Event &event) {
     if (event.type == sf::Event::TextEntered && !mIsMoving) {
-        cout<<event.text.unicode<<endl;
-        cout<<static_cast<char>(Controller::MOVE_UP_SET_1)<<endl;
-        cout<<static_cast<char>(Controller::MOVE_DOWN_SET_1)<<endl;
-        cout<<static_cast<char>(Controller::MOVE_LEFT_SET_1)<<endl;
-        cout<<static_cast<char>(Controller::MOVE_RIGHT_SET_1)<<endl;
+        // cout<<event.text.unicode<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_UP_SET_1)<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_DOWN_SET_1)<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_LEFT_SET_1)<<endl;
+        // cout<<static_cast<char>(Controller::MOVE_RIGHT_SET_1)<<endl;
 
         if (event.text.unicode == Controller::MOVE_UP_SET_1) {
             if(canMoveUp)
@@ -134,6 +141,33 @@ void Character::updateMove(sf::Time dt) {
             mKeyInput.pop();
             mCurrentStep = 0.f;
         }
+    }
+}
+
+void Character::updateIfOutOfScreen(sf::Time dt) {
+    if (this->getPosition().x < - Statistic::SCREEN_WIDTH / 2 + 100) {
+        while (!mKeyInput.empty()) {
+            if (mKeyInput.front() == Controller::MOVE_LEFT_SET_1 || mKeyInput.front() == Controller::MOVE_LEFT_SET_2) {
+                mKeyInput.pop();
+            } 
+            else break;
+        }   
+    }
+    if (this->getPosition().x > Statistic::SCREEN_WIDTH / 2 - 100) {
+        while (!mKeyInput.empty()) {
+            if (mKeyInput.front() == Controller::MOVE_RIGHT_SET_1 || mKeyInput.front() == Controller::MOVE_RIGHT_SET_2) {
+                mKeyInput.pop();
+            }
+            else break;
+        }
+    }
+
+
+    sf::Vector2f globalPosition = this->getWorldTransform().transformPoint(this->getPosition());
+
+    if (globalPosition.y - mView.getCenter().y > 550) {
+        GameSounds::HIT_SOUND.play();
+        mIsDead = true;
     }
 }
 
@@ -212,7 +246,7 @@ bool Character::moveCharacter(sf::Time dt, int direction) {
         mDirection = direction;
         mCurrentStep += mSpeed;
         mCurrentRoadIndex += (direction < 2 ? (direction == 0 ? -1 : 1) : 0);
-        mJumpSound.play();
+        GameSounds::JUMP_SOUND.play();
         return mIsMoving = true;
     }
     else if (mCurrentStep < (direction < 2 ? Statistic::CHARACTER_JUMP_DISTANCE_VERTICAL : Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL)) {
@@ -275,10 +309,107 @@ Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
     for (int i = 0; i < 19; i++) {
         mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
     }
-    mJumpSound.setBuffer(Resources::sounds[Sounds::JumpSound]);
     readData(file);
 }  
 
 void Character::setCurrentEnvSoundVolume(float volume) {
-    mJumpSound.setVolume(volume);
+    GameSounds::JUMP_SOUND.setVolume(volume);
+}
+
+void Character::stopEnvSound() {
+    GameSounds::JUMP_SOUND.stop();
+}
+
+void Character::setDeadByLeftVehicle() {
+    GameSounds::HIT_SOUND.play();
+    mIsDeathAnimationExecuting = true;
+    mIsDeadByLeftVehicle = true;
+}
+
+void Character::setDeadByRightVehicle() {
+    GameSounds::HIT_SOUND.play();
+    mIsDeathAnimationExecuting = true;
+    mIsDeadByRightVehicle = true;
+}
+
+
+void Character::setDeadByRiver() {
+    GameSounds::HIT_SOUND.play();
+    mIsDeathAnimationExecuting = true;
+    mIsDeadByRiver = true;
+}
+
+void Character::setDeadByLeftVehicleAnimation(sf::Time dt) {
+    if (mIsDelayClockStarted && mDelayClock.getElapsedTime().asSeconds() > 0.3) {
+        mIsDead = true;
+    }
+    if (mIsDelayClockStarted) return;
+    if (mCurrentAngle == 0) {
+        while (!mKeyInput.empty()) {
+            mKeyInput.pop();
+        }
+        mKeyInput.push(Controller::MOVE_LEFT_SET_1);
+    }
+    mBackwardState.setRotation(mCurrentAngle);
+    mForwardState.setRotation(mCurrentAngle);
+    mLeftState.setRotation(mCurrentAngle);
+    mRightState.setRotation(mCurrentAngle);
+    mCurrentAngle -= 90 / 5;
+    if (mCurrentAngle < -90) {
+        mIsDelayClockStarted = true;
+        mDelayClock.restart();
+    }   
+}
+
+void Character::setDeadByRightVehicleAnimation(sf::Time dt) {
+    if (mIsDelayClockStarted && mDelayClock.getElapsedTime().asSeconds() > 0.3) {
+        mIsDead = true;
+    }
+    if (mIsDelayClockStarted) return;
+    if (mCurrentAngle == 0) {
+        while (!mKeyInput.empty()) {
+            mKeyInput.pop();
+        }
+        mKeyInput.push(Controller::MOVE_RIGHT_SET_1);
+    }
+    mBackwardState.setRotation(mCurrentAngle);
+    mForwardState.setRotation(mCurrentAngle);
+    mLeftState.setRotation(mCurrentAngle);
+    mRightState.setRotation(mCurrentAngle);
+    mCurrentAngle += 90 / 5;
+    if (mCurrentAngle > 90) {
+        mIsDelayClockStarted = true;
+        mDelayClock.restart();
+    }   
+}
+
+void Character::setDeadByRiverAnimation(sf::Time dt) {
+    if (mIsDelayClockStarted && mDelayClock.getElapsedTime().asSeconds() > 0.3) {
+        mIsDead = true;
+    }
+    if (mIsDelayClockStarted) return;
+    mBackwardState.setOpacity(mCurrentOpacity);
+    mForwardState.setOpacity(mCurrentOpacity);
+    mLeftState.setOpacity(mCurrentOpacity);
+    mRightState.setOpacity(mCurrentOpacity);
+    mCurrentOpacity -= 0.1;
+    if (mCurrentOpacity <= 0) {
+        mIsDelayClockStarted = true;
+        mDelayClock.restart();
+    }
+}
+
+void Character::deathController(sf::Time dt) {
+    if (mIsDead) return;
+    if (mIsDeadByLeftVehicle) {
+        setDeadByLeftVehicleAnimation(dt);
+    } else if (mIsDeadByRightVehicle) {
+        setDeadByRightVehicleAnimation(dt);
+    } else if (mIsDeadByRiver) {
+        setDeadByRiverAnimation(dt);
+    }
+}
+
+bool Character::isDead() const {
+    return mIsDead;
 }

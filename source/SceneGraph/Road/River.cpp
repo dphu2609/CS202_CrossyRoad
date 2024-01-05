@@ -23,7 +23,7 @@ River::River()
     area3->setPosition(Statistic::ROAD_WIDTH / 4 + Statistic::ROAD_WIDTH / 8, 0.f);
 
     direction = (rand() % 2) ? 1 : -1;
-    int speed = Statistic::MIN_RIVER_SPEED.x + rand() % (int)(Statistic::MAX_RIVER_SPEED.x - Statistic::MIN_RIVER_SPEED.x);
+    speed = Statistic::MIN_RIVER_SPEED.x + rand() % (int)(Statistic::MAX_RIVER_SPEED.x - Statistic::MIN_RIVER_SPEED.x);
 
     area1->setDirection(direction);
     area2->setDirection(direction);
@@ -114,14 +114,15 @@ void River::readData(std::ifstream &file)
 
 void River::writeData(std::ofstream &file)
 {
-    file << direction << std::endl;
-    file << woods.size() << std::endl;
+    file << speed << " ";
+    file << direction << " ";
+    file << woods.size() << " ";
     for(auto& wood : woods)
     {
-        file << wood->getGlobalBounds().width << ' ' << wood->getPosition().x << " " << wood->getPosition().y << std::endl;
+        file << wood->getBoundingRect().width << ' ' << wood->getPosition().x << " " << wood->getPosition().y << std::endl;
     }
     file << this->getPosition().x << ' ' << this->getPosition().y << std::endl;
-}   
+}
 
 River::River(std::ifstream &file)
 : areas(3)
@@ -144,8 +145,8 @@ River::River(std::ifstream &file)
     area2->setPosition(0.f, 0.f);
     area3->setPosition(Statistic::ROAD_WIDTH / 4 + Statistic::ROAD_WIDTH / 8, 0.f);
 
+    file >> speed;
     file >> direction;
-    int speed = Statistic::MIN_RIVER_SPEED.x + rand() % (int)(Statistic::MAX_RIVER_SPEED.x - Statistic::MIN_RIVER_SPEED.x);
 
     area1->setDirection(direction);
     area2->setDirection(direction);
@@ -160,5 +161,4 @@ River::River(std::ifstream &file)
     mSceneLayers[AreaLayer]->attachChild(std::move(area3));
     readData(file);
 }
-
 

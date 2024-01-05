@@ -12,6 +12,10 @@ Game::Game() : mWindow(sf::VideoMode(Statistic::SCREEN_WIDTH, Statistic::SCREEN_
     mBackgroundMusic.play();
 }
 
+Game::~Game() {
+    mBackgroundMusic.stop();    
+}
+
 void Game::loadFonts() {
     Resources::fonts.load(Fonts::ComfortaaRegular, "media/fonts/Comfortaa/Comfortaa-Regular.ttf");
     Resources::fonts.load(Fonts::FiraSansRegular, "media/fonts/FiraSans-Regular.ttf");
@@ -110,6 +114,16 @@ void Game::loadSounds() {
     Resources::sounds.load(Sounds::TrafficSound, "media/sounds/TrafficSound3.wav");
     Resources::sounds.load(Sounds::BackgroundMusic, "media/sounds/BackgroundMusic3.wav");
     Resources::sounds.load(Sounds::HitSound, "media/sounds/HitSound1.wav");
+
+    GameSounds::HIT_SOUND = sf::Sound(Resources::sounds[Sounds::HitSound]);
+    GameSounds::HIT_SOUND.setVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
+    GameSounds::JUMP_SOUND = sf::Sound(Resources::sounds[Sounds::JumpSound]);
+    GameSounds::JUMP_SOUND.setVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
+    GameSounds::TRAIN_SOUND = sf::Sound(Resources::sounds[Sounds::TrainAlarmSound]);
+    GameSounds::TRAIN_SOUND.setVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
+    GameSounds::TRAFFIC_SOUND = sf::Sound(Resources::sounds[Sounds::TrafficSound]);
+    GameSounds::TRAFFIC_SOUND.setVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
+    GameSounds::TRAFFIC_SOUND.setLoop(true);
 }
 
 void Game::registerStates() {

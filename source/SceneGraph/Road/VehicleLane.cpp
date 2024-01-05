@@ -85,8 +85,6 @@ VehicleLane::VehicleLane() {
                 mTrafficLights[2]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
             }
             mTrafficLightState = 0;
-
-            mTrainAlarmSound.setBuffer(Resources::sounds[Sounds::TrainAlarmSound]);
         }
     }
 
@@ -117,6 +115,14 @@ VehicleLane::VehicleLane(std::ifstream &file) {
         this->attachChild(std::unique_ptr<SceneNode>(mSceneLayers[i]));
     }
     readData(file);
+}
+
+VehicleLane::~VehicleLane() {
+    for (int i = 0; i < CountLayer; ++i) {
+        delete mSceneLayers[i];
+    }
+    mTrainSound.stop();
+    GameSounds::TRAIN_SOUND.stop();
 }
 
 void VehicleLane::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -239,8 +245,6 @@ void VehicleLane::readData(std::ifstream &file) {
                 mTrafficLights[2]->setPosition(Statistic::ROAD_WIDTH / 2 - 450, -15);
             }
             mTrafficLightState = 0;
-
-            mTrainAlarmSound.setBuffer(Resources::sounds[Sounds::TrainAlarmSound]);
         }
 
         
@@ -277,7 +281,7 @@ void VehicleLane::trafficLightControl(sf::Time dt) {
         }
         else if (dis <= 7000) {
             mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[1]);
-            if (mIsSoundActivated) mTrainAlarmSound.play();
+            if (mIsSoundActivated) GameSounds::TRAIN_SOUND.play();
         }
         else {
             mSceneLayers[TrafficLightLayer]->attachChild(mTrafficLights[0]);
@@ -294,5 +298,14 @@ void VehicleLane::deactivateSounds() {
 }
 
 void VehicleLane::setCurrentEnvSoundVolume(float volume) {
-    mTrainAlarmSound.setVolume(volume);
+    GameSounds::TRAIN_SOUND.setVolume(volume);
+}
+
+void VehicleLane::stopEnvSound() {
+    GameSounds::TRAIN_SOUND.stop();
+}
+
+DeathCause::ID VehicleLane::getDeathCause() const {
+    if (mDirection == -1) return DeathCause::VehicleLeft;
+    return DeathCause::VehicleRight;
 }

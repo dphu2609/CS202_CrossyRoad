@@ -832,6 +832,7 @@ void Setting::draw(sf::RenderWindow& mWindow)
     mWindow.draw(wSprite);
     mWindow.draw(sBound);
     mWindow.draw(sSprite);
+
     mWindow.draw(aBound);
     mWindow.draw(aSprite);
     mWindow.draw(dBound);

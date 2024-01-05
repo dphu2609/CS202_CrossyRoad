@@ -18,6 +18,8 @@ private:
     World mWorld;
     // Player &mPlayer;
     GUI::Container mGUIContainer;
+    float mEnvVolume = Statistic::ENVIROMENT_SOUND_VOLUME;
+    bool mIsGamePause = false;
 };
 
 #endif

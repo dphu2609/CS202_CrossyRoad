@@ -48,3 +48,11 @@ void Gif::draw(sf::RenderTarget& target, sf::RenderStates states) const {
 sf::FloatRect Gif::getGlobalBounds() const {
     return getTransform().transformRect(mSprites[mCurrentSprite].getGlobalBounds());
 }
+
+void Gif::setOpacity(float opacity) {
+    sf::Color newColor = mSprites[0].getColor();
+    newColor.a = opacity * 255;
+    for (int i = 0; i < mSprites.size(); ++i) {
+        mSprites[i].setColor(newColor);
+    }
+}

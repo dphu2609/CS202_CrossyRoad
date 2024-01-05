@@ -45,7 +45,7 @@ void SceneNode::moveChildToIndex(const SceneNode& node, int index) {
 void SceneNode::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     states.transform *= getTransform();
     drawCurrent(target, states);
-    drawBoundingRect(target, states);
+    // drawBoundingRect(target, states);
     for (const auto& child : mChildren) {
         if (child) 
             child->draw(target, states);
@@ -110,4 +110,9 @@ void SceneNode::resetView() {
 void SceneNode::setEnvSoundVolume(float volume) {
     setCurrentEnvSoundVolume(volume);
     for (const auto& child : mChildren) child->setEnvSoundVolume(volume);
+}
+
+void SceneNode::stopTotalEnvSound() {
+    stopEnvSound();
+    for (const auto& child : mChildren) child->stopTotalEnvSound();
 }

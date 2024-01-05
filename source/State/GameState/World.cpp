@@ -4,6 +4,7 @@ World::World(sf::RenderWindow &window) :
     mWindow(window), mWorldView(window.getDefaultView()), 
     mWorldBounds(0.f, 0.f, mWorldView.getSize().x, Statistic::SCREEN_HEIGHT * 2)
 {
+    setEnvSoundVolume(Statistic::ENVIROMENT_SOUND_VOLUME);  
     if (Statistic::IS_LOAD_FROM_FILE) {
         std::ifstream file;
         file.open(Statistic::LOAD_FILE_NAME);
@@ -14,22 +15,32 @@ World::World(sf::RenderWindow &window) :
     }
 }
 
+World::~World() {
+    for (int i = 0; i < LayerCount; i++) {
+        delete mSceneLayers[i];
+        mSceneLayers[i] = nullptr;
+    }
+}
+
 void World::buildScene() {
     for (int i = 0; i < LayerCount; i++) {
         SceneNode::Ptr layer = std::make_shared<SceneNode>();
         mSceneLayers[i] = layer.get();
         mSceneGraph.attachChild(layer);
     }
+
     
     std::shared_ptr<RoadSequence> roadSequence = std::make_shared<RoadSequence>(mWorldView);
     mRoadSequence = roadSequence;
     roadSequence->setPosition(Statistic::ROAD_WIDTH / 2 - 40, Statistic::CHARACTER_SPAWN_POSITION.y + Statistic::ROAD_HEIGHT * 5);
     mSceneLayers[RoadLayer]->attachChild(std::move(roadSequence));
 
+
     std::shared_ptr<TextNode> scoreText = std::make_shared<TextNode>(Resources::fonts[Fonts::JoystixMonospaceRegular], std::to_string(Statistic::PLAYER_SCORE));
     mScoreText = scoreText;
     scoreText->setPosition(20, mWorldView.getCenter().y - 500);
     mSceneLayers[ScoreLayer]->attachChild(std::move(scoreText));
+
 
     mWorldView.setCenter(Statistic::INITIAL_VIEW_POSITION - sf::Vector2f(0, 20));
 }
@@ -90,6 +101,7 @@ void World::draw() {
 void World::scoreControl() {
     if (mRoadSequence->getPlayerScore() != mPlayerScore) {
         mPlayerScore = mRoadSequence->getPlayerScore();
+        Statistic::PLAYER_SCORE = mPlayerScore;
         mScoreText->setString(std::to_string(mPlayerScore));
     }
 }
@@ -105,4 +117,12 @@ void World::writeData(std::ofstream &file) {
 
 void World::setEnvSoundVolume(float volume) {
     mSceneGraph.setEnvSoundVolume(volume);
+}
+
+void World::stopEnvSound() {
+    mSceneGraph.stopTotalEnvSound();
+}
+
+bool World::isEndGame() const {
+    return mRoadSequence->isEndGame();
 }

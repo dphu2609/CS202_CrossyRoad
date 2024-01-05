@@ -158,6 +158,7 @@ MainScreen::MainScreen()
 void MainScreen::loadGame()
 {
     Statistic::IS_LOAD_FROM_FILE=true;
+    Statistic::IS_GAME_OVER=false;
 }
 
 int MainScreen::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
@@ -167,8 +168,8 @@ int MainScreen::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     for(int i=0;i<size;i++)
     {
         auto& x=packs[i];
-        sf::FloatRect RecBound=x.getGlobalBounds();
-        bool isMouseOn=RecBound.contains(static_cast<float>(mousePosition.x),static_cast<float>(mousePosition.y));
+        sf::FloatRect recBound = x.getGlobalBounds();
+        bool isMouseOn = recBound.contains(mousePosition);
         if(isMouseOn)
         {
             sf::FloatRect size;
