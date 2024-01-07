@@ -251,6 +251,8 @@ void VehicleLane::readData(std::ifstream &file) {
         mVehicles.push_back(vehicle.get());
         mSceneLayers[VehicleLayer]->attachChild(std::move(vehicle));
     }
+
+    setCurrentEnvSoundVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
 }
 
 void VehicleLane::writeData(std::ofstream &file) {

@@ -26,7 +26,7 @@ RoadSequence::RoadSequence(sf::View &view, std::ifstream &file) : mView(view) {
 }
 
 RoadSequence::~RoadSequence() {
-    GameSounds::TRAFFIC_SOUND.stop();
+    // GameSounds::TRAFFIC_SOUND.stop();
 }
 
 void RoadSequence::updateCurrent(sf::Time dt, CommandQueue &commands) {
@@ -163,7 +163,6 @@ void RoadSequence::writeData(std::ofstream &file) {
     
     for (int i = 0; i < mRoads.size(); i++) {
         file << mRoads[i]->getRoadType() << std::endl;
-        std::cout << mRoads[i]->getRoadType() << ' ';
         mRoads[i]->writeData(file);
     }
     
@@ -180,7 +179,6 @@ void RoadSequence::readData(std::ifstream &file) {
     for (int i = 0; i < size; i++) {
         int type;
         file >> type;
-        std::cout << type << ' ';
         std::shared_ptr<Grass> road;
         std::shared_ptr<VehicleLane> lane;
         std::shared_ptr<River> river;
@@ -209,6 +207,9 @@ void RoadSequence::readData(std::ifstream &file) {
     mCharacter = character;
     this->attachChild(std::move(character));
     this->moveChildToIndex(*mCharacter, mCurrentRoadIndex);
+
+    GameSounds::TRAFFIC_SOUND.setVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
+    GameSounds::TRAFFIC_SOUND.play();
 }
 
 void RoadSequence::setCurrentEnvSoundVolume(float volume) {

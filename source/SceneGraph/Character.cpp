@@ -297,11 +297,13 @@ Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
     for (int i = 0; i < 19; i++) {
         mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
     }
+    setCurrentEnvSoundVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
     readData(file);
 }  
 
 void Character::setCurrentEnvSoundVolume(float volume) {
     GameSounds::JUMP_SOUND.setVolume(volume);
+    GameSounds::HIT_SOUND.setVolume(volume);
 }
 
 void Character::stopEnvSound() {
