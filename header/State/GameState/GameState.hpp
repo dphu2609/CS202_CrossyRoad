@@ -11,6 +11,7 @@
 class GameState : public State {
 public:
     GameState(StateStack &stack, sf::RenderWindow &window);
+    ~GameState() {std::cout << "GameState\n";}
     virtual void draw();
     virtual void update(sf::Time dt);
     virtual void handleEvent(sf::Event &event);

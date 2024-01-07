@@ -39,7 +39,7 @@ add_custom_command(TARGET CrossyRoad POST_BUILD
     add_custom_command(TARGET CrossyRoad POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${PROJECT_SOURCE_DIR}/data"
-        $<TARGET_FILE_DIR:CrossyRoad>/data)
+        $<TARGET_FILE_DIR:CrossyRoad>/data) 
 
 set(CPACK_PROJECT_NAME ${PROJECT_NAME})
 set(CPACK_PROJECT_VERSION ${PROJECT_VERSION})

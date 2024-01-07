@@ -1,4 +1,4 @@
-#include <GlobalVar.hpp>
+#include <Configs.hpp>
 
 namespace Resources {
     ResourceHolder<sf::Texture, CharacterTextures::ID> characterTextures;

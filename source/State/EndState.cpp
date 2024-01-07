@@ -1,5 +1,4 @@
 #include <State/EndState.hpp>
-#include "GlobalVar.hpp"
 
 EndState::EndState(StateStack &stack, sf::RenderWindow &window) : State(stack, window), mWindow(window) {
     buildScene();
@@ -37,7 +36,8 @@ void EndState::handleEvent(sf::Event &event) {
 }
 
 void EndState::buildScene() {
-    switch((int)Statistic::SCREEN_SPEED_DEFAULT) {
+    int speed = Statistic::SCREEN_SPEED_DEFAULT;
+    switch(speed) {
         case 50: {
             saveHighScore("data/HighScore1PEasy.txt");
             break;
@@ -58,6 +58,7 @@ void EndState::buildScene() {
             break;
         }
     };
+
     sf::Sprite cry1(Resources::characterTextures[CharacterTextures::CharacterCry1]);
     cry1.setOrigin(cry1.getGlobalBounds().width / 2.f, cry1.getGlobalBounds().height / 2.f);
     cry1.setPosition(mWindow.getView().getCenter() + sf::Vector2f(450, 10 + 30));
@@ -154,25 +155,28 @@ EndState::~EndState()
 
 void EndState::saveHighScore(const std::string &name)
 {
-    std::ifstream fin(name);
+    std::ifstream fin;
+    fin.open(name);
     std::vector<int> scores;
-    int x; 
-    fin >> x;
+    int x;
     while(!fin.eof()) {
-        scores.push_back(x);
         fin >> x;
+        scores.push_back(x);
     }
-
     fin.close();
+
     for(auto &x : scores) {
         if(x == Statistic::PLAYER_SCORE) return;
     }
     
     scores.push_back(Statistic::PLAYER_SCORE);
     sort(scores.begin(), scores.end(), std::greater<int>());
-    if(scores.size() > 5) scores.pop_back();
 
-    std::ofstream fout(name);
+    while(scores.size() > 6) 
+        scores.pop_back();
+
+    std::ofstream fout;
+    fout.open(name);
     for(int i = 0; i < scores.size(); i++) {
         fout << scores[i] << "\n";
     }

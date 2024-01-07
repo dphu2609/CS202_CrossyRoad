@@ -4,7 +4,7 @@
 #include <SFML/Graphics.hpp>
 #include <bits/stdc++.h>
 #include <SceneGraph/SceneNode.hpp>
-#include <GlobalVar.hpp>
+#include <Configs.hpp>
 
 class TextNode : public SceneNode {
 public:

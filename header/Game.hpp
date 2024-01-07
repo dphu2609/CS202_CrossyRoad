@@ -5,7 +5,7 @@
 #include <SFML/Audio.hpp>
 #include <bits/stdc++.h>
 #include <State/StateStack.hpp>
-#include <GlobalVar.hpp>
+#include <Configs.hpp>
 #include <Menu/Menu.hpp>
 
 

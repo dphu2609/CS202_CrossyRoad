@@ -114,9 +114,9 @@ void River::readData(std::ifstream &file)
 
 void River::writeData(std::ofstream &file)
 {
-    file << speed << " ";
-    file << direction << " ";
-    file << woods.size() << " ";
+    file << speed << std::endl;
+    file << direction << std::endl;
+    file << woods.size() << std::endl;
     for(auto& wood : woods)
     {
         file << wood->getBoundingRect().width << ' ' << wood->getPosition().x << " " << wood->getPosition().y << std::endl;

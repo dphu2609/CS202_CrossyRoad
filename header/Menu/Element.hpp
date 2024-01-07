@@ -2,7 +2,7 @@
 #define ELEMENT_HPP
 
 #include <SFML/Graphics.hpp>
-#include <GlobalVar.hpp>
+#include <Configs.hpp>
 #include <string>
 
 using namespace std;

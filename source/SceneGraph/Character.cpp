@@ -2,15 +2,13 @@
 
 Character::Character(sf::View &view, int currentRoadIndex) : mView(view), mCurrentRoadIndex(currentRoadIndex) {
     this->setSkin(Statistic::PLAYER_SKIN_TYPE);
+    this->setScale(Statistic::CHARACTER_SIZE.x / this->getSpriteBounding().width, Statistic::CHARACTER_SIZE.y / this->getSpriteBounding().height);
     this->setOrigin(mBackwardState.getGlobalBounds().width / 2, mBackwardState.getGlobalBounds().height / 2);
 
     mJumpPositions.push_back(mStartPosition);
     for (int i = 0; i < 19; i++) {
         mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
     }
-
-    GameSounds::JUMP_SOUND.setBuffer(Resources::sounds[Sounds::JumpSound]);
-    GameSounds::HIT_SOUND.setBuffer(Resources::sounds[Sounds::HitSound]);
 }
 
 Character::~Character() {
@@ -146,20 +144,10 @@ void Character::updateMove(sf::Time dt) {
 
 void Character::updateIfOutOfScreen(sf::Time dt) {
     if (this->getPosition().x < - Statistic::SCREEN_WIDTH / 2 + 100) {
-        while (!mKeyInput.empty()) {
-            if (mKeyInput.front() == Controller::MOVE_LEFT_SET_1 || mKeyInput.front() == Controller::MOVE_LEFT_SET_2) {
-                mKeyInput.pop();
-            } 
-            else break;
-        }   
+        canMoveLeft = false;  
     }
     if (this->getPosition().x > Statistic::SCREEN_WIDTH / 2 - 100) {
-        while (!mKeyInput.empty()) {
-            if (mKeyInput.front() == Controller::MOVE_RIGHT_SET_1 || mKeyInput.front() == Controller::MOVE_RIGHT_SET_2) {
-                mKeyInput.pop();
-            }
-            else break;
-        }
+        canMoveRight = false;
     }
 
 
@@ -309,11 +297,13 @@ Character::Character(sf::View &view, std::ifstream &file) : mView(view) {
     for (int i = 0; i < 19; i++) {
         mJumpPositions.push_back(mJumpPositions.back() + Statistic::CHARACTER_JUMP_DISTANCE_HORIZONTAL);
     }
+    setCurrentEnvSoundVolume(Statistic::ENVIROMENT_SOUND_VOLUME);
     readData(file);
 }  
 
 void Character::setCurrentEnvSoundVolume(float volume) {
     GameSounds::JUMP_SOUND.setVolume(volume);
+    GameSounds::HIT_SOUND.setVolume(volume);
 }
 
 void Character::stopEnvSound() {

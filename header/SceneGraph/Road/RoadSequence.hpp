@@ -19,6 +19,7 @@ private:
     float oldPos = 0.f;
 public:
     RoadSequence(sf::View &view);
+    RoadSequence(sf::View &view, std::ifstream &file);
     ~RoadSequence();
     virtual void updateCurrent(sf::Time dt, CommandQueue &commands);
     virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const;
@@ -37,8 +38,6 @@ private:
     virtual void resetCurrentView();
     void pushBackRandomRoad();
     void popFrontRoad();
-private:
-    sf::Sound mTrafficSound;
 private:
     virtual void setCurrentEnvSoundVolume(float volume);
     virtual void stopEnvSound();
