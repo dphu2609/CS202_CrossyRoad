@@ -74,7 +74,6 @@ void GUI::Button::handleEvent(sf::RenderWindow &window, sf::Event &event) {
     }
 
     if (checkLeftClick(window, event)) {
-        std::cout << "Button clicked" << std::endl;
         mCallback();
     }
 }

@@ -50,6 +50,7 @@ void World::buildSceneFromFile(std::ifstream &file) {
     file >> x >> y;
     mWorldView.setCenter(x, y);
     file >> mPlayerScore;
+    file >> Statistic::SCREEN_SPEED_DEFAULT;
 
     for (int i = 0; i < LayerCount; i++) {
         SceneNode::Ptr layer = std::make_shared<SceneNode>();
@@ -111,6 +112,7 @@ CommandQueue &World::getCommandQueue() {
 void World::writeData(std::ofstream &file) {
     file << mWorldView.getCenter().x << " " << mWorldView.getCenter().y << std::endl;
     file << mPlayerScore << std::endl;
+    file << Statistic::SCREEN_SPEED_DEFAULT << std::endl;
     mRoadSequence->writeData(file);
 }
 
