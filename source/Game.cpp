@@ -17,13 +17,8 @@ Game::~Game() {
 }
 
 void Game::loadFonts() {
-    Resources::fonts.load(Fonts::ComfortaaRegular, "media/fonts/Comfortaa/Comfortaa-Regular.ttf");
-    Resources::fonts.load(Fonts::FiraSansRegular, "media/fonts/FiraSans-Regular.ttf");
-    Resources::fonts.load(Fonts::RobotoRegular, "media/fonts/Roboto/Roboto-Regular.ttf");
-    Resources::fonts.load(Fonts::RobotoBold, "media/fonts/Roboto/Roboto-Bold.ttf");
-    Resources::fonts.load(Fonts::FiraMonoRegular, "media/fonts/Fira_Mono/FiraMono-Regular.ttf");
-    Resources::fonts.load(Fonts::RussoOne, "media/fonts/RussoOne-Regular.ttf");
-    Resources::fonts.load(Fonts::PixelifySansRegular, "media/fonts/PixelifySans/PixelifySans-Regular.ttf");
+    Resources::fonts.load(Fonts::ComfortaaRegular, "media/fonts/Comfortaa-Regular.ttf");
+    Resources::fonts.load(Fonts::RobotoRegular, "media/fonts/Roboto-Regular.ttf");
     Resources::fonts.load(Fonts::JoystixMonospaceRegular, "media/fonts/Joystix-Monospace-Regular.otf");
 }
 
