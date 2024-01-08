@@ -26,12 +26,12 @@ MainScreen::MainScreen()
 
     _font.loadFromFile("media/font/Alinore.otf");
     sizeCharacter=100;
-    colorCharacter=sf::Color::White;
+    colorCharacter=sf::Color(240,246,204); //(240,246,204) (212,240,204)
 
     title.setString("Crossy Road");
     title.setFont(_font);
     title.setCharacterSize(200);
-    title.setFillColor(sf::Color::Green);
+    title.setFillColor(sf::Color(29,151,29)); // (29,151,29) (246,237,160) (40,151,155) (24,145,149) (5,127,131)
     size=title.getGlobalBounds();
     title.setOrigin(size.width/2,size.height/2);
     title.setPosition(sf::Vector2f(960.f,50.f));

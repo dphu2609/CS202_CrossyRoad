@@ -26,12 +26,12 @@ Setting::Setting()
     // backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("media/font/Alinore.otf");
-    colorCharacter=sf::Color::White;
+    colorCharacter=sf::Color(240,246,204); //(240,246,204) (212,240,204)
 
     title.setString("Crossy Road");
     title.setFont(_font);
     title.setCharacterSize(200);
-    title.setFillColor(sf::Color::Green);
+    title.setFillColor(sf::Color(94, 131, 166)); // (29,151,29) (246,237,160) (40,151,155) (24,145,149) (5,127,131)
     size=title.getGlobalBounds();
     title.setOrigin(size.width/2,size.height/2);
     title.setPosition(sf::Vector2f(960.f,50.f));
@@ -64,7 +64,7 @@ Setting::Setting()
     reset.setString("Reset");
     reset.setFont(_font);
     reset.setCharacterSize(sizeCharacter);
-    reset.setFillColor(colorCharacter);
+    reset.setFillColor(sf::Color(5,127,131));
     size=reset.getGlobalBounds();
     reset.setOrigin(size.width/2,size.height/2);
     reset.setPosition(150.f,930.f);
@@ -76,7 +76,7 @@ Setting::Setting()
     save.setString("Save");
     save.setFont(_font);
     save.setCharacterSize(sizeCharacter);
-    save.setFillColor(colorCharacter);
+    save.setFillColor(sf::Color(5,127,131));
     size=save.getGlobalBounds();
     save.setOrigin(size.width/2,size.height/2);
     save.setPosition(1770.f,930.f);
@@ -741,6 +741,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     if (isMouseOn)
     {
         reset.setScale(1.2, 1.2);
+        reset.setFillColor(sf::Color(246,237,160));
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             musicBarArray.reset();
@@ -752,6 +753,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     else
     {
         reset.setScale(1, 1);
+        reset.setFillColor(sf::Color(5,127,131));
     }
 
     recBound = saveBound.getGlobalBounds();
@@ -759,11 +761,14 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     if (isMouseOn)
     {
         save.setScale(1.2, 1.2);
+        save.setFillColor(sf::Color(246,237,160));
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             musicBarArray.setOldCurrent();
             soundBarArray.setOldCurrent();
             setOldCurrent();
+            save.setScale(1, 1);
+            save.setFillColor(sf::Color(5,127,131));
             return 0;
         }
         return 3;
@@ -771,6 +776,7 @@ int Setting::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     else
     {
         save.setScale(1, 1);
+        save.setFillColor(sf::Color(5,127,131));
     }
 
     return 3;

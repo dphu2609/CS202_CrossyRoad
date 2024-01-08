@@ -25,7 +25,7 @@ HighScore::HighScore()
     // backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("media/font/Alinore.otf");
-    colorCharacter=sf::Color::White;
+    colorCharacter=sf::Color(240,246,204); //(240,246,204) (212,240,204)
 
     aboveBound.setSize(sf::Vector2f(1920,295));
     aboveBound.setFillColor(sf::Color(87,184,250));
@@ -38,7 +38,7 @@ HighScore::HighScore()
     title.setString("Crossy Road");
     title.setFont(_font);
     title.setCharacterSize(200);
-    title.setFillColor(sf::Color::Green);
+    title.setFillColor(sf::Color(5,127,131)); // (29,151,29) (246,237,160) (40,151,155) (24,145,149) (5,127,131)
     size=title.getGlobalBounds();
     title.setOrigin(size.width/2,size.height/2);
     title.setPosition(sf::Vector2f(960.f,50.f));
@@ -103,7 +103,7 @@ HighScore::HighScore()
     modeOneP.setString(modes[modeFirst]);
     modeOneP.setFont(_font);
     modeOneP.setCharacterSize(sizeCharacter);
-    modeOneP.setFillColor(colorCharacter);
+    modeOneP.setFillColor(sf::Color(94, 131, 166));
     size=modeOneP.getGlobalBounds();
     modeOneP.setOrigin(size.width/2,size.height/2);
     modeOneP.setPosition(sf::Vector2f(502.5,950.f));
@@ -152,7 +152,7 @@ HighScore::HighScore()
     modeTwoP.setString(modes[modeSecond]);
     modeTwoP.setFont(_font);
     modeTwoP.setCharacterSize(sizeCharacter);
-    modeTwoP.setFillColor(colorCharacter);
+    modeTwoP.setFillColor(sf::Color(94, 131, 166));
     size=modeTwoP.getGlobalBounds();
     modeTwoP.setOrigin(size.width/2,size.height/2);
     modeTwoP.setPosition(sf::Vector2f(1417.5,950.f));
@@ -295,7 +295,7 @@ void HighScore::loadLeftTextsFromfile()
         leftTexts[sizeLeftTexts].setFont(_font);
         leftTexts[sizeLeftTexts].setCharacterSize(sizeCharacter);
         leftTexts[sizeLeftTexts].setFillColor(colorCharacter);
-        leftTexts[sizeLeftTexts].setPosition(70.f,300.f+sizeLeftTexts*100);
+        leftTexts[sizeLeftTexts].setPosition(200.f,300.f+sizeLeftTexts*100);
         sizeLeftTexts++;
     }
     fin.close();
@@ -318,7 +318,7 @@ void HighScore::loadRightTextFromFile()
         rightTexts[sizeRightTexts].setFont(_font);
         rightTexts[sizeRightTexts].setCharacterSize(sizeCharacter);
         rightTexts[sizeRightTexts].setFillColor(colorCharacter);
-        rightTexts[sizeRightTexts].setPosition(985.f,300.f+sizeRightTexts*100);
+        rightTexts[sizeRightTexts].setPosition(1115.f,300.f+sizeRightTexts*100);
         sizeRightTexts++;
     }
     fin.close();

@@ -37,12 +37,12 @@ Instruction::Instruction()
     // backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("media/font/Alinore.otf");
-    colorCharacter=sf::Color::White;
+    colorCharacter=sf::Color(240,246,204); //(240,246,204) (212,240,204)
 
     title.setString("Crossy Road");
     title.setFont(_font);
     title.setCharacterSize(200);
-    title.setFillColor(sf::Color::Green);
+    title.setFillColor(sf::Color(5,127,131)); // (29,151,29) (246,237,160) (40,151,155) (24,145,149) (5,127,131)
     size=title.getGlobalBounds();
     title.setOrigin(size.width/2,size.height/2);
     title.setPosition(sf::Vector2f(960.f,50.f));
@@ -77,7 +77,7 @@ Instruction::Instruction()
     part.setString("1/4");
     part.setFont(_font);
     part.setCharacterSize(sizeCharacter);
-    part.setFillColor(colorCharacter);
+    part.setFillColor(sf::Color(246,237,160));
     size=part.getGlobalBounds();
     part.setOrigin(size.width/2,size.height/2);
     part.setPosition(960.f,880.f);

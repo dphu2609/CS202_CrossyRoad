@@ -31,12 +31,12 @@ NewGame::NewGame()
     // backgroundLight2Sprite.setPosition(1920.f,0.f);
 
     _font.loadFromFile("media/font/Alinore.otf");
-    colorCharacter=sf::Color::White;
+    colorCharacter=sf::Color(240,246,204); //(240,246,204) (212,240,204)
 
     title.setString("Crossy Road");
     title.setFont(_font);
     title.setCharacterSize(200);
-    title.setFillColor(sf::Color::Green);
+    title.setFillColor(sf::Color(5,127,131)); // (29,151,29) (246,237,160) (40,151,155) (24,145,149) (5,127,131)
     title.setScale(1.75,1.f);
     title.setPosition(sf::Vector2f(200.f,0.f));
 
@@ -89,7 +89,7 @@ NewGame::NewGame()
     firstp.setString("First Player");
     firstp.setFont(_font);
     firstp.setCharacterSize(sizeCharacter);
-    firstp.setFillColor(colorCharacter);
+    firstp.setFillColor(sf::Color(246,237,160));
     size=firstp.getGlobalBounds();
     firstp.setOrigin(size.width/2,size.height/2);
     firstp.setPosition(437.5,700.f);
@@ -101,7 +101,7 @@ NewGame::NewGame()
     secondp.setString("Second Player");
     secondp.setFont(_font);
     secondp.setCharacterSize(sizeCharacter);
-    secondp.setFillColor(colorCharacter);
+    secondp.setFillColor(sf::Color(246,237,160));
     size=secondp.getGlobalBounds();
     secondp.setOrigin(size.width/2,size.height/2);
     secondp.setPosition(1062.5,700.f);
@@ -129,6 +129,7 @@ NewGame::NewGame()
     }
 
     changeToOnePlayer();
+    onep.setFillColor(sf::Color(153,67,166));
 
     easy.setString("Easy");
     easy.setFont(_font);
@@ -242,7 +243,7 @@ NewGame::NewGame()
     play.setString("Play");
     play.setFont(_font);
     play.setCharacterSize(sizeCharacter);
-    play.setFillColor(colorCharacter);
+    play.setFillColor(sf::Color(5,127,131));
     play.setPosition(1500.f,800.f);
 
     // packs.push_back(Pack(onepBound,onep));
@@ -318,8 +319,8 @@ void NewGame::changeToOnePlayer()
     {
         firstPlayerSprites[i].setPosition(sf::Vector2f(750.f,550.f));
     }
-    onep.setFillColor(sf::Color::Magenta);
-    twop.setFillColor(sf::Color::White);
+    onep.setFillColor(sf::Color(209, 105, 212));
+    twop.setFillColor(colorCharacter);
 }
 
 void NewGame::changeToTwoPlayer()
@@ -331,8 +332,8 @@ void NewGame::changeToTwoPlayer()
     {
         firstPlayerSprites[i].setPosition(sf::Vector2f(437.5,550.f));
     }
-    onep.setFillColor(sf::Color::White);
-    twop.setFillColor(sf::Color::Magenta);
+    onep.setFillColor(colorCharacter);
+    twop.setFillColor(sf::Color(209, 105, 212));
 }
 
 void NewGame::setMode()
@@ -347,7 +348,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     bool isMouseOn = recBound.contains(mousePosition);
     if (isMouseOn)
     {
-        onep.setFillColor(sf::Color::Magenta);
+        onep.setFillColor(sf::Color(153,67,166));
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             numPlayer = 1;
@@ -359,7 +360,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     {
         if (1 != numPlayer)
         {
-            onep.setFillColor(sf::Color::White);
+            onep.setFillColor(colorCharacter);
         }
     }
 
@@ -367,7 +368,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     isMouseOn = recBound.contains(mousePosition);
     if (isMouseOn)
     {
-        twop.setFillColor(sf::Color::Magenta);
+        twop.setFillColor(sf::Color(153,67,166));
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             numPlayer = 2;
@@ -379,7 +380,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     {
         if (2 != numPlayer)
         {
-            twop.setFillColor(sf::Color::White);
+            twop.setFillColor(colorCharacter);
         }
     }
 
@@ -497,11 +498,11 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     if (isMouseOn)
     {
         play.setScale(1.2,1.2);
-        play.setFillColor(sf::Color::Blue);
+        play.setFillColor(sf::Color(246,237,160));
         if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
         {
             play.setScale(1,1);
-            play.setFillColor(sf::Color::White);
+            play.setFillColor(sf::Color(5,127,131));
             Statistic::IS_GAME_OVER=false;
             return 5;
         }
@@ -510,7 +511,7 @@ int NewGame::processEvent(sf::Event& event,sf::RenderWindow& mWindow)
     else
     {
         play.setScale(1,1);
-        play.setFillColor(sf::Color::White);
+        play.setFillColor(sf::Color(5,127,131));
     }
 
     return 1;
