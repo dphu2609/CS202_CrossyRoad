@@ -57,9 +57,8 @@ void World::buildSceneFromFile(std::ifstream &file) {
         mSceneGraph.attachChild(layer);
     }
     
-    std::shared_ptr<RoadSequence> roadSequence = std::make_shared<RoadSequence>(mWorldView);
+    std::shared_ptr<RoadSequence> roadSequence = std::make_shared<RoadSequence>(mWorldView, file);
     mRoadSequence = roadSequence;
-    roadSequence->readData(file);
     mSceneLayers[RoadLayer]->attachChild(std::move(roadSequence));
 
     std::shared_ptr<TextNode> scoreText = std::make_shared<TextNode>(Resources::fonts[Fonts::JoystixMonospaceRegular], std::to_string(mPlayerScore));

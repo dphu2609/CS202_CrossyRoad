@@ -39,8 +39,8 @@ Grass::Grass(bool isCreateObject)
     Resources::roadTextures[RoadTextures::Grass].setRepeated(true);
     if (isCreateObject) randomBlock();
     else {
-        std::vector<int> pos = {1, 2, 18, 19};
-        for (int i = 0; i < 4; i++) {
+        std::vector<int> pos = {0, 1, 2, 18, 19};
+        for (int i = 0; i < pos.size(); i++) {
             int type = Block::Tree;
             addBlock(pos[i], (Block::Type)type);
         }

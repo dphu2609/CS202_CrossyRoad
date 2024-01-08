@@ -4,7 +4,7 @@
 #include <SceneGraph/SceneNode.hpp>
 #include <SceneGraph/Road/Wood.hpp>
 #include <Resources/ResourceHolder.hpp>
-#include <GlobalVar.hpp>
+#include <Configs.hpp>
 
 typedef ResourceHolder<sf::Texture, RoadTextures::ID> RoadTextureHolder;
 

@@ -1,5 +1,5 @@
-#ifndef GLOBAL_VAR_HPP
-#define GLOBAL_VAR_HPP
+#ifndef CONFIGS_HPP
+#define CONFIGS_HPP
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>

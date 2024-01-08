@@ -5,7 +5,7 @@
 #include <SFML/Audio.hpp>
 #include <bits/stdc++.h>
 #include <SceneGraph/SceneNode.hpp>
-#include <GlobalVar.hpp>   
+#include <Configs.hpp>   
 
 class Character : public SceneNode {
 public:
@@ -68,8 +68,6 @@ private:
     int mLanePassed = 0;
 private:
     std::queue<char> mKeyInput;
-private:
-    sf::Sound mJumpSound;
 private:
     virtual void setCurrentEnvSoundVolume(float volume);
     virtual void stopEnvSound();
